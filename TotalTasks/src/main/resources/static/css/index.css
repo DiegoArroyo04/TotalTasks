@@ -1,0 +1,78 @@
+@import url('/css/general.css');
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--color-sombra);
+}
+
+.logo img {
+    width: 150px;
+    height: 150px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav ul li {
+    margin: 0 30px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: var(--color-texto);
+    font-size: var(--tamano-texto-mediano);
+}
+
+.separador {
+    width: 2px;
+    height: 30px;
+    background-color: black;
+}
+
+.btn-login {
+    font-size: var(--tamano-texto-mediano);
+    background-color: var(--color-primario);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-sombra);
+    height: 100vh;
+}
+
+.hero h1 {
+    font-size: var(--tamano-texto-grande);
+    color: var(--color-texto);
+}
+
+.hero p {
+    font-size: var(--tamano-texto-mediano);
+    color: var(--color-texto);
+}
+
+.hero a {
+    text-decoration: none;
+    color: white;
+    font-size: var(--tamano-texto-mediano);
+    background-color: var(--color-primario);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.hero img {
+    width: 300px;
+    height: 300px;
+}
