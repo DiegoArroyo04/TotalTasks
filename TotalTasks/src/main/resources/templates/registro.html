@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse en TotalTasks</title>
+    <link rel="stylesheet" href="css/registro.css">
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="izquierda">
+        <h1>Gestiona tus tareas de forma más eficiente</h1>
+        <p>Únete a TotalTasks, la herramienta en la nube para llevar el control de tus proyectos donde quiera que
+            estés.</p>
+        <img src="assets/registro/collage.png">
+    </div>
+    <div class="form-container">
+        <img class="logo" src="assets/logo.png">
+        <h2>¡Únete a TotalTasks!</h2>
+        <form id="registro">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre" />
+                <label class="error-message"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="usuario">Nombre de usuario:</label>
+                <input type="text" id="usuario" name="usuario" required placeholder="Ingresa tu usuario" />
+                <label class="error-message"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Ingresa tu email" />
+                <label class="error-message"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" name="contraseña" required placeholder="Ingresa tu contraseña" />
+                <label class="error-message"></label>
+            </div>
+
+            <button type="submit" class="btn-submit">Registrar</button>
+
+            <p>Al continuar confirmas que aceptas nuestros <a>Términos y condiciones, Política de Privacidad y
+                    Cookies.</a></p>
+        </form>
+    </div>
+
+</body>
+<script src="js/registro.js"></script>
+
+</html>
