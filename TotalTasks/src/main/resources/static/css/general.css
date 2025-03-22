@@ -1,0 +1,56 @@
+/* Importación de las fuentes directamente en el CSS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Paleta de colores */
+:root {
+    --color-primario: #007BFF;
+    --color-secundario: #28A745;
+    --color-fondo: #F8F9FA;
+    --color-texto: #343A40;
+    --color-advertencia: #FD7E14;
+    --color-error: #DC3545;
+    --color-sombra: #E9ECEF;
+
+    /* Tipografía */
+    --fuente-principal: 'Poppins';
+
+    /* Tamaños de fuente */
+    --tamano-titulo: 2rem;
+    --tamano-subtitulo: 1.5rem;
+    --tamano-texto-mediano: 1.2rem;
+    --tamano-texto-normal: 1rem;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--fuente-principal);
+    color: var(--color-primario);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: var(--tamano-titulo);
+}
+
+h2 {
+    font-size: var(--tamano-subtitulo);
+}
+
+p {
+    font-size: var(--tamano-texto);
+    line-height: 1.5;
+}
