@@ -1,3 +1,7 @@
+-- Creación base de datos en MySQL
+CREATE DATABASE totaltasks;
+USE totaltasks;
+
 -- Creación de la tabla Usuario
 CREATE TABLE usuario (
     id_usuario BIGINT AUTO_INCREMENT,
@@ -11,7 +15,7 @@ CREATE TABLE usuario (
 );
 
 -- Creación de la tabla Proyecto
-CREATE TABLE Proyecto (
+CREATE TABLE proyecto (
     id_proyecto BIGINT AUTO_INCREMENT,
     nombre_proyecto VARCHAR(100) NOT NULL,
     descripcion TEXT NULL,
@@ -22,19 +26,19 @@ CREATE TABLE Proyecto (
     CONSTRAINT fk_proyecto_usuario FOREIGN KEY (id_creador) REFERENCES Usuario (id_usuario) 
 );
 
--- Creación de la tabla intermedia Usuarios_Proyectos 
-CREATE TABLE Usuarios_Proyectos (
-    id_usuarios_proyectos BIGINT AUTO_INCREMENT PRIMARY KEY,
+-- Creación de la tabla intermedia Usuario_Proyecto
+CREATE TABLE usuario_proyecto (
+    id_usuario_proyecto BIGINT AUTO_INCREMENT,
     id_usuario BIGINT,
     id_proyecto BIGINT,
     rol VARCHAR(100),
-    CONSTRAINT pk_usuarios_proyectos PRIMARY KEY (id_usuarios_proyectos),
-    CONSTRAINT fk_usuarios_proyectos_usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario) ,
-    CONSTRAINT fk_usuarios_proyectos_proyecto FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto) 
+    CONSTRAINT pk_usuario_proyecto PRIMARY KEY (id_usuarios_proyectos),
+    CONSTRAINT fk_usuario_proyecto_usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario) ,
+    CONSTRAINT fk_usuario_proyecto_proyecto FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto) 
 );
 
 -- Creación de la tabla Tarea
-CREATE TABLE Tarea (
+CREATE TABLE tarea (
     id_tarea BIGINT AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT,
@@ -47,3 +51,6 @@ CREATE TABLE Tarea (
     CONSTRAINT FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto),
     CONSTRAINT FOREIGN KEY (id_responsable) REFERENCES Usuario (id_usuario)
 );
+
+-- SCRIPT DE DESTRUCTIVO
+DROP DATABASE totaltasks;
