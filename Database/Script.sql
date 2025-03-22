@@ -32,7 +32,7 @@ CREATE TABLE usuario_proyecto (
     id_usuario BIGINT,
     id_proyecto BIGINT,
     rol VARCHAR(100),
-    CONSTRAINT pk_usuario_proyecto PRIMARY KEY (id_usuarios_proyectos),
+    CONSTRAINT pk_usuario_proyecto PRIMARY KEY (id_usuario_proyecto),
     CONSTRAINT fk_usuario_proyecto_usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario) ,
     CONSTRAINT fk_usuario_proyecto_proyecto FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto) 
 );
