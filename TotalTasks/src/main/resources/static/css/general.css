@@ -18,7 +18,11 @@
     --tamano-titulo: 2rem;
     --tamano-subtitulo: 1.5rem;
     --tamano-texto-mediano: 1.2rem;
-    --tamano-texto-normal: 1rem;
+    --tamano-texto: 1rem;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -53,4 +57,16 @@ h2 {
 p {
     font-size: var(--tamano-texto);
     line-height: 1.5;
+}
+
+a {
+    color: var(--color-primario);
+    text-decoration: none;
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+
 }

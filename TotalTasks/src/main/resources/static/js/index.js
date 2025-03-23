@@ -1,3 +1,8 @@
+
+document.getElementById("registro").addEventListener("submit", function () {
+    console.log("Hola");
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const botonesPestana = document.querySelectorAll(".boton-pestana");
     const contenidosPestana = document.querySelectorAll(".contenido-pestana");
@@ -17,3 +22,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });  
+
