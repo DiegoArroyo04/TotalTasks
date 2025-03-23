@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: var(--color-sombra);
   }
 
 /* Estilo header */
@@ -203,6 +204,64 @@
     }
   }
    
+/* Estilo características */
+
+.contenedor-caracteristicas {
+  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.contenedor-caracteristicas h1 {
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: var(--color-texto);
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Tarjeta individual */
+.tarjeta {
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Icono en la tarjeta */
+.tarjeta .icono {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background-color: var(--color-primario);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #fff;
+}
+
+/* Títulos y párrafos dentro de la tarjeta */
+.tarjeta h3 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  color: var(--color-primario);
+}
+
+.tarjeta p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
 
 /* Estilo footer */
 
