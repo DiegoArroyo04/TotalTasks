@@ -1,14 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>TotalTasks</title>
+  </head>
+  <body>
+    <header class="cabezera">
+      <div class="logo">
+        <img src="/assets/logo.png" alt="Logo TotalTasks">
+      </div>
+      <nav class="navegacion">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Acerca de</a></li>
+          <li><a href="#">Contacto</a></li>
+          <div class="separador"></div>
+          <li><a href="#" class="boton-login">Iniciar sesión</a></li>
+          <li><a href="#" class="boton-probar" style="color: white;">Pruébala gratis</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<body>
+    <div class="hero">
+      <div class="hero-texto">
+        <h1>Organiza tu vida con TotalTasks</h1>
+        <p>La mejor aplicación para gestionar tus tareas y proyectos de forma sencilla y eficaz.</p>
+        <p>Con TotalTasks, experimenta una nueva forma de organizar tus actividades diarias. Disfruta de recordatorios inteligentes, integración con tus herramientas favoritas y una interfaz intuitiva que se adapta a tus necesidades. Simplifica tu día a día y alcanza tu máxima productividad.</p>
+        <a href="/">Pruébala gratis</a>
+      </div>
+      <div class="hero-imagen">
+        <img src="/assets/index/hero.png" alt="Imagen de TotalTasks">
+      </div>
+    </div>
 
-</body>
+    <div class="pestanas-caracteristicas">
+      <div class="pestanas">
+        <button class="boton-pestana active" data-pestana="caracteristica1">💻 Gestión de Proyectos</button>
+        <button class="boton-pestana" data-pestana="caracteristica2">💡 Recordatorios</button>
+        <button class="boton-pestana" data-pestana="caracteristica3">🤼 Colaboración</button>
+        <button class="boton-pestana" data-pestana="caracteristica4">🧠 Integraciones</button>
+      </div>
+      <div class="contenido-pestanas">
+        <div class="contenido-pestana active" id="caracteristica1">
+          <div class="detalle-caracteristica">
+            <div class="texto-caracteristica">
+              <h2>Gestión de Proyectos</h2>
+              <p>Organiza y prioriza tus tareas de manera intuitiva y visual. Planifica tus proyectos y sigue su progreso en tiempo real.</p>
+              <p>Esta funcionalidad te permite asignar tareas, establecer plazos y visualizar el avance de cada proyecto, optimizando tu tiempo y recursos.</p>
+            </div>
+            <div class="imagen-caracteristica">
+              <img src="/assets/index/imagen-caracteristica-1.jpeg" alt="Gestión de Proyectos">
+            </div>
+          </div>
+        </div>
+        <div class="contenido-pestana" id="caracteristica2">
+          <div class="detalle-caracteristica">
+            <div class="texto-caracteristica">
+              <h2>Recordatorios Inteligentes</h2>
+              <p>Recibe alertas y recordatorios personalizados para nunca perder de vista tus deadlines importantes.</p>
+              <p>Configura notificaciones que se adapten a tu ritmo y mantén siempre el control de tus compromisos diarios.</p>
+            </div>
+            <div class="imagen-caracteristica">
+              <img src="/assets/index/imagen-caracteristica-2.jpeg" alt="Recordatorios Inteligentes">
+            </div>
+          </div>
+        </div>
+        <div class="contenido-pestana" id="caracteristica3">
+          <div class="detalle-caracteristica">
+            <div class="texto-caracteristica">
+              <h2>Colaboración en Equipo</h2>
+              <p>Comparte proyectos y tareas con tu equipo, colabora en tiempo real y mantén a todos sincronizados.</p>
+              <p>Mejora la comunicación interna y gestiona proyectos colaborativos de forma eficiente con herramientas de interacción en vivo.</p>
+            </div>
+            <div class="imagen-caracteristica">
+              <img src="/assets/index/imagen-caracteristica-3.jpeg" alt="Colaboración en Equipo">
+            </div>
+          </div>
+        </div>
+        <div class="contenido-pestana" id="caracteristica4">
+          <div class="detalle-caracteristica">
+            <div class="texto-caracteristica">
+              <h2>Integraciones</h2>
+              <p>Conecta TotalTasks con tus herramientas favoritas y optimiza tu flujo de trabajo de forma sencilla.</p>
+              <p>Desde calendarios hasta aplicaciones de mensajería, integra todo en una única plataforma para maximizar tu productividad.</p>
+            </div>
+            <div class="imagen-caracteristica">
+              <img src="/assets/index/imagen-caracteristica-4.jpeg" alt="Integraciones">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <footer class="footer">
+      <p>&copy; 2025 TotalTasks. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="/js/index.js"></script>
+  </body>
 </html>
