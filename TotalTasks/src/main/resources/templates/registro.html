@@ -23,39 +23,74 @@
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre" />
-                <label class="error-message"></label>
             </div>
 
             <div class="form-group">
                 <label for="usuario">Nombre de usuario:</label>
                 <input type="text" id="usuario" name="usuario" required placeholder="Ingresa tu usuario" />
-                <label class="error-message"></label>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required placeholder="Ingresa tu email" />
-                <label class="error-message"></label>
             </div>
 
             <div class="form-group">
                 <label for="contraseña">Contraseña:</label>
                 <input type="password" id="contraseña" name="contraseña" required placeholder="Ingresa tu contraseña" />
-                <label class="error-message"></label>
             </div>
 
             <button type="submit" class="btn-submit">Registrar</button>
 
-            <p>Al continuar confirmas que aceptas nuestros <a>Términos y condiciones, Política de Privacidad y
+            <p>Al continuar confirmas que aceptas nuestros <br> <a onclick="abrirModalTerminos()">Términos y
+                    condiciones,
+                    Política de Privacidad y
                     Cookies.</a></p>
+            <p>¿Ya tienes una cuenta?<br><a href="/login">Acceder</a></p>
         </form>
     </div>
-    <div class="modal">
-        <div class="contenidoModal">
-            <span class="close">&times;</span>
-            <h2>Términos y Condiciones</h2>
-            <p>Aquí irán los términos y condiciones de TotalTasks. Puedes personalizar este texto con la información que
-                desees.</p>
+    <div id="modalTerminos" class="modal">
+        <div class="modalContenido">
+            <div class="modalHeader">
+                <h2>Términos y Condiciones</h2>
+                <button class="cerrarModal" onclick="cerrarModalTerminos()">✖</button>
+            </div>
+            <div class="modalBody">
+                <h3>1. Condiciones de Uso</h3>
+                <p>TotalTasks es una plataforma para la gestión de tareas. Al registrarte, aceptas usarla de forma
+                    responsable y legal.</p>
+
+                <h3>2. Condiciones de la Cuenta</h3>
+                <p>El usuario es responsable de la seguridad de su cuenta. No compartas tus credenciales.</p>
+
+                <h3>3. Derechos de Propiedad Intelectual</h3>
+                <p>Todo el contenido de TotalTasks está protegido por derechos de autor. No puedes copiar ni distribuir
+                    su contenido sin permiso.</p>
+
+                <h3>4. Condiciones Generales</h3>
+                <p>Podemos modificar estos términos en cualquier momento. Es tu responsabilidad revisarlos
+                    periódicamente.</p>
+
+                <h3>5. Seguridad y Privacidad</h3>
+                <p>Protegemos tu información según nuestra Política de Privacidad. Tus datos están seguros con nosotros.
+                </p>
+
+                <h3>6. Política de Privacidad</h3>
+                <p>Recopilamos información para mejorar la plataforma. Puedes solicitar la eliminación de tus datos
+                    cuando lo desees.</p>
+            </div>
+        </div>
+    </div>
+    <div id="modalError" class="modalError">
+        <div class="modalErrorContenido">
+            <div class="modalErrorHeader">
+                <h2>Error en el formulario</h2>
+                <button class="cerrarModalError" onclick="cerrarModalError()">✖</button>
+            </div>
+            <div class="modalErrorBody">
+                <span class="iconoError">⚠️</span>
+                <p id="mensajeError"></p>
+            </div>
         </div>
     </div>
 
