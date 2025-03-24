@@ -1,5 +1,12 @@
 package com.totaltasks.repositories;
 
-public interface UsuarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.totaltasks.entities.UsuarioEntity;
+
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
+
+    UsuarioEntity findByusuario(String usuario);
+
+    UsuarioEntity findByemail(String email);
 }
