@@ -1,3 +1,5 @@
+// Caracterteristicas
+
 document.addEventListener("DOMContentLoaded", () => {
   const botonesPestana = document.querySelectorAll(".boton-pestana");
   const contenidosPestana = document.querySelectorAll(".contenido-pestana");

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/assets/logo.png">
     <link rel="stylesheet" href="/css/index.css">
-    <title>TotalTasks</title>
+    <title>TotalTasks - Plataforma de Gestión de Tareas</title>
   </head>
   <body>
     <header class="cabezera">
@@ -29,7 +29,7 @@
         <h1>Organiza tu vida con TotalTasks</h1>
         <p>La mejor aplicación para gestionar tus tareas y proyectos de forma sencilla y eficaz.</p>
         <p>Con TotalTasks, experimenta una nueva forma de organizar tus actividades diarias. Disfruta de recordatorios inteligentes, integración con tus herramientas favoritas y una interfaz intuitiva que se adapta a tus necesidades. Simplifica tu día a día y alcanza tu máxima productividad.</p>
-        <a href="/registro">Pruébala gratis</a>
+        <a href="/registro" class="boton-probar">Pruébala gratis</a>
       </div>
       <div class="hero-imagen">
         <img src="/assets/index/hero.png" alt="Imagen de TotalTasks">
@@ -38,11 +38,11 @@
 
     <div class="pestanas-caracteristicas">
       <div class="pestanas">
-        <button class="boton-pestana active" data-pestana="caracteristica1">💻 Gestión de Proyectos</button>
-        <button class="boton-pestana" data-pestana="caracteristica2">💡 Recordatorios</button>
-        <button class="boton-pestana" data-pestana="caracteristica3">🤼 Colaboración</button>
-        <button class="boton-pestana" data-pestana="caracteristica4">🧠 Integraciones</button>
-      </div>
+        <button class="boton-pestana active" data-pestana="caracteristica1">📊 Gestión de Proyectos</button>
+        <button class="boton-pestana" data-pestana="caracteristica2">⏰ Recordatorios</button>
+        <button class="boton-pestana" data-pestana="caracteristica3">🤝 Colaboración</button>
+        <button class="boton-pestana" data-pestana="caracteristica4">🔌 Integraciones</button>
+      </div>      
       <div class="contenido-pestanas">
         <div class="contenido-pestana active" id="caracteristica1">
           <div class="detalle-caracteristica">
@@ -52,7 +52,7 @@
               <p>Esta funcionalidad te permite asignar tareas, establecer plazos y visualizar el avance de cada proyecto, optimizando tu tiempo y recursos.</p>
             </div>
             <div class="imagen-caracteristica">
-              <img src="/assets/index/imagen-caracteristica-1.jpeg" alt="Gestión de Proyectos">
+              <img src="/assets/index/caracteristicas/imagen-caracteristica-1.jpeg" alt="Gestión de Proyectos">
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
               <p>Configura notificaciones que se adapten a tu ritmo y mantén siempre el control de tus compromisos diarios.</p>
             </div>
             <div class="imagen-caracteristica">
-              <img src="/assets/index/imagen-caracteristica-2.jpeg" alt="Recordatorios Inteligentes">
+              <img src="/assets/index/caracteristicas/imagen-caracteristica-2.jpeg" alt="Recordatorios Inteligentes">
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
               <p>Mejora la comunicación interna y gestiona proyectos colaborativos de forma eficiente con herramientas de interacción en vivo.</p>
             </div>
             <div class="imagen-caracteristica">
-              <img src="/assets/index/imagen-caracteristica-3.jpeg" alt="Colaboración en Equipo">
+              <img src="/assets/index/caracteristicas/imagen-caracteristica-3.jpeg" alt="Colaboración en Equipo">
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
               <p>Desde calendarios hasta aplicaciones de mensajería, integra todo en una única plataforma para maximizar tu productividad.</p>
             </div>
             <div class="imagen-caracteristica">
-              <img src="/assets/index/imagen-caracteristica-4.jpeg" alt="Integraciones">
+              <img src="/assets/index/caracteristicas/imagen-caracteristica-4.jpeg" alt="Integraciones">
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@
     </div>
 
     <div class="contenedor-caracteristicas">
-      <h1>TotalTask: Gestión Integral para tu Negocio</h1>
+      <h1>Gestión Integral para tu Negocio</h1>
       <p>
         Gestiona todas las áreas clave de tu empresa en una única herramienta: Ventas, Marketing, Proyectos, Clientes, Recursos Humanos y Análisis.
       </p>
@@ -135,9 +135,70 @@
       </div>
     </div>
 
-    <footer class="footer">
-      <p>&copy; 2025 TotalTasks. Todos los derechos reservados.</p>
-    </footer>
+    <div class="footer">
+      <div class="contenedor-footer">
+        <!-- Branding con logo y nombre -->
+        <div class="marca-footer">
+          <img src="/assets/logo.png" alt="Logo TotalTasks" class="logo-footer">
+          <div class="texto-marca">
+            <h2>TotalTasks</h2>
+            <p>Gestiona tus tareas y proyectos de forma sencilla y eficiente.</p>
+          </div>
+        </div>
+        <!-- Newsletter -->
+        <div class="newsletter-footer">
+          <h4>Newsletter</h4>
+          <p>Suscríbete para recibir novedades y actualizaciones.</p>
+          <form>
+            <input type="email" placeholder="Tu email" required>
+            <button type="submit">➡</button>
+          </form>
+        </div>
+        <!-- Enlaces Rápidos -->
+        <div class="enlaces-footer">
+          <h4>Enlaces Rápidos</h4>
+          <ul>
+            <li><a href="/terminos">Términos de Uso</a></li>
+            <li><a href="/privacidad">Política de Privacidad</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Nueva fila de enlaces adicionales -->
+      <div class="extra-footer">
+        <ul>
+          <li><a href="/sobre-nosotros">Sobre Nosotros</a></li>
+          <li><a href="/caracteristicas">Características</a></li>
+          <li><a href="/casos-de-exito">Casos de Éxito</a></li>
+          <li><a href="/soporte">Soporte</a></li>
+        </ul>
+      </div>
+      <!-- Redes sociales con iconos -->
+      <div class="redes-footer">
+        <div class="iconos-redes">
+          <a href="https://facebook.com/totaltasks" target="_blank" aria-label="Logo facebook">
+            <img src="/assets/index/redes/facebook.png" alt="Facebook">
+          </a>
+          <a href="https://twitter.com/totaltasks" target="_blank" aria-label="Logo x">
+            <img src="/assets/index/redes/x.png" alt="X">
+          </a>
+          <a href="https://instagram.com/totaltasks" target="_blank" aria-label="Logo instagram">
+            <img src="/assets/index/redes/instagram.png" alt="Instagram">
+          </a>
+          <a href="https://youtube.com/youtube" target="_blank" aria-label="Logo youtube">
+            <img src="/assets/index/redes/youtube.png" alt="YouTube">
+          </a>
+          <a href="https://youtube.com/youtube" target="_blank" aria-label="Logo github">
+            <img src="/assets/index/redes/github.png" alt="Github">
+          </a>
+        </div>
+      </div>
+      <div class="final-footer">
+        <p>&copy; 2025 TotalTasks. Todos los derechos reservados.</p>
+      </div>
+    </div>
 
     <script src="/js/index.js"></script>
   </body>
