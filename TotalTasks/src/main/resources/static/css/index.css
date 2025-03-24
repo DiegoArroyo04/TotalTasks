@@ -1,20 +1,19 @@
 @import url('/css/general.css');
 
 /* Estilo general */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: var(--color-sombra);
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--fuente-principal);
+}
 
 /* Estilo header */
-
 .cabezera {
   display: flex;
   justify-content: space-around;
-  align-items: center;  
+  align-items: center;
+  padding: 20px;
 }
 
 .logo img {
@@ -32,8 +31,6 @@
   display: flex;
   list-style: none;
   align-items: center;
-  padding: 0;
-  margin: 0;
 }
 
 .navegacion ul li {
@@ -44,6 +41,11 @@
   text-decoration: none;
   color: var(--color-texto);
   font-size: var(--tamano-texto-mediano);
+  transition: color 0.3s ease;
+}
+
+.navegacion ul li a:hover {
+  color: var(--color-primario-hover);
 }
 
 .separador {
@@ -52,26 +54,25 @@
   background-color: var(--color-texto);
 }
 
-.boton-probar {
+nav ul li .boton-probar {
+  text-decoration: none;
+  color: white;
   font-size: var(--tamano-texto-mediano);
   background-color: var(--color-primario);
   padding: 10px 20px;
   border-radius: 5px;
-  color: white;
   transition: background-color 0.3s ease;
 }
 
-.boton-probar:hover {
-  background-color: #0056b3;
+nav ul li .boton-probar:hover {
+  background-color: var(--color-primario-hover);
 }
 
 /* Estilo hero */
-
 .hero {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   padding: 0 20px;
   flex-wrap: wrap;
 }
@@ -94,7 +95,7 @@
   margin-bottom: 20px;
 }
 
-.hero a {
+.hero .boton-probar {
   text-decoration: none;
   color: white;
   font-size: var(--tamano-texto-mediano);
@@ -104,20 +105,19 @@
   transition: background-color 0.3s ease;
 }
 
-.hero a:hover {
-  background-color: #0056b3;
+.hero .boton-probar:hover {
+  background-color: var(--color-primario-hover);
 }
 
 .hero img {
-  max-width: 80%;
+  max-width: 60%;
   height: auto;
   border-radius: 10px;
   display: block;
   margin: 0 auto;
 }
 
-/* Estilo de las caracteristicas */
-
+/* Estilo de las características */
 .pestanas-caracteristicas {
   padding: 60px 20px;
 }
@@ -138,6 +138,10 @@
   color: var(--color-texto);
   transition: color 0.3s ease, border-bottom 0.3s ease;
   border-bottom: 2px solid transparent;
+}
+
+.pestanas-caracteristicas .boton-pestana:hover {
+  color: var(--color-primario-hover);
 }
 
 .pestanas-caracteristicas .boton-pestana.active {
@@ -188,24 +192,24 @@
 }
 
 .pestanas-caracteristicas .contenido-pestana p {
-  font-size: var(--tamano-texto-normal);
+  font-size: var(--tamano-texto-mediano);
   margin-bottom: 20px;
   color: var(--color-texto);
 }
 
 @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-   
-/* Estilo características */
 
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo características (Tarjetas) */
 .contenedor-caracteristicas {
   margin: 0 auto;
   padding: 50px 20px;
@@ -224,25 +228,16 @@
   gap: 20px;
 }
 
-/* Tarjeta individual */
 .tarjeta {
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: var(--color-fondo);
 }
 
-.tarjeta:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-/* Icono en la tarjeta */
 .tarjeta .icono {
   width: 60px;
   height: 60px;
   margin: 0 auto 20px;
-  background-color: var(--color-primario);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -251,7 +246,6 @@
   color: #fff;
 }
 
-/* Títulos y párrafos dentro de la tarjeta */
 .tarjeta h3 {
   margin-bottom: 10px;
   font-size: 1.3rem;
@@ -261,13 +255,166 @@
 .tarjeta p {
   font-size: 1rem;
   line-height: 1.5;
+  color: var(--color-texto);
 }
 
 /* Estilo footer */
-
 .footer {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+  padding: 40px 20px;
+  font-size: var(--tamano-texto);
   text-align: center;
-  padding: 20px;
-  font-size: var(--tamano-texto-normal);
-  color: var(--color-texto);
+}
+
+.footer a {
+  color: var(--color-fondo);
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--color-primario-hover);
+}
+
+.contenedor-footer {
+  display: flex;
+  justify-content: center;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-sombra);
+  gap: 150px;
+}
+
+.marca-footer {
+  display: flex;
+  flex: 1 1 300px;
+  gap: 15px;
+}
+
+.logo-footer {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  margin-top: -100px;
+}
+
+.texto-marca h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.texto-marca p {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Newsletter */
+.newsletter-footer {
+  flex: 1 1 300px;
+}
+
+.newsletter-footer h4 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.newsletter-footer p {
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.newsletter-footer form {
+  display: flex;
+  max-width: 300px;
+}
+
+.newsletter-footer input[type="email"] {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.newsletter-footer button {
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--color-primario);
+  color: #fff;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Enlaces rápidos */
+.enlaces-footer {
+  flex: 1 1 300px;
+}
+
+.enlaces-footer h4 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.enlaces-footer ul {
+  list-style: none;
+  margin: 10px 0;
+}
+
+.enlaces-footer ul li {
+  margin-bottom: 8px;
+}
+
+.enlaces-footer ul li a {
+  font-size: 0.9rem;
+}
+
+/* Enlaces adicionales */
+.extra-footer {
+  margin: 20px auto;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.extra-footer ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.extra-footer ul li a {
+  font-size: 0.9rem;
+}
+
+/* Redes sociales */
+.redes-footer {
+  margin: 20px auto;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.iconos-redes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.iconos-redes a img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.iconos-redes a:hover img {
+  transform: scale(1.1);
+}
+
+/* Pie del footer */
+.final-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.8rem;
 }
