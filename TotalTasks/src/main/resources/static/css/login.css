@@ -1,0 +1,164 @@
+@import url('general.css');
+
+/* Estructura general */
+body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--color-sombra);
+    background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png");
+}
+
+/* Sección izquierda */
+.izquierda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(159.86deg, rgb(10, 25, 47) 0%, rgb(15, 45, 85) 40%, rgb(32, 89, 165) 85%, rgb(50, 130, 250) 120%);
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    color: white;
+}
+
+.izquierda h1 {
+    font-size: var(--tamano-titulo);
+    color: white;
+    margin-bottom: 20px;
+}
+
+.izquierda p {
+    font-size: var(--tamano-texto);
+    color: white;
+    margin-bottom: 20px;
+}
+
+.izquierda img {
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+/* Formulario principal */
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 550px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: var(--color-primario);
+    font-size: var(--tamano-subtitulo);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Estilos para los campos del formulario */
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: var(--tamano-texto);
+    color: var(--color-texto);
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: var(--tamano-texto);
+    border-radius: 8px;
+    border: 1px solid var(--color-sombra);
+    background-color: #f8f9fa;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 5px var(--color-primario);
+    outline: none;
+}
+
+input::placeholder {
+    color: var(--color-texto);
+    opacity: 0.7;
+}
+
+/* Estilo del botón */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo del enlace de registro */
+a {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Respuesta para pantallas pequeñas */
+@media (max-width: 768px) {
+    .izquierda {
+        display: none;
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .izquierda {
+        display: none;
+    }
+
+    .fotoIzquierda {
+        width: 200px;
+        object-fit: contain;
+        height: 200px;
+    }
+
+    .form-container {
+        max-width: 75%;
+    }
+}
