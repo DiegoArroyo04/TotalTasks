@@ -1,6 +1,6 @@
 document.getElementById("registro").addEventListener("submit", function () {
     event.preventDefault();
-    //SI EL FORMULARIO ESTA VALIDADO SE ENVIA
+    //SI EL FORMULARIO ES VALIDADO SE ENVIA
     if (comprobarFormulario() == true) {
 
         var datos = {
@@ -46,12 +46,14 @@ document.getElementById("registro").addEventListener("submit", function () {
 });
 
 function comprobarFormulario() {
+    
     if (comprobarNombre() == true && comprobarContrasenia() == true) {
         return true;
     } else {
         return false;
     }
 }
+
 function comprobarNombre() {
 
     var nombre = document.getElementById("nombre").value;

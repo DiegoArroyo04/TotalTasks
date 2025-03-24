@@ -3,6 +3,7 @@
 
 /* Paleta de colores y tipografía */
 :root {
+    /* Colores */
     --color-primario: #007BFF;
     --color-primario-hover: #0056b3;
     
@@ -21,7 +22,6 @@
     
     --color-sombra: #E9ECEF;
     
-    /* Nuevos colores */
     --color-info: #17a2b8;
     --color-info-hover: #117a8b;
     
@@ -57,12 +57,7 @@ body {
 }
 
 /* Tipografía general para encabezados y párrafos */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--fuente-principal);
     color: var(--color-primario);
     margin: 0;

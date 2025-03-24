@@ -29,4 +29,5 @@ public class UsuarioProyectoEntity {
 
     @Column(name = "rol")
     private String rol;
+    
 }

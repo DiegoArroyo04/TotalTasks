@@ -1,8 +1,6 @@
 @import url('general.css');
 
-
 body {
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,7 +114,7 @@ input::placeholder {
 }
 
 .btn-submit:hover {
-    background-color: #0056b3;
+    background-color: var(--color-primario-hover);
 }
 
 
@@ -149,11 +147,11 @@ input::placeholder {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #dc3545;
+    border-bottom: 2px solid var(--color-error);
 }
 
 .modalErrorHeader h2 {
-    color: #dc3545;
+    color: var(--color-error);
     font-size: var(--tamano-subtitulo);
 }
 
@@ -167,7 +165,7 @@ input::placeholder {
 }
 
 .cerrarModalError:hover {
-    color: #dc3545;
+    color: var(--color-error-hover);
     transform: scale(1.2);
 }
 
@@ -180,7 +178,7 @@ input::placeholder {
 
 .iconoError {
     font-size: 50px;
-    color: #dc3545;
+    color: var(--color-error);
     margin-bottom: 10px;
 }
 
@@ -231,7 +229,7 @@ input::placeholder {
 }
 
 .cerrarModalSuccess:hover {
-    color: var(--color-secundario);
+    color: var(--color-secundario-hover);
     transform: scale(1.2);
 }
 
@@ -301,7 +299,7 @@ input::placeholder {
 }
 
 .cerrarModal:hover {
-    color: #dc3545;
+    color: var(--color-error);
     transform: scale(1.2);
 }
 

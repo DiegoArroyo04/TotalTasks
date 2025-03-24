@@ -156,7 +156,7 @@ nav ul li .boton-probar:hover {
 
 .pestanas-caracteristicas .contenido-pestana {
   display: none;
-  animation: fadeIn 0.5s ease-out;
+  animation: aparecer 0.5s ease-out;
 }
 
 .pestanas-caracteristicas .contenido-pestana.active {
@@ -197,19 +197,7 @@ nav ul li .boton-probar:hover {
   color: var(--color-texto);
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Estilo características (Tarjetas) */
+/* Estilo características */
 .contenedor-caracteristicas {
   margin: 0 auto;
   padding: 50px 20px;
@@ -310,7 +298,6 @@ nav ul li .boton-probar:hover {
   margin-top: 4px;
 }
 
-/* Newsletter */
 .newsletter-footer {
   flex: 1 1 300px;
 }
@@ -347,7 +334,6 @@ nav ul li .boton-probar:hover {
   transition: background-color 0.3s;
 }
 
-/* Enlaces rápidos */
 .enlaces-footer {
   flex: 1 1 300px;
 }
@@ -370,7 +356,6 @@ nav ul li .boton-probar:hover {
   font-size: 0.9rem;
 }
 
-/* Enlaces adicionales */
 .extra-footer {
   margin: 20px auto;
   max-width: 1200px;
@@ -389,7 +374,6 @@ nav ul li .boton-probar:hover {
   font-size: 0.9rem;
 }
 
-/* Redes sociales */
 .redes-footer {
   margin: 20px auto;
   max-width: 1200px;
@@ -412,7 +396,6 @@ nav ul li .boton-probar:hover {
   transform: scale(1.1);
 }
 
-/* Pie del footer */
 .final-footer {
   text-align: center;
   margin-top: 20px;
