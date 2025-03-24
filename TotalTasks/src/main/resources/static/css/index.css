@@ -117,84 +117,91 @@ nav ul li .boton-probar:hover {
   margin: 0 auto;
 }
 
-/* Estilo de las características */
-.pestanas-caracteristicas {
+/* Estilo general de la sección de funcionalidades */
+.pestanas-funcionalidades {
   padding: 60px 20px;
 }
 
-.pestanas-caracteristicas .pestanas {
+.pestanas-funcionalidades .pestanas {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  gap: 10px;
 }
 
-.pestanas-caracteristicas .boton-pestana {
+.pestanas-funcionalidades .boton-pestana {
   background: none;
   border: none;
   font-size: var(--tamano-texto-mediano);
   padding: 10px 20px;
-  margin: 0 10px;
   cursor: pointer;
   color: var(--color-texto);
   transition: color 0.3s ease, border-bottom 0.3s ease;
   border-bottom: 2px solid transparent;
 }
 
-.pestanas-caracteristicas .boton-pestana:hover {
+.pestanas-funcionalidades .boton-pestana:hover {
   color: var(--color-primario-hover);
 }
 
-.pestanas-caracteristicas .boton-pestana.active {
+.pestanas-funcionalidades .boton-pestana.active {
   color: var(--color-primario);
   border-bottom: 2px solid var(--color-primario);
 }
 
-.pestanas-caracteristicas .contenido-pestanas {
-  max-width: 1000px;
+.pestanas-funcionalidades .contenido-pestanas {
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.pestanas-caracteristicas .contenido-pestana {
+.pestanas-funcionalidades .contenido-pestana {
   display: none;
   animation: aparecer 0.5s ease-out;
 }
 
-.pestanas-caracteristicas .contenido-pestana.active {
+.pestanas-funcionalidades .contenido-pestana.active {
   display: block;
 }
 
-.detalle-caracteristica {
+.detalle-funcionalidad {
   display: flex;
   align-items: center;
   gap: 35px;
+  flex-wrap: wrap;
 }
 
-.texto-caracteristica {
+.texto-funcionalidad {
   flex: 1;
   text-align: justify;
 }
 
-.imagen-caracteristica {
+.imagen-funcionalidad {
   width: 300px;
   height: auto;
 }
 
-.imagen-caracteristica img {
+.imagen-funcionalidad img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
-.pestanas-caracteristicas .contenido-pestana h2 {
+.pestanas-funcionalidades .contenido-pestana h2 {
   font-size: var(--tamano-subtitulo);
   margin-bottom: 20px;
   color: var(--color-primario);
 }
 
-.pestanas-caracteristicas .contenido-pestana p {
+.pestanas-funcionalidades .contenido-pestana p,
+.pestanas-funcionalidades .contenido-pestana ul {
   font-size: var(--tamano-texto-mediano);
   margin-bottom: 20px;
   color: var(--color-texto);
+}
+
+.pestanas-funcionalidades .contenido-pestana ul {
+  list-style: disc;
+  margin-left: 20px;
 }
 
 /* Estilo características */
@@ -244,6 +251,120 @@ nav ul li .boton-probar:hover {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--color-texto);
+}
+
+/* Estilo de reseñas */
+.seccion-testimonios {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: var(--color-fondo);
+}
+
+.seccion-testimonios h2 {
+  font-size: var(--tamano-subtitulo);
+  margin-bottom: 40px;
+  color: var(--color-primario);
+}
+
+.contenedor-testimonios {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.testimonio {
+  flex: 1 1 300px;
+  max-width: 350px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  /* Sombra intensa con mayor dispersión y opacidad */
+  box-shadow: 0 15px 30px rgba(0, 123, 255, 0.7);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 123, 255, 0.9);
+}
+
+.foto-usuario {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-primario);
+  margin-bottom: 15px;
+}
+
+.estrellas {
+  font-size: 1.2rem;
+  color: var(--color-advertencia);
+  margin-bottom: 10px;
+}
+
+.nombre-usuario {
+  font-size: var(--tamano-texto-grande);
+  margin: 0;
+  color: var(--color-primario);
+}
+
+.cargo-usuario {
+  font-size: var(--tamano-texto-mediano);
+  margin: 5px 0 15px;
+  color: var(--color-secundario);
+}
+
+.texto-testimonio {
+  font-size: var(--tamano-texto);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+/* Sección de Integraciones */
+.seccion-integraciones {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: var(--color-fondo);
+}
+
+.seccion-integraciones h2 {
+  font-size: var(--tamano-subtitulo);
+  margin-bottom: 20px;
+  color: var(--color-primario);
+}
+
+.seccion-integraciones p {
+  font-size: var(--tamano-texto);
+  margin-bottom: 40px;
+  color: var(--color-texto);
+}
+
+/* Cuadrícula de logos de integraciones */
+.logos-integraciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 30px;
+  align-items: center;
+  justify-items: center;
+}
+
+/* Estilo para cada logo */
+.logos-integraciones a img {
+  max-width: 100%;
+  max-height: 100px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: grayscale(100%);
+}
+
+.logos-integraciones a:hover img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
 }
 
 /* Estilo footer */

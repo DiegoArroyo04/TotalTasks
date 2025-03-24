@@ -17,6 +17,7 @@
           <li><a href="#">Inicio</a></li>
           <li><a href="#">Características</a></li>
           <li><a href="#">Contacto</a></li>
+          <li><a href="#">Blog</a></li>
           <div class="separador"></div>
           <li><a href="/login" class="boton-login">Iniciar sesión</a></li>
           <li><a href="/registro" class="boton-probar" style="color: white;">Pruébala gratis</a></li>
@@ -36,64 +37,120 @@
       </div>
     </div>
 
-    <div class="pestanas-caracteristicas">
+    <div class="pestanas-funcionalidades">
       <div class="pestanas">
-        <button class="boton-pestana active" data-pestana="caracteristica1">📊 Gestión de Proyectos</button>
-        <button class="boton-pestana" data-pestana="caracteristica2">⏰ Recordatorios</button>
-        <button class="boton-pestana" data-pestana="caracteristica3">🤝 Colaboración</button>
-        <button class="boton-pestana" data-pestana="caracteristica4">🔌 Integraciones</button>
+        <button class="boton-pestana active" data-pestana="funcionalidad1">📊 Dashboard</button>
+        <button class="boton-pestana" data-pestana="funcionalidad2">🚀 Proyectos</button>
+        <button class="boton-pestana" data-pestana="funcionalidad3">✅ Tareas</button>
+        <button class="boton-pestana" data-pestana="funcionalidad4">🔔 Notificaciones</button>
+        <button class="boton-pestana" data-pestana="funcionalidad5">💬 Colaboración</button>
+        <button class="boton-pestana" data-pestana="funcionalidad6">🔌 Integraciones</button>
       </div>      
       <div class="contenido-pestanas">
-        <div class="contenido-pestana active" id="caracteristica1">
-          <div class="detalle-caracteristica">
-            <div class="texto-caracteristica">
+        <!-- Funcionalidad 1: Dashboard -->
+        <div class="contenido-pestana active" id="funcionalidad1">
+          <div class="detalle-funcionalidad">
+            <div class="texto-funcionalidad">
+              <h2>Dashboard Intuitivo</h2>
+              <p>Una vista principal que resume la actividad, permite acceso rápido a proyectos y tareas, y muestra notificaciones y alertas relevantes.</p>
+              <ul>
+                <li>Vista general de actividad</li>
+                <li>Acceso rápido a funcionalidades</li>
+                <li>Notificaciones in-app</li>
+              </ul>
+            </div>
+            <div class="imagen-funcionalidad">
+              <img src="/assets/index/funcionalidades/imagen-funcionalidad-1.jpeg" alt="Dashboard">
+            </div>
+          </div>
+        </div>
+        <!-- Funcionalidad 2: Proyectos -->
+        <div class="contenido-pestana" id="funcionalidad2">
+          <div class="detalle-funcionalidad">
+            <div class="texto-funcionalidad">
               <h2>Gestión de Proyectos</h2>
-              <p>Organiza y prioriza tus tareas de manera intuitiva y visual. Planifica tus proyectos y sigue su progreso en tiempo real.</p>
-              <p>Esta funcionalidad te permite asignar tareas, establecer plazos y visualizar el avance de cada proyecto, optimizando tu tiempo y recursos.</p>
+              <p>Crea y administra proyectos utilizando metodologías como Scrum, Kanban o Cascada, adaptándose a las necesidades de tu equipo.</p>
+              <ul>
+                <li>Creación de proyectos</li>
+                <li>Asignación de roles (Administrador, Miembro)</li>
+                <li>Invitación mediante código de acceso</li>
+              </ul>
             </div>
-            <div class="imagen-caracteristica">
-              <img src="/assets/index/caracteristicas/imagen-caracteristica-1.jpeg" alt="Gestión de Proyectos">
-            </div>
-          </div>
-        </div>
-        <div class="contenido-pestana" id="caracteristica2">
-          <div class="detalle-caracteristica">
-            <div class="texto-caracteristica">
-              <h2>Recordatorios Inteligentes</h2>
-              <p>Recibe alertas y recordatorios personalizados para nunca perder de vista tus deadlines importantes.</p>
-              <p>Configura notificaciones que se adapten a tu ritmo y mantén siempre el control de tus compromisos diarios.</p>
-            </div>
-            <div class="imagen-caracteristica">
-              <img src="/assets/index/caracteristicas/imagen-caracteristica-2.jpeg" alt="Recordatorios Inteligentes">
+            <div class="imagen-funcionalidad">
+              <img src="/assets/index/funcionalidades/imagen-funcionalidad-2.jpeg" alt="Gestión de Proyectos">
             </div>
           </div>
         </div>
-        <div class="contenido-pestana" id="caracteristica3">
-          <div class="detalle-caracteristica">
-            <div class="texto-caracteristica">
-              <h2>Colaboración en Equipo</h2>
-              <p>Comparte proyectos y tareas con tu equipo, colabora en tiempo real y mantén a todos sincronizados.</p>
-              <p>Mejora la comunicación interna y gestiona proyectos colaborativos de forma eficiente con herramientas de interacción en vivo.</p>
+        <!-- Funcionalidad 3: Tareas -->
+        <div class="contenido-pestana" id="funcionalidad3">
+          <div class="detalle-funcionalidad">
+            <div class="texto-funcionalidad">
+              <h2>Gestión de Tareas</h2>
+              <p>Organiza y administra las tareas dentro de cada proyecto de forma intuitiva, permitiendo crear, modificar, eliminar y asignar tareas.</p>
+              <ul>
+                <li>Crear, modificar y eliminar tareas</li>
+                <li>Asignación de tareas a usuarios</li>
+                <li>Estados: Pendiente, En progreso, Finalizado</li>
+              </ul>
             </div>
-            <div class="imagen-caracteristica">
-              <img src="/assets/index/caracteristicas/imagen-caracteristica-3.jpeg" alt="Colaboración en Equipo">
+            <div class="imagen-funcionalidad">
+              <img src="/assets/index/funcionalidades/imagen-funcionalidad-3.jpeg" alt="Gestión de Tareas">
             </div>
           </div>
         </div>
-        <div class="contenido-pestana" id="caracteristica4">
-          <div class="detalle-caracteristica">
-            <div class="texto-caracteristica">
-              <h2>Integraciones</h2>
-              <p>Conecta TotalTasks con tus herramientas favoritas y optimiza tu flujo de trabajo de forma sencilla.</p>
-              <p>Desde calendarios hasta aplicaciones de mensajería, integra todo en una única plataforma para maximizar tu productividad.</p>
+        <!-- Funcionalidad 4: Notificaciones -->
+        <div class="contenido-pestana" id="funcionalidad4">
+          <div class="detalle-funcionalidad">
+            <div class="texto-funcionalidad">
+              <h2>Notificaciones y Recordatorios</h2>
+              <p>Mantén a los usuarios informados con alertas personalizadas, recordatorios automáticos y un historial de cambios para un mejor seguimiento.</p>
+              <ul>
+                <li>Alertas y recordatorios</li>
+                <li>Notificaciones en tiempo real</li>
+                <li>Historial de cambios</li>
+              </ul>
             </div>
-            <div class="imagen-caracteristica">
-              <img src="/assets/index/caracteristicas/imagen-caracteristica-4.jpeg" alt="Integraciones">
+            <div class="imagen-funcionalidad">
+              <img src="/assets/index/funcionalidades/imagen-funcionalidad-4.jpeg" alt="Notificaciones">
+            </div>
+          </div>
+        </div>
+        <!-- Funcionalidad 5: Colaboración -->
+        <div class="contenido-pestana" id="funcionalidad5">
+          <div class="detalle-funcionalidad">
+            <div class="texto-funcionalidad">
+              <h2>Colaboración y Comunicación</h2>
+              <p>Facilita la interacción y el trabajo en equipo mediante comentarios, chat integrado y feedback en tiempo real.</p>
+              <ul>
+                <li>Comentarios en tareas</li>
+                <li>Chat en tiempo real</li>
+                <li>Feedback y votaciones</li>
+              </ul>
+            </div>
+            <div class="imagen-funcionalidad">
+              <img src="/assets/index/funcionalidades/imagen-funcionalidad-1.jpeg" alt="Colaboración">
+            </div>
+          </div>
+        </div>
+        <!-- Funcionalidad 6: Integraciones -->
+        <div class="contenido-pestana" id="funcionalidad6">
+          <div class="detalle-funcionalidad">
+            <div class="texto-funcionalidad">
+              <h2>Integraciones y Personalización</h2>
+              <p>Conecta TotalTasks con herramientas externas y personaliza la plataforma para optimizar el flujo de trabajo.</p>
+              <ul>
+                <li>Integración con calendarios y aplicaciones (Google Calendar, Outlook, etc.)</li>
+                <li>Personalización de tableros y etiquetas</li>
+                <li>Exportación a Excel o PDF</li>
+              </ul>
+            </div>
+            <div class="imagen-funcionalidad">
+              <img src="/assets/index/funcionalidades/imagen-funcionalidad-2.jpeg" alt="Integraciones">
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>    
 
     <div class="contenedor-caracteristicas">
       <h1>Gestión Integral para tu Negocio</h1>
@@ -135,6 +192,85 @@
       </div>
     </div>
 
+    <div class="seccion-testimonios">
+      <h2>Lo que dicen nuestros usuarios</h2>
+      <div class="contenedor-testimonios">
+        <!-- Testimonio 1 -->
+        <div class="testimonio">
+          <div class="card">
+            <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Foto de Ana Martínez" class="foto-usuario">
+            <div class="card-content">
+              <div class="estrellas">★★★★★</div>
+              <h3 class="nombre-usuario">Ana Martínez</h3>
+              <h4 class="cargo-usuario">CEO de Innovatech</h4>
+              <p class="texto-testimonio">"TotalTasks ha revolucionado la forma en que gestionamos nuestros proyectos. La plataforma es intuitiva y nos mantiene sincronizados."</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonio 2 -->
+        <div class="testimonio">
+          <div class="card">
+            <img src="/assets/index/reseñas/foto-reseña-2.jpeg" alt="Foto de Carlos Ruiz" class="foto-usuario">
+            <div class="card-content">
+              <div class="estrellas">★★★★☆</div>
+              <h3 class="nombre-usuario">Carlos Ruiz</h3>
+              <h4 class="cargo-usuario">Gerente de Proyectos</h4>
+              <p class="texto-testimonio">"La integración con otras herramientas ha optimizado nuestro flujo de trabajo. ¡Una solución indispensable!"</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonio 3 -->
+        <div class="testimonio">
+          <div class="card">
+            <img src="/assets/index/reseñas/foto-reseña-3.jpeg" alt="Foto de Luisa Gómez" class="foto-usuario">
+            <div class="card-content">
+              <div class="estrellas">★★★★★</div>
+              <h3 class="nombre-usuario">Luisa Gómez</h3>
+              <h4 class="cargo-usuario">Directora de Operaciones</h4>
+              <p class="texto-testimonio">"Con TotalTasks, la colaboración se ha vuelto más fluida. Ha mejorado significativamente nuestra productividad."</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonio 4 -->
+        <div class="testimonio">
+          <div class="card">
+            <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Foto de Marcos López" class="foto-usuario">
+            <div class="card-content">
+              <div class="estrellas">★★★★☆</div>
+              <h3 class="nombre-usuario">Marcos López</h3>
+              <h4 class="cargo-usuario">Consultor de Gestión</h4>
+              <p class="texto-testimonio">"La versatilidad y facilidad de uso de TotalTasks han transformado la manera en que asesoramos a nuestros clientes."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="seccion-integraciones">
+      <h2>Integraciones</h2>
+      <p>Conecta TotalTasks con las herramientas que ya usas y optimiza tu flujo de trabajo.</p>
+      <div class="logos-integraciones">
+        <a href="https://facebook.com" target="_blank">
+          <img src="/assets/index/redes/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://calendar.google.com" target="_blank">
+          <img src="/assets/index/integraciones/calendario-de-google.png" alt="Google Calendar">
+        </a>
+        <a href="https://instagram.com" target="_blank">
+          <img src="/assets/index/redes/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://asana.com" target="_blank">
+          <img src="/assets/index/redes/github.png" alt="Asana">
+        </a>
+        <a href="https://outlook.live.com" target="_blank">
+          <img src="/assets/index/integraciones/microsoft-outlook.png" alt="Outlook">
+        </a>
+        <a href="https://www.dropbox.com" target="_blank">
+          <img src="/assets/index/integraciones/dropbox.png" alt="Dropbox">
+        </a>
+      </div>
+    </div>    
+
     <div class="footer">
       <div class="contenedor-footer">
         <!-- Branding con logo y nombre -->
@@ -158,11 +294,11 @@
         <div class="enlaces-footer">
           <h4>Enlaces Rápidos</h4>
           <ul>
-            <li><a href="/terminos">Términos de Uso</a></li>
             <li><a href="/privacidad">Política de Privacidad</a></li>
-            <li><a href="/faq">FAQ</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/terminos">Términos de Uso</a></li>
+            <li><a href="/documentacion">Documentación</a></li>
             <li><a href="/contacto">Contacto</a></li>
+            <li><a href="/faq">FAQ</a></li>
           </ul>
         </div>
       </div>
@@ -171,7 +307,7 @@
         <ul>
           <li><a href="/sobre-nosotros">Sobre Nosotros</a></li>
           <li><a href="/caracteristicas">Características</a></li>
-          <li><a href="/casos-de-exito">Casos de Éxito</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="/soporte">Soporte</a></li>
         </ul>
       </div>
