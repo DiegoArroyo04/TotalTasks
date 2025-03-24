@@ -1,5 +1,7 @@
 package com.totaltasks.services;
 
-public interface UsuarioService {
+import com.totaltasks.models.UsuarioDTO;
 
+public interface UsuarioService {
+    String registrarUsuario(UsuarioDTO usuario);
 }

@@ -7,6 +7,8 @@
     <title>Registrarse en TotalTasks</title>
     <link rel="stylesheet" href="css/registro.css">
     <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 
 <body>
@@ -14,7 +16,7 @@
         <h1>Gestiona tus tareas de forma más eficiente</h1>
         <p>Únete a TotalTasks, la herramienta en la nube para llevar el control de tus proyectos donde quiera que
             estés.</p>
-        <img src="assets/registro/collage.png">
+        <img src="assets/registro/collage.png" class="fotoIzquierda">
     </div>
     <div class="form-container">
         <img class="logo" src="assets/logo.png">
@@ -36,8 +38,9 @@
             </div>
 
             <div class="form-group">
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="contraseña" required placeholder="Ingresa tu contraseña" />
+                <label for="contrasenia">Contraseña:</label>
+                <input type="password" id="contrasenia" name="contrasenia" required
+                    placeholder="Ingresa tu contraseña" />
             </div>
 
             <button type="submit" class="btn-submit">Registrar</button>
@@ -90,6 +93,18 @@
             <div class="modalErrorBody">
                 <span class="iconoError">⚠️</span>
                 <p id="mensajeError"></p>
+            </div>
+        </div>
+    </div>
+    <div id="modalSuccess" class="modalSuccess">
+        <div class="modalSuccessContenido">
+            <div class="modalSuccessHeader">
+                <h2>¡Cuenta creada con éxito!</h2>
+                <button class="cerrarModalSuccess" onclick="cerrarModalSuccess()">✖</button>
+            </div>
+            <div class="modalSuccessBody">
+                <span class="iconoSuccess">✔️</span>
+                <p>Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión.</p>
             </div>
         </div>
     </div>

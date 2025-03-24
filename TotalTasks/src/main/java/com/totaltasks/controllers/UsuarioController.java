@@ -1,18 +1,25 @@
 package com.totaltasks.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.totaltasks.models.UsuarioDTO;
+import com.totaltasks.services.UsuarioService;
+
+@RestController
+@RequestMapping("/usuarios/")
 public class UsuarioController {
 
-    @GetMapping("/registro")
-    public String registro() {
-        return "registro";
+    @Autowired
+    UsuarioService usuarioService;
+
+    @PostMapping("registrar")
+    public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
+
+        return usuarioService.registrarUsuario(usuario);
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 }
