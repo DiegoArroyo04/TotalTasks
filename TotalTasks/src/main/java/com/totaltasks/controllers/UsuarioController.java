@@ -25,6 +25,18 @@ public class UsuarioController {
         return usuarioService.registrarUsuario(usuario);
     }
 
+    @PostMapping("registrarGoogle")
+    public String registrarUsuarioGoogle(@RequestBody UsuarioDTO usuario, HttpSession session) {
+
+        if (usuarioService.registrarUsuarioGoogle(usuario).equals("Usuario encontrado. Iniciando sesión...")) {
+            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
+        } 
+
+            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
+            return usuarioService.registrarUsuarioGoogle(usuario);
+        
+    }
+
     @PostMapping("comprobarLogin")
     public String comprobarLogin(@RequestBody UsuarioDTO usuario, HttpSession session) {
 

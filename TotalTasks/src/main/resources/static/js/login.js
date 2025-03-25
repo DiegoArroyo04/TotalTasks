@@ -20,7 +20,6 @@ window.addEventListener("click", function (event) {
 
 });
 
-
 document.getElementById("login").addEventListener("submit", function () {
     event.preventDefault();
 
@@ -51,3 +50,56 @@ document.getElementById("login").addEventListener("submit", function () {
         }
     });
 });
+
+// Función para manejar la respuesta del inicio de sesión con Google
+function handleCredentialResponse(response) {
+    // Decodificar el token de Google
+    const data = jwt_decode(response.credential);
+
+    let email = data.email; 
+    let username = email.split("@")[0];
+
+    // Crear el objeto con los datos necesarios para el registro
+    const usuarioData = {
+        nombre: data.given_name + " " + data.family_name,
+        usuario: username,
+        email: email,
+        fotoURL: data.picture ? data.picture : ""  // Enviamos la URL de la foto
+    };
+
+    // Enviar los datos al backend para registrar o iniciar sesión
+    $.ajax({
+        type: "POST",
+        url: "/usuarios/registrarGoogle",
+        contentType: "application/json",
+        data: JSON.stringify(usuarioData),
+        success: function (response) {
+            if (response.trim().includes("Usuario encontrado. Iniciando sesión...")) {
+                // Si el usuario se registra o ya existe, redirigir al dashboard
+                window.location.href = '/dashboard';
+            }
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+            mostrarError("Error en la comunicación con el servidor.");
+        }
+    });
+}
+
+// Inicialización del botón de Google
+function initGoogleSignIn() {
+    google.accounts.id.initialize({
+        client_id: '19452317144-42var29h1h144qmvemkieusv6far13o2.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+        document.querySelector('.g_id_signin'),
+        { theme: 'outline', size: 'large' }
+    );
+    google.accounts.id.prompt(); // Muestra el prompt de Google
+}
+
+// Inicializar Google Sign-In al cargar la página
+window.onload = function() {
+    initGoogleSignIn();
+};

@@ -45,6 +45,26 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
 
     @Override
+    public String registrarUsuarioGoogle(UsuarioDTO usuario) {
+        UsuarioEntity email = usuarioRepository.findByemail(usuario.getEmail());
+        UsuarioEntity user = usuarioRepository.findByemail(usuario.getEmail());
+
+        if (email != null && user != null) {
+            // Si el usuario ya existe, solo iniciar sesión
+            return "Usuario encontrado. Iniciando sesión...";
+        } else {
+            // Si no existe, lo registramos
+            UsuarioEntity usuarioEntity = new UsuarioEntity();
+            usuarioEntity.setNombre(usuario.getNombre());
+            usuarioEntity.setUsuario(usuario.getUsuario());
+            usuarioEntity.setEmail(usuario.getEmail());
+
+            usuarioRepository.save(usuarioEntity);
+            return "Cuenta creada con Éxito.";
+        }
+    }
+
+    @Override
     public String comprobarLogin(UsuarioDTO usuario) {
 
         // BUSCAR USUARIO

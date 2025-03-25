@@ -40,10 +40,9 @@ public class UsuarioEntity {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "contrasenia", nullable = false)
+    @Column(name = "contrasenia", nullable = true)
     private String contrasenia;
 
-    // INSERTABLE FALSE PORQUE LA INSERCCION DE LA FECHA SE HACE DESDE BBDD
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion", nullable = false, insertable = false)
     private Timestamp fechaCreacion;
@@ -58,4 +57,8 @@ public class UsuarioEntity {
     @OneToMany(mappedBy = "responsable")
     private List<TareaEntity> tareasAsignadas;
 
+    // Método para obtener la URL de la foto
+    public String getFotoURL() {
+        return (this.fotoPerfil != null) ? new String(this.fotoPerfil) : null;
+    }
 }

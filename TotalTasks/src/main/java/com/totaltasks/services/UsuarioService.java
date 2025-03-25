@@ -6,6 +6,8 @@ import com.totaltasks.models.UsuarioDTO;
 public interface UsuarioService {
     String registrarUsuario(UsuarioDTO usuario);
 
+    String registrarUsuarioGoogle(UsuarioDTO usuario);
+
     String comprobarLogin(UsuarioDTO usuario);
 
     // BUSCAR POR USUARIO
