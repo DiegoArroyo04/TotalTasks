@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,11 @@
 </head>
 
 <body>
+    <!-- Insertar el fragmento -->
+    <div th:insert="~{fragmentos/header :: header}"></div>
     <h1>Dashboard</h1>
+    <!-- Insertar el fragmento -->
+    <div th:insert="~{fragmentos/footer :: footer}"></div>
 </body>
 
 </html>
