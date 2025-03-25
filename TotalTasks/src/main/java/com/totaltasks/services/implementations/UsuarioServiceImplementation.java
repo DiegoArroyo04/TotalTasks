@@ -1,6 +1,7 @@
 package com.totaltasks.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.totaltasks.entities.UsuarioEntity;
@@ -13,6 +14,9 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    // OBJETO PARA ENCRIPTAR CONTRASEÑAS
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public String registrarUsuario(UsuarioDTO usuario) {
@@ -30,7 +34,10 @@ public class UsuarioServiceImplementation implements UsuarioService {
             usuarioEntity.setNombre(usuario.getNombre());
             usuarioEntity.setUsuario(usuario.getUsuario());
             usuarioEntity.setEmail(usuario.getEmail());
-            usuarioEntity.setContrasenia(usuario.getContrasenia());
+
+            // ENCRIPTAR CONTRASEÑA
+            usuarioEntity.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+
             usuarioRepository.save(usuarioEntity);
             return "Cuenta creada con Éxito.";
         }
@@ -47,8 +54,9 @@ public class UsuarioServiceImplementation implements UsuarioService {
             return "Usuario no encontrado.Por favor,registrese.";
         } else {
 
-            // COMPROBAR QUE LAS CONTRASEÑAS COINCIDAN
-            if (usuarioEntity.getContrasenia().equals(usuario.getContrasenia())) {
+            // COMPROBAR QUE LAS CONTRASEÑAS COINCIDAN COMPARANDO LA DEL USUARIO Y LA
+            // ENCRIPTADA EN BBDD
+            if (passwordEncoder.matches(usuario.getContrasenia(), usuarioEntity.getContrasenia())) {
                 return "Encontrado";
             } else {
                 return "La contraseña no coincide.Por favor,vuelve a intentarlo.";
