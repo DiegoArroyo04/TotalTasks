@@ -6,34 +6,34 @@
     /* Colores */
     --color-primario: #007BFF;
     --color-primario-hover: #0056b3;
-    
+
     --color-secundario: #28A745;
     --color-secundario-hover: #1e7e34;
-    
+
     --color-fondo: #F8F9FA;
-    
+
     --color-texto: #343A40;
-    
+
     --color-advertencia: #FD7E14;
     --color-advertencia-hover: #e67e00;
-    
+
     --color-error: #DC3545;
     --color-error-hover: #c82333;
-    
+
     --color-sombra: #E9ECEF;
-    
+
     --color-info: #17a2b8;
     --color-info-hover: #117a8b;
-    
+
     --color-warning: #ffc107;
     --color-warning-hover: #e0a800;
-    
+
     --color-muted: #6c757d;
     --color-muted-hover: #5a6268;
-    
+
     /* Tipografía */
     --fuente-principal: 'Poppins';
-    
+
     /* Tamaños de fuente */
     --tamano-titulo: 2rem;
     --tamano-subtitulo: 1.5rem;
@@ -57,7 +57,12 @@ body {
 }
 
 /* Tipografía general para encabezados y párrafos */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--fuente-principal);
     color: var(--color-primario);
     margin: 0;
@@ -81,6 +86,7 @@ a {
     color: var(--color-primario);
     text-decoration: none;
     text-align: center;
+    font-weight: 600;
 }
 
 a:hover {
@@ -94,6 +100,7 @@ a:hover {
         transform: translateY(-20px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;

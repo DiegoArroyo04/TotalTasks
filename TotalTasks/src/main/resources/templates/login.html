@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Iniciar sesión en TotalTasks</title>
-        <link rel="stylesheet" href="css/login.css">
-        <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    </head>
-    <body>
-        <div class="izquierda">
-            <h1>Gestiona tus tareas de forma más eficiente</h1>
-            <p>Inicia sesión en TotalTasks para seguir organizando tus proyectos y tareas.</p>
-            <img src="assets/registro/collage.png" class="fotoIzquierda">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión en TotalTasks</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <div class="izquierda">
+        <h1>Gestiona tus tareas de forma más eficiente</h1>
+        <p>Inicia sesión en TotalTasks para seguir organizando tus proyectos y tareas.</p>
+        <img src="assets/registro/collage.png" class="fotoIzquierda">
+    </div>
+
+    <div class="form-container">
+        <img class="logo" src="assets/logo.png">
+        <h2>¡Bienvenido de nuevo!</h2>
+        <form id="login">
+            <div class="form-group">
+                <label for="usuario">Nombre de usuario:</label>
+                <input type="text" id="usuario" name="usuario" required placeholder="Ingresa tu usuario" />
+            </div>
+
+            <div class="form-group">
+                <label for="contrasenia">Contraseña:</label>
+                <input type="password" id="contrasenia" name="contrasenia" required
+                    placeholder="Ingresa tu contraseña" />
+            </div>
+
+            <button type="submit" class="btn-submit">Iniciar sesión</button>
+
+            <p>¿No tienes cuenta? <br><a href="/registro">Regístrate</a></p>
+
+        </form>
+    </div>
+    <div id="modalError" class="modalError">
+        <div class="modalErrorContenido">
+            <div class="modalErrorHeader">
+                <h2>Error en el formulario</h2>
+                <button class="cerrarModalError" onclick="cerrarModalError()">✖</button>
+            </div>
+            <div class="modalErrorBody">
+                <span class="iconoError">⚠️</span>
+                <p id="mensajeError"></p>
+            </div>
         </div>
+    </div>
 
-        <div class="form-container">
-            <img class="logo" src="assets/logo.png">
-            <h2>¡Bienvenido de nuevo!</h2>
-            <form id="login">
-                <div class="form-group">
-                    <label for="usuario">Nombre de usuario:</label>
-                    <input type="text" id="usuario" name="usuario" required placeholder="Ingresa tu usuario" />
-                </div>
+    <script src="js/login.js"></script>
+</body>
 
-                <div class="form-group">
-                    <label for="contrasenia">Contraseña:</label>
-                    <input type="password" id="contrasenia" name="contrasenia" required
-                        placeholder="Ingresa tu contraseña" />
-                </div>
-
-                <button type="submit" class="btn-submit">Iniciar sesión</button>
-
-                <p>¿No tienes cuenta? <br><a href="/registro">Regístrate</a></p>
-
-            </form>
-        </div>
-
-        <script src="js/login.js"></script>
-    </body>
 </html>
