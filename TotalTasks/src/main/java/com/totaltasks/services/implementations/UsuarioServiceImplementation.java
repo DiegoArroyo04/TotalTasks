@@ -37,4 +37,32 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
     }
 
+    @Override
+    public String comprobarLogin(UsuarioDTO usuario) {
+
+        // BUSCAR USUARIO
+        UsuarioEntity usuarioEntity = usuarioRepository.findByusuario(usuario.getUsuario());
+
+        if (usuarioEntity == null) {
+            return "Usuario no encontrado.Por favor,registrese.";
+        } else {
+
+            // COMPROBAR QUE LAS CONTRASEÑAS COINCIDAN
+            if (usuarioEntity.getContrasenia().equals(usuario.getContrasenia())) {
+                return "Encontrado";
+            } else {
+                return "La contraseña no coincide.Por favor,vuelve a intentarlo.";
+            }
+
+        }
+
+    }
+
+    @Override
+    public UsuarioEntity encontrarUsuario(String usuario) {
+        // BUSCAR USUARIO
+        return usuarioRepository.findByusuario(usuario);
+
+    }
+
 }
