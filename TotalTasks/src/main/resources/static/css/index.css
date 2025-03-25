@@ -419,10 +419,6 @@ nav ul li .boton-probar:hover {
   margin-top: 4px;
 }
 
-.newsletter-footer {
-  flex: 1 1 300px;
-}
-
 .newsletter-footer h4 {
   margin: 10px 0;
   font-size: 1.2rem;
@@ -435,14 +431,18 @@ nav ul li .boton-probar:hover {
 
 .newsletter-footer form {
   display: flex;
-  max-width: 300px;
+  margin-left: 50px;
 }
 
 .newsletter-footer input[type="email"] {
-  flex: 1;
   padding: 8px 10px;
   border: none;
   border-radius: 4px 0 0 4px;
+  width: 250px;
+}
+
+.newsletter-footer input[type="email"]:focus {
+  outline: none;
 }
 
 .newsletter-footer button {
