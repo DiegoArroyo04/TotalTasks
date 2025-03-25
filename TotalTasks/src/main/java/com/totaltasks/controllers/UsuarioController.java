@@ -28,13 +28,20 @@ public class UsuarioController {
     @PostMapping("registrarGoogle")
     public String registrarUsuarioGoogle(@RequestBody UsuarioDTO usuario, HttpSession session) {
 
-        if (usuarioService.registrarUsuarioGoogle(usuario).equals("Usuario encontrado. Iniciando sesión...")) {
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
-        } 
+        // Llamamos al servicio para registrar al usuario o iniciar sesión si ya existe
+        String respuesta = usuarioService.registrarUsuarioGoogle(usuario);
 
+        // Si el usuario fue encontrado (existe en la base de datos), se agrega a la
+        // sesión
+        if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
-            return usuarioService.registrarUsuarioGoogle(usuario);
-        
+        } else {
+            // Si el usuario fue creado, también lo agregamos a la sesión
+            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
+        }
+
+        return respuesta;
+
     }
 
     @PostMapping("comprobarLogin")

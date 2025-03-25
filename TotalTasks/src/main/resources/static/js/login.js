@@ -56,7 +56,7 @@ function handleCredentialResponse(response) {
     // Decodificar el token de Google
     const data = jwt_decode(response.credential);
 
-    let email = data.email; 
+    let email = data.email;
     let username = email.split("@")[0];
 
     // Crear el objeto con los datos necesarios para el registro
@@ -64,7 +64,8 @@ function handleCredentialResponse(response) {
         nombre: data.given_name + " " + data.family_name,
         usuario: username,
         email: email,
-        fotoURL: data.picture ? data.picture : ""  // Enviamos la URL de la foto
+        contrasenia: ""
+
     };
 
     // Enviar los datos al backend para registrar o iniciar sesión
@@ -74,7 +75,10 @@ function handleCredentialResponse(response) {
         contentType: "application/json",
         data: JSON.stringify(usuarioData),
         success: function (response) {
-            if (response.trim().includes("Usuario encontrado. Iniciando sesión...")) {
+
+
+            if (response.trim().includes("Usuario encontrado. Iniciando sesión...") || response.trim().includes("Cuenta creada con Éxito.")) {
+
                 // Si el usuario se registra o ya existe, redirigir al dashboard
                 window.location.href = '/dashboard';
             }
@@ -100,6 +104,6 @@ function initGoogleSignIn() {
 }
 
 // Inicializar Google Sign-In al cargar la página
-window.onload = function() {
+window.onload = function () {
     initGoogleSignIn();
 };

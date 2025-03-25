@@ -1,5 +1,9 @@
 package com.totaltasks.services.implementations;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
