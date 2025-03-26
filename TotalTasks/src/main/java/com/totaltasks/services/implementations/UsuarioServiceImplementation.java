@@ -65,6 +65,24 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
 
     @Override
+    public String registrarUsuarioGitHub(UsuarioDTO usuario) {
+        UsuarioEntity existente = usuarioRepository.findByemail(usuario.getEmail());
+        
+        if (existente != null) {
+            return "Usuario encontrado. Iniciando sesión...";
+        } else {
+            UsuarioEntity nuevoUsuario = new UsuarioEntity();
+            nuevoUsuario.setNombre(usuario.getNombre());
+            nuevoUsuario.setUsuario(usuario.getUsuario());
+            nuevoUsuario.setEmail(usuario.getEmail());
+            // No hay contraseña en GitHub, se puede dejar en blanco o asignar un valor por defecto
+            nuevoUsuario.setContrasenia("");
+            usuarioRepository.save(nuevoUsuario);
+            return "Cuenta creada con Éxito.";
+        }
+    }
+
+    @Override
     public String comprobarLogin(UsuarioDTO usuario) {
 
         // BUSCAR USUARIO

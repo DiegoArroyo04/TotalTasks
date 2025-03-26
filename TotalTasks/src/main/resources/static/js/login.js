@@ -106,3 +106,29 @@ function initGoogleSignIn() {
 window.onload = function () {
     initGoogleSignIn();
 };
+
+// Login con GitHub
+document.getElementById("github-login").addEventListener("click", function() {
+    // Redirecciona a GitHub con los parámetros necesarios
+    const clientId = "Ov23li9EsZ9MUsqhPpoX";
+    const redirectUri = encodeURIComponent("http://localhost:9091/usuarios/githubCallback");
+    const scope = encodeURIComponent("read:user user:email");
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+});
+
+// $.ajax({
+//     type: "POST",
+//     url: "/usuarios/comprobarLogin",
+//     contentType: "application/json",
+//     data: JSON.stringify({ usuario: usuario, contrasenia: contrasenia }),
+//     success: function (response) {
+//         if (response.trim() == "Encontrado") {
+//             window.location.href = "/dashboard";
+//         } else {
+//             mostrarError(response);
+//         }
+//     },
+//     error: function (error) {
+//         console.error("Error en la solicitud AJAX:", error);
+//     }
+// });

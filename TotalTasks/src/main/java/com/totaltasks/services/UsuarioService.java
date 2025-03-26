@@ -8,6 +8,8 @@ public interface UsuarioService {
 
     String registrarUsuarioGoogle(UsuarioDTO usuario);
 
+    String registrarUsuarioGitHub(UsuarioDTO usuario);
+
     String comprobarLogin(UsuarioDTO usuario);
 
     // BUSCAR POR USUARIO
