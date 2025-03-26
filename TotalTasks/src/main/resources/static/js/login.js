@@ -64,7 +64,6 @@ function handleCredentialResponse(response) {
         nombre: data.given_name + " " + data.family_name,
         usuario: username,
         email: email,
-        contrasenia: ""
 
     };
 
@@ -93,7 +92,7 @@ function handleCredentialResponse(response) {
 // Inicialización del botón de Google
 function initGoogleSignIn() {
     google.accounts.id.initialize({
-        client_id: '19452317144-42var29h1h144qmvemkieusv6far13o2.apps.googleusercontent.com',
+        client_id: '978494635156-kn9vmufnugkahlhptbvmtah7jt7r60h8.apps.googleusercontent.com',
         callback: handleCredentialResponse
     });
     google.accounts.id.renderButton(

@@ -21,7 +21,6 @@ public class UsuarioController {
 
     @PostMapping("registrar")
     public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
-
         return usuarioService.registrarUsuario(usuario);
     }
 

@@ -90,7 +90,6 @@ public class UsuarioServiceImplementation implements UsuarioService {
     public UsuarioEntity encontrarUsuario(String usuario) {
         // BUSCAR USUARIO
         return usuarioRepository.findByusuario(usuario);
-
     }
 
 }
