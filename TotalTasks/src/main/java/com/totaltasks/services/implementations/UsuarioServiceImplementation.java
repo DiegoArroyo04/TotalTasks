@@ -227,7 +227,6 @@ public class UsuarioServiceImplementation implements UsuarioService {
         return repoDTOList;
     }
 
-
     @Override
     public String comprobarLogin(UsuarioDTO usuario) {
 
