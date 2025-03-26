@@ -1,6 +1,5 @@
 package com.totaltasks.services;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.totaltasks.entities.UsuarioEntity;
