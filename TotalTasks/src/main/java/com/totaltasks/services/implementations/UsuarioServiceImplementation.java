@@ -134,7 +134,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
 
     // Método para obtener los datos del usuario de GitHub usando el access token
-    @SuppressWarnings("rawtypes") // Advertencia de tipo de datos
+    @SuppressWarnings({ "rawtypes", "unchecked" }) // Advertencia de tipo de datos
     @Override
     public UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
