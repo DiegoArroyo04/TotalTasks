@@ -49,26 +49,38 @@ public class UsuarioController {
         return respuesta;
 
     }
-    
+
+    // REGISTRO GITHUB
     @GetMapping("githubCallback")
-    public void githubCallback(@RequestParam("code") String code, HttpSession session, HttpServletResponse response) throws IOException {
+    public void githubCallback(@RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "error", required = false) String error, HttpSession session,
+            HttpServletResponse response) throws IOException {
+
+        // Si el usuario cancela los permisos redireccion al lobby
+        if (error != null && error.equals("access_denied")) {
+            response.sendRedirect("/login");
+            return;
+        }
+
         // Obtener token de acceso
         String accessToken = usuarioService.obtenerAccessTokenDeGitHub(code);
-        
+
         // Obtener datos básicos del usuario
         UsuarioDTO usuarioDTO = usuarioService.obtenerDatosUsuarioGitHub(accessToken);
-        
+
         // Registrar o iniciar sesión
         String respuesta = usuarioService.registrarUsuarioGitHub(usuarioDTO);
         if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getUsuario()));
-        };
-        
+        }
+        ;
+
         // Obtener la lista de repositorios enriquecida
         List<RepoDTO> repositorios = usuarioService.obtenerRepositoriosUsuarioGitHub(accessToken);
-        // Aquí podrías, por ejemplo, guardar esta información en la sesión o en la base de datos para usarla en el dashboard
+        // Aquí podrías, por ejemplo, guardar esta información en la sesión o en la base
+        // de datos para usarla en el dashboard
         session.setAttribute("repositorios", repositorios);
-        
+
         // Redirigir al login (o dashboard según tu flujo)
         response.sendRedirect("/login");
     }
