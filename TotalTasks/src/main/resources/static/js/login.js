@@ -20,7 +20,6 @@ window.addEventListener("click", function (event) {
 
 });
 
-
 document.getElementById("login").addEventListener("submit", function () {
     event.preventDefault();
 
@@ -50,4 +49,72 @@ document.getElementById("login").addEventListener("submit", function () {
             console.error("Error en la solicitud AJAX:", error);
         }
     });
+});
+
+// Función para manejar la respuesta del inicio de sesión con Google
+function handleCredentialResponse(response) {
+    // Decodificar el token de Google
+    const data = jwt_decode(response.credential);
+
+    let email = data.email;
+    let username = email.split("@")[0];
+
+    // Crear el objeto con los datos necesarios para el registro
+    const usuarioData = {
+        nombre: data.given_name + " " + data.family_name,
+        usuario: username,
+        email: email,
+
+    };
+
+    // Enviar los datos al backend para registrar o iniciar sesión
+    $.ajax({
+        type: "POST",
+        url: "/usuarios/registrarGoogle",
+        contentType: "application/json",
+        data: JSON.stringify(usuarioData),
+        success: function (response) {
+
+
+            if (response.trim().includes("Usuario encontrado. Iniciando sesión...") || response.trim().includes("Cuenta creada con Éxito.")) {
+
+                // Si el usuario se registra o ya existe, redirigir al dashboard
+                window.location.href = '/dashboard';
+            }
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+            mostrarError("Error en la comunicación con el servidor.");
+        }
+    });
+}
+
+// Inicialización del botón de Google
+function initGoogleSignIn() {
+    google.accounts.id.initialize({
+        client_id: '978494635156-kn9vmufnugkahlhptbvmtah7jt7r60h8.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+        document.querySelector('.g_id_signin'),
+        { 
+            type: 'icon',
+            theme: 'filled_black',
+        }
+    );
+    google.accounts.id.prompt(); // Muestra el prompt de Google
+}
+
+// Inicializar Google Sign-In al cargar la página
+window.onload = function () {
+    initGoogleSignIn();
+};
+
+// Login con GitHub
+document.getElementById("github-login").addEventListener("click", function() {
+    // Redirecciona a GitHub con los parámetros necesarios
+    const clientId = "Ov23li9EsZ9MUsqhPpoX";
+    const redirectUri = encodeURIComponent("http://localhost:9091/usuarios/githubCallback");
+    const scope = encodeURIComponent("read:user user:email repo gist");
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
 });

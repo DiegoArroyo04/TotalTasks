@@ -9,7 +9,7 @@
   </head>
   <body>
     
-    <!-- Insertar el fragmento -->
+    <!-- Fragmento header -->
     <div th:insert="~{fragmentos/header :: header}"></div>
 
     <div class="hero">
@@ -179,86 +179,171 @@
       </div>
     </div>
 
-    <div class="seccion-testimonios">
+    <!-- Historias de Productividad -->
+    <h2 class="texto-productividad">Historias de Productividad</h2>
+    <div class="historias-productividad">
+      <div class="historias-columnas">
+        <!-- Historia 1 -->
+        <div class="historia-card historia1">
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="María, Gerente de Proyectos" class="historia-foto">
+          <div class="historia-texto">
+            <h3>María: Transformando la Gestión de Proyectos</h3>
+            <p>
+              María, gerente de proyectos en Innovatech, logró transformar la forma en que su equipo organiza y ejecuta tareas. Con TotalTasks,
+              pudo centralizar la información y automatizar recordatorios, lo que aumentó la productividad y redujo reuniones innecesarias...
+              <span class="texto-cortado">[...]</span>
+            </p>
+            <div class="continuar-lectura">
+              <p>Para seguir leyendo, visita nuestro <a href="/blog" title="Ir al blog">blog</a>.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Historia 2 -->
+        <div class="historia-card historia2">
+          <img src="/assets/index/reseñas/foto-reseña-2.jpeg" alt="Juan, Freelancer" class="historia-foto">
+          <div class="historia-texto">
+            <h3>Juan: Optimización de su Rutina Diaria</h3>
+            <p>
+              Juan, un freelancer, implementó TotalTasks para organizar su día a día, lo que le permitió cumplir plazos y mejorar la eficiencia
+              en sus proyectos personales. Gracias a la interfaz intuitiva y recordatorios inteligentes...
+              <span class="texto-cortado">[...]</span>
+            </p>
+            <div class="continuar-lectura">
+              <p>Para conocer más, visita nuestro <a href="/blog" title="Ir al blog">blog</a>.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Historia 3 -->
+        <div class="historia-card historia3">
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="María, Gerente de Proyectos" class="historia-foto">
+          <div class="historia-texto">
+            <h3>María: Transformando la Gestión de Proyectos</h3>
+            <p>
+              María, gerente de proyectos en Innovatech, logró transformar la forma en que su equipo organiza y ejecuta tareas. Con TotalTasks,
+              pudo centralizar la información y automatizar recordatorios, lo que aumentó la productividad y redujo reuniones innecesarias...
+              <span class="texto-cortado">[...]</span>
+            </p>
+            <div class="continuar-lectura">
+              <p>Para seguir leyendo, visita nuestro <a href="/blog" title="Ir al blog">blog</a>.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Historia 4 -->
+        <div class="historia-card historia4">
+          <img src="/assets/index/reseñas/foto-reseña-2.jpeg" alt="María, Gerente de Proyectos" class="historia-foto">
+          <div class="historia-texto">
+            <h3>María: Transformando la Gestión de Proyectos</h3>
+            <p>
+              María, gerente de proyectos en Innovatech, logró transformar la forma en que su equipo organiza y ejecuta tareas. Con TotalTasks,
+              pudo centralizar la información y automatizar recordatorios, lo que aumentó la productividad y redujo reuniones innecesarias...
+              <span class="texto-cortado">[...]</span>
+            </p>
+            <div class="continuar-lectura">
+              <p>Para seguir leyendo, visita nuestro <a href="/blog" title="Ir al blog">blog</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seccion-reseñas">
       <h2>Lo que dicen nuestros usuarios</h2>
-      <div class="contenedor-testimonios">
-        <!-- Testimonio 1 -->
-        <div class="testimonio">
+      <div class="contenedor-reseñas">
+        <!-- Reseña 1 -->
+        <div class="reseña">
           <div class="card">
             <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Foto de Ana Martínez" class="foto-usuario">
             <div class="card-content">
               <div class="estrellas">★★★★★</div>
               <h3 class="nombre-usuario">Ana Martínez</h3>
               <h4 class="cargo-usuario">CEO de Innovatech</h4>
-              <p class="texto-testimonio">"TotalTasks ha revolucionado la forma en que gestionamos nuestros proyectos. La plataforma es intuitiva y nos mantiene sincronizados."</p>
+              <p class="texto-reseña">"TotalTasks ha revolucionado la forma en que gestionamos nuestros proyectos. La plataforma es intuitiva y nos mantiene sincronizados."</p>
             </div>
           </div>
         </div>
-        <!-- Testimonio 2 -->
-        <div class="testimonio">
+        <!-- Reseña 2 -->
+        <div class="reseña">
           <div class="card">
             <img src="/assets/index/reseñas/foto-reseña-2.jpeg" alt="Foto de Carlos Ruiz" class="foto-usuario">
             <div class="card-content">
               <div class="estrellas">★★★★☆</div>
               <h3 class="nombre-usuario">Carlos Ruiz</h3>
               <h4 class="cargo-usuario">Gerente de Proyectos</h4>
-              <p class="texto-testimonio">"La integración con otras herramientas ha optimizado nuestro flujo de trabajo. ¡Una solución indispensable!"</p>
+              <p class="texto-reseña">"La integración con otras herramientas ha optimizado nuestro flujo de trabajo. ¡Una solución indispensable!"</p>
             </div>
           </div>
         </div>
-        <!-- Testimonio 3 -->
-        <div class="testimonio">
+        <!-- Reseña 3 -->
+        <div class="reseña">
           <div class="card">
             <img src="/assets/index/reseñas/foto-reseña-3.jpeg" alt="Foto de Luisa Gómez" class="foto-usuario">
             <div class="card-content">
               <div class="estrellas">★★★★★</div>
               <h3 class="nombre-usuario">Luisa Gómez</h3>
               <h4 class="cargo-usuario">Directora de Operaciones</h4>
-              <p class="texto-testimonio">"Con TotalTasks, la colaboración se ha vuelto más fluida. Ha mejorado significativamente nuestra productividad."</p>
+              <p class="texto-reseña">"Con TotalTasks, la colaboración se ha vuelto más fluida. Ha mejorado significativamente nuestra productividad."</p>
             </div>
           </div>
         </div>
-        <!-- Testimonio 4 -->
-        <div class="testimonio">
+        <!-- Reseña 4 -->
+        <div class="reseña">
           <div class="card">
             <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Foto de Marcos López" class="foto-usuario">
             <div class="card-content">
               <div class="estrellas">★★★★☆</div>
               <h3 class="nombre-usuario">Marcos López</h3>
               <h4 class="cargo-usuario">Consultor de Gestión</h4>
-              <p class="texto-testimonio">"La versatilidad y facilidad de uso de TotalTasks han transformado la manera en que asesoramos a nuestros clientes."</p>
+              <p class="texto-reseña">"La versatilidad y facilidad de uso de TotalTasks han transformado la manera en que asesoramos a nuestros clientes."</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    <div class="seccion-integraciones">
-      <h2>Integraciones</h2>
-      <p>Conecta TotalTasks con las herramientas que ya usas y optimiza tu flujo de trabajo.</p>
-      <div class="logos-integraciones">
-        <a href="https://facebook.com" target="_blank">
-          <img src="/assets/index/redes/facebook.png" alt="Facebook">
-        </a>
-        <a href="https://calendar.google.com" target="_blank">
-          <img src="/assets/index/integraciones/calendario-de-google.png" alt="Google Calendar">
-        </a>
-        <a href="https://instagram.com" target="_blank">
-          <img src="/assets/index/redes/instagram.png" alt="Instagram">
-        </a>
-        <a href="https://asana.com" target="_blank">
-          <img src="/assets/index/redes/github.png" alt="Asana">
-        </a>
-        <a href="https://outlook.live.com" target="_blank">
-          <img src="/assets/index/integraciones/microsoft-outlook.png" alt="Outlook">
-        </a>
-        <a href="https://www.dropbox.com" target="_blank">
-          <img src="/assets/index/integraciones/dropbox.png" alt="Dropbox">
-        </a>
+
+    <!-- Preguntas Frecuentes -->
+    <div class="faq">
+      <h2>Preguntas Frecuentes</h2>
+      <div class="faq-container">
+        <!-- Pregunta 1 -->
+        <div class="faq-pregunta">
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Usuario" class="avatar">
+          <p><strong>Usuario:</strong> ¿Cómo puedo crear una tarea recurrente?</p>
+        </div>
+        <!-- Respuesta 1 -->
+        <div class="faq-respuesta">
+          <p><strong>Soporte TotalTasks:</strong> Para crear una tarea recurrente, selecciona la opción "Repetir" al momento de agregar una nueva tarea.</p>
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Soporte TotalTasks" class="avatar">
+        </div>
+        
+        <!-- Pregunta 2 -->
+        <div class="faq-pregunta">
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Usuario" class="avatar">
+          <p><strong>Usuario:</strong> ¿Puedo sincronizar mis tareas con otros calendarios?</p>
+        </div>
+        <!-- Respuesta 2 -->
+        <div class="faq-respuesta">
+          <p><strong>Soporte TotalTasks:</strong> Actualmente, ofrecemos inicio de sesión con Google, lo que facilitará la sincronización con Google Calendar próximamente.</p>
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Soporte TotalTasks" class="avatar">
+        </div>
+        
+        <!-- Pregunta 3 -->
+        <div class="faq-pregunta">
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Usuario" class="avatar">
+          <p><strong>Usuario:</strong> ¿Qué tan seguro es TotalTasks para la gestión de mis datos?</p>
+        </div>
+        <!-- Respuesta 3 -->
+        <div class="faq-respuesta">
+          <p><strong>Soporte TotalTasks:</strong> Utilizamos protocolos de seguridad y cifrado de última generación para proteger tu información en todo momento.</p>
+          <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="Soporte TotalTasks" class="avatar">
+        </div>
+        
+        <div class="faq-link">
+          <p>¿Tienes más preguntas? Visita nuestra <a href="/faq" title="Ir a preguntas frecuentes">sección de preguntas frecuentes</a>.</p>
+        </div>
       </div>
     </div>
-    
-     <!-- Insertar el fragmento -->
+
+     <!-- Fragmento footer -->
      <div th:insert="~{fragmentos/footer :: footer}"></div>
 
     <script src="/js/index.js"></script>

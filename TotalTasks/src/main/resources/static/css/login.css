@@ -113,11 +113,26 @@ input::placeholder {
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-weight: 600;
-    font-family: Poppins;
+    font-family: var(--fuente-principal);
+    margin-bottom: 20px;
 }
 
 .btn-submit:hover {
     background-color: var(--color-primario-hover);
+}
+
+.login-alternativo {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#github-login {
+    object-fit: contain;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
 }
 
 /* MODAL DE ERROR */
@@ -150,6 +165,7 @@ input::placeholder {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--color-error);
+
 }
 
 .modalErrorHeader h2 {

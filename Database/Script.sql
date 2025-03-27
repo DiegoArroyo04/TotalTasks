@@ -8,7 +8,7 @@ CREATE TABLE usuario (
     nombre VARCHAR(100) NOT NULL,
     usuario VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    contrasenia VARCHAR(255) NOT NULL,
+    contrasenia VARCHAR(255) NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     foto_perfil LONGBLOB NULL,
     CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
@@ -51,6 +51,8 @@ CREATE TABLE tarea (
     CONSTRAINT FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto),
     CONSTRAINT FOREIGN KEY (id_responsable) REFERENCES Usuario (id_usuario)
 );
+
+SELECT * FROM USUARIO;
 
 -- SCRIPT DE DESTRUCTIVO
 DROP DATABASE totaltasks;

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/login.css">
     <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Google One Tap API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -34,10 +36,24 @@
 
             <button type="submit" class="btn-submit">Iniciar sesión</button>
 
-            <p>¿No tienes cuenta? <br><a href="/registro">Regístrate</a></p>
+            <!-- Login con Google -->
+            <div id="g_id_onload"
+                data-client_id="978494635156-kn9vmufnugkahlhptbvmtah7jt7r60h8.apps.googleusercontent.com"
+                data-login_uri="http://localhost:9091/tokensignin" data-auto_prompt="true">
+            </div>
 
+            <p>O inicia sesión con:</p>
+            <div class="login-alternativo">
+                <!-- Icono Login Google -->
+                <div class="g_id_signin" data-type="standard"></div>
+                <!-- Icono Login Github -->
+                <img src="/assets/index/redes/github.png" id="github-login" style="width: 50px;"></img>
+            </div>
+
+            <p>¿No tienes cuenta? <br><a href="/registro">Regístrate</a></p>
         </form>
     </div>
+
     <div id="modalError" class="modalError">
         <div class="modalErrorContenido">
             <div class="modalErrorHeader">
@@ -51,6 +67,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="js/login.js"></script>
 </body>
 

@@ -17,7 +17,8 @@
   flex-wrap: wrap;
 }
 
-.hero-texto, .hero-imagen {
+.hero-texto,
+.hero-imagen {
   flex: 1;
   padding: 20px;
 }
@@ -166,7 +167,6 @@
 .tarjeta {
   border-radius: 15px;
   padding: 20px;
-  background-color: var(--color-fondo);
 }
 
 .tarjeta .icono {
@@ -193,35 +193,118 @@
   color: var(--color-texto);
 }
 
-/* Estilo de reseñas */
-.seccion-testimonios {
-  padding: 60px 20px;
-  text-align: center;
-  background-color: var(--color-fondo);
+/* Historias de Productividad */
+.historias-productividad {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.seccion-testimonios h2 {
+.texto-productividad {
+  font-size: var(--tamano-subtitulo);
+  color: var(--color-primario);
+  text-align: center;
+}
+
+.historias-columnas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.historia-card {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  gap: 20px;
+  padding: 20px;
+}
+
+.historia1 {
+  align-self: flex-start;
+  margin-left: -300px;
+}
+
+.historia2 {
+  align-self: flex-end;
+  margin-right: -300px;
+}
+
+.historia3 {
+  align-self: flex-start;
+  margin-left: -300px;
+}
+
+.historia4 {
+  align-self: flex-end;
+  margin-right: -300px;
+}
+
+.historia-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.historia-texto {
+  text-align: justify;
+}
+
+.historia-texto h3 {
+  font-weight: 600;
+  color: var(--color-primario);
+  margin-bottom: 10px;
+}
+
+.texto-cortado {
+  font-style: italic;
+  color: var(--color-advertencia);
+}
+
+.continuar-lectura p {
+  font-size: 1rem;
+  color: var(--color-primario);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.continuar-lectura a {
+  color: var(--color-primario);
+  text-decoration: underline;
+}
+
+.continuar-lectura a:hover {
+  color: var(--color-primario-hover);
+}
+
+/* Estilo de reseñas */
+.seccion-reseñas {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.seccion-reseñas h2 {
   font-size: var(--tamano-subtitulo);
   margin-bottom: 40px;
   color: var(--color-primario);
 }
 
-.contenedor-testimonios {
+.contenedor-reseñas {
   display: flex;
   justify-content: center;
   gap: 100px;
 }
 
-.testimonio {
+.reseña {
   flex: 1 1 300px;
   max-width: 350px;
 }
 
 .card {
-  background-color: #fff;
   border-radius: 10px;
   padding: 20px;
-  /* Sombra intensa con mayor dispersión y opacidad */
   box-shadow: 0 15px 30px rgba(0, 123, 255, 0.7);
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -260,49 +343,87 @@
   color: var(--color-secundario);
 }
 
-.texto-testimonio {
+.texto-reseña {
   font-size: var(--tamano-texto);
   color: var(--color-texto);
   line-height: 1.5;
 }
 
-/* Sección de Integraciones */
-.seccion-integraciones {
+/* Preguntas Frecuentes (FAQ) */
+.faq {
+  max-width: 80%;
+  margin: 0 auto 40px;
   padding: 60px 20px;
-  text-align: center;
-  background-color: var(--color-fondo);
 }
 
-.seccion-integraciones h2 {
-  font-size: var(--tamano-subtitulo);
-  margin-bottom: 20px;
+.faq h2 {
+  text-align: center;
+  font-size: var(--tamano-titulo);
+  margin-bottom: 40px;
   color: var(--color-primario);
 }
 
-.seccion-integraciones p {
-  font-size: var(--tamano-texto);
-  margin-bottom: 40px;
-  color: var(--color-texto);
-}
-
-/* Cuadrícula de logos de integraciones */
-.logos-integraciones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+.faq-container {
+  display: flex;
+  flex-direction: column;
   gap: 30px;
+}
+
+/* Estilo para la pregunta (burbujas a la izquierda) */
+.faq-pregunta {
+  position: relative;
+  align-self: flex-start;
+  border: 2px solid var(--color-primario);
+  padding: 20px 30px;
+  border-radius: 20px;
+  max-width: 80%;
+  display: flex;
   align-items: center;
-  justify-items: center;
+  gap: 15px;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-/* Estilo para cada logo */
-.logos-integraciones a img {
-  max-width: 100%;
-  max-height: 100px;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  filter: grayscale(100%);
+/* Estilo para la respuesta (burbujas a la derecha) */
+.faq-respuesta {
+  position: relative;
+  align-self: flex-end;
+  background-color: var(--color-primario);
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 20px;
+  max-width: 80%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.logos-integraciones a:hover img {
-  transform: scale(1.1);
-  filter: grayscale(0%);
+/* Avatar en ambas secciones */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+/* Link para ver más FAQ */
+.faq-link {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+}
+
+.faq-link a {
+  color: var(--color-secundario);
+  font-weight: 800;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.faq-link a:hover {
+  color: var(--color-secundario-hover);
 }
