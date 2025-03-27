@@ -97,7 +97,10 @@ function initGoogleSignIn() {
     });
     google.accounts.id.renderButton(
         document.querySelector('.g_id_signin'),
-        { theme: 'outline', size: 'large' }
+        { 
+            type: 'icon',
+            theme: 'filled_black',
+        }
     );
     google.accounts.id.prompt(); // Muestra el prompt de Google
 }

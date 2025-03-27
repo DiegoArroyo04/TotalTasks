@@ -95,6 +95,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
 
     // Método para obtener el access token de GitHub
+    @SuppressWarnings({ "rawtypes", "unchecked" }) // Adevertencia de tipos de datos
     @Override
     public String obtenerAccessTokenDeGitHub(String code) {
         /*
@@ -131,6 +132,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
     
     // Método para obtener los datos del usuario de GitHub usando el access token
+    @SuppressWarnings("rawtypes") // Advertencia de tipo de datos
     @Override
     public UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
@@ -176,6 +178,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
 
     // Obtener datos del repositorio de GITHUB
+    @SuppressWarnings({ "rawtypes", "unchecked" }) // Advertencia de tipo de datos
     @Override
     public List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
