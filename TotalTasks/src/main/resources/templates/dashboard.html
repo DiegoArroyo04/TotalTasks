@@ -5,14 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body>
-    <!-- Insertar el fragmento -->
-    <div th:insert="~{fragmentos/header :: header}"></div>
+    <header class="header">
+        <!-- Logo -->
+
+        <img src="assets/logo.png" class="logo" alt="Logo">
+
+
+        <!-- Notificaciones -->
+        <div class="notificaciones">
+            <div class="icono-campana" onclick="toggleNotificaciones()">
+                <img class="imagenHeader" src="assets/dashboard/campana.png">
+                <span class="contador">3</span>
+            </div>
+            <div class="dropdown-notificaciones" id="notificacionesDropdown">
+                <p>Notificación 1</p>
+                <p>Notificación 2</p>
+                <p>Notificación 3</p>
+            </div>
+        </div>
+
+        <!-- Perfil Usuario -->
+        <div class="perfil">
+            <img src="assets/perfil.jpg" alt="Perfil" class="avatar" onclick="toggleMenu()">
+            <div class="menu-perfil" id="menuPerfil">
+                <p>Mi cuenta</p>
+                <p>Configuración</p>
+                <p>Cerrar sesión</p>
+            </div>
+        </div>
+    </header>
+
     <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+
+
     <!-- Insertar el fragmento -->
     <div th:insert="~{fragmentos/footer :: footer}"></div>
+    <script src="js/dashboard.js"></script>
 </body>
 
 </html>

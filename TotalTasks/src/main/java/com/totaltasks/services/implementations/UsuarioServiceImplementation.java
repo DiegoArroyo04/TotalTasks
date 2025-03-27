@@ -171,24 +171,6 @@ public class UsuarioServiceImplementation implements UsuarioService {
             }
         }
 
-        // Informacion extra
-        String avatarUrl = (String) userData.get("avatar_url");
-        String bio = (String) userData.get("bio");
-        String blog = (String) userData.get("blog");
-        String location = (String) userData.get("location");
-        Integer publicRepos = (Integer) userData.get("public_repos");
-
-        System.out.println(
-                "Mostrar datos del usuario de GitHub:\n" +
-                        "Nombre: " + nombre + "\n" +
-                        "Usuario: " + usuario + "\n" +
-                        "Email: " + email + "\n" +
-                        "Avatar URL: " + avatarUrl + "\n" +
-                        "Bio: " + bio + "\n" +
-                        "Blog: " + blog + "\n" +
-                        "Location: " + location + "\n" +
-                        "Public Repos: " + publicRepos);
-
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setNombre(nombre != null ? nombre : usuario);
         usuarioDTO.setUsuario(usuario);
