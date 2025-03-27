@@ -23,7 +23,6 @@ import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-
 @Service
 public class UsuarioServiceImplementation implements UsuarioService {
 
@@ -99,57 +98,79 @@ public class UsuarioServiceImplementation implements UsuarioService {
     @Override
     public String obtenerAccessTokenDeGitHub(String code) {
         /*
-         * Este método envía una solicitud POST a "https://github.com/login/oauth/access_token"
+         * Este método envía una solicitud POST a
+         * "https://github.com/login/oauth/access_token"
          * usando un RestTemplate. Se le envían tres parámetros:
          * - client_id: el identificador de la aplicación en GitHub.
          * - client_secret: la clave secreta (debe mantenerse confidencial).
          * - code: el código que GitHub nos devuelve en el callback.
          * 
-         * Además, se establece el header "Accept" con el valor "application/json" para 
+         * Además, se establece el header "Accept" con el valor "application/json" para
          * indicarle a GitHub que queremos recibir la respuesta en formato JSON.
          * 
-         * La respuesta es un mapa en el que se extrae el "access_token", que es necesario
-         * para realizar futuras solicitudes a la API de GitHub (como obtener los datos del usuario).
+         * La respuesta es un mapa en el que se extrae el "access_token", que es
+         * necesario
+         * para realizar futuras solicitudes a la API de GitHub (como obtener los datos
+         * del usuario).
          */
         RestTemplate restTemplate = new RestTemplate();
-        
+
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("client_id", "Ov23li9EsZ9MUsqhPpoX");
         params.add("client_secret", "0b382c7410bfde696afcc987b8423cecd50fa30a");
         params.add("code", code);
-        
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         // Indicamos que la respuesta se espere en formato JSON
         headers.set("Accept", "application/json");
-        
+
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
         String tokenUrl = "https://github.com/login/oauth/access_token";
-        
+
         ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
         Map<String, Object> responseBody = response.getBody();
         return responseBody != null ? (String) responseBody.get("access_token") : null;
     }
-    
+
     // Método para obtener los datos del usuario de GitHub usando el access token
     @SuppressWarnings("rawtypes") // Advertencia de tipo de datos
     @Override
     public UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
-        
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "token " + accessToken);
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        
+
         String userUrl = "https://api.github.com/user";
         ResponseEntity<Map> response = restTemplate.exchange(userUrl, HttpMethod.GET, entity, Map.class);
-        
+
         Map userData = response.getBody();
-        
+
         // Extraemos los datos relevantes: nombre, login (usuario) y email
         String nombre = (String) userData.get("name");
         String usuario = (String) userData.get("login");
         String email = (String) userData.get("email");
+
+        // Si el email es null, hacer otra petición para obtenerlo
+        if (email == null) {
+            String emailUrl = "https://api.github.com/user/emails";
+            ResponseEntity<List> emailResponse = restTemplate.exchange(emailUrl, HttpMethod.GET, entity, List.class);
+
+            List<Map<String, Object>> emails = emailResponse.getBody();
+            if (emails != null) {
+                for (Map<String, Object> emailObj : emails) {
+                    boolean primary = (boolean) emailObj.get("primary");
+                    boolean verified = (boolean) emailObj.get("verified");
+                    if (primary && verified) {
+                        email = (String) emailObj.get("email");
+                        break;
+                    }
+                }
+            }
+        }
+
         // Informacion extra
         String avatarUrl = (String) userData.get("avatar_url");
         String bio = (String) userData.get("bio");
@@ -158,22 +179,21 @@ public class UsuarioServiceImplementation implements UsuarioService {
         Integer publicRepos = (Integer) userData.get("public_repos");
 
         System.out.println(
-            "Mostrar datos del usuario de GitHub:\n" +
-            "Nombre: " + nombre + "\n" +
-            "Usuario: " + usuario + "\n" +
-            "Email: " + email + "\n" +
-            "Avatar URL: " + avatarUrl + "\n" +
-            "Bio: " + bio + "\n" +
-            "Blog: " + blog + "\n" +
-            "Location: " + location + "\n" +
-            "Public Repos: " + publicRepos
-        );
-        
+                "Mostrar datos del usuario de GitHub:\n" +
+                        "Nombre: " + nombre + "\n" +
+                        "Usuario: " + usuario + "\n" +
+                        "Email: " + email + "\n" +
+                        "Avatar URL: " + avatarUrl + "\n" +
+                        "Bio: " + bio + "\n" +
+                        "Blog: " + blog + "\n" +
+                        "Location: " + location + "\n" +
+                        "Public Repos: " + publicRepos);
+
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setNombre(nombre != null ? nombre : usuario);
         usuarioDTO.setUsuario(usuario);
         usuarioDTO.setEmail(email != null ? email : usuario + "@github.com");
-        
+
         return usuarioDTO;
     }
 
@@ -216,9 +236,11 @@ public class UsuarioServiceImplementation implements UsuarioService {
                 List<String> topics = (List<String>) repo.get("topics");
                 repoDTO.setTopics(topics);
 
-                // 2. Para cada repositorio, obtenemos el detalle de lenguajes usando el languages_url
+                // 2. Para cada repositorio, obtenemos el detalle de lenguajes usando el
+                // languages_url
                 String languagesUrl = (String) repo.get("languages_url");
-                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity, Map.class);
+                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity,
+                        Map.class);
                 Map<String, Integer> languages = languagesResponse.getBody();
                 repoDTO.setLanguages(languages);
 

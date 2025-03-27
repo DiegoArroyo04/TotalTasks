@@ -73,7 +73,6 @@ public class UsuarioController {
         if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getUsuario()));
         }
-        ;
 
         // Obtener la lista de repositorios enriquecida
         List<RepoDTO> repositorios = usuarioService.obtenerRepositoriosUsuarioGitHub(accessToken);
