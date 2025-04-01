@@ -40,10 +40,10 @@ public class UsuarioController {
         // Si el usuario fue encontrado (existe en la base de datos), se agrega a la
         // sesión
         if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
+            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
         } else {
             // Si el usuario fue creado, también lo agregamos a la sesión
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getUsuario()));
+            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
         }
 
         return respuesta;
@@ -71,7 +71,7 @@ public class UsuarioController {
         // Registrar o iniciar sesión
         String respuesta = usuarioService.registrarUsuarioGitHub(usuarioDTO);
         if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getUsuario()));
+            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getEmail()));
         }
 
         // Obtener la lista de repositorios enriquecida
