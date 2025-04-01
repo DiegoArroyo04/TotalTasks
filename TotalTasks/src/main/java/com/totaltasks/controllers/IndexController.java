@@ -1,6 +1,7 @@
 package com.totaltasks.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.totaltasks.entities.UsuarioEntity;
@@ -11,8 +12,18 @@ import jakarta.servlet.http.HttpSession;
 public class IndexController {
 
 	@GetMapping("/")
-	public String index() {
-		return "index";
+	public String index(HttpSession session, Model model) {
+
+		// SI EL USUARIO YA ESTA LOGUEADO QUE LE Apareza la opcion de mi dashboard
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		if (usuario == null) {
+			return "index";
+		} else {
+			model.addAttribute("usuario", usuario);
+			return "index";
+		}
+
 	}
 
 	@GetMapping("/registro")
