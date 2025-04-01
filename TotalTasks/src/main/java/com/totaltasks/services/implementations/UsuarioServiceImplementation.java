@@ -257,9 +257,9 @@ public class UsuarioServiceImplementation implements UsuarioService {
     }
 
     @Override
-    public UsuarioEntity encontrarUsuario(String usuario) {
+    public UsuarioEntity encontrarUsuario(String email) {
         // BUSCAR USUARIO
-        return usuarioRepository.findByusuario(usuario);
+        return usuarioRepository.findByemail(email);
     }
 
 }

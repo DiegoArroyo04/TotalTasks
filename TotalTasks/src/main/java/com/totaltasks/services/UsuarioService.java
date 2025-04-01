@@ -13,15 +13,16 @@ public interface UsuarioService {
 
     String registrarUsuarioGitHub(UsuarioDTO usuario);
 
-    //Metodos github
+    // Metodos github
     String obtenerAccessTokenDeGitHub(String code);
+
     UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken);
 
-    //Metodo adicional datos Github
+    // Metodo adicional datos Github
     List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken);
 
     String comprobarLogin(UsuarioDTO usuario);
 
     // BUSCAR POR USUARIO
-    UsuarioEntity encontrarUsuario(String usuario);
+    UsuarioEntity encontrarUsuario(String email);
 }
