@@ -1,0 +1,47 @@
+@import url('/css/general.css');
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: var(--tamano-titulo);
+  color: var(--color-primario);
+}
+
+main {
+  padding: 20px;
+  text-align: justify;
+}
+
+h2 {
+  font-size: var(--tamano-subtitulo);
+  color: var(--color-primario);
+  margin-bottom: 15px;
+}
+
+p, li {
+  font-size: var(--tamano-texto);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+a {
+  color: var(--color-primario);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
