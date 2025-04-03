@@ -8,6 +8,7 @@ import com.totaltasks.entities.UsuarioEntity;
 
 import jakarta.servlet.http.HttpSession;
 
+
 @Controller
 public class IndexController {
 
@@ -57,6 +58,26 @@ public class IndexController {
 			return "dashboard";
 		}
 
+	}
+
+	@GetMapping("/privacidad")
+	public String privacidad() {
+		return "/textos-legales/privacidad";
+	}
+
+	@GetMapping("/terminos-de-uso")
+	public String terminos() {
+		return "/textos-legales/terminos-de-uso";
+	}
+	
+	@GetMapping("/documentacion")
+	public String documentacion() {
+		return "/informacion/documentacion";
+	}
+
+	@GetMapping("/faq")
+	public String faq() {
+		return "/informacion/faq";
 	}
 
 }
