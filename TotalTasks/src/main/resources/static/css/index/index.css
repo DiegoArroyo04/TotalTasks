@@ -181,6 +181,30 @@
   color: #fff;
 }
 
+.icono img {
+  width: 100%;
+  height: 100%;
+  animation: parpadeo 1.5s ease-in-out infinite;
+}
+
+
+@keyframes parpadeo {
+  0% {
+
+    transform: scale(1);
+  }
+
+  50% {
+
+    transform: scale(1.05);
+  }
+
+  100% {
+
+    transform: scale(1);
+  }
+}
+
 .tarjeta h3 {
   margin-bottom: 10px;
   font-size: 1.3rem;
@@ -263,20 +287,7 @@
   color: var(--color-advertencia);
 }
 
-.continuar-lectura p {
-  color: var(--color-secundario);
-  font-weight: 600;
-  margin: 10px 0;
-}
 
-.continuar-lectura a {
-  color: var(--color-secundario);
-  text-decoration: underline;
-}
-
-.continuar-lectura a:hover {
-  color: var(--color-secundario-hover);
-}
 
 /* Estilo del separador */
 .divider {
