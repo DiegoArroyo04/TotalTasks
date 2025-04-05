@@ -1,0 +1,23 @@
+<!-- Chatbot Interactivo -->
+
+<div id="chatbotContainer" class="chatbotContainer" th:fragment="chatbot">
+
+    <!-- Botón flotante para abrir y cerrar chatbot -->
+    <button id="chatToggle" class="chatToggle">
+        <img src="/assets/dashboard/chatbot.png" alt="Chat icon">
+    </button>
+
+    <div id="chatWindow" class="chatWindow">
+        <div id="chatLog" class="chatLog">
+            <div class="chat bot">🤖¡Hola! ¿En qué puedo ayudarte hoy? </div>
+        </div>
+        <!-- Opciones como botones -->
+        <div id="chatOptions" class="chatOptions">
+            <button onclick="handleOptionClick('crear tarea recurrente')">📝 Crear tarea recurrente</button>
+            <button onclick="handleOptionClick('sincronizar con calendario')">📅 Sincronizar con calendario</button>
+            <button onclick="handleOptionClick('seguridad de los datos')">🔒 Seguridad de los datos</button>
+        </div>
+    </div>
+    <script src="/js/chatbot.js"></script>
+    <link rel="stylesheet" href="/css/chatbot.css">
+</div>
