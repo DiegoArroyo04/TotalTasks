@@ -155,3 +155,163 @@
   margin-top: 20px;
   font-size: 0.8rem;
 }
+
+/* Pantallas pequeñas (Móviles) */
+@media (max-width: 768px) {
+  .contenedor-footer {
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 0;
+  }
+
+  .marca-footer,
+  .newsletter-footer,
+  .enlaces-footer {
+    text-align: center;
+    flex: unset;
+  }
+
+  .marca-footer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-footer {
+    width: 100px;
+    margin: 0;
+  }
+
+  .newsletter-footer form {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  /* Los enlaces extra se organizan en columna */
+  .extra-footer ul {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .iconos-redes {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contenedor-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-bottom: 0;
+  }
+
+  .marca-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .logo-footer {
+    width: 150px;
+    margin-top: 0;
+  }
+
+  .texto-marca h2 {
+    font-size: 22px;
+  }
+
+  .texto-marca p {
+    font-size: 13px;
+  }
+
+  .newsletter-footer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .newsletter-footer h4 {
+    font-size: 16px;
+  }
+
+  .newsletter-footer p {
+    font-size: 13px;
+  }
+
+  .newsletter-footer form {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .newsletter-footer input[type="email"] {
+    width: 85%;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  .newsletter-footer button {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .enlaces-footer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .enlaces-footer h4 {
+    font-size: 16px;
+  }
+
+  .enlaces-footer ul {
+    margin: 0;
+  }
+
+  .enlaces-footer ul li a {
+    font-size: 13px;
+  }
+
+  .extra-footer {
+    margin: 15px auto;
+  }
+
+  .extra-footer ul {
+    gap: 10px;
+  }
+
+  .extra-footer ul li a {
+    font-size: 13px;
+  }
+
+  .iconos-redes {
+    gap: 10px;
+  }
+
+  .iconos-redes a img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .final-footer {
+    font-size: 12px;
+    margin-top: 15px;
+  }
+}
