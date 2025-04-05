@@ -264,89 +264,26 @@
 }
 
 .continuar-lectura p {
-  font-size: 1rem;
-  color: var(--color-primario);
+  color: var(--color-secundario);
   font-weight: 600;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .continuar-lectura a {
-  color: var(--color-primario);
+  color: var(--color-secundario);
   text-decoration: underline;
 }
 
 .continuar-lectura a:hover {
-  color: var(--color-primario-hover);
+  color: var(--color-secundario-hover);
 }
 
-/* Estilo de reseñas */
-.seccion-reseñas {
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.seccion-reseñas h2 {
-  font-size: var(--tamano-subtitulo);
-  margin-bottom: 40px;
-  color: var(--color-primario);
-}
-
-.contenedor-reseñas {
-  display: flex;
-  justify-content: center;
-  gap: 100px;
-}
-
-.reseña {
-  flex: 1 1 300px;
-  max-width: 350px;
-}
-
-.card {
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 15px 30px rgba(0, 123, 255, 0.7);
-  text-align: left;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 123, 255, 0.9);
-}
-
-.foto-usuario {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--color-primario);
-  margin-bottom: 15px;
-}
-
-.estrellas {
-  font-size: 1.2rem;
-  color: var(--color-advertencia);
-  margin-bottom: 10px;
-}
-
-.nombre-usuario {
-  font-size: var(--tamano-texto-grande);
-  margin: 0;
-  color: var(--color-primario);
-}
-
-.cargo-usuario {
-  font-size: var(--tamano-texto-mediano);
-  margin: 5px 0 15px;
-  color: var(--color-secundario);
-}
-
-.texto-reseña {
-  font-size: var(--tamano-texto);
-  color: var(--color-texto);
-  line-height: 1.5;
+/* Estilo del separador */
+.divider {
+  width: 95%;
+  height: 2px;
+  margin: 0 auto;
+  background-color: var(--color-primario);
 }
 
 /* Preguntas Frecuentes (FAQ) */
