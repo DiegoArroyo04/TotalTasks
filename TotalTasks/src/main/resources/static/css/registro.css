@@ -15,6 +15,7 @@ body {
     height: 100vh;
     background-color: var(--color-sombra);
     background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png");
+
 }
 
 /* Formulario de registro */
@@ -27,6 +28,7 @@ body {
     width: 100%;
     text-align: center;
     margin: 0 auto;
+
 }
 
 .izquierda {
@@ -124,7 +126,9 @@ input::placeholder {
 }
 
 /* Estilos base para modales */
-.modal, .modalError, .modalSuccess {
+.modal,
+.modalError,
+.modalSuccess {
     display: none;
     position: fixed;
     left: 0;
@@ -142,12 +146,15 @@ input::placeholder {
     -webkit-backdrop-filter: blur(10px);
 }
 
-.modalError, .modalSuccess {
+.modalError,
+.modalSuccess {
     z-index: 1001;
 }
 
 /* Contenido común de los modales */
-.modalContenido, .modalErrorContenido, .modalSuccessContenido {
+.modalContenido,
+.modalErrorContenido,
+.modalSuccessContenido {
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -162,13 +169,16 @@ input::placeholder {
     text-align: left;
 }
 
-.modalErrorContenido, .modalSuccessContenido {
+.modalErrorContenido,
+.modalSuccessContenido {
     width: 90%;
     max-width: 400px;
 }
 
 /* Header de modales */
-.modalHeader, .modalErrorHeader, .modalSuccessHeader {
+.modalHeader,
+.modalErrorHeader,
+.modalSuccessHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -204,7 +214,9 @@ input::placeholder {
 }
 
 /* Botones de cerrar modales */
-.cerrarModal, .cerrarModalError, .cerrarModalSuccess {
+.cerrarModal,
+.cerrarModalError,
+.cerrarModalSuccess {
     background: none;
     border: none;
     font-size: 20px;
@@ -214,7 +226,9 @@ input::placeholder {
     transition: transform 0.3s ease;
 }
 
-.cerrarModal:hover, .cerrarModalError:hover, .cerrarModalSuccess:hover {
+.cerrarModal:hover,
+.cerrarModalError:hover,
+.cerrarModalSuccess:hover {
     transform: scale(1.2);
 }
 
@@ -231,14 +245,17 @@ input::placeholder {
 }
 
 /* Cuerpo de modales */
-.modalBody, .modalErrorBody, .modalSuccessBody {
+.modalBody,
+.modalErrorBody,
+.modalSuccessBody {
     margin-top: 15px;
     padding: 10px;
     font-size: var(--tamano-texto);
     color: #333;
 }
 
-.modalErrorBody .iconoError, .modalSuccessBody .iconoSuccess {
+.modalErrorBody .iconoError,
+.modalSuccessBody .iconoSuccess {
     display: block;
     margin-bottom: 10px;
 }
@@ -270,24 +287,30 @@ input::placeholder {
     .izquierda {
         display: none;
     }
+
     h2 {
         font-size: 1.4rem;
     }
+
     .form-container {
         width: 100%;
         padding: 20px;
     }
+
     .modalContenido {
         width: 80%;
         height: 80%;
         overflow-y: auto;
     }
+
     body {
         align-items: baseline;
     }
+
     .modalErrorHeader h2 {
         font-size: var(--tamano-texto-mediano);
     }
+
     .cerrarModalError {
         margin-top: -40px;
     }
@@ -298,12 +321,72 @@ input::placeholder {
     .izquierda {
         display: none;
     }
+
     .fotoIzquierda {
         width: 200px;
         height: 200px;
         object-fit: contain;
     }
+
     .form-container {
         max-width: 75%;
+    }
+}
+
+/* PORTATILES */
+@media (min-width: 1025px) and (max-width: 1440px) {
+
+
+    .form-container {
+        max-height: 100vh;
+        padding: 12px 30px;
+    }
+
+    h2 {
+        margin-bottom: 10px;
+        font-size: var(--tamano-texto-grande);
+    }
+
+    .fotoIzquierda {
+        max-height: 200px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .logo {
+        width: 130px;
+    }
+
+    .form-group {
+
+        margin-bottom: 10px;
+    }
+
+
+    label {
+        font-size: var(--tamano-texto-pequeno);
+        margin-bottom: 4px;
+
+    }
+
+    input {
+
+        padding: 8px;
+        font-size: var(--tamano-texto-pequeno);
+
+    }
+
+    /* Botón de envío */
+    .btn-submit {
+        padding: 10px;
+        font-size: var(--tamano-texto-pequeno);
+        margin-top: 12px;
+
+    }
+
+    p {
+        font-size: var(--tamano-texto-pequeno);
+        line-height: 21px;
     }
 }
