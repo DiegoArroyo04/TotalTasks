@@ -16,7 +16,15 @@
   background-color: var(--color-fondo);
   border-bottom: 1px solid var(--color-secundario);
   z-index: 1;
+
+
 }
+
+.header-spacer {
+  height: 0px;
+  transition: height 0.3s ease;
+}
+
 
 .logo img {
   width: 150px;

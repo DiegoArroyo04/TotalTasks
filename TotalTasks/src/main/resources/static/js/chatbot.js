@@ -20,16 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-
-
-    function openChatbot() {
-        document.getElementById("chatWindow").style.display = "flex";
-        document.getElementById("moreQuestions").style.display = "block";
-    }
-
-
-
 });
+
+function openChatbot() {
+    document.getElementById("chatWindow").style.display = "flex";
+    document.getElementById("moreQuestions").style.display = "block";
+}
 
 function handleOptionClick(opcion) {
     const chatLog = document.getElementById("chatLog");

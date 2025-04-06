@@ -64,6 +64,14 @@
     padding: 12px;
 }
 
+.chatbotContainer p a {
+    color: var(--color-secundario);
+}
+
+.chatbotContainer p a:hover {
+    color: var(--color-secundario-hover);
+}
+
 .chatWindow {
     display: none;
     background: var(--color-fondo);

@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentación TotalTasks - Tutorial, Guías y Recursos</title>
   <link rel="stylesheet" href="/css/informacion/documentacion.css">
 </head>
+
 <body>
-  <!-- Header principal -->
-  <header class="doc-header">
-    <div class="header-contenido">
-      <img src="/assets/logo.png" alt="Logo TotalTasks" class="logo-header">
-      <h1>Documentación TotalTasks</h1>
-      <p>Descubre todo lo que necesitas saber para dominar la plataforma: tutoriales, guías, soluciones y recursos.</p>
-    </div>
-  </header>
+  <!-- Fragmento header -->
+  <div th:insert="~{fragmentos/header :: header}"></div>
 
   <!-- Contenedor general con menú lateral y contenido -->
   <div class="doc-container">
@@ -39,13 +35,19 @@
       <section id="introduccion" class="doc-section">
         <h2>1. Introducción</h2>
         <p>
-          Bienvenido a la documentación oficial de TotalTasks. En esta sección encontrarás una visión general de la plataforma, sus objetivos y cómo puede transformar la manera en que gestionas tareas y proyectos. TotalTasks ha sido diseñada para ofrecer una experiencia intuitiva y completa, adaptándose tanto a usuarios individuales como a equipos de trabajo.
+          Bienvenido a la documentación oficial de TotalTasks. En esta sección encontrarás una visión general de la
+          plataforma, sus objetivos y cómo puede transformar la manera en que gestionas tareas y proyectos. TotalTasks
+          ha sido diseñada para ofrecer una experiencia intuitiva y completa, adaptándose tanto a usuarios individuales
+          como a equipos de trabajo.
         </p>
         <p>
-          La plataforma integra herramientas avanzadas de gestión, análisis y colaboración, permitiéndote organizar tu día a día y mejorar la productividad en todos los niveles. Desde la planificación inicial hasta el seguimiento detallado, TotalTasks te acompaña en cada paso.
+          La plataforma integra herramientas avanzadas de gestión, análisis y colaboración, permitiéndote organizar tu
+          día a día y mejorar la productividad en todos los niveles. Desde la planificación inicial hasta el seguimiento
+          detallado, TotalTasks te acompaña en cada paso.
         </p>
         <p>
-          Esta documentación se actualizará periódicamente para reflejar nuevas funcionalidades y mejoras, por lo que te recomendamos revisarla con frecuencia.
+          Esta documentación se actualizará periódicamente para reflejar nuevas funcionalidades y mejoras, por lo que te
+          recomendamos revisarla con frecuencia.
         </p>
       </section>
 
@@ -57,15 +59,20 @@
         </p>
         <h3>2.1 Registro y Creación de Cuenta</h3>
         <p>
-          Accede a la página de registro e ingresa tus datos básicos: nombre, correo electrónico y contraseña. Recibirás un correo de verificación que deberás confirmar para activar tu cuenta.
+          Accede a la página de registro e ingresa tus datos básicos: nombre, correo electrónico y contraseña. Recibirás
+          un correo de verificación que deberás confirmar para activar tu cuenta.
         </p>
         <h3>2.2 Configuración Inicial</h3>
         <p>
-          Una vez activada la cuenta, accede a tu panel de usuario y completa tu perfil. Podrás configurar preferencias como notificaciones, temas de color y la organización de tus proyectos. Es recomendable personalizar la interfaz para adaptarla a tus necesidades.
+          Una vez activada la cuenta, accede a tu panel de usuario y completa tu perfil. Podrás configurar preferencias
+          como notificaciones, temas de color y la organización de tus proyectos. Es recomendable personalizar la
+          interfaz para adaptarla a tus necesidades.
         </p>
         <h3>2.3 Instalación en Dispositivos Móviles</h3>
         <p>
-          TotalTasks está disponible en versión web y aplicaciones móviles. Descarga la app desde la tienda correspondiente (Google Play o App Store) y sincroniza tu cuenta para tener acceso a todas las funcionalidades en cualquier momento.
+          TotalTasks está disponible en versión web y aplicaciones móviles. Descarga la app desde la tienda
+          correspondiente (Google Play o App Store) y sincroniza tu cuenta para tener acceso a todas las funcionalidades
+          en cualquier momento.
         </p>
       </section>
 
@@ -73,23 +80,30 @@
       <section id="uso" class="doc-section">
         <h2>3. Uso de la Plataforma</h2>
         <p>
-          TotalTasks te permite gestionar tareas y proyectos de manera integral. En esta sección, se detallan las principales funcionalidades y cómo aprovecharlas:
+          TotalTasks te permite gestionar tareas y proyectos de manera integral. En esta sección, se detallan las
+          principales funcionalidades y cómo aprovecharlas:
         </p>
         <h3>3.1 Panel de Control</h3>
         <p>
-          El dashboard central ofrece una vista general de tu actividad, permitiendo un acceso rápido a tareas, proyectos y notificaciones. Podrás ver resúmenes diarios, semanales y mensuales, además de acceder a estadísticas personalizadas.
+          El dashboard central ofrece una vista general de tu actividad, permitiendo un acceso rápido a tareas,
+          proyectos y notificaciones. Podrás ver resúmenes diarios, semanales y mensuales, además de acceder a
+          estadísticas personalizadas.
         </p>
         <h3>3.2 Gestión de Proyectos</h3>
         <p>
-          Crea, organiza y gestiona proyectos utilizando metodologías como Scrum, Kanban o Cascada. Asigna roles a los miembros de tu equipo, establece fechas de vencimiento y utiliza herramientas colaborativas para mantener todo en orden.
+          Crea, organiza y gestiona proyectos utilizando metodologías como Scrum, Kanban o Cascada. Asigna roles a los
+          miembros de tu equipo, establece fechas de vencimiento y utiliza herramientas colaborativas para mantener todo
+          en orden.
         </p>
         <h3>3.3 Administración de Tareas</h3>
         <p>
-          Organiza tus tareas en diferentes estados: pendientes, en progreso y finalizadas. Las tareas pueden ser asignadas a diferentes usuarios, categorizadas por prioridad y etiquetadas para facilitar su seguimiento.
+          Organiza tus tareas en diferentes estados: pendientes, en progreso y finalizadas. Las tareas pueden ser
+          asignadas a diferentes usuarios, categorizadas por prioridad y etiquetadas para facilitar su seguimiento.
         </p>
         <h3>3.4 Notificaciones y Recordatorios</h3>
         <p>
-          Configura alertas y recordatorios personalizados para no perder ningún detalle. Recibe notificaciones en tiempo real tanto en la web como en tus dispositivos móviles.
+          Configura alertas y recordatorios personalizados para no perder ningún detalle. Recibe notificaciones en
+          tiempo real tanto en la web como en tus dispositivos móviles.
         </p>
       </section>
 
@@ -97,19 +111,24 @@
       <section id="integraciones" class="doc-section">
         <h2>4. Integraciones y Extensiones</h2>
         <p>
-          TotalTasks se integra con diversas herramientas y aplicaciones para potenciar tu productividad. Esta sección detalla cómo conectar y aprovechar estas integraciones:
+          TotalTasks se integra con diversas herramientas y aplicaciones para potenciar tu productividad. Esta sección
+          detalla cómo conectar y aprovechar estas integraciones:
         </p>
         <h3>4.1 Integración con Calendarios</h3>
         <p>
-          Sincroniza tus tareas y eventos con Google Calendar, Outlook y otras aplicaciones de calendario. Esta integración te permite mantener tus citas y recordatorios siempre actualizados.
+          Sincroniza tus tareas y eventos con Google Calendar, Outlook y otras aplicaciones de calendario. Esta
+          integración te permite mantener tus citas y recordatorios siempre actualizados.
         </p>
         <h3>4.2 Conexión con Aplicaciones de Almacenamiento</h3>
         <p>
-          Conecta TotalTasks con servicios en la nube como Google Drive, Dropbox y OneDrive para almacenar y compartir archivos de forma segura. Esto facilita la colaboración y el acceso a documentos desde cualquier dispositivo.
+          Conecta TotalTasks con servicios en la nube como Google Drive, Dropbox y OneDrive para almacenar y compartir
+          archivos de forma segura. Esto facilita la colaboración y el acceso a documentos desde cualquier dispositivo.
         </p>
         <h3>4.3 Extensiones y Plugins</h3>
         <p>
-          Aprovecha la amplia variedad de plugins y extensiones que TotalTasks ofrece para personalizar aún más la plataforma. Desde herramientas de análisis hasta integraciones con redes sociales, las posibilidades son casi infinitas.
+          Aprovecha la amplia variedad de plugins y extensiones que TotalTasks ofrece para personalizar aún más la
+          plataforma. Desde herramientas de análisis hasta integraciones con redes sociales, las posibilidades son casi
+          infinitas.
         </p>
       </section>
 
@@ -121,15 +140,18 @@
         </p>
         <h3>5.1 Guía de Solución de Problemas Comunes</h3>
         <p>
-          Aquí encontrarás respuestas a preguntas frecuentes sobre errores de conexión, problemas de sincronización y otros fallos que puedan surgir. Cada problema se explica paso a paso y se ofrecen soluciones prácticas.
+          Aquí encontrarás respuestas a preguntas frecuentes sobre errores de conexión, problemas de sincronización y
+          otros fallos que puedan surgir. Cada problema se explica paso a paso y se ofrecen soluciones prácticas.
         </p>
         <h3>5.2 Soporte Técnico</h3>
         <p>
-          Si el problema persiste, contacta a nuestro equipo de soporte técnico. Proporciona detalles precisos, como capturas de pantalla y pasos para reproducir el error, para que podamos ayudarte de forma rápida y eficaz.
+          Si el problema persiste, contacta a nuestro equipo de soporte técnico. Proporciona detalles precisos, como
+          capturas de pantalla y pasos para reproducir el error, para que podamos ayudarte de forma rápida y eficaz.
         </p>
         <h3>5.3 Comunidad y Foros</h3>
         <p>
-          Únete a la comunidad de TotalTasks en nuestros foros y redes sociales. Aquí podrás compartir experiencias, obtener consejos de otros usuarios y encontrar soluciones colaborativas a problemas específicos.
+          Únete a la comunidad de TotalTasks en nuestros foros y redes sociales. Aquí podrás compartir experiencias,
+          obtener consejos de otros usuarios y encontrar soluciones colaborativas a problemas específicos.
         </p>
       </section>
 
@@ -137,19 +159,25 @@
       <section id="actualizaciones" class="doc-section">
         <h2>6. Actualizaciones y Novedades</h2>
         <p>
-          TotalTasks se encuentra en constante evolución. Esta sección ofrece información sobre las últimas actualizaciones, nuevas funcionalidades y mejoras en la plataforma:
+          TotalTasks se encuentra en constante evolución. Esta sección ofrece información sobre las últimas
+          actualizaciones, nuevas funcionalidades y mejoras en la plataforma:
         </p>
         <h3>6.1 Registro de Cambios</h3>
         <p>
-          Consulta el historial de versiones para conocer en detalle cada actualización, corrección de errores y mejoras implementadas en la plataforma. Cada versión viene acompañada de una descripción de los cambios y cómo afectan a los usuarios.
+          Consulta el historial de versiones para conocer en detalle cada actualización, corrección de errores y mejoras
+          implementadas en la plataforma. Cada versión viene acompañada de una descripción de los cambios y cómo afectan
+          a los usuarios.
         </p>
         <h3>6.2 Boletines y Notificaciones</h3>
         <p>
-          Suscríbete a nuestros boletines para recibir notificaciones automáticas sobre las novedades de TotalTasks. Mantente informado sobre nuevos lanzamientos, eventos y mejoras que optimizarán tu experiencia.
+          Suscríbete a nuestros boletines para recibir notificaciones automáticas sobre las novedades de TotalTasks.
+          Mantente informado sobre nuevos lanzamientos, eventos y mejoras que optimizarán tu experiencia.
         </p>
         <h3>6.3 Roadmap de Producto</h3>
         <p>
-          Explora el roadmap de producto para descubrir las futuras funcionalidades y mejoras planeadas. Tu feedback es fundamental para el desarrollo continuo de la plataforma, y aquí podrás ver cómo se planifican las innovaciones a futuro.
+          Explora el roadmap de producto para descubrir las futuras funcionalidades y mejoras planeadas. Tu feedback es
+          fundamental para el desarrollo continuo de la plataforma, y aquí podrás ver cómo se planifican las
+          innovaciones a futuro.
         </p>
       </section>
 
@@ -157,23 +185,29 @@
       <section id="recursos" class="doc-section">
         <h2>7. Recursos Adicionales</h2>
         <p>
-          Para facilitarte la experiencia y maximizar el potencial de TotalTasks, hemos reunido una variedad de recursos adicionales:
+          Para facilitarte la experiencia y maximizar el potencial de TotalTasks, hemos reunido una variedad de recursos
+          adicionales:
         </p>
         <h3>7.1 Guías Paso a Paso</h3>
         <p>
-          Accede a tutoriales detallados que te guiarán a través de cada funcionalidad, desde la creación de tareas hasta la integración con herramientas externas. Cada guía incluye imágenes, videos y ejemplos prácticos.
+          Accede a tutoriales detallados que te guiarán a través de cada funcionalidad, desde la creación de tareas
+          hasta la integración con herramientas externas. Cada guía incluye imágenes, videos y ejemplos prácticos.
         </p>
         <h3>7.2 Vídeos Tutoriales</h3>
         <p>
-          Consulta nuestra biblioteca de vídeos tutoriales para obtener una visión visual y práctica de cómo utilizar cada herramienta de TotalTasks. Los vídeos están organizados por temas y niveles de experiencia.
+          Consulta nuestra biblioteca de vídeos tutoriales para obtener una visión visual y práctica de cómo utilizar
+          cada herramienta de TotalTasks. Los vídeos están organizados por temas y niveles de experiencia.
         </p>
         <h3>7.3 Webinars y Talleres</h3>
         <p>
-          Participa en webinars y talleres en línea donde expertos en productividad y gestión de proyectos te mostrarán las mejores prácticas y trucos para sacar el máximo provecho a la plataforma.
+          Participa en webinars y talleres en línea donde expertos en productividad y gestión de proyectos te mostrarán
+          las mejores prácticas y trucos para sacar el máximo provecho a la plataforma.
         </p>
         <h3>7.4 Documentación Técnica</h3>
         <p>
-          Para desarrolladores y usuarios avanzados, ofrecemos documentación técnica detallada, API, ejemplos de código y casos de integración. Esta sección es ideal para aquellos que deseen personalizar o ampliar las capacidades de TotalTasks.
+          Para desarrolladores y usuarios avanzados, ofrecemos documentación técnica detallada, API, ejemplos de código
+          y casos de integración. Esta sección es ideal para aquellos que deseen personalizar o ampliar las capacidades
+          de TotalTasks.
         </p>
       </section>
 
@@ -181,22 +215,29 @@
       <section id="faq" class="doc-section">
         <h2>8. Preguntas Frecuentes</h2>
         <p>
-          Consulta nuestra sección interna de FAQ para resolver las dudas más comunes sobre el uso de TotalTasks. Si no encuentras la respuesta, no dudes en ponerte en contacto con nuestro soporte.
+          Consulta nuestra sección interna de FAQ para resolver las dudas más comunes sobre el uso de TotalTasks. Si no
+          encuentras la respuesta, no dudes en ponerte en contacto con nuestro soporte.
         </p>
         <ul>
-          <li><strong>¿Cómo crear una tarea recurrente?</strong> Accede a la opción "Repetir" al crear una nueva tarea y configura la periodicidad deseada.</li>
-          <li><strong>¿Puedo sincronizar TotalTasks con mi calendario?</strong> Sí, la integración con Google Calendar y Outlook facilita la sincronización de tus eventos y tareas.</li>
-          <li><strong>¿Qué hago si mi cuenta presenta problemas de acceso?</strong> Utiliza la opción "Olvidé mi contraseña" o contacta a soporte técnico para asistencia personalizada.</li>
+          <li><strong>¿Cómo crear una tarea recurrente?</strong> Accede a la opción "Repetir" al crear una nueva tarea y
+            configura la periodicidad deseada.</li>
+          <li><strong>¿Puedo sincronizar TotalTasks con mi calendario?</strong> Sí, la integración con Google Calendar y
+            Outlook facilita la sincronización de tus eventos y tareas.</li>
+          <li><strong>¿Qué hago si mi cuenta presenta problemas de acceso?</strong> Utiliza la opción "Olvidé mi
+            contraseña" o contacta a soporte técnico para asistencia personalizada.</li>
         </ul>
       </section>
     </main>
   </div>
 
-  <!-- Footer -->
-  <footer class="doc-footer">
-    <p>&copy; 2025 TotalTasks. Todos los derechos reservados.</p>
-  </footer>
+
+  <!-- Fragmento chatbot -->
+  <div th:insert="~{fragmentos/chatbot :: chatbot}"></div>
+
+  <!-- Fragmento footer -->
+  <div th:insert="~{fragmentos/footer :: footer}"></div>
 
   <script src="/js/informacion/documentacion.js"></script>
 </body>
+
 </html>

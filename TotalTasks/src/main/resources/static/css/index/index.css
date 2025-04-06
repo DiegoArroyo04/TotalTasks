@@ -223,9 +223,11 @@
 
 }
 
+
 .texto-productividad {
-  font-size: var(--tamano-subtitulo);
+  font-size: var(--tamano-titulo);
   color: var(--color-primario);
+  margin-bottom: 40px;
   text-align: center;
 }
 
@@ -310,6 +312,8 @@
   margin-bottom: 40px;
   color: var(--color-primario);
 }
+
+
 
 .faq-container {
   display: flex;
