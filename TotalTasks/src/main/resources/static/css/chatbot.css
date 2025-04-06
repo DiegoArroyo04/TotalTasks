@@ -31,7 +31,7 @@
 }
 
 
-.chatToggle.visible {
+.visible {
     display: flex;
 }
 
@@ -40,12 +40,28 @@
 .chatbotContainer {
 
     position: fixed;
-    bottom: 100px;
+    bottom: 130px;
     right: 30px;
     width: 320px;
     font-family: var(--fuente-principal);
     z-index: 1000;
 
+}
+
+.chatbotContainer p {
+    position: absolute;
+    margin-top: 20px;
+    right: 70px;
+    width: 250px;
+    cursor: pointer;
+    z-index: 999;
+    display: none;
+    transition: transform 0.2s ease;
+    background: var(--color-fondo);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--color-primario);
+    padding: 12px;
 }
 
 .chatWindow {

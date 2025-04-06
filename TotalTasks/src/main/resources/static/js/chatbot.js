@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             openChatbot();
         } else {
             chatbot.style.display = "none";
+            document.getElementById("moreQuestions").style.display = "none";
         }
     });
 
@@ -23,12 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function openChatbot() {
         document.getElementById("chatWindow").style.display = "flex";
+        document.getElementById("moreQuestions").style.display = "block";
     }
 
 
 
 });
-
 
 function handleOptionClick(opcion) {
     const chatLog = document.getElementById("chatLog");
@@ -39,6 +40,7 @@ function handleOptionClick(opcion) {
 
     };
     const respuesta = respuestas[opcion]
+
 
     // Mostrar la opción elegida
     chatLog.innerHTML += `<div class="chat user">👤 ${opcion}</div>`;
