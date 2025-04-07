@@ -30,6 +30,6 @@ public class RepoDTO {
     private String createdAt;
     private String updatedAt;
     private String pushedAt;
-    private Map<String, Integer> languages; // Lenguajes y cantidad de bytes
+    private Map<String, Integer> languages;
     
 }

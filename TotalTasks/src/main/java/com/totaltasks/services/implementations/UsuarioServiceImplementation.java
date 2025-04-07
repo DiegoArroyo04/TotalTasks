@@ -29,7 +29,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    // OBJETO PARA ENCRIPTAR CONTRASEÑAS
+    // Objeto para encriptar contraseñas
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
@@ -37,19 +37,19 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
         UsuarioEntity usuarioEntity = new UsuarioEntity();
 
-        // REVISON DE QUE EL USUARIO NO EXISTA
+        // Comprobamos que el usuario existe
         if (usuarioRepository.findByusuario(usuario.getUsuario()) != null) {
             return "Ya existe un usuario registrado con ese nombre de usuario.";
         } else if (usuarioRepository.findByemail(usuario.getEmail()) != null) {
             return "Ya existe un usuario registrado con ese email.";
         } else {
 
-            // CONVERTIR A ENTITY Y GUARDAR EN BBDD
+            // Convertir a entity y guardar en BBDD
             usuarioEntity.setNombre(usuario.getNombre());
             usuarioEntity.setUsuario(usuario.getUsuario());
             usuarioEntity.setEmail(usuario.getEmail());
 
-            // ENCRIPTAR CONTRASEÑA
+            // Encriptar contraseña
             usuarioEntity.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
 
             usuarioRepository.save(usuarioEntity);
@@ -80,7 +80,9 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
     @Override
     public String registrarUsuarioGitHub(UsuarioDTO usuario) {
+
         UsuarioEntity existente = usuarioRepository.findByemail(usuario.getEmail());
+
         if (existente != null) {
             return "Usuario encontrado. Iniciando sesión...";
         } else {
@@ -191,7 +193,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
         headers.set("Accept", "application/vnd.github.mercy-preview+json"); // Necesario para obtener topics
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        // 1. Obtenemos la lista de repositorios del usuario
+        // Obtenemos la lista de repositorios del usuario
         String reposUrl = "https://api.github.com/user/repos";
         ResponseEntity<List> response = restTemplate.exchange(reposUrl, HttpMethod.GET, entity, List.class);
         List<Map> reposList = response.getBody();
@@ -218,11 +220,9 @@ public class UsuarioServiceImplementation implements UsuarioService {
                 List<String> topics = (List<String>) repo.get("topics");
                 repoDTO.setTopics(topics);
 
-                // 2. Para cada repositorio, obtenemos el detalle de lenguajes usando el
-                // languages_url
+                // Para cada repositorio, obtenemos el detalle de lenguajes usando el languages_url
                 String languagesUrl = (String) repo.get("languages_url");
-                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity,
-                        Map.class);
+                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity, Map.class);
                 Map<String, Integer> languages = languagesResponse.getBody();
                 repoDTO.setLanguages(languages);
 
@@ -244,21 +244,18 @@ public class UsuarioServiceImplementation implements UsuarioService {
             return "Usuario no encontrado.Por favor,registrese.";
         } else {
 
-            // COMPROBAR QUE LAS CONTRASEÑAS COINCIDAN COMPARANDO LA DEL USUARIO Y LA
-            // ENCRIPTADA EN BBDD
+            // Comprobamos las contraseñas
             if (passwordEncoder.matches(usuario.getContrasenia(), usuarioEntity.getContrasenia())) {
                 return "Encontrado";
             } else {
                 return "La contraseña no coincide.Por favor,vuelve a intentarlo.";
             }
-
         }
-
     }
 
     @Override
     public UsuarioEntity encontrarUsuario(String email) {
-        // BUSCAR USUARIO
+        // Buscar por usuario
         return usuarioRepository.findByemail(email);
     }
 

@@ -1,12 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    //TIEMPO DE CARGA DEL BOTON
+    // Tiempo de carga del boton
     setTimeout(() => {
         document.getElementById("chatToggle").classList.add("visible");
     }, 400);
-
-
-
 
     document.getElementById("chatToggle").addEventListener("click", function () {
         const chatbot = document.getElementById("chatWindow");
@@ -18,8 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("moreQuestions").style.display = "none";
         }
     });
-
-
 });
 
 function openChatbot() {
@@ -33,10 +28,8 @@ function handleOptionClick(opcion) {
         "crear tarea recurrente": "Para crear una tarea recurrente, selecciona la opción 'Repetir' al momento de agregar una nueva tarea.",
         "sincronizar con calendario": "Actualmente, ofrecemos inicio de sesión con Google, lo que facilitará la sincronización con Google Calendar próximamente",
         "seguridad de los datos": "Utilizamos protocolos de seguridad y cifrado de última generación para proteger tu información en todo momento.",
-
     };
     const respuesta = respuestas[opcion]
-
 
     // Mostrar la opción elegida
     chatLog.innerHTML += `<div class="chat user">👤 ${opcion}</div>`;

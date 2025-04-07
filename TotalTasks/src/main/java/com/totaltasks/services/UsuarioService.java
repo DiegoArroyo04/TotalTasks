@@ -23,6 +23,6 @@ public interface UsuarioService {
 
     String comprobarLogin(UsuarioDTO usuario);
 
-    // BUSCAR POR USUARIO
+    // Buscar por usuario
     UsuarioEntity encontrarUsuario(String email);
 }

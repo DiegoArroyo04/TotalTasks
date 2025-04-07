@@ -187,7 +187,6 @@
   animation: parpadeo 1.5s ease-in-out infinite;
 }
 
-
 @keyframes parpadeo {
   0% {
 
@@ -222,7 +221,6 @@
   width: 100%;
 
 }
-
 
 .texto-productividad {
   font-size: var(--tamano-titulo);
@@ -289,8 +287,6 @@
   color: var(--color-advertencia);
 }
 
-
-
 /* Estilo del separador */
 .divider {
   width: 95%;
@@ -312,8 +308,6 @@
   margin-bottom: 40px;
   color: var(--color-primario);
 }
-
-
 
 .faq-container {
   display: flex;

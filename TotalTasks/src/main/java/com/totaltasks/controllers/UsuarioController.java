@@ -37,8 +37,7 @@ public class UsuarioController {
         // Llamamos al servicio para registrar al usuario o iniciar sesión si ya existe
         String respuesta = usuarioService.registrarUsuarioGoogle(usuario);
 
-        // Si el usuario fue encontrado (existe en la base de datos), se agrega a la
-        // sesión
+        // Si el usuario fue encontrado se agrega a la sesión
         if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
         } else {
@@ -52,9 +51,8 @@ public class UsuarioController {
 
     // REGISTRO GITHUB
     @GetMapping("githubCallback")
-    public void githubCallback(@RequestParam(value = "code", required = false) String code,
-            @RequestParam(value = "error", required = false) String error, HttpSession session,
-            HttpServletResponse response) throws IOException {
+    public void githubCallback(@RequestParam(value = "code", required = false) String code, @RequestParam(value = "error", required = false)
+    String error, HttpSession session, HttpServletResponse response) throws IOException {
 
         // Si el usuario cancela los permisos redireccion al lobby
         if (error != null && error.equals("access_denied")) {
@@ -74,21 +72,20 @@ public class UsuarioController {
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getEmail()));
         }
 
-        // Obtener la lista de repositorios enriquecida
+        // Obtener la lista de repositorios
         List<RepoDTO> repositorios = usuarioService.obtenerRepositoriosUsuarioGitHub(accessToken);
-        // Aquí podrías, por ejemplo, guardar esta información en la sesión o en la base
-        // de datos para usarla en el dashboard
+
+        // Guardar informacion en la sesion
         session.setAttribute("repositorios", repositorios);
 
-        // Redirigir al login (o dashboard según tu flujo)
+        // Redirigir al login
         response.sendRedirect("/login");
     }
 
     @PostMapping("comprobarLogin")
     public String comprobarLogin(@RequestBody UsuarioDTO usuario, HttpSession session) {
 
-        // SI ENCONTRAMOS EL USUARIO Y ESTE ES VALIDADO LO AÑADIMOS A LA SESSION QUE NO
-        // DEVOLVEMOS EL ERROR
+        // Si encontramos al usuario y es valido lo añadimos a la sesion
         if (usuarioService.comprobarLogin(usuario).equals("Encontrado")) {
 
             UsuarioEntity usuarioEntity = usuarioService.encontrarUsuario(usuario.getUsuario());

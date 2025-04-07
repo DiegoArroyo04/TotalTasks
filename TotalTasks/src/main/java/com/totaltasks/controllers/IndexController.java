@@ -15,7 +15,7 @@ public class IndexController {
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
 
-		// SI EL USUARIO YA ESTA LOGUEADO QUE LE Apareza la opcion de mi dashboard
+		// Si el usuario ya esta logueado que le aparezca la opcion de "Mi dashboard"
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
 		if (usuario == null) {
@@ -35,8 +35,7 @@ public class IndexController {
 	@GetMapping("/login")
 	public String login(HttpSession session) {
 
-		// SI EL USUARIO YA ESTA LOGUEADO QUE LE REDIRIJA AL DASHBOARD Y NO SE TENGA QUE
-		// VOLVER A LOGUEAR
+		// Si el usuario ya esta logueado que le redirija al dashboard
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
 		if (usuario == null) {
@@ -50,6 +49,7 @@ public class IndexController {
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session) {
 
+		// Si no encuentra la sesion del usuario se le redirije al login
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
 		if (usuario == null) {

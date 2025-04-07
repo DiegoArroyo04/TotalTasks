@@ -10,7 +10,7 @@ function mostrarError(mensaje) {
     }, 3000);
 }
 
-// CERRAR MODALES AL HACER CLICK FUERA 
+// Cerrar modales al hacer click fuera 
 window.addEventListener("click", function (event) {
     var modalError = document.getElementById("modalError");
 
@@ -28,7 +28,7 @@ document.getElementById("login").addEventListener("submit", function () {
         contrasenia: document.getElementById("contrasenia").value
     };
 
-    // Realizar una solicitud AJAX PARA BUSCAR EL USUARIO EN BBDD
+    // Realizar una solicitud AJAX para buscar al usuario en la BBDD
     $.ajax({
         type: "POST",
         url: "/usuarios/comprobarLogin",

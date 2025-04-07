@@ -1,6 +1,6 @@
 document.getElementById("registro").addEventListener("submit", function () {
     event.preventDefault();
-    //SI EL FORMULARIO ES VALIDADO SE ENVIA
+    // Si el formulario es valido se envia
     if (comprobarFormulario() == true) {
 
         var datos = {
@@ -20,7 +20,6 @@ document.getElementById("registro").addEventListener("submit", function () {
             data: JSON.stringify(datos),
             success: function (response) {
 
-
                 if (response.trim() == "Cuenta creada con Éxito.") {
 
                     mostrarModalSuccess();
@@ -39,10 +38,7 @@ document.getElementById("registro").addEventListener("submit", function () {
                 console.error("Error en la solicitud AJAX:", error);
             }
         });
-
-
     }
-
 });
 
 function comprobarFormulario() {
@@ -60,7 +56,7 @@ function comprobarNombre() {
     var validado = true;
     var numeros = "1234567890";
 
-    //SI EL NOMBRE CONTIENE NUMEROS EL NOMBRE NO ES VALIDO
+    // Si el nombre contiene numeros no es valido
     for (i = 0; i < nombre.length; i++) {
         if (numeros.includes(nombre[i])) {
             validado = false;
@@ -74,19 +70,19 @@ function comprobarContrasenia() {
 
     var contrasenia = document.getElementById("contrasenia").value;
 
-    //SI ES MENOR DE 8
+    // SI es menor de 8
     if (contrasenia.length < 8) {
         mostrarError("La contraseña debe tener minimo 8 caracteres.")
         return false;
     }
 
-    //SI NO TIENE MAYUSCULA
+    // Si no tiene mayuscula
     if (!/[A-Z]/.test(contrasenia)) {
         mostrarError("La contraseña debe tener al menos una letra mayúscula.")
         return false;
     }
 
-    //SI NO TIENE UN NÚMERO
+    // Si no tiene numero
     if (!/[0-9]/.test(contrasenia)) {
         mostrarError("La contraseña debe tener al menos un número")
         return false;
@@ -101,7 +97,7 @@ function abrirModalTerminos() {
 }
 
 
-//CERRAR MODALES
+// Cerrar modales
 function cerrarModalTerminos() {
     document.getElementById("modalTerminos").style.display = "none";
 }
@@ -110,7 +106,7 @@ function cerrarModalError() {
     document.getElementById("modalError").style.display = "none";
 }
 
-// CERRAR MODALES AL HACER CLICK FUERA 
+// Cerrar modales al hacer click fuera
 window.addEventListener("click", function (event) {
     var modalTerminos = document.getElementById("modalTerminos");
     var modalError = document.getElementById("modalError");

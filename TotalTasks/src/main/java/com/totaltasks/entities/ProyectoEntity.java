@@ -29,7 +29,7 @@ public class ProyectoEntity {
     @Column(name = "descripcion")
     private String descripcion;
 
-    // INSERTABLE FALSE PORQUE LA INSERCCION DE LA FECHA SE HACE DESDE BBDD
+    // Insertable a False ya que la inseccion se hace desde la Base de datos
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion", nullable = false, insertable = false)
     private Timestamp fechaCreacion;

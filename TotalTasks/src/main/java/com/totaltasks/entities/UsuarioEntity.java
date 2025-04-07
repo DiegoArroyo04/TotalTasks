@@ -58,8 +58,4 @@ public class UsuarioEntity {
     @OneToMany(mappedBy = "responsable")
     private List<TareaEntity> tareasAsignadas;
 
-    // Método para obtener la URL de la foto
-    public String getFotoURL() {
-        return (this.fotoPerfil != null) ? new String(this.fotoPerfil) : null;
-    }
 }

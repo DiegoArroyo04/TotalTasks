@@ -18,7 +18,7 @@ public class UsuarioDTO {
     private String email;
     private String contrasenia;
 
-    // CONSTRUCTOR PARA LOGIN
+    // Constructor para el Login
     public UsuarioDTO(String usuario, String contrasenia) {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
