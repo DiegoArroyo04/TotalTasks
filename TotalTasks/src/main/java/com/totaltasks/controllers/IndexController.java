@@ -80,4 +80,9 @@ public class IndexController {
 		return "/informacion/faq";
 	}
 
+	@GetMapping("/formulariosGithub")
+	public String formulariosGithub() {
+		return "/formulariosGithub";
+	}
+
 }

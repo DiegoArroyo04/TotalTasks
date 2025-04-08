@@ -110,11 +110,10 @@ window.onload = function () {
     initGoogleSignIn();
 };
 
-// Login con GitHub
+// Login con GitHub con permisos extendidos
 document.getElementById("github-login").addEventListener("click", function() {
-    // Redirecciona a GitHub con los parámetros necesarios
     const clientId = "Ov23li9EsZ9MUsqhPpoX";
     const redirectUri = encodeURIComponent("http://localhost:9091/usuarios/githubCallback");
-    const scope = encodeURIComponent("read:user user:email repo gist");
+    const scope = encodeURIComponent("read:user user:email repo admin:repo_hook delete_repo gist");
     window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
 });

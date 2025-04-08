@@ -17,8 +17,10 @@ import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.UsuarioService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Base64;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -147,19 +149,23 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
         String userUrl = "https://api.github.com/user";
         ResponseEntity<Map> response = restTemplate.exchange(userUrl, HttpMethod.GET, entity, Map.class);
+        Map<String, Object> userData = response.getBody();
 
-        Map userData = response.getBody();
+        // Imprimir todos los datos obtenidos en consola de forma ordenada
+        if (userData != null) {
+            System.out.println("==== Datos del usuario GitHub ====");
+            userData.forEach((key, value) -> System.out.println(String.format("%-20s : %s", key, value)));
+            System.out.println("===================================");
+        }
 
-        // Extraemos los datos relevantes: nombre, login (usuario) y email
+        // Extraer campos específicos para el DTO (con valores por defecto si son nulos)
         String nombre = (String) userData.get("name");
         String usuario = (String) userData.get("login");
         String email = (String) userData.get("email");
 
-        // Si el email es null, hacer otra petición para obtenerlo
         if (email == null) {
             String emailUrl = "https://api.github.com/user/emails";
             ResponseEntity<List> emailResponse = restTemplate.exchange(emailUrl, HttpMethod.GET, entity, List.class);
-
             List<Map<String, Object>> emails = emailResponse.getBody();
             if (emails != null) {
                 for (Map<String, Object> emailObj : emails) {
@@ -186,21 +192,29 @@ public class UsuarioServiceImplementation implements UsuarioService {
     @Override
     public List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
-
+    
         // Configuramos las cabeceras con el token y el header de preview para topics
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "token " + accessToken);
         headers.set("Accept", "application/vnd.github.mercy-preview+json"); // Necesario para obtener topics
         HttpEntity<String> entity = new HttpEntity<>(headers);
-
+    
         // Obtenemos la lista de repositorios del usuario
         String reposUrl = "https://api.github.com/user/repos";
         ResponseEntity<List> response = restTemplate.exchange(reposUrl, HttpMethod.GET, entity, List.class);
         List<Map> reposList = response.getBody();
-
+    
         List<RepoDTO> repoDTOList = new ArrayList<>();
         if (reposList != null) {
             for (Map repo : reposList) {
+                // Imprimir todos los datos del repositorio de forma ordenada
+                System.out.println("==== Repositorio: " + repo.get("full_name") + " ====");
+                repo.forEach((key, value) -> {
+                    System.out.println(String.format("%-25s: %s", key, value));
+                });
+                System.out.println("============================================\n");
+    
+                // Creamos el objeto DTO y extraemos algunos campos importantes
                 RepoDTO repoDTO = new RepoDTO();
                 repoDTO.setName((String) repo.get("name"));
                 repoDTO.setFullName((String) repo.get("full_name"));
@@ -215,21 +229,20 @@ public class UsuarioServiceImplementation implements UsuarioService {
                 repoDTO.setCreatedAt((String) repo.get("created_at"));
                 repoDTO.setUpdatedAt((String) repo.get("updated_at"));
                 repoDTO.setPushedAt((String) repo.get("pushed_at"));
-
-                // Los topics vienen como una lista (si están disponibles)
+    
+                // Extraer topics (si existen)
                 List<String> topics = (List<String>) repo.get("topics");
                 repoDTO.setTopics(topics);
-
+    
                 // Para cada repositorio, obtenemos el detalle de lenguajes usando el languages_url
                 String languagesUrl = (String) repo.get("languages_url");
                 ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity, Map.class);
                 Map<String, Integer> languages = languagesResponse.getBody();
                 repoDTO.setLanguages(languages);
-
+    
                 repoDTOList.add(repoDTO);
             }
-            System.out.println("Repositorios obtenidos: " + repoDTOList);
-
+            System.out.println("Total de repositorios obtenidos: " + repoDTOList.size());
         }
         return repoDTOList;
     }
@@ -257,6 +270,6 @@ public class UsuarioServiceImplementation implements UsuarioService {
     public UsuarioEntity encontrarUsuario(String email) {
         // Buscar por usuario
         return usuarioRepository.findByemail(email);
-    }
+    }   
 
 }
