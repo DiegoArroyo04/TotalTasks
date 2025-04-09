@@ -17,10 +17,8 @@ import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.UsuarioService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Base64;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

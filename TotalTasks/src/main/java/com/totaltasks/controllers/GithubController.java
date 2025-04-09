@@ -24,6 +24,7 @@ public class GithubController {
     /* 
      * MÉTODO PARA CREAR REPO
      */
+    @SuppressWarnings("rawtypes")
     @PostMapping("/crearRepo")
     public ResponseEntity<String> crearRepositorio(
             @RequestParam String accessToken, 
@@ -57,6 +58,7 @@ public class GithubController {
     /* 
      * MÉTODO PARA CREAR ARCHIVO
      */
+    @SuppressWarnings("rawtypes")
     @PostMapping("/crearArchivo")
     public ResponseEntity<String> crearArchivo(
             @RequestParam String accessToken, 
@@ -95,6 +97,7 @@ public class GithubController {
     /* 
      * MÉTODO PARA ACTUALIZAR ARCHIVO
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping("/actualizarArchivo")
     public ResponseEntity<String> actualizarArchivo(
             @RequestParam String accessToken, 
@@ -142,6 +145,7 @@ public class GithubController {
     /* 
      * MÉTODO PARA EXTRAER COMMITS
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @GetMapping("/extraerCommits")
     public ResponseEntity<String> extraerCommits(
             @RequestParam String accessToken, 
