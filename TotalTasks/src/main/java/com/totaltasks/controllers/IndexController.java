@@ -17,13 +17,15 @@ public class IndexController {
 
 		// Si el usuario ya esta logueado que le aparezca la opcion de "Mi dashboard"
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+		System.out.println(usuario);
 
-		if (usuario == null) {
-			return "index";
-		} else {
+		if (usuario != null) {
 			model.addAttribute("usuario", usuario);
-			return "index";
+			System.out.println("ID del usuario: " + usuario.getIdUsuario());
+		} else {
+			System.out.println("No hay usuario en sesión.");
 		}
+		return "index";
 
 	}
 

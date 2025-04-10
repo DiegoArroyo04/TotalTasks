@@ -1,11 +1,10 @@
 @import url('/css/general.css');
 
-/* Estilo header */
 .cabezera {
   display: flex;
   justify-content: space-around;
   align-items: center;
-
+  transition: all 0.6s ease;
 }
 
 .fixed {
@@ -14,17 +13,14 @@
   left: 0;
   width: 100%;
   background-color: var(--color-fondo);
-  border-bottom: 1px solid var(--color-secundario);
   z-index: 1;
-
-
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .header-spacer {
   height: 0px;
-  transition: height 0.3s ease;
+  transition: height 0.6s ease;
 }
-
 
 .logo img {
   width: 150px;
@@ -77,4 +73,25 @@ nav ul li .boton-probar {
 
 nav ul li .boton-probar:hover {
   background-color: var(--color-primario-hover);
+}
+
+.menu-perfil {
+  display: none;
+  position: absolute;
+  top: 10%;
+  right: 17%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 10;
+}
+
+.menu-perfil p {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.menu-perfil p:hover {
+  background-color: #f0f0f0;
 }
