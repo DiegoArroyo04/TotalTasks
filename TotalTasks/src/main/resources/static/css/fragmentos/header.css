@@ -1,6 +1,5 @@
 @import url('/css/general.css');
 
-/* Estilo header */
 .cabezera {
   display: flex;
   justify-content: space-around;
@@ -74,4 +73,25 @@ nav ul li .boton-probar {
 
 nav ul li .boton-probar:hover {
   background-color: var(--color-primario-hover);
+}
+
+.menu-perfil {
+  display: none;
+  position: absolute;
+  top: 10%;
+  right: 17%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 10;
+}
+
+.menu-perfil p {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.menu-perfil p:hover {
+  background-color: #f0f0f0;
 }

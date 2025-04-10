@@ -1,3 +1,5 @@
+<input type="hidden" name="sesionUsuario" id="sesionUsuario" value="${usuario != null ? usuario.idUsuario : ''}">
+
 <header th:fragment="header" id="cabezera" class="cabezera">
     <div class="logo">
         <img src="/assets/logo.png" alt="Logo TotalTasks">
@@ -5,14 +7,34 @@
     <nav class="navegacion">
         <ul>
             <li><a href="/#">Inicio</a></li>
+            <!-- Aquí mostramos el ID del usuario si está disponible (PRUEBA QUITAR LUEGO) -->
+            <p th:text="${usuario != null ? usuario.idUsuario : 'No hay sesión activa'}"></p>
             <li><a href="/#caracteristicas">Características</a></li>
             <li><a href="/#faq" onclick="openChatbot()">Preguntas Frecuentes</a></li>
             <div class="separador"></div>
-            <li th:if="${usuario == null}"><a href="/login" class="boton-login">Iniciar sesión</a></li>
-            <li th:if="${usuario != null}"><a href="/dashboard" class="boton-login">Ir a mi Dashboard</a></li>
-            <li th:if="${usuario == null}"><a href="/registro" class="boton-probar" style="color: white;">Pruébala gratis</a></li>
+            <!-- Si el usuario no está autenticado, mostramos los botones de login y registro -->
+            <li th:if="${usuario == null}">
+                <a href="/login" class="boton-login">Iniciar sesión</a>
+            </li>
+            <li th:if="${usuario == null}">
+                <a href="/registro" class="boton-probar" style="color: white;">Pruébala gratis</a>
+            </li>
+            <!-- Si el usuario está autenticado, mostramos el enlace al dashboard y la imagen -->
+            <li th:unless="${usuario == null}">
+                <a href="/dashboard" class="boton-login">Ir a mi Dashboard</a>
+            </li>
+            <li th:unless="${usuario == null}">
+                <img src="/assets/dashboard/foto-perfil.webp" alt="Perfil" class="avatar" id="avatarMenu" style="width: 60px; height: 60px;">
+                <div class="menu-perfil" id="menuPerfil">
+                    <p>Mi cuenta</p>
+                    <p>Configuración</p>
+                    <p id="cerrarSesion">Cerrar sesión</p>
+                </div>
+            </li>
         </ul>
     </nav>
+    <!-- Perfil Usuario (Menú desplegable) -->
+    <div class="perfil"></div>
     <link rel="stylesheet" href="/css/fragmentos/header.css">
     <script src="/js/fragmentos/header.js"></script>
 </header>
