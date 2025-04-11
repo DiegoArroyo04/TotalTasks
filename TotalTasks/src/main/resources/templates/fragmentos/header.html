@@ -1,5 +1,3 @@
-<input type="hidden" name="sesionUsuario" id="sesionUsuario" value="${usuario != null ? usuario.idUsuario : ''}">
-
 <header th:fragment="header" id="cabezera" class="cabezera">
     <div class="logo">
         <img src="/assets/logo.png" alt="Logo TotalTasks">
@@ -28,7 +26,7 @@
                 <div class="menu-perfil" id="menuPerfil">
                     <p>Mi cuenta</p>
                     <p>Configuración</p>
-                    <p id="cerrarSesion">Cerrar sesión</p>
+                    <a th:href="@{/usuarios/cerrarSesion}" id="cerrarSesion">Cerrar sesión</a>
                 </div>
             </li>
         </ul>

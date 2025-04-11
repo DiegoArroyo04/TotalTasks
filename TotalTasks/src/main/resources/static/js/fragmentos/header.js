@@ -25,41 +25,4 @@ document.addEventListener('DOMContentLoaded', () => {
             menuPerfil.style.display = menuPerfil.style.display === "block" ? "none" : "block";
         });
     }
-
-    // Comprobar si el input de la sesión está presente en el DOM y su valor
-    const sesionUsuario = document.getElementById('sesionUsuario') ? document.getElementById('sesionUsuario').value : null;
-    console.log('ID del usuario:', sesionUsuario);  // Verificar el valor
-
-    if (sesionUsuario && sesionUsuario !== "") {
-        console.log('La sesión es válida, ID:', sesionUsuario);
-    } else {
-        console.log('No hay sesión activa');
-    }
-
-    // Cerrar sesión
-    const cerrarSesionBtn = document.getElementById('cerrarSesion');
-    if (cerrarSesionBtn) {
-        cerrarSesionBtn.addEventListener('click', () => {
-            if (sesionUsuario != null && sesionUsuario !== "") {
-                const datos = {
-                    usuarioId: sesionUsuario,
-                    fechaHora: new Date().toISOString()
-                };
-                $.ajax({
-                    url: '/usuarios/cerrarSesion',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(datos),
-                    success: (response) => {
-                        window.location.href = '/';
-                    },
-                    error: (error) => {
-                        console.log('Error al cerrar sesión:', error);
-                    }
-                });
-            } else {
-                console.log('No hay sesión activa para cerrar.');
-            }
-        });
-    }
 });

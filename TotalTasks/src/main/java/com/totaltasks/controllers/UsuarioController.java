@@ -2,7 +2,6 @@ package com.totaltasks.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,20 +101,10 @@ public class UsuarioController {
     }
 
     // El método para cerrar sesión
-    @PostMapping("cerrarSesion")
-    public void cerrarSesion(@RequestBody Map<String, Object> datos, HttpSession session, HttpServletResponse response) throws IOException {
-        // Extraer los datos del cuerpo de la solicitud
-        String usuarioId = (String) datos.get("usuarioId");
-        String fechaHora = (String) datos.get("fechaHora");
-
-        // Realizar la lógica para invalidar la sesión
-        session.invalidate();  // Invalida la sesión
-
-        // Aquí puedes agregar lógica para utilizar el usuarioId o la fechaHora si lo necesitas
-        System.out.println("Usuario ID: " + usuarioId + " - Hora: " + fechaHora);
-
-        // Redirigir al usuario a la página principal
-        response.sendRedirect("/index");
+    @GetMapping("cerrarSesion")
+    public void cerrarSesion(HttpServletResponse response, HttpSession session) throws IOException {
+        session.invalidate();
+        response.sendRedirect("/login");
     }
 
 }
