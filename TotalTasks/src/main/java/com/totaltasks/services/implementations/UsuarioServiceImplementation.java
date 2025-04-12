@@ -266,8 +266,14 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
     @Override
     public UsuarioEntity encontrarUsuario(String email) {
-        // Buscar por usuario
+        // Buscar por email
         return usuarioRepository.findByemail(email);
-    }   
+    }
+
+    // Método para actualizar el usuario en la base de datos
+    @Override
+    public void actualizarUsuario(UsuarioEntity usuario) {
+        usuarioRepository.save(usuario);
+    }
 
 }

@@ -25,4 +25,6 @@ public interface UsuarioService {
 
     // Buscar por usuario
     UsuarioEntity encontrarUsuario(String email);
+
+    void actualizarUsuario(UsuarioEntity usuario);
 }

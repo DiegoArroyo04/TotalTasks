@@ -1,15 +1,19 @@
 package com.totaltasks.controllers;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.RepoDTO;
@@ -100,7 +104,42 @@ public class UsuarioController {
 
     }
 
-    // El método para cerrar sesión
+    // Método para configuarar mi perfil
+    @GetMapping("miCuenta")
+    public void miCuenta(HttpServletResponse response) throws Exception {
+        response.sendRedirect("/editarPerfil");
+    }
+
+    // Metodo con la funcionalidad del perfil actualizado
+    @PostMapping("perfilEditado")
+    public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre, @RequestParam("usuario") String nombreUsuario,
+    @RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia,
+    @RequestParam(value = "fotoPerfil", required = false) MultipartFile fotoPerfil, HttpSession session) throws Exception {
+
+        UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+        if (usuario == null) {
+            response.sendRedirect("/login");
+            return;
+        }
+
+        usuario.setNombre(nombre);
+        usuario.setUsuario(nombreUsuario);
+        usuario.setEmail(email);
+        usuario.setContrasenia(contrasenia);
+
+        // Si hay nueva foto, actualízala
+        if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
+            usuario.setFotoPerfil(fotoPerfil.getBytes());
+        }
+
+        usuarioService.actualizarUsuario(usuario);
+        session.setAttribute("usuario", usuario);
+
+        response.sendRedirect("/usuarios/miCuenta");
+    }
+
+    // Método para cerrar sesión
     @GetMapping("cerrarSesion")
     public void cerrarSesion(HttpServletResponse response, HttpSession session) throws IOException {
         session.invalidate();

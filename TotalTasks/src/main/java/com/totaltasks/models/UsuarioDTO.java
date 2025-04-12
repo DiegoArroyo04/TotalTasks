@@ -1,5 +1,6 @@
 package com.totaltasks.models;
 
+import java.util.Base64;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,16 +13,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class UsuarioDTO {
-
     private String nombre;
     private String usuario;
     private String email;
     private String contrasenia;
+    private byte[] fotoPerfil;
 
-    // Constructor para el Login
-    public UsuarioDTO(String usuario, String contrasenia) {
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
+    public String getFotoPerfilBase64() {
+        if (this.fotoPerfil != null) {
+            return Base64.getEncoder().encodeToString(this.fotoPerfil);
+        }
+        return null;
     }
-
 }

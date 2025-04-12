@@ -41,7 +41,9 @@
                 </li>
 
                 <li th:if="${usuario != null}">
-                    <img src="/assets/dashboard/foto-perfil.webp" alt="Perfil" class="avatar" id="avatarMenu">
+                    <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/assets/dashboard/foto-perfil.webp'"
+                    alt="Perfil" class="avatar" id="avatarMenu">
+
                     <div class="menu-perfil" id="menuPerfil">
                         <a th:href="@{/usuarios/miCuenta}">Mi cuenta</a>
                         <br>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi perfil</title>
+    <link rel="stylesheet" href="/css/miPerfil.css">
+</head>
+<body>
+    <h1>Configurar mi perfil</h1>
+
+    <div th:if="${usuario.fotoPerfilBase64 != null}">
+        <p>Foto de perfil actual:</p>
+        <img th:src="'data:image/jpeg;base64,' + ${usuario.fotoPerfilBase64}" alt="Foto de perfil" width="150">
+    </div>
+
+    <!-- Formulario -->
+    <form th:action="@{/usuarios/perfilEditado}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" th:value="${usuario.nombre}" required>
+        </div>
+        <div>
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" name="usuario" th:value="${usuario.usuario}" required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" th:value="${usuario.email}" required>
+        </div>
+        <div>
+            <label for="contrasenia">Contraseña</label>
+            <input type="password" id="contrasenia" name="contrasenia" th:value="${usuario.contrasenia}">
+        </div>
+        <div>
+            <label for="fotoPerfil">Nueva foto de perfil</label>
+            <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+        </div>
+        <div>
+            <button type="submit">Guardar cambios</button>
+        </div>
+    </form>
+</body>
+</html>
