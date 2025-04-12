@@ -11,35 +11,21 @@
 </head>
 
 <body>
-    <header class="header">
-        <!-- Logo -->
 
-        <img src="assets/logo.png" class="logo" alt="Logo">
-
-
-        <!-- Notificaciones -->
-        <div class="notificaciones">
-            <div class="icono-campana" onclick="toggleNotificaciones()">
-                <img class="imagenHeader" src="assets/dashboard/campana.png">
-                <span class="contador">3</span>
-            </div>
-            <div class="dropdown-notificaciones" id="notificacionesDropdown">
-                <p>Notificación 1</p>
-                <p>Notificación 2</p>
-                <p>Notificación 3</p>
-            </div>
+    <!-- Fragmento header -->
+    <div th:insert="~{fragmentos/header :: header}"></div>
+    
+    <!-- <div class="notificaciones">
+        <div class="icono-campana" onclick="toggleNotificaciones()">
+            <img class="imagenHeader" src="assets/dashboard/campana.png">
+            <span class="contador">3</span>
         </div>
-
-        <!-- Perfil Usuario -->
-        <div class="perfil">
-            <img src="assets/perfil.jpg" alt="Perfil" class="avatar" onclick="toggleMenu()">
-            <div class="menu-perfil" id="menuPerfil">
-                <p>Mi cuenta</p>
-                <p>Configuración</p>
-                <p>Cerrar sesión</p>
-            </div>
+        <div class="dropdown-notificaciones" id="notificacionesDropdown">
+            <p>Notificación 1</p>
+            <p>Notificación 2</p>
+            <p>Notificación 3</p>
         </div>
-    </header>
+    </div> -->
 
     <h1>Dashboard</h1>
     <h1>Dashboard</h1>

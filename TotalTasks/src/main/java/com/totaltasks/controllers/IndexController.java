@@ -15,19 +15,17 @@ public class IndexController {
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
 
-		// Si el usuario ya esta logueado que le aparezca la opcion de "Mi dashboard"
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
-		System.out.println(usuario);
 
+		// Si existe, lo añadimos al modelo
 		if (usuario != null) {
 			model.addAttribute("usuario", usuario);
-			System.out.println("ID del usuario: " + usuario.getIdUsuario());
-		} else {
-			System.out.println("No hay usuario en sesión.");
 		}
-		return "index";
 
-	}
+		model.addAttribute("paginaActual", "index");
+		return "index";
+}
+
 
 	@GetMapping("/registro")
 	public String registro() {
@@ -49,18 +47,21 @@ public class IndexController {
 	}
 
 	@GetMapping("/dashboard")
-	public String dashboard(HttpSession session) {
+	public String dashboard(HttpSession session, Model model) {
 
-		// Si no encuentra la sesion del usuario se le redirije al login
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
+		// Si no hay usuario, redirigimos al login
 		if (usuario == null) {
 			return "redirect:/login";
-		} else {
-			return "dashboard";
 		}
 
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("paginaActual", "dashboard");
+
+		return "dashboard";
 	}
+
 
 	@GetMapping("/privacidad")
 	public String privacidad() {

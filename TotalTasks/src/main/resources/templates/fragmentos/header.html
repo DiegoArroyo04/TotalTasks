@@ -1,39 +1,61 @@
 <header th:fragment="header" id="cabezera" class="cabezera">
-    <div class="logo">
-        <img src="/assets/logo.png" alt="Logo TotalTasks">
+    <!-- Contenedor de logo -->
+    <div class="logo-container">
+        <div class="logo">
+            <img src="/assets/logo.png" alt="Logo TotalTasks">
+        </div>
     </div>
-    <nav class="navegacion">
-        <ul>
-            <li><a href="/#">Inicio</a></li>
-            <!-- Aquí mostramos el ID del usuario si está disponible (PRUEBA QUITAR LUEGO) -->
-            <p th:text="${usuario != null ? usuario.idUsuario : 'No hay sesión activa'}"></p>
-            <li><a href="/#caracteristicas">Características</a></li>
-            <li><a href="/#faq" onclick="openChatbot()">Preguntas Frecuentes</a></li>
-            <div class="separador"></div>
-            <!-- Si el usuario no está autenticado, mostramos los botones de login y registro -->
-            <li th:if="${usuario == null}">
-                <a href="/login" class="boton-login">Iniciar sesión</a>
-            </li>
-            <li th:if="${usuario == null}">
-                <a href="/registro" class="boton-probar" style="color: white;">Pruébala gratis</a>
-            </li>
-            <!-- Si el usuario está autenticado, mostramos el enlace al dashboard y la imagen -->
-            <li th:unless="${usuario == null}">
-                <a href="/dashboard" class="boton-login">Ir a mi Dashboard</a>
-            </li>
-            <li th:unless="${usuario == null}">
-                <img src="/assets/dashboard/foto-perfil.webp" alt="Perfil" class="avatar" id="avatarMenu" style="width: 60px; height: 60px;">
-                <div class="menu-perfil" id="menuPerfil">
-                    <p>Mi cuenta</p>
-                    <p>Configuración</p>
-                    <a th:href="@{/usuarios/cerrarSesion}" id="cerrarSesion">Cerrar sesión</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    <!-- Perfil Usuario (Menú desplegable) -->
-    <div class="perfil"></div>
+
+    <!-- Contenedor de navegación -->
+    <div class="navegacion-container">
+        <nav class="navegacion">
+            <ul>
+                <!-- Enlaces del index -->
+                <li th:if="${paginaActual == 'index'}"><a href="/#">Inicio</a></li>
+                <li th:if="${paginaActual == 'index'}"><a href="/#caracteristicas">Características</a></li>
+                <li th:if="${paginaActual == 'index'}"><a href="/#faq" onclick="openChatbot()">Preguntas Frecuentes</a></li>
+
+                <!-- Enlaces del dashboard -->
+                <li th:if="${paginaActual == 'dashboard'}"><a href="/dashboard/crear">Crear tarea</a></li>
+                <li th:if="${paginaActual == 'dashboard'}"><a href="/dashboard/editar">Editar tarea</a></li>
+                <li th:if="${paginaActual == 'dashboard'}"><a href="/dashboard/eliminar">Eliminar tarea</a></li>
+
+                <div class="separador"></div>
+
+                <!-- Mostrar botones de sesión solo si el usuario no está autenticado y no está en el dashboard -->
+                <li th:if="${usuario == null and paginaActual != 'dashboard'}">
+                    <a href="/login" class="boton-login">Iniciar sesión</a>
+                </li>
+                <li th:if="${usuario == null and paginaActual != 'dashboard'}">
+                    <a href="/registro" class="boton-probar" style="color: white;">Pruébala gratis</a>
+                </li>
+
+                <!-- Si el usuario está logueado y está en el index, mostramos "Ir a mi Dashboard" -->
+                <li th:if="${usuario != null and paginaActual == 'index'}">
+                    <a href="/dashboard" class="boton-login">Ir a mi Dashboard</a>
+                </li>
+
+                <!-- Si el usuario está logueado y está en el dashboard, mostramos "Inicio" -->
+                <li th:if="${usuario != null and paginaActual == 'dashboard'}">
+                    <a href="/" class="boton-login">Ir al inicio</a>
+                </li>
+
+                <li th:if="${usuario != null}">
+                    <img src="/assets/dashboard/foto-perfil.webp" alt="Perfil" class="avatar" id="avatarMenu">
+                    <div class="menu-perfil" id="menuPerfil">
+                        <a th:href="@{/usuarios/miCuenta}">Mi cuenta</a>
+                        <br>
+                        <a th:href="@{/usuarios/configuracion}">Configuración</a>
+                        <br>
+                        <a th:href="@{/usuarios/cerrarSesion}">Cerrar sesión</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     <link rel="stylesheet" href="/css/fragmentos/header.css">
     <script src="/js/fragmentos/header.js"></script>
 </header>
+
 <div class="header-spacer" id="headerSpacer"></div>

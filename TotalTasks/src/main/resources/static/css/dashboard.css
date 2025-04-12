@@ -1,29 +1,5 @@
 @import url('general.css');
 
-body {
-    background-color: var(--color-fondo);
-}
-
-/* Header */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007BFF;
-    padding: 10px 20px;
-    color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Logo */
-
-
-.logo {
-    width: 150px;
-    height: 150px;
-
-}
-
 /* Notificaciones */
 .notificaciones {
     position: relative;
@@ -34,22 +10,6 @@ body {
     cursor: pointer;
     position: relative;
 
-}
-
-.imagenHeader {
-    width: 30px;
-    height: 30px;
-}
-
-.contador {
-    background: red;
-    color: white;
-    font-size: 0.8rem;
-    padding: 2px 6px;
-    border-radius: 50%;
-    position: absolute;
-    top: -5px;
-    right: -10px;
 }
 
 /* Dropdown Notificaciones */
@@ -71,39 +31,5 @@ body {
 }
 
 .dropdown-notificaciones p:hover {
-    background: #f0f0f0;
-}
-
-/* Perfil */
-.perfil {
-    position: relative;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-/* Menú Perfil */
-.menu-perfil {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: white;
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    width: 150px;
-}
-
-.menu-perfil p {
-    margin: 5px 0;
-    cursor: pointer;
-}
-
-.menu-perfil p:hover {
     background: #f0f0f0;
 }
