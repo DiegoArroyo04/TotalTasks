@@ -22,6 +22,7 @@ CREATE TABLE proyecto (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     metodologia VARCHAR(100) NOT NULL,
     id_creador BIGINT,
+    codigo VARCHAR(10) UNIQUE,
     CONSTRAINT pk_proyecto PRIMARY KEY (id_proyecto),
     CONSTRAINT fk_proyecto_usuario FOREIGN KEY (id_creador) REFERENCES Usuario (id_usuario) 
 );
@@ -54,8 +55,15 @@ CREATE TABLE tarea (
 
 SELECT * FROM USUARIO;
 
+
+
 INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador)
 VALUES ('Proyecto Demo', 'Este es un proyecto de prueba', 'SCRUM', 3);
+
+
+-- Juan participa como desarrollador en el segundo proyecto
+INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol)
+VALUES (3, 2, 'Developer');
 
 
 
