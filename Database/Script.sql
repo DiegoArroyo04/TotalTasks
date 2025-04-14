@@ -54,5 +54,10 @@ CREATE TABLE tarea (
 
 SELECT * FROM USUARIO;
 
+INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador)
+VALUES ('Proyecto Demo', 'Este es un proyecto de prueba', 'SCRUM', 3);
+
+
+
 -- SCRIPT DE DESTRUCTIVO
 DROP DATABASE totaltasks;

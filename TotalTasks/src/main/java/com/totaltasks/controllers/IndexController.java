@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.totaltasks.entities.UsuarioEntity;
+import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +15,9 @@ public class IndexController {
 
 	@Autowired
 	UsuarioService usuarioService;
+
+	@Autowired
+	ProyectoService proyectoService;
 
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
@@ -72,6 +76,8 @@ public class IndexController {
 			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
 
 			model.addAttribute("paginaActual", "dashboard");
+
+			model.addAttribute("proyectos", proyectoService.todosLosProyectosDeUnUsuario(usuario));
 
 			return "dashboard";
 		}

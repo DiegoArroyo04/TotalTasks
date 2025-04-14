@@ -46,4 +46,5 @@ public class ProyectoEntity {
 
     @OneToMany(mappedBy = "proyecto")
     private List<UsuarioProyectoEntity> usuarios;
+
 }

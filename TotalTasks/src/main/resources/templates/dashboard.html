@@ -14,7 +14,7 @@
 
     <!-- Fragmento header -->
     <div th:insert="~{fragmentos/header :: header}"></div>
-    
+
     <!-- <div class="notificaciones">
         <div class="icono-campana" onclick="toggleNotificaciones()">
             <img class="imagenHeader" src="assets/dashboard/campana.png">
@@ -27,33 +27,59 @@
         </div>
     </div> -->
 
+
+    <h1>Dashboard</h1>
+
+    <div class="contenedor-proyectos">
+
+        <a href="">Crear Proyecto</a>
+        <a href="">Unirse a Un Proyecto</a>
+
+        <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
+            <p class="mensaje-vacio">Todavía no has creado ni te has unido a ningún proyecto.</p>
+        </div>
+
+        <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}">
+            <div th:each="proyecto : ${proyectos}" class="proyecto-card">
+                <h2 th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h2>
+                <p th:text="'Descripción: ' + ${proyecto.descripcion}">Descripción</p>
+                <p th:text="'Metodología: ' + ${proyecto.metodologia}">Metodología</p>
+                <p th:text="'Fecha de creación: ' + ${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
+                    Fecha de creación
+                </p>
+                <p th:text="'Usuario del creador: ' + ${proyecto.creador.usuario}">Nombre Creador</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>
+
+
     <div class="chat-container">
         <p><strong>Conexión WebSocket:</strong> <span id="estado-conexion">Desconectado</span></p>
         <input type="text" id="mensajeInput" placeholder="Escribe un mensaje">
         <button onclick="enviarMensaje()">Enviar</button>
         <div id="mensajesRecibidos"></div>
-    </div>    
-
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-    <h1>Dashboard</h1>
-
+    </div>
 
     <!-- Insertar el fragmento -->
     <div th:insert="~{fragmentos/footer :: footer}"></div>
