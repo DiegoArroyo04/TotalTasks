@@ -33,3 +33,39 @@
 .dropdown-notificaciones p:hover {
     background: #f0f0f0;
 }
+
+.chat-container {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: #fafafa;
+    border-radius: 10px;
+    border: 2px dashed #aaa;
+    font-family: sans-serif;
+}
+
+.chat-container input {
+    width: 70%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.chat-container button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#mensajesRecibidos {
+    margin-top: 1rem;
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    background: #fff;
+    border-radius: 6px;
+}

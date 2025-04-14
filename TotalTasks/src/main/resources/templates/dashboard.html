@@ -27,6 +27,13 @@
         </div>
     </div> -->
 
+    <div class="chat-container">
+        <p><strong>Conexión WebSocket:</strong> <span id="estado-conexion">Desconectado</span></p>
+        <input type="text" id="mensajeInput" placeholder="Escribe un mensaje">
+        <button onclick="enviarMensaje()">Enviar</button>
+        <div id="mensajesRecibidos"></div>
+    </div>    
+
     <h1>Dashboard</h1>
     <h1>Dashboard</h1>
     <h1>Dashboard</h1>
@@ -50,7 +57,9 @@
 
     <!-- Insertar el fragmento -->
     <div th:insert="~{fragmentos/footer :: footer}"></div>
+
     <script src="js/dashboard.js"></script>
+    <script src="js/chat.js"></script>
 </body>
 
 </html>
