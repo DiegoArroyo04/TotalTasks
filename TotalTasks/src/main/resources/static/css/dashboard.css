@@ -1,5 +1,6 @@
 @import url('general.css');
 
+
 /* Notificaciones */
 .notificaciones {
     position: relative;
@@ -68,4 +69,94 @@
     padding: 0.5rem;
     background: #fff;
     border-radius: 6px;
+}
+
+
+.tituloDashboard {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-primario);
+    font-size: var(--tamano-titulo);
+    animation: aparecer 0.5s ease-in-out;
+}
+
+.contenedorProyectos {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.acciones-proyecto {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.acciones-proyecto a {
+    background-color: var(--color-primario);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.acciones-proyecto a:hover {
+    background-color: var(--color-primario-hover);
+    text-decoration: none;
+}
+
+.proyectos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.proyecto-card {
+    background-color: white;
+    border: 1px solid var(--color-sombra);
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.proyecto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 123, 255, 0.1);
+    cursor: pointer;
+}
+
+.proyecto-card h2 {
+    font-size: var(--tamano-subtitulo);
+    color: var(--color-primario);
+    margin-bottom: 0.5rem;
+}
+
+.proyecto-card p {
+    font-size: var(--tamano-texto);
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+}
+
+.proyecto-card .proyecto-detalles {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--tamano-texto-pequeno);
+    color: var(--color-muted);
+    margin-top: auto;
+}
+
+.proyecto-card .creador {
+    font-size: var(--tamano-texto-pequeno);
+    color: var(--color-muted);
+    margin-top: 0.5rem;
 }
