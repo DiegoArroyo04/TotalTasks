@@ -1,14 +1,10 @@
 package com.totaltasks.controllers;
 
-import java.util.Base64;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import com.totaltasks.entities.UsuarioEntity;
-import com.totaltasks.models.UsuarioDTO;
 import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
