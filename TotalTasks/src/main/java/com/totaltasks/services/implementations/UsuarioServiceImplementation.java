@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.RepoDTO;
@@ -16,7 +17,9 @@ import com.totaltasks.models.UsuarioDTO;
 import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.UsuarioService;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -160,6 +163,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
         String nombre = (String) userData.get("name");
         String usuario = (String) userData.get("login");
         String email = (String) userData.get("email");
+        String fotoPerfilGithub = (String) userData.get("avatar_url"); // <-- Foto de perfil
 
         if (email == null) {
             String emailUrl = "https://api.github.com/user/emails";
@@ -181,6 +185,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
         usuarioDTO.setNombre(nombre != null ? nombre : usuario);
         usuarioDTO.setUsuario(usuario);
         usuarioDTO.setEmail(email != null ? email : usuario + "@github.com");
+        usuarioDTO.setFotoPerfilGithub(fotoPerfilGithub);
 
         return usuarioDTO;
     }
@@ -190,18 +195,18 @@ public class UsuarioServiceImplementation implements UsuarioService {
     @Override
     public List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
-    
+
         // Configuramos las cabeceras con el token y el header de preview para topics
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "token " + accessToken);
         headers.set("Accept", "application/vnd.github.mercy-preview+json"); // Necesario para obtener topics
         HttpEntity<String> entity = new HttpEntity<>(headers);
-    
+
         // Obtenemos la lista de repositorios del usuario
         String reposUrl = "https://api.github.com/user/repos";
         ResponseEntity<List> response = restTemplate.exchange(reposUrl, HttpMethod.GET, entity, List.class);
         List<Map> reposList = response.getBody();
-    
+
         List<RepoDTO> repoDTOList = new ArrayList<>();
         if (reposList != null) {
             for (Map repo : reposList) {
@@ -211,7 +216,7 @@ public class UsuarioServiceImplementation implements UsuarioService {
                     System.out.println(String.format("%-25s: %s", key, value));
                 });
                 System.out.println("============================================\n");
-    
+
                 // Creamos el objeto DTO y extraemos algunos campos importantes
                 RepoDTO repoDTO = new RepoDTO();
                 repoDTO.setName((String) repo.get("name"));
@@ -227,17 +232,19 @@ public class UsuarioServiceImplementation implements UsuarioService {
                 repoDTO.setCreatedAt((String) repo.get("created_at"));
                 repoDTO.setUpdatedAt((String) repo.get("updated_at"));
                 repoDTO.setPushedAt((String) repo.get("pushed_at"));
-    
+
                 // Extraer topics (si existen)
                 List<String> topics = (List<String>) repo.get("topics");
                 repoDTO.setTopics(topics);
-    
-                // Para cada repositorio, obtenemos el detalle de lenguajes usando el languages_url
+
+                // Para cada repositorio, obtenemos el detalle de lenguajes usando el
+                // languages_url
                 String languagesUrl = (String) repo.get("languages_url");
-                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity, Map.class);
+                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity,
+                        Map.class);
                 Map<String, Integer> languages = languagesResponse.getBody();
                 repoDTO.setLanguages(languages);
-    
+
                 repoDTOList.add(repoDTO);
             }
             System.out.println("Total de repositorios obtenidos: " + repoDTOList.size());
@@ -270,10 +277,39 @@ public class UsuarioServiceImplementation implements UsuarioService {
         return usuarioRepository.findByemail(email);
     }
 
+    @Override
+    public UsuarioEntity encontrarUsuarioPorUsuario(String usuario) {
+        // Buscar por usuario
+        return usuarioRepository.findByusuario(usuario);
+    }
+
     // Método para actualizar el usuario en la base de datos
     @Override
-    public void actualizarUsuario(UsuarioEntity usuario) {
+    public void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia,
+            MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException {
+
+        usuario.setNombre(nombre);
+        usuario.setUsuario(nombreUsuario);
+        usuario.setEmail(email);
+        usuario.setContrasenia(contrasenia);
+
+        // Si hay nueva foto, actualízala
+        if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
+            usuario.setFotoPerfil(fotoPerfil.getBytes());
+        }
+
         usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public String convertirByteABase64(byte[] foto) {
+
+        if (foto != null) {
+            return Base64.getEncoder().encodeToString(foto);
+        } else {
+            return null;
+        }
+
     }
 
 }

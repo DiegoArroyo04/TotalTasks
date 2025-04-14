@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Mi perfil</title>
     <link rel="stylesheet" href="/css/miPerfil.css">
 </head>
+
 <body>
     <h1>Configurar mi perfil</h1>
 
-    <div th:if="${usuario.fotoPerfilBase64 != null}">
+    <!-- Foto de perfil en base64 -->
+    <div th:if="${fotoPerfilBase64 != null}">
         <p>Foto de perfil actual:</p>
-        <img th:src="'data:image/jpeg;base64,' + ${usuario.fotoPerfilBase64}" alt="Foto de perfil" width="150">
+        <img th:src="'data:image/jpeg;base64,' + ${fotoPerfilBase64}" alt="Foto de perfil" width="150">
     </div>
+
+    <!-- Foto de perfil de Google -->
+    <div th:if="${fotoPerfilBase64 == null and !#strings.isEmpty(fotoperfilGoogle)}">
+        <p>Foto de perfil actual (Google):</p>
+        <img th:src="${fotoperfilGoogle}" alt="Foto de perfil Google" width="150">
+    </div>
+
+    <!-- Foto de perfil de GitHub -->
+    <div
+        th:if="${fotoPerfilBase64 == null and #strings.isEmpty(fotoperfilGoogle) and !#strings.isEmpty(fotoPerfilGithub)}">
+        <p>Foto de perfil actual (GitHub):</p>
+        <img th:src="${fotoPerfilGithub}" alt="Foto de perfil GitHub" width="150">
+    </div>
+
+    <!-- Imagen por defecto -->
+    <div
+        th:if="${fotoPerfilBase64 == null and #strings.isEmpty(fotoperfilGoogle) and #strings.isEmpty(fotoPerfilGithub)}">
+        <p>Foto de perfil actual (por defecto):</p>
+        <img th:src="@{/assets/dashboard/foto-perfil.webp}" alt="Foto de perfil por defecto" width="150">
+    </div>
+
 
     <!-- Formulario -->
     <form th:action="@{/usuarios/perfilEditado}" method="post" enctype="multipart/form-data">
@@ -40,4 +64,5 @@
         </div>
     </form>
 </body>
+
 </html>

@@ -18,6 +18,8 @@ public class UsuarioDTO {
     private String email;
     private String contrasenia;
     private byte[] fotoPerfil;
+    private String fotoPerfilGoogle;
+    private String fotoPerfilGithub;
 
     public String getFotoPerfilBase64() {
         if (this.fotoPerfil != null) {
@@ -25,4 +27,11 @@ public class UsuarioDTO {
         }
         return null;
     }
+
+    // CONSTRUCTOR PARA LOGIN MANUAL
+    public UsuarioDTO(String usuario, String contrasenia) {
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
+    }
+
 }

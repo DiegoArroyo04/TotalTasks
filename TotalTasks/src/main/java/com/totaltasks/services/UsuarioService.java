@@ -1,6 +1,9 @@
 package com.totaltasks.services;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.RepoDTO;
@@ -26,5 +29,10 @@ public interface UsuarioService {
     // Buscar por usuario
     UsuarioEntity encontrarUsuario(String email);
 
-    void actualizarUsuario(UsuarioEntity usuario);
+    UsuarioEntity encontrarUsuarioPorUsuario(String usuario);
+
+    void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia,
+            MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException;
+
+    String convertirByteABase64(byte[] foto);
 }

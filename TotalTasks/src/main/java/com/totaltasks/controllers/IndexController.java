@@ -2,39 +2,42 @@ package com.totaltasks.controllers;
 
 import java.util.Base64;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.UsuarioDTO;
+import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
-
 
 @Controller
 public class IndexController {
 
+	@Autowired
+	UsuarioService usuarioService;
+
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
-	
+
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
-	
+
 		// Si existe, lo añadimos al modelo
 		if (usuario != null) {
 			model.addAttribute("usuario", usuario);
-			
+
 			// Convertimos la foto de perfil a Base64 y la añadimos al modelo
-			byte[] fotoBytes = usuario.getFotoPerfil();
-			if (fotoBytes != null) {
-				String fotoPerfilBase64 = Base64.getEncoder().encodeToString(fotoBytes);
-				model.addAttribute("fotoPerfilBase64", fotoPerfilBase64);
-			}
+			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+			// FOTO DE PERFIL DE GOOGLE Y GITHUB
+			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
 		}
-	
+
 		model.addAttribute("paginaActual", "index");
 		return "index";
-	}	
+	}
 
 	@GetMapping("/registro")
 	public String registro() {
@@ -63,20 +66,20 @@ public class IndexController {
 		// Si no hay usuario, redirigimos al login
 		if (usuario == null) {
 			return "redirect:/login";
+		} else {
+
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+
+			// FOTO DE PERFIL DE GOOGLE Y GITHUB
+			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+
+			model.addAttribute("paginaActual", "dashboard");
+
+			return "dashboard";
 		}
 
-		model.addAttribute("usuario", usuario);
-
-		byte[] fotoBytes = usuario.getFotoPerfil();
-
-		if (fotoBytes != null) {
-			String fotoPerfilBase64 = Base64.getEncoder().encodeToString(fotoBytes);
-			model.addAttribute("fotoPerfilBase64", fotoPerfilBase64);
-		}
-
-		model.addAttribute("paginaActual", "dashboard");
-
-		return "dashboard";
 	}
 
 	@GetMapping("/privacidad")
@@ -88,7 +91,7 @@ public class IndexController {
 	public String terminos() {
 		return "/textos-legales/terminos-de-uso";
 	}
-	
+
 	@GetMapping("/documentacion")
 	public String documentacion() {
 		return "/informacion/documentacion";
@@ -112,14 +115,11 @@ public class IndexController {
 			return "redirect:/login";
 		}
 
-		UsuarioDTO dto = new UsuarioDTO();
-		dto.setNombre(usuario.getNombre());
-		dto.setUsuario(usuario.getUsuario());
-		dto.setEmail(usuario.getEmail());
-		dto.setContrasenia(usuario.getContrasenia());
-		dto.setFotoPerfil(usuario.getFotoPerfil());
-
-		model.addAttribute("usuario", dto);
+		model.addAttribute("usuario", usuario);
+		// FOTO DE PERFIL DE GOOGLE Y GITHUB
+		model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+		model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+		model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
 
 		return "miPerfil";
 	}

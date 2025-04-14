@@ -64,6 +64,7 @@ function handleCredentialResponse(response) {
         nombre: data.given_name + " " + data.family_name,
         usuario: username,
         email: email,
+        fotoPerfilGoogle: data.picture
 
     };
 
@@ -97,7 +98,7 @@ function initGoogleSignIn() {
     });
     google.accounts.id.renderButton(
         document.querySelector('.g_id_signin'),
-        { 
+        {
             type: 'icon',
             theme: 'filled_black',
         }
@@ -111,7 +112,7 @@ window.onload = function () {
 };
 
 // Login con GitHub con permisos extendidos
-document.getElementById("github-login").addEventListener("click", function() {
+document.getElementById("github-login").addEventListener("click", function () {
     const clientId = "Ov23li9EsZ9MUsqhPpoX";
     const redirectUri = encodeURIComponent("http://localhost:9091/usuarios/githubCallback");
     const scope = encodeURIComponent("read:user user:email repo admin:repo_hook delete_repo gist");

@@ -13,7 +13,8 @@
                 <!-- Enlaces del index -->
                 <li th:if="${paginaActual == 'index'}"><a href="/#">Inicio</a></li>
                 <li th:if="${paginaActual == 'index'}"><a href="/#caracteristicas">Características</a></li>
-                <li th:if="${paginaActual == 'index'}"><a href="/#faq" onclick="openChatbot()">Preguntas Frecuentes</a></li>
+                <li th:if="${paginaActual == 'index'}"><a href="/#faq" onclick="openChatbot()">Preguntas Frecuentes</a>
+                </li>
 
                 <!-- Enlaces del dashboard -->
                 <li th:if="${paginaActual == 'dashboard'}"><a href="/dashboard/crear">Crear tarea</a></li>
@@ -41,8 +42,25 @@
                 </li>
 
                 <li th:if="${usuario != null}">
-                    <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/assets/dashboard/foto-perfil.webp'"
-                    alt="Perfil" class="avatar" id="avatarMenu">
+
+                    <!-- Primero comprobamos si fotoPerfilBase64 está disponible -->
+                    <img th:if="${fotoPerfilBase64 != null}" th:src="'data:image/jpeg;base64,' + ${fotoPerfilBase64}"
+                        alt="Foto de perfil base64" class="avatar" id="avatarMenu">
+
+                    <!-- Si no está disponible fotoPerfilBase64, comprobamos si fotoperfilGoogle tiene un valor -->
+                    <img th:if="${fotoPerfilBase64 == null and !#strings.isEmpty(fotoperfilGoogle)}"
+                        th:src="${fotoperfilGoogle}" alt="Foto de perfil Google" class="avatar" id="avatarMenu">
+
+                    <!-- Si no está disponible fotoPerfilBase64 ni fotoperfilGoogle, comprobamos si fotoPerfilGithub tiene un valor -->
+                    <img th:if="${fotoPerfilBase64 == null and #strings.isEmpty(fotoperfilGoogle) and !#strings.isEmpty(fotoPerfilGithub)}"
+                        th:src="${fotoPerfilGithub}" alt="Foto de perfil Github" class="avatar" id="avatarMenu">
+
+                    <!-- Si ninguna de las anteriores tiene valor, cargamos la imagen por defecto -->
+                    <img th:if="${fotoPerfilBase64 == null and #strings.isEmpty(fotoperfilGoogle) and #strings.isEmpty(fotoPerfilGithub)}"
+                        th:src="@{/assets/dashboard/foto-perfil.webp}" alt="Foto de perfil por defecto" class="avatar"
+                        id="avatarMenu">
+
+
 
                     <div class="menu-perfil" id="menuPerfil">
                         <a th:href="@{/usuarios/miCuenta}">Mi cuenta</a>

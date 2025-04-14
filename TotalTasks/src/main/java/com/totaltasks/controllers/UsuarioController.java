@@ -41,9 +41,11 @@ public class UsuarioController {
         // Si el usuario fue encontrado se agrega a la sesión
         if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
+            session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
         } else {
             // Si el usuario fue creado, también lo agregamos a la sesión
             session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
+            session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
         }
 
         return respuesta;
@@ -52,8 +54,9 @@ public class UsuarioController {
 
     // REGISTRO GITHUB
     @GetMapping("githubCallback")
-    public void githubCallback(@RequestParam(value = "code", required = false) String code, @RequestParam(value = "error", required = false)
-    String error, HttpSession session, HttpServletResponse response) throws IOException {
+    public void githubCallback(@RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "error", required = false) String error, HttpSession session,
+            HttpServletResponse response) throws IOException {
 
         // Si el usuario cancela los permisos redireccion al lobby
         if (error != null && error.equals("access_denied")) {
@@ -78,6 +81,7 @@ public class UsuarioController {
 
         // Guardar informacion en la sesion
         session.setAttribute("repositorios", repositorios);
+        session.setAttribute("fotoPerfilGithub", usuarioDTO.getFotoPerfilGithub());
 
         // Redirigir al login
         response.sendRedirect("/login");
@@ -89,13 +93,14 @@ public class UsuarioController {
         // Si encontramos al usuario y es valido lo añadimos a la sesion
         if (usuarioService.comprobarLogin(usuario).equals("Encontrado")) {
 
-            UsuarioEntity usuarioEntity = usuarioService.encontrarUsuario(usuario.getUsuario());
+            UsuarioEntity usuarioEntity = usuarioService.encontrarUsuarioPorUsuario(usuario.getUsuario());
 
             // Añadimos el usuario a la sesión
             session.setAttribute("usuario", usuarioEntity);
 
             return "Encontrado";
         } else {
+
             return usuarioService.comprobarLogin(usuario);
         }
 
@@ -109,9 +114,11 @@ public class UsuarioController {
 
     // Metodo con la funcionalidad del perfil actualizado
     @PostMapping("perfilEditado")
-    public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre, @RequestParam("usuario") String nombreUsuario,
-    @RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia,
-    @RequestParam(value = "fotoPerfil", required = false) MultipartFile fotoPerfil, HttpSession session) throws Exception {
+    public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre,
+            @RequestParam("usuario") String nombreUsuario,
+            @RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia,
+            @RequestParam(value = "fotoPerfil", required = false) MultipartFile fotoPerfil, HttpSession session)
+            throws Exception {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -120,17 +127,7 @@ public class UsuarioController {
             return;
         }
 
-        usuario.setNombre(nombre);
-        usuario.setUsuario(nombreUsuario);
-        usuario.setEmail(email);
-        usuario.setContrasenia(contrasenia);
-
-        // Si hay nueva foto, actualízala
-        if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
-            usuario.setFotoPerfil(fotoPerfil.getBytes());
-        }
-
-        usuarioService.actualizarUsuario(usuario);
+        usuarioService.actualizarUsuario(nombre, nombreUsuario, email, contrasenia, fotoPerfil, usuario);
         session.setAttribute("usuario", usuario);
 
         response.sendRedirect("/usuarios/miCuenta");
