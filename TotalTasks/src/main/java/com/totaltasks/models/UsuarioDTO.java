@@ -1,6 +1,7 @@
 package com.totaltasks.models;
 
 import java.util.Base64;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class UsuarioDTO {
+    
     private String nombre;
     private String usuario;
     private String email;

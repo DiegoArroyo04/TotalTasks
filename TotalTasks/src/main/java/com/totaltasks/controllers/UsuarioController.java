@@ -54,9 +54,8 @@ public class UsuarioController {
 
     // REGISTRO GITHUB
     @GetMapping("githubCallback")
-    public void githubCallback(@RequestParam(value = "code", required = false) String code,
-            @RequestParam(value = "error", required = false) String error, HttpSession session,
-            HttpServletResponse response) throws IOException {
+    public void githubCallback(@RequestParam(value = "code", required = false) String code, HttpServletResponse response,
+    @RequestParam(value = "error", required = false) String error, HttpSession session) throws IOException {
 
         // Si el usuario cancela los permisos redireccion al lobby
         if (error != null && error.equals("access_denied")) {
@@ -114,11 +113,9 @@ public class UsuarioController {
 
     // Metodo con la funcionalidad del perfil actualizado
     @PostMapping("perfilEditado")
-    public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre,
-            @RequestParam("usuario") String nombreUsuario,
-            @RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia,
-            @RequestParam(value = "fotoPerfil", required = false) MultipartFile fotoPerfil, HttpSession session)
-            throws Exception {
+    public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre, @RequestParam("usuario") String nombreUsuario,
+    @RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia, @RequestParam(value = "fotoPerfil", required = false)
+    MultipartFile fotoPerfil, HttpSession session) throws Exception {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 

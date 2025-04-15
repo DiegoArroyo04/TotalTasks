@@ -53,19 +53,29 @@ CREATE TABLE tarea (
     CONSTRAINT FOREIGN KEY (id_responsable) REFERENCES Usuario (id_usuario)
 );
 
+-- Inserción de proyectos
+INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador, codigo) VALUES 
+('Proyecto Alpha', 'Sistema de gestión de tareas', 'Scrum', 1, 'ALPHA123'), 
+('Proyecto Beta', 'App de colaboración en equipo', 'Kanban', 2, 'BETA456');
+
+-- Inserción en tabla intermedia usuario_proyecto
+INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol) VALUES
+(1, 1, 'Administrador'),
+(1, 2, 'Colaborador'),
+(2, 2, 'Administrador');
+
+-- Inserción de tareas
+INSERT INTO tarea (titulo, descripcion, fecha_limite, id_proyecto, id_responsable, estado) VALUES
+('Diseñar base de datos', 'Diseñar el esquema inicial de la base de datos', '2025-04-20', 1, 1, 'En progreso'),
+('Maquetar la app', 'Hacer la estructura de pantallas principales', '2025-04-22', 2, 2, 'Pendiente');
+
+
+-- Selects
 SELECT * FROM USUARIO;
+SELECT * FROM PROYECTO;
+SELECT * FROM USUARIO_PROYECTO;
+SELECT * FROM TAREA;
 
 
-
-INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador)
-VALUES ('Proyecto Demo', 'Este es un proyecto de prueba', 'SCRUM', 3);
-
-
--- Juan participa como desarrollador en el segundo proyecto
-INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol)
-VALUES (3, 2, 'Developer');
-
-
-
--- SCRIPT DE DESTRUCTIVO
+-- Sript destructivo
 DROP DATABASE totaltasks;
