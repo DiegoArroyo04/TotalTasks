@@ -37,6 +37,9 @@ public class ProyectoEntity {
     @Column(name = "metodologia", nullable = false)
     private String metodologia;
 
+    @Column(name = "codigo", unique = true, nullable = false, length = 10)
+    private String codigo;
+
     @ManyToOne
     @JoinColumn(name = "id_creador", nullable = false)
     private UsuarioEntity creador;
@@ -46,5 +49,18 @@ public class ProyectoEntity {
 
     @OneToMany(mappedBy = "proyecto")
     private List<UsuarioProyectoEntity> usuarios;
+
+    @PrePersist
+    private void generarCodigoAleatorio() {
+        if (this.codigo == null || this.codigo.isEmpty()) {
+            String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            String codigo = "";
+            for (int i = 0; i < 10; i++) {
+                int index = (int) (Math.random() * caracteres.length());
+                codigo += caracteres.charAt(index);
+            }
+            this.codigo = codigo;
+        }
+    }    
 
 }

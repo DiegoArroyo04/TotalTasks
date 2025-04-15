@@ -55,7 +55,7 @@ public class UsuarioController {
     // REGISTRO GITHUB
     @GetMapping("githubCallback")
     public void githubCallback(@RequestParam(value = "code", required = false) String code, HttpServletResponse response,
-    @RequestParam(value = "error", required = false) String error, HttpSession session) throws IOException {
+    @RequestParam(value = "error", required = false) String error,HttpSession session) throws IOException {
 
         // Si el usuario cancela los permisos redireccion al lobby
         if (error != null && error.equals("access_denied")) {
@@ -78,7 +78,8 @@ public class UsuarioController {
         // Obtener la lista de repositorios
         List<RepoDTO> repositorios = usuarioService.obtenerRepositoriosUsuarioGitHub(accessToken);
 
-        // Guardar informacion en la sesion
+        // Guardar información en la sesión
+        session.setAttribute("access_token", accessToken);
         session.setAttribute("repositorios", repositorios);
         session.setAttribute("fotoPerfilGithub", usuarioDTO.getFotoPerfilGithub());
 

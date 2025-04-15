@@ -21,4 +21,9 @@ public class ProyectoServiceImplementation implements ProyectoService {
         return proyectoRepository.findTodosLosProyectosDeUnUsuario(usuario.getIdUsuario());
     }
 
+    @Override
+    public void guardarProyecto(ProyectoEntity proyecto) {
+        proyectoRepository.save(proyecto);
+    }
+
 }

@@ -9,4 +9,6 @@ public interface ProyectoService {
 
     List<ProyectoEntity> todosLosProyectosDeUnUsuario(UsuarioEntity usuario);
     
+    void guardarProyecto(ProyectoEntity proyecto);
+    
 }
