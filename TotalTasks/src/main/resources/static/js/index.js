@@ -15,4 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById(idPestana).classList.add("active");
     });
   });
+
+  // Menu fijo
+  const header = document.getElementById("cabezera");
+  const spacer = document.getElementById("headerSpacer");
+
+  window.addEventListener('scroll', function() {
+      const header = document.getElementById('cabezera');
+      const spacer = document.getElementById('headerSpacer');
+      
+      if (window.scrollY > 100) {
+          header.classList.add('fixed');
+          spacer.style.height = '200px';
+      } else {
+          header.classList.remove('fixed');
+      }
+  });
+  
 });

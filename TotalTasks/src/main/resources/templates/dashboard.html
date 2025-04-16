@@ -1,102 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
   <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dashboard</title>
-        <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <link rel="stylesheet" href="css/general.css" />
-        <link rel="stylesheet" href="css/dashboard.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/dashboard.css" />
   </head>
   <body>
+
     <!-- Header -->
     <div th:insert="~{fragmentos/header :: header}"></div>
 
-    <main>
-        <!-- Contenedor de Repositorios -->
-        <div class="repositorios-container">
-            <h2>Tus Repositorios GitHub</h2>
-            <div th:if="${session.repositorios == null or #lists.isEmpty(session.repositorios)}">
-                <p>No se han encontrado repositorios asociados a tu cuenta GitHub.</p>
-            </div>
-            <div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repositorios-grid">
-                <div th:each="repo : ${session.repositorios}" class="repositorio-card">
-                    <h3 th:text="${repo.name}">Nombre del Repo</h3>
-                    <p th:text="${repo.description}">Descripción del Repo</p>
-                    <p><strong>Lenguaje:</strong><span th:text="${repo.language}">Lenguaje</span></p>
-                    <button type="button" class="btn-abrir-modal" th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
-                        Usar este Repo
-                    </button>
-                </div>
-            </div>
+    <!-- Contenedor principal -->
+    <div class="dashboard-container">
+      <!-- Sidebar: Repositorios -->
+      <aside class="sidebar">
+        <h2>Repositorios GitHub</h2>
+        <div th:if="${session.repositorios == null or #lists.isEmpty(session.repositorios)}">
+          <p>No se han encontrado repositorios.</p>
         </div>
-
-        <!-- Contenedor del resto del dashboard -->
-        <div class="contenido-main">
-            <h1 class="tituloDashboard">Dashboard</h1>
-
-            <div class="contenedorProyectos">
-                <div class="acciones-proyecto">
-                    <a href="">Crear Proyecto</a>
-                    <a href="">Unirse a Un Proyecto</a>
-                </div>
-
-                <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
-                    <p class="mensaje-vacio">Todavía no has creado ni te has unido a ningún proyecto.</p>
-                </div>
-
-                <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="proyectos-grid">
-                    <div th:each="proyecto : ${proyectos}" class="proyecto-card">
-                        <h2 th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h2>
-                        <p th:text="${proyecto.descripcion}">Descripción</p>
-                        <div class="proyecto-detalles">
-                            <span th:text="${proyecto.metodologia}">Metodología</span>
-                            <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
-                        </div>
-                        <p class="creador" th:text="'Creador: ' + ${proyecto.creador.usuario}">Nombre Creador</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chat -->
-            <div class="chat-container">
-                <p>
-                    <strong>Conexión WebSocket:</strong>
-                    <span id="estado-conexion">Desconectado</span>
-                </p>
-                <input type="text" id="mensajeInput" placeholder="Escribe un mensaje"/>
-                <button onclick="enviarMensaje()">Enviar</button>
-                <div id="mensajesRecibidos"></div>
-            </div>
+        <div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repo-list">
+          <div th:each="repo : ${session.repositorios}" class="repo-item">
+            <h3 th:text="${repo.name}">Repo Name</h3>
+            <p th:text="${repo.description}">Descripción del Repo</p>
+            <p>
+              <strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span>
+            </p>
+            <button type="button" class="btn-modal" th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
+              Usar este Repo
+            </button>
+          </div>
         </div>
-    </main>
+      </aside>
 
-    <!-- Modal -->
+      <!-- Contenido principal -->
+      <main class="main-content">
+        <!-- Sección de Proyectos -->
+        <section class="projects-section">
+          <div class="projects-header">
+            <h2>Proyectos</h2>
+            <div class="project-actions">
+              <a href="#" class="btn btn-create">Crear Proyecto</a>
+              <a href="#" class="btn btn-join">Unirse a un Proyecto</a>
+            </div>
+          </div>
+          <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
+            <p class="empty-message">No has creado ni te has unido a proyectos.</p>
+          </div>
+          <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
+            <div th:each="proyecto : ${proyectos}" class="project-card">
+              <h3 th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
+              <p th:text="${proyecto.descripcion}">Descripción</p>
+              <div class="project-meta">
+                <span th:text="${proyecto.metodologia}">Metodología</span>
+                <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
+              </div>
+              <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}">Creador</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección de Chat -->
+        <section class="chat-section">
+          <h2>Chat en Tiempo Real</h2>
+          <div class="chat-header">
+            <p>
+              <strong>Conexión WebSocket:</strong>
+              <span id="estado-conexion">Desconectado</span>
+            </p>
+          </div>
+          <div class="chat-body">
+            <div id="mensajesRecibidos"></div>
+          </div>
+          <div class="chat-input">
+            <input type="text" id="mensajeInput" placeholder="Escribe un mensaje" />
+            <button onclick="enviarMensaje()">Enviar</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal para Crear Proyecto desde Repo -->
     <div id="modalCrearProyecto" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
-            <h2>Crear Proyecto desde Repo</h2>
-            <form action="/crearProyectoDesdeRepo" method="post">
-                <label for="repoName">Nombre del Proyecto</label>
-                <input type="text" id="repoName" name="repoName" required />
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Crear Proyecto desde Repo</h2>
+        <form action="/crearProyectoDesdeRepo" method="post">
+          <label for="repoName">Nombre del Proyecto</label>
+          <input type="text" id="repoName" name="repoName" required />
 
-                <label for="repoDescription">Descripción</label>
-                <textarea id="repoDescription" name="repoDescription" rows="3"></textarea>
+          <label for="repoDescription">Descripción</label>
+          <textarea id="repoDescription" name="repoDescription" rows="3"></textarea>
 
-                <label for="metodologia">Metodología</label>
-                <select id="metodologia" name="metodologia">
-                    <option value="Scrum">Scrum</option>
-                    <option value="Kanban">Kanban</option>
-                </select>
+          <label for="metodologia">Metodología</label>
+          <select id="metodologia" name="metodologia">
+            <option value="Scrum">Scrum</option>
+            <option value="Kanban">Kanban</option>
+          </select>
 
-                <button type="submit">Crear Proyecto</button>
-            </form>
-        </div>
+          <button type="submit">Crear Proyecto</button>
+        </form>
+      </div>
     </div>
 
     <!-- Footer -->
-    <div th:insert="~{fragmentos/footer :: footer}"></div>
+    <footer th:insert="~{fragmentos/footer :: footer}"></footer>
 
     <script src="js/dashboard.js"></script>
     <script src="js/chat.js"></script>

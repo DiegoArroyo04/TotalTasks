@@ -1,217 +1,349 @@
 @import url('general.css');
 
-/* Chat */
-.chat-container {
-  margin: 2rem auto;
-  max-width: 600px;
-  padding: 1rem;
-  background-color: #fafafa;
+/* Contenedor principal */
+.dashboard-container {
+  display: flex;
+  margin: 2rem;
+  gap: 2rem;
+}
+
+/* Sidebar de Repositorios */
+.sidebar {
+  flex: 0 0 300px;
+  color: #fff;
   border-radius: 10px;
-  border: 2px dashed #aaa;
-  font-family: sans-serif;
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: 80vh;
 }
 
-.chat-container input {
-  width: 70%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.sidebar h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-.chat-container button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
+.repo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.repo-item {
+  background-color: #007BFF;
+  border-radius: 8px;
+  padding: 0.8rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.repo-item:hover {
+  transform: scale(1.02);
   cursor: pointer;
 }
 
-#mensajesRecibidos {
-  margin-top: 1rem;
-  height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
+.repo-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.repo-item p {
+  font-size: 0.875rem;
+  color: #fff;
+}
+
+.btn-modal {
+  margin-top: 0.5rem;
+  background-color: #fff;
+  color: #007BFF;
+  border: none;
   padding: 0.5rem;
-  background: #fff;
-  border-radius: 6px;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Título Dashboard */
-.tituloDashboard {
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  color: var(--color-primario);
-  font-size: var(--tamano-titulo);
-  animation: aparecer 0.5s ease-in-out;
-}
-
-/* Contenedor de Proyectos */
-.contenedorProyectos {
-  padding: 2rem;
+/* Contenido principal */
+.main-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.acciones-proyecto {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.acciones-proyecto a {
-  background-color: var(--color-primario);
-  color: white;
-  padding: 0.7rem 1.5rem;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.acciones-proyecto a:hover {
-  background-color: var(--color-primario-hover);
-  text-decoration: none;
-}
-
-/* Grid de Proyectos */
-.proyectos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-.proyecto-card {
-  background-color: white;
-  border: 1px solid var(--color-sombra);
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
-  width: 100%;
-  max-width: 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.proyecto-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 123, 255, 0.1);
-  cursor: pointer;
-}
-
-.proyecto-card h2 {
-  font-size: var(--tamano-subtitulo);
-  color: var(--color-primario);
-  margin-bottom: 0.5rem;
-}
-
-.proyecto-card p {
-  font-size: var(--tamano-texto);
-  color: var(--color-texto);
-  margin-bottom: 0.5rem;
-}
-
-.proyecto-card .proyecto-detalles {
-  display: flex;
-  justify-content: space-between;
-  font-size: var(--tamano-texto-pequeno);
-  color: var(--color-muted);
-  margin-top: auto;
-}
-
-.proyecto-card .creador {
-  font-size: var(--tamano-texto-pequeno);
-  color: var(--color-muted);
-  margin-top: 0.5rem;
-}
-
-/* Contenedor principal */
-main {
-  display: flex;
-  border: 2px solid var(--color-primario);
-  border-radius: 12px;
-  margin: 2rem;
-  overflow: hidden;
+/* Sección de Proyectos */
+.projects-section {
   background-color: #fff;
+  border: 2px solid #007BFF;
+  border-radius: 10px;
+  padding: 1.5rem;
+  animation: aparecer 0.5s ease-in-out;
+  color: #007BFF;
 }
 
-/* Repositorios */
-.repositorios-container {
-  width: 300px;
-  max-height: 80vh;
-  overflow-y: auto;
-  background-color: #f7f7f7;
-  padding: 20px;
-  border-right: 1px solid #ddd;
-  box-sizing: border-box;
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.repositorios-container h2 {
-  margin-top: 0;
+.project-actions {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.repositorios-grid {
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn-create {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.btn-create:hover {
+  background-color: #0056b3;
+}
+
+.btn-join {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.btn-join:hover {
+  background-color: #0056b3;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 1rem;
+  color: #007BFF;
+}
+
+.projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.project-card {
+  background-color: #fff;
+  border: 2px solid #007BFF;
+  border-radius: 10px;
+  width: 280px;
+  padding: 1rem;
+  transition: transform 0.3s;
+  color: #007BFF;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.project-card h3 {
+  color: #007BFF;
+}
+
+.project-card p {
+  margin: 0.5rem 0;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid #007BFF;
+}
+
+.project-owner {
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: #007BFF;
+}
+
+/* Sección de Chat */
+.chat-section {
+  background-color: #fff;
+  border: 2px solid #007BFF;
+  border-radius: 10px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
+  color: #007BFF;
 }
 
-.contenido-main {
-  flex: 1;
-  padding: 2rem;
+.chat-section h2 {
+  text-align: center;
+  color: #007BFF;
+}
+
+.chat-header {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.chat-body {
+  height: 200px;
   overflow-y: auto;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background-color: #fff;
+  color: #007BFF;
 }
 
-/* Botón para abrir el modal en tarjetas de repositorios */
-.btn-abrir-modal {
-  background-color: var(--color-primario);
-  color: white;
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  color: #007BFF;
+}
+
+.chat-input button {
+  background-color: #007BFF;
+  color: #fff;
   border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.btn-abrir-modal:hover {
-  background-color: var(--color-primario-hover);
+.chat-input button:hover {
+  background-color: #0056b3;
 }
 
 /* Modal */
 .modal {
   display: none;
   position: fixed;
-  z-index: 100;
+  z-index: 200;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-content {
-  background-color: #fff;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 5px;
-  width: 400px;
+  background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
   position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: modal-appear 0.4s ease-in-out;
+  color: #fff;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+.modal-content h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #fff;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #007BFF;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #007BFF;
+}
+
+.modal-content button[type="submit"] {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
+.modal-content button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Botón de cerrar */
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close:hover {
+  color: #0056b3;
+}
+
+/* Animación de aparición para el modal */
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animación de aparición general */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
