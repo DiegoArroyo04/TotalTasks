@@ -9,25 +9,22 @@
     <link rel="stylesheet" href="css/dashboard.css" />
   </head>
   <body>
-
     <!-- Header -->
     <div th:insert="~{fragmentos/header :: header}"></div>
 
-    <!-- Contenedor principal -->
+    <!-- Contenedor Principal -->
     <div class="dashboard-container">
-      <!-- Sidebar: Repositorios -->
+      <!-- Sidebar -->
       <aside class="sidebar">
         <h2>Repositorios GitHub</h2>
         <div th:if="${session.repositorios == null or #lists.isEmpty(session.repositorios)}">
-          <p>No se han encontrado repositorios.</p>
+          <p class="no-repos">No se han encontrado repositorios.</p>
         </div>
         <div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repo-list">
           <div th:each="repo : ${session.repositorios}" class="repo-item">
             <h3 th:text="${repo.name}">Repo Name</h3>
             <p th:text="${repo.description}">Descripción del Repo</p>
-            <p>
-              <strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span>
-            </p>
+            <p><strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span></p>
             <button type="button" class="btn-modal" th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
               Usar este Repo
             </button>
@@ -35,15 +32,15 @@
         </div>
       </aside>
 
-      <!-- Contenido principal -->
+      <!-- Contenido Principal -->
       <main class="main-content">
-        <!-- Sección de Proyectos -->
+        <!-- Proyectos -->
         <section class="projects-section">
           <div class="projects-header">
             <h2>Proyectos</h2>
             <div class="project-actions">
-              <a href="#" class="btn btn-create">Crear Proyecto</a>
-              <a href="#" class="btn btn-join">Unirse a un Proyecto</a>
+              <a class="btn btn-create" href="#" onclick="abrirModalCrearProyectoManual()">Crear Proyecto</a>
+              <a class="btn btn-join" href="#" onclick="abrirModalUnirse()">Unirse a un Proyecto</a>
             </div>
           </div>
           <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
@@ -62,14 +59,11 @@
           </div>
         </section>
 
-        <!-- Sección de Chat -->
+        <!-- Chat -->
         <section class="chat-section">
           <h2>Chat en Tiempo Real</h2>
           <div class="chat-header">
-            <p>
-              <strong>Conexión WebSocket:</strong>
-              <span id="estado-conexion">Desconectado</span>
-            </p>
+            <p><strong>Conexión WebSocket:</strong> <span id="estado-conexion">Desconectado</span></p>
           </div>
           <div class="chat-body">
             <div id="mensajesRecibidos"></div>
@@ -82,7 +76,8 @@
       </main>
     </div>
 
-    <!-- Modal para Crear Proyecto desde Repo -->
+    <!-- Modales -->
+    <!-- Crear desde Repo -->
     <div id="modalCrearProyecto" class="modal">
       <div class="modal-content">
         <span class="close" onclick="cerrarModal()">&times;</span>
@@ -90,24 +85,65 @@
         <form action="/crearProyectoDesdeRepo" method="post">
           <label for="repoName">Nombre del Proyecto</label>
           <input type="text" id="repoName" name="repoName" required />
-
           <label for="repoDescription">Descripción</label>
           <textarea id="repoDescription" name="repoDescription" rows="3"></textarea>
-
           <label for="metodologia">Metodología</label>
           <select id="metodologia" name="metodologia">
             <option value="Scrum">Scrum</option>
             <option value="Kanban">Kanban</option>
           </select>
-
           <button type="submit">Crear Proyecto</button>
         </form>
       </div>
     </div>
 
+    <!-- Crear Manual -->
+    <div id="modalCrearProyectoManual" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModalCrearProyectoManual()">&times;</span>
+        <h2>Crear Proyecto</h2>
+        <form th:action="@{/crearProyectoManualmente}" method="post">
+          <label for="nombre">Nombre del proyecto</label>
+          <input type="text" name="nombre" required />
+          <label for="descripcion">Descripción</label>
+          <textarea name="descripcion" rows="3" required></textarea>
+          <label for="metodologia">Metodología</label>
+          <select name="metodologia" required>
+            <option value="Scrum">Scrum</option>
+            <option value="Kanban">Kanban</option>
+            <option value="XP">XP</option>
+          </select>
+          <button type="submit">Crear</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Unirse -->
+    <div id="modalUnirse" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModalUnirse()">&times;</span>
+        <h2>Unirse a un Proyecto</h2>
+        <form th:action="@{/unirseProyecto}" method="post">
+          <label for="codigoProyecto">Código del Proyecto</label>
+          <input type="text" id="codigoProyecto" name="codigoProyecto" required maxlength="10" />
+          <button type="submit">Unirse</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="modalError" class="modal-error">
+        <div class="modal-error-content">
+          <span class="modal-error-close" onclick="cerrarModalError()">&times;</span>
+          <h2 class="modal-error-title">Error</h2>
+          <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
+        </div>
+    </div>      
+
     <!-- Footer -->
     <footer th:insert="~{fragmentos/footer :: footer}"></footer>
 
+    <!-- Scripts -->
     <script src="js/dashboard.js"></script>
     <script src="js/chat.js"></script>
   </body>

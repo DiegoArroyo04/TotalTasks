@@ -15,4 +15,6 @@ public interface ProyectoRepository extends JpaRepository<ProyectoEntity, Long> 
             "WHERE p.creador.idUsuario = :idUsuario OR up.usuario.idUsuario = :idUsuario")
     List<ProyectoEntity> findTodosLosProyectosDeUnUsuario(@Param("idUsuario") Long idUsuario);
 
+    ProyectoEntity findByCodigo(String codigo);
+
 }

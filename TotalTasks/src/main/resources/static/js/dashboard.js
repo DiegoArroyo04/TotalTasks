@@ -1,6 +1,6 @@
 // Espera a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function() {
-  // Toggle para Menú Perfil (opcional, solo si existen estos elementos en tu HTML)
+  // Toggle menú perfil (opcional)
   const perfilIcon = document.getElementById("perfilIcon");
   const menuPerfil = document.getElementById("menuPerfil");
   if (perfilIcon && menuPerfil) {
@@ -8,32 +8,74 @@ document.addEventListener("DOMContentLoaded", function() {
       menuPerfil.style.display = menuPerfil.style.display === "block" ? "none" : "block";
     });
   }
-  
-  // Configurar botones para abrir el Modal de Creación desde Repositorio
-  // Se ha actualizado la selección para que use la nueva clase .btn-modal
+
+  // Abrir modal desde repo
   const botonesModal = document.querySelectorAll(".btn-modal");
   botonesModal.forEach(function(boton) {
     boton.addEventListener("click", function() {
-      // Leer los atributos de datos (data-nombre y data-descripcion)
       const repoName = boton.getAttribute("data-nombre") || "";
       const repoDescription = boton.getAttribute("data-descripcion") || "";
       document.getElementById("repoName").value = repoName;
       document.getElementById("repoDescription").value = repoDescription;
-      // Se puede usar "flex" si se desea centrar el modal con flexbox
       document.getElementById("modalCrearProyecto").style.display = "flex";
     });
   });
+
+  // Mostrar modal de error si existe parámetro en la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const error = urlParams.get("error");
+  if (error) {
+    const modalError = document.getElementById("modalError");
+    const mensajeElem = document.getElementById("mensajeError");
+    if (modalError && mensajeElem) {
+      mensajeElem.textContent = decodeURIComponent(error);
+      modalError.style.display = "flex";
+    }
+  }
 });
 
-// Función para cerrar el modal
+// Funciones de los Modales
+
 function cerrarModal() {
   document.getElementById("modalCrearProyecto").style.display = "none";
 }
 
-// Cerrar el modal si se hace click fuera de él
+function abrirModalCrearProyectoManual() {
+  document.getElementById("modalCrearProyectoManual").style.display = "flex";
+}
+function cerrarModalCrearProyectoManual() {
+  document.getElementById("modalCrearProyectoManual").style.display = "none";
+}
+
+function abrirModalUnirse() {
+  document.getElementById("modalUnirse").style.display = "flex";
+}
+
+function cerrarModalUnirse() {
+  document.getElementById("modalUnirse").style.display = "none";
+}
+
+function cerrarModalError() {
+  document.getElementById("modalError").style.display = "none";
+}
+
+// Cerrar cualquier modal haciendo clic fuera
 window.addEventListener("click", function(event) {
-  const modal = document.getElementById("modalCrearProyecto");
-  if (event.target === modal) {
-    modal.style.display = "none";
+  const modalRepo = document.getElementById("modalCrearProyecto");
+  const modalManual = document.getElementById("modalCrearProyectoManual");
+  const modalUnirse = document.getElementById("modalUnirse");
+  const modalError = document.getElementById("modalError");
+
+  if (event.target === modalRepo) {
+    cerrarModal();
+  }
+  if (event.target === modalManual) {
+    cerrarModalCrearProyectoManual();
+  }
+  if (event.target === modalUnirse) {
+    cerrarModalUnirse();
+  }
+  if (event.target === modalError) {
+    cerrarModalError();
   }
 });
