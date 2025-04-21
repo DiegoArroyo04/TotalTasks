@@ -61,20 +61,8 @@ function cerrarModalError() {
 
 // Cerrar cualquier modal haciendo clic fuera
 window.addEventListener("click", function(event) {
-  const modalRepo = document.getElementById("modalCrearProyecto");
-  const modalManual = document.getElementById("modalCrearProyectoManual");
-  const modalUnirse = document.getElementById("modalUnirse");
   const modalError = document.getElementById("modalError");
 
-  if (event.target === modalRepo) {
-    cerrarModal();
-  }
-  if (event.target === modalManual) {
-    cerrarModalCrearProyectoManual();
-  }
-  if (event.target === modalUnirse) {
-    cerrarModalUnirse();
-  }
   if (event.target === modalError) {
     cerrarModalError();
   }

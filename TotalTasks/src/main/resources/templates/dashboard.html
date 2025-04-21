@@ -46,17 +46,21 @@
           <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
             <p class="empty-message">No has creado ni te has unido a proyectos.</p>
           </div>
+            <div th:if ="${error}">
+              <h1>Ya existe el proyecto</h1>
+            </div>
           <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
             <div th:each="proyecto : ${proyectos}" class="project-card">
-              <h3 th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
-              <p th:text="${proyecto.descripcion}">Descripción</p>
+              <h3 class="project-title" th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
+              <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}">Código</p>
+              <p class="project-description" th:text="${proyecto.descripcion}">Descripción</p>
               <div class="project-meta">
                 <span th:text="${proyecto.metodologia}">Metodología</span>
                 <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
               </div>
               <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}">Creador</p>
             </div>
-          </div>
+          </div>          
         </section>
 
         <!-- Chat -->
@@ -138,7 +142,7 @@
           <h2 class="modal-error-title">Error</h2>
           <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
         </div>
-    </div>      
+    </div>     
 
     <!-- Footer -->
     <footer th:insert="~{fragmentos/footer :: footer}"></footer>

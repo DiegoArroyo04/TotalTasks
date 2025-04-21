@@ -17,4 +17,6 @@ public interface ProyectoRepository extends JpaRepository<ProyectoEntity, Long> 
 
     ProyectoEntity findByCodigo(String codigo);
 
+    List<ProyectoEntity> findByNombreProyecto(String nombreProyecto);
+
 }

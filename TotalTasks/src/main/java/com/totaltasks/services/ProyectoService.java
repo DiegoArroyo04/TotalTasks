@@ -13,5 +13,7 @@ public interface ProyectoService {
     void guardarProyecto(ProyectoDTO proyecto);
 
     boolean unirseAProyectoPorCodigo(String codigo, UsuarioEntity usuario);
+
+    ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto);
     
 }

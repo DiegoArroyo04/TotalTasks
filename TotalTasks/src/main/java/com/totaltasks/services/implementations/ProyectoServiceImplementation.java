@@ -79,4 +79,10 @@ public class ProyectoServiceImplementation implements ProyectoService {
         return true;
     }
 
+    @Override
+    public ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto) {
+        List<ProyectoEntity> proyectos = proyectoRepository.findByNombreProyecto(nombreProyecto);
+        return proyectos.isEmpty() ? null : proyectos.get(0);
+    }
+
 }
