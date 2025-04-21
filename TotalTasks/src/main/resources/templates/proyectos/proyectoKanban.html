@@ -1,15 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto</title>
+    <title th:text="${proyecto.nombreProyecto}">Proyecto Kanban</title>
+    <link rel="stylesheet" href="/css/proyectos/proyectoKanban.css">
 </head>
-
 <body>
-    <h1>KANBAN</h1>
+    <!-- Header -->
+    <div th:insert="~{fragmentos/header :: header}"></div>
 
+    <main>
+        <div class="kanban-container">
+            <!-- Botón para crear nuevas columnas -->
+            <div class="btn-crear-tablero">
+                <button id="agregarColumna">+ Añadir columna</button>
+            </div>
+
+            <!-- Contenedor de columnas -->
+            <div id="tableros" class="tableros">
+                <!-- Columnas predefinidas -->
+                <div class="columna" draggable="true">
+                    <h3>Por Hacer <button class="eliminar-columna">🗑️</button></h3>
+                    <div class="tareas" data-etapa="porHacer">
+                        <div class="tarea">📌 Definir requisitos del cliente</div>
+                        <div class="tarea">🧠 Lluvia de ideas para funcionalidades</div>
+                    </div>
+                    <button class="agregar-tarea">+ Añadir tarea</button>
+                </div>
+                <div class="columna" draggable="true">
+                    <h3>En Curso <button class="eliminar-columna">🗑️</button></h3>
+                    <div class="tareas" data-etapa="enCurso">
+                        <div class="tarea">🛠️ Diseñar wireframes iniciales</div>
+                        <div class="tarea">📝 Escribir documentación técnica</div>
+                    </div>
+                    <button class="agregar-tarea">+ Añadir tarea</button>
+                </div>
+                <div class="columna" draggable="true">
+                    <h3>Hechas <button class="eliminar-columna">🗑️</button></h3>
+                    <div class="tareas" data-etapa="hechas">
+                        <div class="tarea">✅ Crear repositorio en GitHub</div>
+                        <div class="tarea">✅ Reunión inicial del equipo</div>
+                    </div>
+                    <button class="agregar-tarea">+ Añadir tarea</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal para crear columna -->
+    <div id="modalColumna" class="modal">
+        <div class="modal-contenido">
+            <h2>Crear nueva columna</h2>
+            <input type="text" id="nombreColumna" placeholder="Nombre de la columna" />
+            <div class="modal-acciones">
+                <button id="crearColumna">Crear</button>
+                <button id="cancelarModal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:insert="~{fragmentos/footer :: footer}"></footer>
+    <script src="/js/proyectos/proyectoKanban.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </body>
-
 </html>
