@@ -9,11 +9,13 @@ import com.totaltasks.entities.ProyectoEntity;
 public interface ProyectoService {
 
     List<ProyectoEntity> todosLosProyectosDeUnUsuario(UsuarioEntity usuario);
-    
+
     void guardarProyecto(ProyectoDTO proyecto);
 
     boolean unirseAProyectoPorCodigo(String codigo, UsuarioEntity usuario);
 
     ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto);
-    
+
+    ProyectoEntity obtenerProyectoPorId(Long id);
+
 }

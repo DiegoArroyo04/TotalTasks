@@ -1,154 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="css/dashboard.css" />
-  </head>
-  <body>
-    <!-- Header -->
-    <div th:insert="~{fragmentos/header :: header}"></div>
 
-    <!-- Contenedor Principal -->
-    <div class="dashboard-container">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <h2>Repositorios GitHub</h2>
-        <div th:if="${session.repositorios == null or #lists.isEmpty(session.repositorios)}">
-          <p class="no-repos">No se han encontrado repositorios.</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <div th:insert="~{fragmentos/header :: header}"></div>
+
+  <!-- Contenedor Principal -->
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}">
+      <h2>Repositorios GitHub</h2>
+      <div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repo-list">
+        <div th:each="repo : ${session.repositorios}" class="repo-item">
+          <h3 th:text="${repo.name}">Repo Name</h3>
+          <p th:text="${repo.description}">Descripción del Repo</p>
+          <p><strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span></p>
+          <button type="button" class="btn-modal"
+            th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
+            Usar este Repo
+          </button>
         </div>
-        <div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repo-list">
-          <div th:each="repo : ${session.repositorios}" class="repo-item">
-            <h3 th:text="${repo.name}">Repo Name</h3>
-            <p th:text="${repo.description}">Descripción del Repo</p>
-            <p><strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span></p>
-            <button type="button" class="btn-modal" th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
-              Usar este Repo
-            </button>
+      </div>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+      <!-- Proyectos -->
+      <section class="projects-section">
+        <div class="projects-header">
+          <h2>Proyectos</h2>
+          <div class="project-actions">
+            <a class="btn btn-create" href="#" onclick="abrirModalCrearProyectoManual()">Crear Proyecto</a>
+            <a class="btn btn-join" href="#" onclick="abrirModalUnirse()">Unirse a un Proyecto</a>
           </div>
         </div>
-      </aside>
-
-      <!-- Contenido Principal -->
-      <main class="main-content">
-        <!-- Proyectos -->
-        <section class="projects-section">
-          <div class="projects-header">
-            <h2>Proyectos</h2>
-            <div class="project-actions">
-              <a class="btn btn-create" href="#" onclick="abrirModalCrearProyectoManual()">Crear Proyecto</a>
-              <a class="btn btn-join" href="#" onclick="abrirModalUnirse()">Unirse a un Proyecto</a>
-            </div>
-          </div>
-          <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
-            <p class="empty-message">No has creado ni te has unido a proyectos.</p>
-          </div>
-            <div th:if ="${error}">
-              <h1>Ya existe el proyecto</h1>
-            </div>
-          <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
-            <div th:each="proyecto : ${proyectos}" class="project-card">
-              <h3 class="project-title" th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
-              <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}">Código</p>
-              <p class="project-description" th:text="${proyecto.descripcion}">Descripción</p>
-              <div class="project-meta">
-                <span th:text="${proyecto.metodologia}">Metodología</span>
-                <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
-              </div>
-              <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}">Creador</p>
-            </div>
-          </div>          
-        </section>
-
-        <!-- Chat -->
-        <section class="chat-section">
-          <h2>Chat en Tiempo Real</h2>
-          <div class="chat-header">
-            <p><strong>Conexión WebSocket:</strong> <span id="estado-conexion">Desconectado</span></p>
-          </div>
-          <div class="chat-body">
-            <div id="mensajesRecibidos"></div>
-          </div>
-          <div class="chat-input">
-            <input type="text" id="mensajeInput" placeholder="Escribe un mensaje" />
-            <button onclick="enviarMensaje()">Enviar</button>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <!-- Modales -->
-    <!-- Crear desde Repo -->
-    <div id="modalCrearProyecto" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2>Crear Proyecto desde Repo</h2>
-        <form action="/crearProyectoDesdeRepo" method="post">
-          <label for="repoName">Nombre del Proyecto</label>
-          <input type="text" id="repoName" name="repoName" required />
-          <label for="repoDescription">Descripción</label>
-          <textarea id="repoDescription" name="repoDescription" rows="3"></textarea>
-          <label for="metodologia">Metodología</label>
-          <select id="metodologia" name="metodologia">
-            <option value="Scrum">Scrum</option>
-            <option value="Kanban">Kanban</option>
-          </select>
-          <button type="submit">Crear Proyecto</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Crear Manual -->
-    <div id="modalCrearProyectoManual" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModalCrearProyectoManual()">&times;</span>
-        <h2>Crear Proyecto</h2>
-        <form th:action="@{/crearProyectoManualmente}" method="post">
-          <label for="nombre">Nombre del proyecto</label>
-          <input type="text" name="nombre" required />
-          <label for="descripcion">Descripción</label>
-          <textarea name="descripcion" rows="3" required></textarea>
-          <label for="metodologia">Metodología</label>
-          <select name="metodologia" required>
-            <option value="Scrum">Scrum</option>
-            <option value="Kanban">Kanban</option>
-            <option value="XP">XP</option>
-          </select>
-          <button type="submit">Crear</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Unirse -->
-    <div id="modalUnirse" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModalUnirse()">&times;</span>
-        <h2>Unirse a un Proyecto</h2>
-        <form th:action="@{/unirseProyecto}" method="post">
-          <label for="codigoProyecto">Código del Proyecto</label>
-          <input type="text" id="codigoProyecto" name="codigoProyecto" required maxlength="10" />
-          <button type="submit">Unirse</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Error -->
-    <div id="modalError" class="modal-error">
-        <div class="modal-error-content">
-          <span class="modal-error-close" onclick="cerrarModalError()">&times;</span>
-          <h2 class="modal-error-title">Error</h2>
-          <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
+        <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
+          <p class="empty-message">No has creado ni te has unido a proyectos.</p>
         </div>
-    </div>     
+        <div th:if="${error}">
+          <h1>Ya existe el proyecto</h1>
+        </div>
+        <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
+          <a th:href="@{/proyecto/{id}(id=${proyecto.idProyecto})}" th:each="proyecto : ${proyectos}"
+            class="project-card">
+            <h3 class="project-title" th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
+            <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}">Código</p>
+            <p class="project-description" th:text="${proyecto.descripcion}">Descripción</p>
+            <div class="project-meta">
+              <span th:text="${proyecto.metodologia}">Metodología</span>
+              <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
+            </div>
+            <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}">Creador</p>
+          </a>
+        </div>
+      </section>
 
-    <!-- Footer -->
-    <footer th:insert="~{fragmentos/footer :: footer}"></footer>
+      <!-- Chat -->
+      <section class="chat-section">
+        <h2>Chat en Tiempo Real</h2>
+        <div class="chat-header">
+          <p><strong>Conexión WebSocket:</strong> <span id="estado-conexion">Desconectado</span></p>
+        </div>
+        <div class="chat-body">
+          <div id="mensajesRecibidos"></div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="mensajeInput" placeholder="Escribe un mensaje" />
+          <button onclick="enviarMensaje()">Enviar</button>
+        </div>
+      </section>
+    </main>
+  </div>
 
-    <!-- Scripts -->
-    <script src="js/dashboard.js"></script>
-    <script src="js/chat.js"></script>
-  </body>
+  <!-- Modales -->
+  <!-- Crear desde Repo -->
+  <div id="modalCrearProyecto" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h2>Crear Proyecto desde Repo</h2>
+      <form action="/crearProyectoDesdeRepo" method="post">
+        <label for="repoName">Nombre del Proyecto</label>
+        <input type="text" id="repoName" maxlength="100" name="repoName" required />
+        <label for="repoDescription">Descripción</label>
+        <textarea id="repoDescription" name="repoDescription" class="manualDescripcion" maxlength="200"
+          rows="3"></textarea>
+        <label for="metodologia">Metodología</label>
+        <select id="metodologia" name="metodologia">
+          <option value="Scrum">Scrum</option>
+          <option value="Kanban">Kanban</option>
+        </select>
+        <button type="submit">Crear Proyecto</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Crear Manual -->
+  <div id="modalCrearProyectoManual" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModalCrearProyectoManual()">&times;</span>
+      <h2>Crear Proyecto</h2>
+      <form th:action="@{/crearProyectoManualmente}" method="post">
+        <label for="nombre">Nombre del proyecto</label>
+        <input type="text" maxlength="100" name="nombre" required />
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" rows="3" required maxlength="200" class="manualDescripcion"></textarea>
+        <label for="metodologia">Metodología</label>
+        <select name="metodologia" required>
+          <option value="Scrum">Scrum</option>
+          <option value="Kanban">Kanban</option>
+          <option value="XP">XP</option>
+        </select>
+        <button type="submit">Crear</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Unirse -->
+  <div id="modalUnirse" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModalUnirse()">&times;</span>
+      <h2>Unirse a un Proyecto</h2>
+      <form th:action="@{/unirseProyecto}" method="post">
+        <label for="codigoProyecto">Código del Proyecto</label>
+        <input type="text" id="codigoProyecto" name="codigoProyecto" required maxlength="10" />
+        <button type="submit">Unirse</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div id="modalError" class="modal-error">
+    <div class="modal-error-content">
+      <span class="modal-error-close" onclick="cerrarModalError()">&times;</span>
+      <h2 class="modal-error-title">Error</h2>
+      <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer th:insert="~{fragmentos/footer :: footer}"></footer>
+
+  <!-- Scripts -->
+  <script src="js/dashboard.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+
 </html>

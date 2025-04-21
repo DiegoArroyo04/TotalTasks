@@ -2,6 +2,9 @@ package com.totaltasks.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,8 +23,9 @@ public class ProyectoController {
     private ProyectoService proyectoService;
 
     @PostMapping("/crearProyectoManualmente")
-    public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam String metodologia,
-    HttpSession session) {
+    public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
+            @RequestParam String descripcion, @RequestParam String metodologia,
+            HttpSession session) {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -32,7 +36,7 @@ public class ProyectoController {
         ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(nombre);
 
         if (proyectoExistente != null) {
-            redirectAttributes.addAttribute("error", "No se ha encontrado el proyecto");
+            redirectAttributes.addAttribute("error", "El proyecto ya existe");
             return "redirect:/dashboard";
         }
 
@@ -48,11 +52,12 @@ public class ProyectoController {
     }
 
     @PostMapping("/crearProyectoDesdeRepo")
-    public String crearProyectoDesdeRepo(RedirectAttributes redirectAttributes, @RequestParam String repoName, @RequestParam String repoDescription, @RequestParam String metodologia,
-    HttpSession session) {
+    public String crearProyectoDesdeRepo(RedirectAttributes redirectAttributes, @RequestParam String repoName,
+            @RequestParam String repoDescription, @RequestParam String metodologia,
+            HttpSession session) {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
-        
+
         if (usuario == null) {
             return "redirect:/login";
         }
@@ -60,23 +65,24 @@ public class ProyectoController {
         ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(repoName);
 
         if (proyectoExistente != null) {
-            redirectAttributes.addAttribute("error", "No se ha encontrado el proyecto");
+            redirectAttributes.addAttribute("error", "El proyecto ya existe");
             return "redirect:/dashboard";
         }
-        
+
         ProyectoDTO proyecto = new ProyectoDTO();
         proyecto.setNombreProyecto(repoName);
         proyecto.setDescripcion(repoDescription);
         proyecto.setMetodologia(metodologia);
         proyecto.setIdCreador(usuario.getIdUsuario());
-    
+
         proyectoService.guardarProyecto(proyecto);
-        
+
         return "redirect:/dashboard";
     }
 
     @PostMapping("/unirseProyecto")
-    public String unirseAProyecto(@RequestParam String codigoProyecto, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String unirseAProyecto(@RequestParam String codigoProyecto, HttpSession session,
+            RedirectAttributes redirectAttributes) {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -93,5 +99,24 @@ public class ProyectoController {
             return "redirect:/dashboard";
         }
     }
- 
+
+    // REDIRECCION PROYECTOS
+    @GetMapping("/proyecto/{id}")
+    public String verProyecto(@PathVariable Long id, Model model) {
+        ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(id);
+
+        if (proyecto == null) {
+            return "redirect:/dashboard";
+        } else {
+            model.addAttribute("proyecto", proyecto);
+            if (proyecto.getMetodologia().equals("Kanban")) {
+                return "proyectos/proyectoKanban";
+            } else if (proyecto.getMetodologia().equals("Scrum")) {
+                return "proyectos/proyectoScrum";
+            } else {
+                return "proyectoXP";
+            }
+        }
+
+    }
 }

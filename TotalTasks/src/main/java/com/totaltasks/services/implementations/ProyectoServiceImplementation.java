@@ -85,4 +85,9 @@ public class ProyectoServiceImplementation implements ProyectoService {
         return proyectos.isEmpty() ? null : proyectos.get(0);
     }
 
+    @Override
+    public ProyectoEntity obtenerProyectoPorId(Long id) {
+        return proyectoRepository.findById(id).orElse(null);
+    }
+
 }

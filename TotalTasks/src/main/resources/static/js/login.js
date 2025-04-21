@@ -61,7 +61,7 @@ function handleCredentialResponse(response) {
 
     // Crear el objeto con los datos necesarios para el registro
     const usuarioData = {
-        nombre: data.given_name + " " + data.family_name,
+        nombre: (data.given_name + " " + (data.family_name || "")).trim(),
         usuario: username,
         email: email,
         fotoPerfilGoogle: data.picture
