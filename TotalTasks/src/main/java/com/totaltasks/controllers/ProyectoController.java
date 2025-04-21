@@ -100,6 +100,7 @@ public class ProyectoController {
         }
     }
 
+    // REDIRECCION PROYECTOS
     @GetMapping("/proyecto/{id}")
     public String verProyecto(@PathVariable Long id, Model model) {
         ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(id);
