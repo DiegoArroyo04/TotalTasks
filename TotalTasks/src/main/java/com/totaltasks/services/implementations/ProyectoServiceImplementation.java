@@ -14,6 +14,8 @@ import com.totaltasks.repositories.UsuarioProyectoRepository;
 import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.ProyectoService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProyectoServiceImplementation implements ProyectoService {
 
@@ -88,6 +90,23 @@ public class ProyectoServiceImplementation implements ProyectoService {
     @Override
     public ProyectoEntity obtenerProyectoPorId(Long id) {
         return proyectoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id, boolean abandonar) {
+        ProyectoEntity proyecto = obtenerProyectoPorId(id);
+
+        // SI ES EL BOTON DE ABANDONAR ELIMINAR LA RELACION DE EL USUARIO CON EN EL
+        // PROYECTO SI NO ELIMINAR LA RELACION Y
+        // EL PROYECTO
+        if (abandonar == true) {
+            usuarioProyectoRepository.deleteAllByProyecto(proyecto);
+        } else {
+            usuarioProyectoRepository.deleteAllByProyecto(proyecto);
+            proyectoRepository.deleteById(id);
+        }
+
     }
 
 }

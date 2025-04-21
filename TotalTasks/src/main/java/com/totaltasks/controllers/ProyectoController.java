@@ -119,4 +119,11 @@ public class ProyectoController {
         }
 
     }
+
+    @PostMapping("/proyecto/eliminar/{id}")
+    public String eliminarProyecto(@PathVariable Long id, @RequestParam boolean abandonar) {
+        proyectoService.deleteById(id, abandonar);
+        return "redirect:/dashboard";
+    }
+
 }
