@@ -18,4 +18,6 @@ public interface ProyectoService {
 
     ProyectoEntity obtenerProyectoPorId(Long id);
 
+    void deleteById(Long id, boolean abandonar);
+
 }

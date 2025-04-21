@@ -50,17 +50,55 @@
           <h1>Ya existe el proyecto</h1>
         </div>
         <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
-          <a th:href="@{/proyecto/{id}(id=${proyecto.idProyecto})}" th:each="proyecto : ${proyectos}"
-            class="project-card">
+          <div th:each="proyecto : ${proyectos}" class="project-card"
+            th:attr="onclick='irAProyecto(' + ${proyecto.idProyecto} + ')'">
             <h3 class="project-title" th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
             <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}">Código</p>
+            <button type="button" class="copy-btn" th:attr="data-codigo=${proyecto.codigo}"
+              onclick="copiarCodigo(event,this)">
+              <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="copy"
+                class="svg-inline--fa fa-copy " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="currentColor"
+                  d="M384 336l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L400 115.9 400 320c0 8.8-7.2 16-16 16zM192 384l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1L192 0c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-32-48 0 0 32c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l32 0 0-48-32 0z">
+                </path>
+              </svg>
+            </button>
+            <span class="tooltip-text">Código Copiado</span>
             <p class="project-description" th:text="${proyecto.descripcion}">Descripción</p>
             <div class="project-meta">
               <span th:text="${proyecto.metodologia}">Metodología</span>
               <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
             </div>
             <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}">Creador</p>
-          </a>
+            <form th:action="@{/proyecto/eliminar/{id}(id=${proyecto.idProyecto})}" method="post">
+
+              <input type="hidden" name="abandonar" th:value="${usuario.idUsuario != proyecto.creador.idUsuario}" />
+              <button th:if="${usuario.idUsuario == proyecto.creador.idUsuario}" type="submit" aria-label="Delete item"
+                class="delete-button">
+                <svg class="trash-svg" viewBox="0 -10 64 74" xmlns="http://www.w3.org/2000/svg">
+                  <g id="trash-can">
+                    <rect x="16" y="24" width="32" height="30" rx="3" ry="3" fill="#e74c3c"></rect>
+
+                    <g transform-origin="12 18" id="lid-group">
+                      <rect x="12" y="12" width="40" height="6" rx="2" ry="2" fill="#c0392b"></rect>
+                      <rect x="26" y="8" width="12" height="4" rx="2" ry="2" fill="#c0392b"></rect>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <button th:if="${usuario.idUsuario != proyecto.creador.idUsuario}" type="submit" class="Btn">
+
+                <div class="sign">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+                    </path>
+                  </svg>
+                </div>
+              </button>
+
+            </form>
+          </div>
         </div>
       </section>
 

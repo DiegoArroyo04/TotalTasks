@@ -16,10 +16,7 @@
   padding: 24px;
   overflow-y: auto;
   max-height: 80vh;
-}
 
-.sidebar .no-repos {
-  color: black;
 }
 
 .sidebar h2 {
@@ -35,7 +32,7 @@
 }
 
 .repo-item {
-  background-color: #007BFF;
+  background-color: var(--color-primario);
   border-radius: 8px;
   padding: 12.8px;
   transition: background-color 0.3s, transform 0.3s;
@@ -61,7 +58,8 @@
 .btn-modal {
   margin-top: 8px;
   background-color: #fff;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
   border: none;
   padding: 8px;
   border-radius: 4px;
@@ -81,11 +79,13 @@
 /* Sección de Proyectos */
 .projects-section {
   background-color: #fff;
-  border: 2px solid #007BFF;
+  border: 2px solid var(--color-primario);
+  ;
   border-radius: 10px;
   padding: 24px;
   animation: aparecer 0.5s ease-in-out;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 .projects-header {
@@ -106,7 +106,8 @@
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.3s;
-  background-color: #007BFF;
+  background-color: var(--color-primario);
+  ;
   color: #fff;
   border: none;
 }
@@ -116,7 +117,8 @@
 }
 
 .btn-create {
-  background-color: #007BFF;
+  background-color: var(--color-primario);
+  ;
   color: #fff;
 }
 
@@ -125,7 +127,8 @@
 }
 
 .btn-join {
-  background-color: #007BFF;
+  background-color: var(--color-primario);
+  ;
   color: #fff;
 }
 
@@ -136,7 +139,8 @@
 .empty-message {
   text-align: center;
   padding: 16px;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 .projects-grid {
@@ -150,16 +154,17 @@
 .project-card {
   position: relative;
   background-color: #fff;
-  border: 2px solid #007BFF;
+  border: 2px solid var(--color-primario);
   border-radius: 10px;
   width: 280px;
   height: 200px;
   padding: 16px;
-  color: #007BFF;
+  color: var(--color-primario);
   overflow: hidden;
   transition: transform 0.3s;
   text-align: left;
 }
+
 
 .project-card:hover {
   transform: translateY(-5px);
@@ -173,7 +178,8 @@
   right: 16px;
   font-size: 18px;
   font-weight: bold;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -209,7 +215,8 @@
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  border-top: 1px solid #007BFF;
+  border-top: 1px solid var(--color-primario);
+  ;
   padding-top: 6px;
 }
 
@@ -220,28 +227,33 @@
   right: 16px;
   text-align: center;
   font-size: 13px;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 /* Sección de Chat */
 .chat-section {
   background-color: #fff;
-  border: 2px solid #007BFF;
+  border: 2px solid var(--color-primario);
+  ;
   border-radius: 10px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 .chat-section h2 {
   text-align: center;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 .chat-header {
-  background-color: #007BFF;
+  background-color: var(--color-primario);
+  ;
   color: #fff;
   padding: 8px;
   border-radius: 5px;
@@ -251,11 +263,13 @@
 .chat-body {
   height: 200px;
   overflow-y: auto;
-  border: 1px solid #007BFF;
+  border: 1px solid var(--color-primario);
+  ;
   border-radius: 5px;
   padding: 8px;
   background-color: #fff;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 .chat-input {
@@ -266,13 +280,16 @@
 .chat-input input {
   flex: 1;
   padding: 8px;
-  border: 1px solid #007BFF;
+  border: 1px solid var(--color-primario);
+  ;
   border-radius: 5px;
-  color: #007BFF;
+  color: var(--color-primario);
+  ;
 }
 
 .chat-input button {
-  background-color: #007BFF;
+  background-color: var(--color-primario);
+  ;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -300,7 +317,7 @@
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+  background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario-hover) 100%);
   padding: 32px;
   border-radius: 12px;
   width: 90%;
@@ -330,14 +347,17 @@
   width: 100%;
   padding: 9.6px;
   border-radius: 6px;
-  border: 1px solid #007BFF;
+  border: 3px solid var(--color-sombra);
   margin-bottom: 16px;
   font-size: 16px;
-  color: #007BFF;
+  color: var(--color-texto);
+  outline: none;
+  font-family: var(--fuente-principal);
+  background-color: #fff;
 }
 
 .modal-content button[type="submit"] {
-  background-color: #007BFF;
+  background: linear-gradient(135deg, #339CFF, #66BFFF);
   color: #fff;
   border: none;
   padding: 11.2px;
@@ -345,10 +365,13 @@
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 .modal-content button[type="submit"]:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #4FC3FF, #85D1FF);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Botón de cerrar */
@@ -359,11 +382,11 @@
   color: #fff;
   font-size: 28.8px;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .close:hover {
-  color: #0056b3;
+  transform: scale(1.3) rotate(35deg);
 }
 
 /* Fondo modal */
@@ -427,15 +450,131 @@
   }
 }
 
-/* Animación de aparición general */
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
+/* BUTTON DELETE */
+.delete-button {
+  position: absolute;
+  padding: 0.5em;
+  border: none;
+  top: 0;
+  right: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1em;
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.trash-svg {
+  width: 2em;
+  height: 2em;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  overflow: visible;
+}
+
+#lid-group {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.delete-button:hover #lid-group {
+  transform: rotate(-28deg) translateY(2px);
+}
+
+.delete-button:active #lid-group {
+  transform: rotate(-12deg) scale(0.98);
+}
+
+.delete-button:hover .trash-svg {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.delete-button:active .trash-svg {
+  transform: scale(0.96) rotate(-1deg);
+}
+
+
+/*BOTON DE ABANDONAR PROYECTO*/
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(255, 65, 65);
+}
+
+.Btn:hover {
+  transform: scale(1.1);
+}
+
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+
+.Btn:active {
+  transform: translate(2px, 2px);
+}
+
+.copy-btn {
+  position: absolute;
+  top: 45px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 1.2rem;
+  height: 1.2rem;
+  z-index: 1;
+}
+
+.copy-btn:hover {
+  transform: scale(1.1);
+}
+
+.tooltip-text {
+  display: none;
+  position: absolute;
+  top: 80px;
+  right: 2px;
+  background-color: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+
+}
+
+/* Pseudo-elemento para el triángulo apuntando hacia abajo */
+.tooltip-text::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(250%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid #333;
 }

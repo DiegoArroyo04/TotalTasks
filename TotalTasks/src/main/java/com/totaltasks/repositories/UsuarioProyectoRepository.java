@@ -9,4 +9,6 @@ import com.totaltasks.entities.UsuarioProyectoEntity;
 public interface UsuarioProyectoRepository extends JpaRepository<UsuarioProyectoEntity, Long> {
 
     boolean existsByUsuarioAndProyecto(UsuarioEntity usuario, ProyectoEntity proyecto);
+
+    void deleteAllByProyecto(ProyectoEntity proyecto);
 }
