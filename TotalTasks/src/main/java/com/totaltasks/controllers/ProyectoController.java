@@ -2,7 +2,6 @@ package com.totaltasks.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,7 +20,7 @@ public class ProyectoController {
     private ProyectoService proyectoService;
 
     @PostMapping("/crearProyectoManualmente")
-    public String crearProyectoManualmente(Model model ,@RequestParam String nombre, @RequestParam String descripcion, @RequestParam String metodologia,
+    public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam String metodologia,
     HttpSession session) {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
@@ -33,7 +32,7 @@ public class ProyectoController {
         ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(nombre);
 
         if (proyectoExistente != null) {
-            model.addAttribute("error", "Ya existe un proyecto con ese nombre.");
+            redirectAttributes.addAttribute("error", "No se ha encontrado el proyecto");
             return "redirect:/dashboard";
         }
 
@@ -49,7 +48,7 @@ public class ProyectoController {
     }
 
     @PostMapping("/crearProyectoDesdeRepo")
-    public String crearProyectoDesdeRepo(Model model, @RequestParam String repoName, @RequestParam String repoDescription, @RequestParam String metodologia,
+    public String crearProyectoDesdeRepo(RedirectAttributes redirectAttributes, @RequestParam String repoName, @RequestParam String repoDescription, @RequestParam String metodologia,
     HttpSession session) {
 
         UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
@@ -61,7 +60,7 @@ public class ProyectoController {
         ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(repoName);
 
         if (proyectoExistente != null) {
-            model.addAttribute("error", "Ya existe un proyecto con ese nombre.");
+            redirectAttributes.addAttribute("error", "No se ha encontrado el proyecto");
             return "redirect:/dashboard";
         }
         
