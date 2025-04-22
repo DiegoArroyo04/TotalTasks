@@ -42,6 +42,7 @@ public class ProyectoServiceImplementation implements ProyectoService {
         proyectoEntity.setNombreProyecto(proyectoDTO.getNombreProyecto());
         proyectoEntity.setDescripcion(proyectoDTO.getDescripcion());
         proyectoEntity.setMetodologia(proyectoDTO.getMetodologia());
+        proyectoEntity.setCodigo(obtenerCodigoAleatorio());
 
         UsuarioEntity creador = usuarioRepository.findById(proyectoDTO.getIdCreador()).orElse(null);
         proyectoEntity.setCreador(creador);
@@ -106,6 +107,31 @@ public class ProyectoServiceImplementation implements ProyectoService {
             usuarioProyectoRepository.deleteAllByProyecto(proyecto);
             proyectoRepository.deleteById(id);
         }
+
+    }
+
+    @Override
+    public ProyectoEntity findByCodigo(String codigo) {
+        return proyectoRepository.findByCodigo(codigo);
+    }
+
+    @Override
+    public String obtenerCodigoAleatorio() {
+
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String codigo = "";
+
+        do {
+            codigo = "";
+            for (int i = 0; i < 10; i++) {
+                int index = (int) (Math.random() * caracteres.length());
+                codigo += caracteres.charAt(index);
+            }
+
+        } while (proyectoRepository.findByCodigo(codigo) != null); // COMPROBACION DE QUE EXISTA YA EL CODIGO SI EXISTE
+                                                                   // GENERA OTRO CODIGO
+
+        return codigo;
 
     }
 

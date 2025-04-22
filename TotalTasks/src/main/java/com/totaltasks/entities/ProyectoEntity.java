@@ -50,17 +50,4 @@ public class ProyectoEntity {
     @OneToMany(mappedBy = "proyecto")
     private List<UsuarioProyectoEntity> usuarios;
 
-    @PrePersist
-    private void generarCodigoAleatorio() {
-        if (this.codigo == null || this.codigo.isEmpty()) {
-            String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            String codigo = "";
-            for (int i = 0; i < 10; i++) {
-                int index = (int) (Math.random() * caracteres.length());
-                codigo += caracteres.charAt(index);
-            }
-            this.codigo = codigo;
-        }
-    }    
-
 }

@@ -18,6 +18,10 @@ public interface ProyectoService {
 
     ProyectoEntity obtenerProyectoPorId(Long id);
 
+    ProyectoEntity findByCodigo(String codigo);
+
     void deleteById(Long id, boolean abandonar);
+
+    String obtenerCodigoAleatorio();
 
 }
