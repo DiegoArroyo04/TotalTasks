@@ -158,3 +158,41 @@ main {
     background-color: #dbeafe;
     border: 2px dashed #2d89ef;
 }
+
+textarea {
+    resize: none;
+}
+
+.modal-contenido h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2d89ef;
+}
+
+.modal-contenido textarea,
+.modal-contenido select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.btn-confirmar {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-confirmar:hover {
+    background-color: #218838;
+}
+
+.btn-cancelar:hover {
+    background-color: #c82333;
+}

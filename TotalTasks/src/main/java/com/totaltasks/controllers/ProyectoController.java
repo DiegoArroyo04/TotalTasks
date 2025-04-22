@@ -102,13 +102,20 @@ public class ProyectoController {
 
     // REDIRECCION PROYECTOS
     @GetMapping("/proyecto/{id}")
-    public String verProyecto(@PathVariable Long id, Model model) {
+    public String verProyecto(@PathVariable Long id, Model model, HttpSession session) {
+
         ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(id);
+        UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+        if (usuario == null) {
+            return "redirect:/login";
+        }
 
         if (proyecto == null) {
             return "redirect:/dashboard";
         } else {
             model.addAttribute("proyecto", proyecto);
+            model.addAttribute("usuario", session.getAttribute("usuario"));
             if (proyecto.getMetodologia().equals("Kanban")) {
                 return "proyectos/proyectoKanban";
             } else if (proyecto.getMetodologia().equals("Scrum")) {

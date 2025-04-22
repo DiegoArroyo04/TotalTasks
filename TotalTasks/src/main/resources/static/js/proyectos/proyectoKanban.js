@@ -6,8 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputNombre = document.getElementById("nombreColumna");
     const btnCrear = document.getElementById("crearColumna");
     const btnCancelar = document.getElementById("cancelarModal");
+    const btnAbrirTarea = document.getElementById("agregarTarea");
+    const modalTarea = document.getElementById("modalTarea");
+    const btnCancelarTarea = document.getElementById("cancelarModalTarea");
 
-    // Mostrar el modal
+    // Mostrar el modal para crear columna
     btnAgregar.addEventListener("click", () => {
         modal.style.display = "flex";
         inputNombre.value = "";
@@ -19,29 +22,35 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
     });
 
+    // Mostrar el modal para crear tarea
+    btnAbrirTarea.addEventListener("click", () => {
+        modalTarea.style.display = "flex";
+    });
+
+    btnCancelarTarea.addEventListener("click", () => {
+        modalTarea.style.display = "none";
+    });
+
+    // Cerrar modal si se hace click fuera del contenido
+    window.addEventListener("click", (e) => {
+        if (e.target === modalTarea) {
+            modalTarea.style.display = "none";
+        }
+    });
+
     // Crear nueva columna
     btnCrear.addEventListener("click", () => {
         const nombre = inputNombre.value.trim();
         if (nombre) {
             const nuevaColumna = document.createElement("div");
             nuevaColumna.classList.add("columna");
+            nuevaColumna.setAttribute("data-etapa", nombre.toLowerCase().replace(/\s+/g, ''));
             nuevaColumna.innerHTML = `
                 <h3>${nombre} <button class="eliminar-columna">🗑️</button></h3>
-                <div class="tareas" data-etapa="${nombre.toLowerCase().replace(/\s+/g, '')}">
-                    <div class="tarea">🆕 Nueva tarea de ejemplo</div>
-                </div>
+                <div class="tareas"></div>
                 <button class="agregar-tarea">+ Añadir tarea</button>
             `;
-
-            // Insertar la columna antes de "Hechas", si existe
-            const columnas = tableros.querySelectorAll(".columna");
-            const hecha = Array.from(columnas).find(col => col.querySelector("h3").textContent.toLowerCase().includes("hechas"));
-            if (hecha) {
-                tableros.insertBefore(nuevaColumna, hecha);
-            } else {
-                tableros.appendChild(nuevaColumna);
-            }
-
+            tableros.appendChild(nuevaColumna);
             initSortable(); // activar drag en la nueva columna
             modal.style.display = "none";
         }
@@ -51,11 +60,27 @@ document.addEventListener("DOMContentLoaded", () => {
     tableros.addEventListener("click", (p) => {
         if (p.target && p.target.classList.contains("agregar-tarea")) {
             const columna = p.target.closest(".columna");
-            const tareas = columna.querySelector(".tareas");
-            const nuevaTarea = document.createElement("div");
-            nuevaTarea.classList.add("tarea");
-            nuevaTarea.textContent = "🆕 Nueva tarea";
-            tareas.appendChild(nuevaTarea);
+            const estado = columna.getAttribute("data-etapa");
+
+            // Mostrar el modal para crear una nueva tarea
+            modalTarea.style.display = "flex";
+
+            // Al enviar el formulario, asignamos la tarea al contenedor correspondiente
+            const formulario = modalTarea.querySelector("form");
+            formulario.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const tareaTitulo = formulario.querySelector("[name='titulo']").value;
+                const tareaEstado = formulario.querySelector("[name='estado']").value;
+                const tareaDiv = document.createElement("div");
+                tareaDiv.classList.add("tarea");
+                tareaDiv.textContent = tareaTitulo;
+
+                // Buscamos la columna con el estado correspondiente y añadimos la tarea allí
+                const columnaCorrespondiente = tableros.querySelector(`[data-etapa='${tareaEstado.toLowerCase()}']`);
+                columnaCorrespondiente.querySelector(".tareas").appendChild(tareaDiv);
+
+                modalTarea.style.display = "none"; // Cerrar el modal
+            });
         }
     });
 

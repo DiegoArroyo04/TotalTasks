@@ -15,37 +15,25 @@
             <!-- Botón para crear nuevas columnas -->
             <div class="btn-crear-tablero">
                 <button id="agregarColumna">+ Añadir columna</button>
+                <button id="agregarTarea">Crear tarea</button>
             </div>
 
             <!-- Contenedor de columnas -->
             <div id="tableros" class="tableros">
-                <!-- Columnas predefinidas -->
-                <div class="columna" draggable="true">
+                <!-- Columnas predefinidas (vacías inicialmente) -->
+                <div class="columna" data-etapa="porHacer" draggable="true">
                     <h3>Por Hacer <button class="eliminar-columna">🗑️</button></h3>
-                    <div class="tareas" data-etapa="porHacer">
-                        <div class="tarea">📌 Definir requisitos del cliente</div>
-                        <div class="tarea">🧠 Lluvia de ideas para funcionalidades</div>
-                    </div>
-                    <button class="agregar-tarea">+ Añadir tarea</button>
+                    <div class="tareas"></div>
                 </div>
-                <div class="columna" draggable="true">
+                <div class="columna" data-etapa="enCurso" draggable="true">
                     <h3>En Curso <button class="eliminar-columna">🗑️</button></h3>
-                    <div class="tareas" data-etapa="enCurso">
-                        <div class="tarea">🛠️ Diseñar wireframes iniciales</div>
-                        <div class="tarea">📝 Escribir documentación técnica</div>
-                    </div>
-                    <button class="agregar-tarea">+ Añadir tarea</button>
+                    <div class="tareas"></div>
                 </div>
-                <div class="columna" draggable="true">
+                <div class="columna" data-etapa="hechas" draggable="true">
                     <h3>Hechas <button class="eliminar-columna">🗑️</button></h3>
-                    <div class="tareas" data-etapa="hechas">
-                        <div class="tarea">✅ Crear repositorio en GitHub</div>
-                        <div class="tarea">✅ Reunión inicial del equipo</div>
-                    </div>
-                    <button class="agregar-tarea">+ Añadir tarea</button>
+                    <div class="tareas"></div>
                 </div>
             </div>
-
         </div>
     </main>
 
@@ -60,6 +48,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para crear tarea -->
+    <div id="modalTarea" class="modal">
+        <div class="modal-contenido">
+            <h2>📝 Nueva Tarea</h2>
+            <form th:action="@{/crearTarea}" method="post" th:object="${tareaDTO}">
+                <input type="text" name="titulo" placeholder="Título de la tarea" required />
+                <textarea name="descripcion" placeholder="Descripción detallada..." rows="10" cols="44"></textarea>
+                <input type="date" name="fechaLimite" required />
+                <select name="estado" required>
+                    <option value="Por Hacer">Por Hacer</option>
+                    <option value="En Curso">En Curso</option>
+                    <option value="Hecha">Hecha</option>
+                </select>
+                <input type="hidden" th:value="${proyecto.idProyecto}" name="idProyecto" />
+                <input type="hidden" th:value="${usuario.idUsuario}" name="idResponsable" />
+    
+                <div class="modal-acciones">
+                    <button type="submit" class="btn-confirmar">Crear</button>
+                    <button type="button" id="cancelarModalTarea" class="btn-cancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>    
 
     <!-- Footer -->
     <footer th:insert="~{fragmentos/footer :: footer}"></footer>
