@@ -70,6 +70,9 @@ INSERT INTO tarea (titulo, descripcion, fecha_limite, id_proyecto, id_responsabl
 ('Maquetar la app', 'Hacer la estructura de pantallas principales', '2025-04-22', 2, 2, 'Pendiente');
 
 
+
+
+
 -- Selects
 SELECT * FROM USUARIO;
 SELECT * FROM PROYECTO;

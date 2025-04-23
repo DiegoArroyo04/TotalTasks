@@ -122,6 +122,8 @@ public class ProyectoController {
             model.addAttribute("usuario", session.getAttribute("usuario"));
             if (proyecto.getMetodologia().equals("Kanban")) {
 
+                model.addAttribute("tareas", proyecto.getTareas());
+
                 model.addAttribute("usuario", usuario);
                 model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 
