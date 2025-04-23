@@ -6,4 +6,6 @@ public interface TareaService {
 
     void crearTarea(TareaDTO tareaDTO);
 
+    String modificarEstadoTarea(TareaDTO tareaDTO);
+
 }

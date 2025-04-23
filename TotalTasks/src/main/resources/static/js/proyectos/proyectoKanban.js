@@ -106,10 +106,51 @@ document.addEventListener("DOMContentLoaded", () => {
             new Sortable(lista, {
                 group: "kanban",
                 animation: 200,
-                ghostClass: 'ghost'
+                ghostClass: 'ghost',
+                onAdd: function (evento) {
+
+                    const tareaMovida = evento.item;
+                    const idTarea = tareaMovida.getAttribute("data-id");
+
+                    //COLUMNA A LA QUE SE HA MOVIDO
+                    const nuevaColumna = evento.to.closest(".columna");
+
+                    const nuevoEstado = traducirEtapaAEstado(nuevaColumna.getAttribute("data-etapa"));
+
+                    var datos = {
+                        idTarea: idTarea,
+                        estado: nuevoEstado
+                    };
+
+                    $.ajax({
+                        url: '/actualizarEstadoTarea',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(datos),
+                        success: function (respuesta) {
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("❌ Error al actualizar tarea:", error);
+                        }
+                    });
+                }
+
             });
+
         });
+
+
     }
 
     initSortable(); // al cargar la página
+
+
+    function traducirEtapaAEstado(etapa) {
+        if (etapa === "porHacer") return "Por Hacer";
+        if (etapa === "enCurso") return "En Curso";
+        if (etapa === "hechas") return "Hecha";
+        return etapa;
+    }
+
 });

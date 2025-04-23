@@ -41,4 +41,15 @@ public class TareaServiceImplementation implements TareaService {
 
         tareaRepository.save(tarea);
     }
+
+    @Override
+    public String modificarEstadoTarea(TareaDTO tareaDTO) {
+
+        TareaEntity tareaEntity = tareaRepository.findById(tareaDTO.getIdTarea()).orElse(null);
+
+        tareaEntity.setEstado(tareaDTO.getEstado());
+        tareaRepository.save(tareaEntity);
+
+        return "Tarea Modificada";
+    }
 }

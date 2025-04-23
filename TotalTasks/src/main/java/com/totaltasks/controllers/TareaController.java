@@ -17,4 +17,5 @@ public class TareaController {
         tareaService.crearTarea(tareaDTO);
         return "redirect:/proyecto/" + tareaDTO.getIdProyecto();
     }
+
 }

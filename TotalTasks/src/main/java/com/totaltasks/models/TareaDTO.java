@@ -23,4 +23,10 @@ public class TareaDTO {
     private Long idProyecto;
     private Long idResponsable;
 
+    // CONSTRUCTOR PARA MODIFICAR EL ESTADO DE LAS TAREAS
+    public TareaDTO(Long idTarea, String estado) {
+        this.idTarea = idTarea;
+        this.estado = estado;
+    }
+
 }
