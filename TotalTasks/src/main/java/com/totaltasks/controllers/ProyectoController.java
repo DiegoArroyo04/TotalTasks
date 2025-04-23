@@ -13,6 +13,7 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.services.ProyectoService;
+import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,6 +22,9 @@ public class ProyectoController {
 
     @Autowired
     private ProyectoService proyectoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping("/crearProyectoManualmente")
     public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
@@ -117,6 +121,16 @@ public class ProyectoController {
             model.addAttribute("proyecto", proyecto);
             model.addAttribute("usuario", session.getAttribute("usuario"));
             if (proyecto.getMetodologia().equals("Kanban")) {
+
+                model.addAttribute("usuario", usuario);
+                model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+
+                // FOTO DE PERFIL DE GOOGLE Y GITHUB
+                model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+                model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+
+                model.addAttribute("paginaActual", "proyecto");
+
                 return "proyectos/proyectoKanban";
             } else if (proyecto.getMetodologia().equals("Scrum")) {
                 return "proyectos/proyectoScrum";

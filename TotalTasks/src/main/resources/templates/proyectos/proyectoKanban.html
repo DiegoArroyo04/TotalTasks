@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${proyecto.nombreProyecto}">Proyecto Kanban</title>
     <link rel="stylesheet" href="/css/proyectos/proyectoKanban.css">
 </head>
+
 <body>
     <!-- Header -->
     <div th:insert="~{fragmentos/header :: header}"></div>
@@ -64,18 +66,19 @@
                 </select>
                 <input type="hidden" th:value="${proyecto.idProyecto}" name="idProyecto" />
                 <input type="hidden" th:value="${usuario.idUsuario}" name="idResponsable" />
-    
+
                 <div class="modal-acciones">
                     <button type="submit" class="btn-confirmar">Crear</button>
                     <button type="button" id="cancelarModalTarea" class="btn-cancelar">Cancelar</button>
                 </div>
             </form>
         </div>
-    </div>    
+    </div>
 
     <!-- Footer -->
     <footer th:insert="~{fragmentos/footer :: footer}"></footer>
     <script src="/js/proyectos/proyectoKanban.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </body>
+
 </html>

@@ -74,6 +74,7 @@ public class IndexController {
 
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+
 			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
 
 			model.addAttribute("paginaActual", "dashboard");
