@@ -38,10 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Crear nueva columna
+
     btnCrear.addEventListener("click", () => {
         const nombre = inputNombre.value.trim();
         if (nombre) {
+            // Crear columna en el DOM
             const nuevaColumna = document.createElement("div");
             nuevaColumna.classList.add("columna");
             nuevaColumna.setAttribute("data-etapa", nombre.toLowerCase().replace(/\s+/g, ''));
@@ -52,6 +53,29 @@ document.addEventListener("DOMContentLoaded", () => {
             tableros.appendChild(nuevaColumna);
             initSortable(); // activar drag en la nueva columna
             modal.style.display = "none";
+
+            const idProyecto = document.getElementById("idProyecto").value;
+            const orden = document.getElementById("orden").value;
+
+
+            // Llamar AJAX para registrar la columna en el backend
+            $.ajax({
+                url: '/crearTablon',  // Ruta donde registrarás la nueva columna
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    nombreTablon: nombre,
+                    orden: parseInt(orden) + 1,
+                    id_proyecto: idProyecto,
+                }),
+
+                success: function (response) {
+                    console.log("Columna creada con éxito:", response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("❌ Error al crear columna:", error);
+                }
+            });
         }
     });
 

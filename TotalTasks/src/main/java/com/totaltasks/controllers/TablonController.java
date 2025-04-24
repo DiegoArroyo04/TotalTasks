@@ -1,15 +1,29 @@
 package com.totaltasks.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.totaltasks.models.TablonDTO;
+import com.totaltasks.services.ProyectoService;
+import com.totaltasks.services.TablonService;
+
+@RestController
 public class TablonController {
+    @Autowired
+    TablonService tablonService;
 
+    @Autowired
+    ProyectoService proyectoService;
 
-    @GetMapping("/crearTablon")
-    public String crearTablon() {
-        return "";
+    @PostMapping("/crearTablon")
+    public String crearTablon(@RequestBody TablonDTO tablon) {
+
+        System.out.println(tablon);
+
+        tablon.setProyecto(proyectoService.obtenerProyectoPorId(tablon.getId_proyecto()));
+        return tablonService.crearTablon(tablon);
     }
-    
+
 }

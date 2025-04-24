@@ -18,7 +18,7 @@ public class TablonServiceImplementation implements TablonService {
     TablonRepository tablonRepository;
 
     @Override
-    public void crearTablon(TablonDTO tablonDTO) {
+    public String crearTablon(TablonDTO tablonDTO) {
 
         TablonEntity tablonEntity = new TablonEntity();
         tablonEntity.setNombreTablon(tablonDTO.getNombreTablon());
@@ -26,6 +26,7 @@ public class TablonServiceImplementation implements TablonService {
         tablonEntity.setProyecto(tablonDTO.getProyecto());
         tablonRepository.save(tablonEntity);
 
+        return "Creado";
     }
 
     @Override
