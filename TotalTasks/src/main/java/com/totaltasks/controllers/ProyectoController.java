@@ -13,6 +13,7 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.services.ProyectoService;
+import com.totaltasks.services.TablonService;
 import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +26,9 @@ public class ProyectoController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private TablonService tablonService;
 
     @PostMapping("/crearProyectoManualmente")
     public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
@@ -122,8 +126,8 @@ public class ProyectoController {
             model.addAttribute("usuario", session.getAttribute("usuario"));
             if (proyecto.getMetodologia().equals("Kanban")) {
 
+                model.addAttribute("tablones", tablonService.ordenarTablones(proyecto.getTablones()));
                 model.addAttribute("tareas", proyecto.getTareas());
-
                 model.addAttribute("usuario", usuario);
                 model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 

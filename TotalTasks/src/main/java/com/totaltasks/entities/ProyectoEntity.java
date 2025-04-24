@@ -50,4 +50,7 @@ public class ProyectoEntity {
     @OneToMany(mappedBy = "proyecto")
     private List<UsuarioProyectoEntity> usuarios;
 
+    @OneToMany(mappedBy = "proyecto")
+    private List<TablonEntity> tablones;
+
 }

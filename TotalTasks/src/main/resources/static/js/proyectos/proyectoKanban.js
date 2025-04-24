@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
             nuevaColumna.innerHTML = `
                 <h3>${nombre} <button class="eliminar-columna">🗑️</button></h3>
                 <div class="tareas"></div>
-                <button class="agregar-tarea">+ Añadir tarea</button>
             `;
             tableros.appendChild(nuevaColumna);
             initSortable(); // activar drag en la nueva columna
@@ -115,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     //COLUMNA A LA QUE SE HA MOVIDO
                     const nuevaColumna = evento.to.closest(".columna");
 
-                    const nuevoEstado = traducirEtapaAEstado(nuevaColumna.getAttribute("data-etapa"));
+                    const nuevoEstado = nuevaColumna.getAttribute("data-etapa");
 
                     var datos = {
                         idTarea: idTarea,
@@ -146,11 +145,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initSortable(); // al cargar la página
 
 
-    function traducirEtapaAEstado(etapa) {
-        if (etapa === "porHacer") return "Por Hacer";
-        if (etapa === "enCurso") return "En Curso";
-        if (etapa === "hechas") return "Hecha";
-        return etapa;
-    }
 
 });

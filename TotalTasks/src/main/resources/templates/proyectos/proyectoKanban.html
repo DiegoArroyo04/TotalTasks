@@ -25,12 +25,13 @@
 
             <!-- Contenedor de columnas -->
             <div id="tableros" class="tableros">
-
-                <!-- Columnas predefinidas (vacías inicialmente) -->
-                <div class="columna" data-etapa="porHacer" draggable="true">
-                    <h3>Por Hacer <button class="eliminar-columna">🗑️</button></h3>
+                <!-- Iterar sobre los tablones pasados desde el backend -->
+                <div th:each="tablon : ${tablones}" class="columna" th:data-etapa="${tablon.nombreTablon}"
+                    draggable="true">
+                    <h3 th:text="${tablon.nombreTablon}">Nombre de la columna</h3>
+                    <button class="eliminar-columna">🗑️</button>
                     <div class="tareas">
-                        <div th:each="tarea : ${tareas}" th:if="${tarea.estado == 'Por Hacer'}"
+                        <div th:each="tarea : ${tareas}" th:if="${tarea.estado == tablon.nombreTablon}"
                             th:attr="data-id=${tarea.idTarea}" class="tarea">
                             <p><strong th:text="${tarea.titulo}">Título</strong></p>
                             <p th:text="${tarea.descripcion}">Descripción</p>
@@ -39,35 +40,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="columna" data-etapa="enCurso" draggable="true">
-                    <h3>En Curso <button class="eliminar-columna">🗑️</button></h3>
-                    <div class="tareas">
-                        <div th:each="tarea : ${tareas}" th:if="${tarea.estado == 'En Curso'}"
-                            th:attr="data-id=${tarea.idTarea}" class="tarea">
-                            <p><strong th:text="${tarea.titulo}">Título</strong></p>
-                            <p th:text="${tarea.descripcion}">Descripción</p>
-                            <p><small th:text="${#dates.format(tarea.fechaLimite, 'dd/MM/yyyy')}">Fecha límite</small>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="columna" data-etapa="hechas" draggable="true">
-                    <h3>Hechas <button class="eliminar-columna">🗑️</button></h3>
-                    <div class="tareas">
-                        <div th:each="tarea : ${tareas}" th:if="${tarea.estado == 'Hecha'}" class="tarea"
-                            th:attr="data-id=${tarea.idTarea}">
-                            <p><strong th:text="${tarea.titulo}">Título</strong></p>
-                            <p th:text="${tarea.descripcion}">Descripción</p>
-                            <p><small th:text="${#dates.format(tarea.fechaLimite, 'dd/MM/yyyy')}">Fecha límite</small>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
+
         </div>
     </main>
 

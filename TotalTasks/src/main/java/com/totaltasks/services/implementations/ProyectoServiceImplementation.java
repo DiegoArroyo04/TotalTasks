@@ -9,10 +9,13 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.ProyectoDTO;
+import com.totaltasks.models.TablonDTO;
 import com.totaltasks.repositories.ProyectoRepository;
+import com.totaltasks.repositories.TablonRepository;
 import com.totaltasks.repositories.UsuarioProyectoRepository;
 import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.ProyectoService;
+import com.totaltasks.services.TablonService;
 
 import jakarta.transaction.Transactional;
 
@@ -26,7 +29,13 @@ public class ProyectoServiceImplementation implements ProyectoService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private TablonRepository tablonRepository;
+
+    @Autowired
     private UsuarioProyectoRepository usuarioProyectoRepository;
+
+    @Autowired
+    private TablonService tablonService;
 
     @Override
     public List<ProyectoEntity> todosLosProyectosDeUnUsuario(UsuarioEntity usuario) {
@@ -47,16 +56,28 @@ public class ProyectoServiceImplementation implements ProyectoService {
         UsuarioEntity creador = usuarioRepository.findById(proyectoDTO.getIdCreador()).orElse(null);
         proyectoEntity.setCreador(creador);
 
-        ProyectoEntity proyectoGuardado = proyectoRepository.save(proyectoEntity);
+        proyectoRepository.save(proyectoEntity);
 
         // Guardamos la relacion entre el Usuario y el Proyecto
         UsuarioProyectoEntity usuarioProyecto = new UsuarioProyectoEntity();
 
         usuarioProyecto.setUsuario(creador);
-        usuarioProyecto.setProyecto(proyectoGuardado);
+        usuarioProyecto.setProyecto(proyectoEntity);
         usuarioProyecto.setRol("Administrador");
 
         usuarioProyectoRepository.save(usuarioProyecto);
+
+        // CREAR TABLONES POR DEFECTO
+        if (proyectoEntity.getMetodologia().equals("Kanban")) {
+            TablonDTO tablonPorHacer = new TablonDTO("Por Hacer", 1, proyectoEntity);
+            TablonDTO tablonEnCurso = new TablonDTO("En Curso", 2, proyectoEntity);
+            TablonDTO tablonHecho = new TablonDTO("Hecho", 3, proyectoEntity);
+
+            tablonService.crearTablon(tablonPorHacer);
+            tablonService.crearTablon(tablonEnCurso);
+            tablonService.crearTablon(tablonHecho);
+
+        }
     }
 
     @Override
@@ -104,6 +125,7 @@ public class ProyectoServiceImplementation implements ProyectoService {
         if (abandonar == true) {
             usuarioProyectoRepository.deleteAllByProyecto(proyecto);
         } else {
+            tablonRepository.deleteAllByProyecto(proyecto);
             usuarioProyectoRepository.deleteAllByProyecto(proyecto);
             proyectoRepository.deleteById(id);
         }
