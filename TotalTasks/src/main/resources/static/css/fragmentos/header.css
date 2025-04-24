@@ -2,11 +2,12 @@
 
 .cabezera {
   display: flex;
+  justify-content: center;
   align-items: center;
+  padding: 0;
   height: 150px;
-  padding: 0 20px;
-  position: relative;
   transition: all 0.6s ease;
+  position: relative;
 }
 
 .fixed {
@@ -26,9 +27,13 @@
 
 /* Contenedor del logo */
 .logo-container {
-  flex: 0 0 auto;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
+/* Logo */
 .logo img {
   width: 150px;
   height: auto;
@@ -36,13 +41,15 @@
 
 /* Contenedor de navegación */
 .navegacion-container {
-  display: flex;
-  justify-content: flex-start; /* Alineamos a la izquierda */
-
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
 }
 
 .navegacion {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -51,7 +58,6 @@
   list-style: none;
   align-items: center;
   gap: 30px;
-  padding-left: 0; /* Evitar margen extra */
 }
 
 .navegacion ul li a {
@@ -90,10 +96,10 @@
 
 /* Contenedor del perfil */
 .perfil-wrapper {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .avatar {
