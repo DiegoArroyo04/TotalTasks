@@ -19,7 +19,8 @@
     <!-- Foto de perfil de Google -->
     <div class="fotoPerfil" th:if="${fotoPerfilBase64 == null and !#strings.isEmpty(fotoperfilGoogle)}">
         <p>Foto de perfil actual (Google):</p>
-        <img th:src="${fotoperfilGoogle}" alt="Foto de perfil Google" width="150">
+        <img th:src="${fotoperfilGoogle}" alt="Foto de perfil Google" width="150"
+            onerror="this.onerror=null; this.src='/assets/dashboard/foto-perfil.webp';">
     </div>
 
     <!-- Foto de perfil de GitHub -->

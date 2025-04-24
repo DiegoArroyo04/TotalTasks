@@ -48,7 +48,8 @@
 
                     <!-- Si no está disponible fotoPerfilBase64, comprobamos si fotoperfilGoogle tiene un valor -->
                     <img th:if="${fotoPerfilBase64 == null and !#strings.isEmpty(fotoperfilGoogle)}"
-                        th:src="${fotoperfilGoogle}" alt="Foto de perfil Google" class="avatar" id="avatarMenu">
+                        th:src="${fotoperfilGoogle}" alt="Foto de perfil Google" class="avatar" id="avatarMenu"
+                        onerror="this.onerror=null; this.src='/assets/dashboard/foto-perfil.webp';">
 
                     <!-- Si no está disponible fotoPerfilBase64 ni fotoperfilGoogle, comprobamos si fotoPerfilGithub tiene un valor -->
                     <img th:if="${fotoPerfilBase64 == null and #strings.isEmpty(fotoperfilGoogle) and !#strings.isEmpty(fotoPerfilGithub)}"
