@@ -2,6 +2,7 @@
 CREATE DATABASE totaltasks;
 USE totaltasks;
 
+
 -- Creación de la tabla Usuario
 CREATE TABLE usuario (
     id_usuario BIGINT AUTO_INCREMENT,
@@ -13,6 +14,7 @@ CREATE TABLE usuario (
     foto_perfil LONGBLOB NULL,
     CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
+
 
 -- Creación de la tabla Proyecto
 CREATE TABLE proyecto (
@@ -27,6 +29,7 @@ CREATE TABLE proyecto (
     CONSTRAINT fk_proyecto_usuario FOREIGN KEY (id_creador) REFERENCES Usuario (id_usuario) 
 );
 
+
 -- Creación de la tabla intermedia Usuario_Proyecto
 CREATE TABLE usuario_proyecto (
     id_usuario_proyecto BIGINT AUTO_INCREMENT,
@@ -37,6 +40,7 @@ CREATE TABLE usuario_proyecto (
     CONSTRAINT fk_usuario_proyecto_usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario) ,
     CONSTRAINT fk_usuario_proyecto_proyecto FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto) 
 );
+
 
 -- Creación de la tabla Tarea
 CREATE TABLE tarea (
@@ -53,10 +57,23 @@ CREATE TABLE tarea (
     CONSTRAINT FOREIGN KEY (id_responsable) REFERENCES Usuario (id_usuario)
 );
 
+
+-- Creación de la tabla Tablon
+CREATE TABLE tablon (
+    id_tablon BIGINT AUTO_INCREMENT,
+    nombre_tablon VARCHAR(100) NOT NULL,
+    orden INT NOT NULL,
+    id_proyecto BIGINT,
+    CONSTRAINT pk_tablon PRIMARY KEY (id_tablon),
+    CONSTRAINT fk_tablon_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
+);
+
+
 -- Inserción de proyectos
 INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador, codigo) VALUES 
 ('Proyecto Alpha', 'Sistema de gestión de tareas', 'Scrum', 1, 'ALPHA123'), 
 ('Proyecto Beta', 'App de colaboración en equipo', 'Kanban', 2, 'BETA456');
+
 
 -- Inserción en tabla intermedia usuario_proyecto
 INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol) VALUES
@@ -64,11 +81,21 @@ INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol) VALUES
 (1, 2, 'Colaborador'),
 (2, 2, 'Administrador');
 
+
 -- Inserción de tareas
 INSERT INTO tarea (titulo, descripcion, fecha_limite, id_proyecto, id_responsable, estado) VALUES
 ('Diseñar base de datos', 'Diseñar el esquema inicial de la base de datos', '2025-04-20', 1, 1, 'En progreso'),
 ('Maquetar la app', 'Hacer la estructura de pantallas principales', '2025-04-22', 2, 2, 'Pendiente');
 
+
+-- Tablones para Proyecto
+INSERT INTO tablon (nombre_tablon, orden, id_proyecto) VALUES
+('Pendiente', 1, 1),
+('En progreso', 2, 1),
+('Completado', 3, 1),
+('Pendiente', 1, 2),
+('En progreso', 2, 2),
+('Completado', 3, 2);
 
 
 -- Selects
@@ -76,6 +103,7 @@ SELECT * FROM USUARIO;
 SELECT * FROM PROYECTO;
 SELECT * FROM USUARIO_PROYECTO;
 SELECT * FROM TAREA;
+SELECT * FROM TABLON;
 
 
 -- Sript destructivo
