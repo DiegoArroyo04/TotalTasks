@@ -57,10 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const idProyecto = document.getElementById("idProyecto").value;
             const orden = document.getElementById("orden").value;
 
-
-            // Llamar AJAX para registrar la columna en el backend
             $.ajax({
-                url: '/crearTablon',  // Ruta donde registrarás la nueva columna
+                url: '/crearTablon', 
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -122,8 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Inicializar SortableJS para tareas
-    function initSortable() {
+    function ordenarTarea() {
         const listas = document.querySelectorAll(".tareas");
         listas.forEach(lista => {
             new Sortable(lista, {
@@ -166,8 +163,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    initSortable(); // al cargar la página
+    ordenarTarea();
 
-
+    function ordenarTablones() {
+        new Sortable(tableros, {
+            animation: 150,
+            handle: 'h3', // para arrastrar desde el título
+            ghostClass: 'ghost-columna',
+            onEnd: function () {
+                const columnas = document.querySelectorAll(".columna");
+                const ordenActualizado = [];
+    
+                columnas.forEach((columna, i) => {
+                    const idTablon = columna.getAttribute("data-id");
+                    if (idTablon) {
+                        ordenActualizado.push({
+                            id: parseInt(idTablon),
+                            orden: i
+                        });
+                    }
+                });
+    
+                $.ajax({
+                    url: "/actualizarOrdenTablones",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(ordenActualizado),
+                    success: function () {
+                        console.log("✅ Orden de columnas actualizado");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("❌ Error al actualizar orden de columnas:", error);
+                    }
+                });
+            }
+        });
+    }
+    
+    ordenarTablones();    
 
 });

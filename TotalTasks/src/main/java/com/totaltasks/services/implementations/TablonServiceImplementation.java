@@ -36,4 +36,16 @@ public class TablonServiceImplementation implements TablonService {
 
     }
 
+    @Override
+    public String actualizarOrdenTablones(List<TablonDTO> tablonOrden) {
+        for (TablonDTO dto : tablonOrden) {
+            TablonEntity tablon = tablonRepository.findById(dto.getId()).orElse(null);
+            if (tablon != null) {
+                tablon.setOrden(dto.getOrden());
+                tablonRepository.save(tablon);
+            }
+        }
+        return "Orden actualizado";
+    }
+
 }

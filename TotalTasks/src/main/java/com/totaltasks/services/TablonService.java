@@ -10,4 +10,6 @@ public interface TablonService {
 
     List<TablonEntity> ordenarTablones(List<TablonEntity> listaSinOrdenar);
 
+    String actualizarOrdenTablones(List<TablonDTO> tablonOrdenList);
+
 }
