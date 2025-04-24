@@ -71,8 +71,6 @@ INSERT INTO tarea (titulo, descripcion, fecha_limite, id_proyecto, id_responsabl
 
 
 
-
-
 -- Selects
 SELECT * FROM USUARIO;
 SELECT * FROM PROYECTO;
