@@ -47,11 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
             nuevaColumna.classList.add("columna");
             nuevaColumna.setAttribute("data-etapa", nombre.toLowerCase().replace(/\s+/g, ''));
             nuevaColumna.innerHTML = `
-                <h3>${nombre} <button class="eliminar-columna">🗑️</button></h3>
+                <h3>${nombre}</h3>
                 <div class="tareas"></div>
             `;
             tableros.appendChild(nuevaColumna);
-            initSortable(); // activar drag en la nueva columna
+            initSortableCol(); // activar drag en la nueva columna
             modal.style.display = "none";
 
             const idProyecto = document.getElementById("idProyecto").value;
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    function ordenarTarea() {
+    function initSortable() {
         const listas = document.querySelectorAll(".tareas");
         listas.forEach(lista => {
             new Sortable(lista, {
@@ -163,9 +163,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    ordenarTarea();
+    initSortable();
 
-    function ordenarTablones() {
+    function initSortableCol() {
         new Sortable(tableros, {
             animation: 150,
             handle: 'h3', // para arrastrar desde el título
@@ -200,6 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     
-    ordenarTablones();    
+    initSortableCol();    
 
 });

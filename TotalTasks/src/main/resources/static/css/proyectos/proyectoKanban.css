@@ -46,7 +46,6 @@ main {
     min-width: 300px;
     min-height: 730px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
 .columna h3 {
