@@ -6,7 +6,7 @@ import com.totaltasks.models.TablonDTO;
 
 public interface TablonService {
 
-    String crearTablon(TablonDTO tablonDTO);
+    Long crearTablon(TablonDTO tablonDTO);
 
     List<TablonEntity> ordenarTablones(List<TablonEntity> listaSinOrdenar);
 

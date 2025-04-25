@@ -42,23 +42,13 @@ document.addEventListener("DOMContentLoaded", () => {
     btnCrear.addEventListener("click", () => {
         const nombre = inputNombre.value.trim();
         if (nombre) {
-            // Crear columna en el DOM
-            const nuevaColumna = document.createElement("div");
-            nuevaColumna.classList.add("columna");
-            nuevaColumna.setAttribute("data-etapa", nombre.toLowerCase().replace(/\s+/g, ''));
-            nuevaColumna.innerHTML = `
-                <h3>${nombre}</h3>
-                <div class="tareas"></div>
-            `;
-            tableros.appendChild(nuevaColumna);
-            initSortableCol(); // activar drag en la nueva columna
-            modal.style.display = "none";
+
 
             const idProyecto = document.getElementById("idProyecto").value;
             const orden = document.getElementById("orden").value;
 
             $.ajax({
-                url: '/crearTablon', 
+                url: '/crearTablon',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -68,6 +58,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 }),
 
                 success: function (response) {
+                    // Crear columna en el DOM
+                    const nuevaColumna = document.createElement("div");
+                    nuevaColumna.classList.add("columna");
+                    nuevaColumna.setAttribute("data-etapa", nombre.toLowerCase().replace(/\s+/g, ''));
+                    nuevaColumna.innerHTML = `
+                <h3>${nombre}</h3>
+                <div class="tareas"></div>
+            `;
+
+                    nuevaColumna.setAttribute("data-id", String(response));
+                    tableros.appendChild(nuevaColumna);
+                    initSortableCol(); // activar drag en la nueva columna
+                    modal.style.display = "none";
                     console.log("Columna creada con éxito:", response);
                 },
                 error: function (xhr, status, error) {
@@ -173,17 +176,17 @@ document.addEventListener("DOMContentLoaded", () => {
             onEnd: function () {
                 const columnas = document.querySelectorAll(".columna");
                 const ordenActualizado = [];
-    
+
                 columnas.forEach((columna, i) => {
                     const idTablon = columna.getAttribute("data-id");
                     if (idTablon) {
                         ordenActualizado.push({
                             id: parseInt(idTablon),
-                            orden: i
+                            orden: i + 1
                         });
                     }
                 });
-    
+
                 $.ajax({
                     url: "/actualizarOrdenTablones",
                     method: "POST",
@@ -199,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-    
-    initSortableCol();    
+
+    initSortableCol();
 
 });

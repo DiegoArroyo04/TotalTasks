@@ -18,7 +18,7 @@ public class TablonController {
     ProyectoService proyectoService;
 
     @PostMapping("/crearTablon")
-    public String crearTablon(@RequestBody TablonDTO tablon) {
+    public Long crearTablon(@RequestBody TablonDTO tablon) {
 
         tablon.setProyecto(proyectoService.obtenerProyectoPorId(tablon.getId_proyecto()));
         return tablonService.crearTablon(tablon);
