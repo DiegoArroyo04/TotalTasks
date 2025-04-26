@@ -217,10 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
                 }
-
-
-
-
                 // Ocultar el botón de eliminar columna siempre que se suelta
                 setTimeout(() => {
                     botonEliminarColumna.style.display = "none";

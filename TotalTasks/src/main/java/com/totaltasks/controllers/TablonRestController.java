@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.models.TablonDTO;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.TablonService;
@@ -28,8 +29,12 @@ public class TablonRestController {
 
     @PostMapping("/eliminarTablon")
     public String eliminarTablon(@RequestBody TablonDTO tablon) {
-
-        return "";
+        ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(tablon.getId_proyecto());
+        if (proyecto != null) {
+            return tablonService.eliminarTablon(proyecto, tablon.getNombreTablon());
+        } else {
+            return "Proyecto no encontrado";
+        }
     }
 
 }
