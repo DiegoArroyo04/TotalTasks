@@ -6,16 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.models.TablonDTO;
 import com.totaltasks.repositories.TablonRepository;
+import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.TablonService;
 
 @Service
 public class TablonServiceImplementation implements TablonService {
 
     @Autowired
-    TablonRepository tablonRepository;
+    private TablonRepository tablonRepository;
 
     @Override
     public Long crearTablon(TablonDTO tablonDTO) {
@@ -46,6 +48,21 @@ public class TablonServiceImplementation implements TablonService {
             }
         }
         return "Orden actualizado";
+    }
+
+    @Override
+    public String eliminarTablon(ProyectoEntity proyecto, String nombreTablon) {
+
+        // ELIMINAR LAS TAREAS DE ESE TABLON ASOCIADAS AL PROYECTO
+        for (int i = 0; i < proyecto.getTareas().size(); i++) {
+            if (proyecto.getTareas().get(i).getEstado().equals(nombreTablon)) {
+
+            }
+        }
+
+        // ELIMINAR EL TABLON
+
+        throw new UnsupportedOperationException("Unimplemented method 'eliminarTablon'");
     }
 
 }

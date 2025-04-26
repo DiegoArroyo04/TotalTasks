@@ -33,6 +33,12 @@ public class TablonDTO {
         this.id_proyecto = id_proyecto;
     }
 
+    // CONSTRUCTOR PARA ELIMINAR TABLONES
+    public TablonDTO(String nombreTablon, Long id_proyecto) {
+        this.nombreTablon = nombreTablon;
+        this.id_proyecto = id_proyecto;
+    }
+
     @Override
     public String toString() {
         return "TablonDTO [id=" + id + ", nombreTablon=" + nombreTablon + ", orden=" + orden + ", proyecto=" + proyecto

@@ -166,6 +166,13 @@ main {
     border: 2px dashed #2d89ef;
 }
 
+.ghost-columna {
+    opacity: 0.6;
+    background-color: #fef3c7;
+    border: 2px dashed #f59e0b;
+    border-radius: 10px;
+}
+
 textarea {
     resize: none;
 }
@@ -202,4 +209,26 @@ textarea {
 
 .btn-cancelar:hover {
     background-color: #c82333;
+}
+
+.botonEliminarColumna {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-error);
+    color: var(--color-fondo);
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    z-index: 1000;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.botonEliminarColumna:hover {
+    background-color: var(--color-error-hover);
 }

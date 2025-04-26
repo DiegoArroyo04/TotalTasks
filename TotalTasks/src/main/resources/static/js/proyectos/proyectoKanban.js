@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnAbrirTarea = document.getElementById("agregarTarea");
     const modalTarea = document.getElementById("modalTarea");
     const btnCancelarTarea = document.getElementById("cancelarModalTarea");
+    const botonEliminarColumna = document.getElementById("botonEliminarColumna");
+    let columnaArrastrada = null;
 
     // Mostrar el modal para crear columna
     btnAgregar.addEventListener("click", () => {
@@ -168,12 +170,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initSortable();
 
+
+
     function initSortableCol() {
         new Sortable(tableros, {
             animation: 150,
-            handle: 'h3', // para arrastrar desde el título
+            handle: 'div', // para arrastrar desde el título
             ghostClass: 'ghost-columna',
-            onEnd: function () {
+            onStart: function (evt) {
+                columnaArrastrada = evt.item;
+                botonEliminarColumna.style.display = "block";
+            },
+            onEnd: function (evt) {
+
+
+
+                const papelera = botonEliminarColumna.getBoundingClientRect();
+                const mouseX = evt.originalEvent.clientX;
+                const mouseY = evt.originalEvent.clientY;
+
+                //VERIFICACION DE QUE EL EVENTO NO SE HA HECHO PARA ELIMINAR EL TABLON ENTERA 
+                if (
+                    mouseX >= papelera.left &&
+                    mouseX <= papelera.right &&
+                    mouseY >= papelera.top &&
+                    mouseY <= papelera.bottom
+                ) {
+                    const idProyecto = document.getElementById("idProyecto").value;
+                    const estado = columnaArrastrada.getAttribute("data-etapa");
+
+                    $.ajax({
+                        url: "/eliminarTablon",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            nombreTablon: estado,
+                            id_proyecto: parseInt(idProyecto)
+                        }),
+                        success: function () {
+                            columnaArrastrada.remove(); // eliminar del DOM
+                            console.log("🗑️ Columna eliminada");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("❌ Error al eliminar columna:", error);
+                        }
+                    });
+
+                }
+
+
+
+
+                // Ocultar el botón de eliminar columna siempre que se suelta
+                setTimeout(() => {
+                    botonEliminarColumna.style.display = "none";
+                    columnaArrastrada = null;
+                }, 200);
+
+                //ACTUALIZAR ORDEN
                 const columnas = document.querySelectorAll(".columna");
                 const ordenActualizado = [];
 
