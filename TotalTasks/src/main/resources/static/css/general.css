@@ -3,59 +3,59 @@
 
 /* Paleta de colores y tipografía */
 :root {
-    /* Colores */
-    --color-primario: #007BFF;
-    --color-primario-hover: #0056b3;
+	/* Colores */
+	--color-primario: #007BFF;
+	--color-primario-hover: #0056b3;
 
-    --color-secundario: #28A745;
-    --color-secundario-hover: #1e7e34;
+	--color-secundario: #28A745;
+	--color-secundario-hover: #1e7e34;
 
-    --color-fondo: #F8F9FA;
+	--color-fondo: #F8F9FA;
 
-    --color-texto: #343A40;
+	--color-texto: #343A40;
 
-    --color-advertencia: #FD7E14;
-    --color-advertencia-hover: #e67e00;
+	--color-advertencia: #FD7E14;
+	--color-advertencia-hover: #e67e00;
 
-    --color-error: #DC3545;
-    --color-error-hover: #c82333;
+	--color-error: #DC3545;
+	--color-error-hover: #c82333;
 
-    --color-sombra: #E9ECEF;
+	--color-sombra: #E9ECEF;
 
-    --color-info: #17a2b8;
-    --color-info-hover: #117a8b;
+	--color-info: #17a2b8;
+	--color-info-hover: #117a8b;
 
-    --color-warning: #ffc107;
-    --color-warning-hover: #e0a800;
+	--color-warning: #ffc107;
+	--color-warning-hover: #e0a800;
 
-    --color-muted: #6c757d;
-    --color-muted-hover: #5a6268;
+	--color-muted: #6c757d;
+	--color-muted-hover: #5a6268;
 
-    /* Tipografía */
-    --fuente-principal: 'Poppins';
+	/* Tipografía */
+	--fuente-principal: 'Poppins';
 
-    /* Tamaños de fuente */
-    --tamano-titulo: 2rem;
-    --tamano-subtitulo: 1.5rem;
-    --tamano-texto-grande: 1.25rem;
-    --tamano-texto-mediano: 1.2rem;
-    --tamano-texto: 1rem;
-    --tamano-texto-pequeno: 0.875rem;
-    --tamano-texto-extra-pequeno: 0.75rem;
+	/* Tamaños de fuente */
+	--tamano-titulo: 2rem;
+	--tamano-subtitulo: 1.5rem;
+	--tamano-texto-grande: 1.25rem;
+	--tamano-texto-mediano: 1.2rem;
+	--tamano-texto: 1rem;
+	--tamano-texto-pequeno: 0.875rem;
+	--tamano-texto-extra-pequeno: 0.75rem;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    font-family: var(--fuente-principal);
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-    margin: 0;
-    padding: 0;
+	font-family: var(--fuente-principal);
+	background-color: var(--color-fondo);
+	color: var(--color-texto);
+	margin: 0;
+	padding: 0;
 }
 
 /* Tipografía general para encabezados y párrafos */
@@ -65,46 +65,46 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--fuente-principal);
-    color: var(--color-primario);
-    margin: 0;
-    padding: 0;
+	font-family: var(--fuente-principal);
+	color: var(--color-primario);
+	margin: 0;
+	padding: 0;
 }
 
 h1 {
-    font-size: var(--tamano-titulo);
+	font-size: var(--tamano-titulo);
 }
 
 h2 {
-    font-size: var(--tamano-subtitulo);
+	font-size: var(--tamano-subtitulo);
 }
 
 p {
-    font-size: var(--tamano-texto);
-    line-height: 1.5;
+	font-size: var(--tamano-texto);
+	line-height: 1.5;
 }
 
 a {
-    color: var(--color-primario);
-    text-decoration: none;
-    text-align: center;
-    font-weight: 600;
+	color: var(--color-primario);
+	text-decoration: none;
+	text-align: center;
+	font-weight: 600;
 }
 
 a:hover {
-    text-decoration: underline;
-    cursor: pointer;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 /* ANIMACION DE APARECER MODALES */
 @keyframes aparecer {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
+	from {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
 
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }

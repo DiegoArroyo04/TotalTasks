@@ -2,98 +2,96 @@
 
 /* Estilos generales */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
-
 
 /* Contenedor principal */
 .doc-container {
-  display: flex;
-  margin: 20px auto;
-  padding: 0 20px;
+	display: flex;
+	margin: 20px auto;
+	padding: 0 20px;
 
 }
 
 /* Menú lateral */
 .side-menu {
-  flex: 0 0 250px;
-  background-color: var(--color-secundario);
-  padding: 20px;
-  border-radius: 8px;
-  color: #fff;
-  margin-right: 20px;
-  position: sticky;
+	flex: 0 0 250px;
+	background-color: var(--color-secundario);
+	padding: 20px;
+	border-radius: 8px;
+	color: #fff;
+	margin-right: 20px;
+	position: sticky;
 }
 
-
 .side-menu h2 {
-  font-size: var(--tamano-subtitulo);
-  margin-bottom: 20px;
-  text-align: center;
+	font-size: var(--tamano-subtitulo);
+	margin-bottom: 20px;
+	text-align: center;
 }
 
 .side-menu ul {
-  list-style: none;
+	list-style: none;
 }
 
 .side-menu ul li {
-  margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .side-menu ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: var(--tamano-texto);
-  transition: color 0.3s;
+	color: #fff;
+	text-decoration: none;
+	font-size: var(--tamano-texto);
+	transition: color 0.3s;
 }
 
 .side-menu ul li a:hover,
 .side-menu ul li a.active {
-  color: var(--color-advertencia);
+	color: var(--color-advertencia);
 }
 
 /* Contenido de documentación */
 .doc-content {
-  flex: 1;
-  padding: 20px;
-  background-color: var(--color-fondo);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	flex: 1;
+	padding: 20px;
+	background-color: var(--color-fondo);
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .doc-section {
-  margin-bottom: 40px;
+	margin-bottom: 40px;
 }
 
 .doc-section h2 {
-  font-size: var(--tamano-subtitulo);
-  margin-bottom: 20px;
-  color: var(--color-primario);
-  border-bottom: 2px solid var(--color-sombra);
-  padding-bottom: 5px;
+	font-size: var(--tamano-subtitulo);
+	margin-bottom: 20px;
+	color: var(--color-primario);
+	border-bottom: 2px solid var(--color-sombra);
+	padding-bottom: 5px;
 }
 
 .doc-section h3 {
-  font-size: 1.4rem;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: var(--color-secundario);
+	font-size: 1.4rem;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	color: var(--color-secundario);
 }
 
 .doc-section p,
 .doc-section ul,
 .doc-section li {
-  font-size: var(--tamano-texto);
-  line-height: 1.6;
-  margin-bottom: 16px;
+	font-size: var(--tamano-texto);
+	line-height: 1.6;
+	margin-bottom: 16px;
 }
 
 .doc-section ul {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 .doc-section ul li {
-  margin-bottom: 8px;
+	margin-bottom: 8px;
 }

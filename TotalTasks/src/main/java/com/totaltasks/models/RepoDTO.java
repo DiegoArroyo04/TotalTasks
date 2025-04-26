@@ -16,20 +16,20 @@ import lombok.ToString;
 @ToString
 public class RepoDTO {
 
-    private String name;
-    private String fullName;
-    private String description;
-    private String htmlUrl;
-    private String homepage;
-    private String language;
-    private List<String> topics;
-    private Integer stargazersCount;
-    private Integer forksCount;
-    private Integer watchersCount;
-    private Integer openIssuesCount;
-    private String createdAt;
-    private String updatedAt;
-    private String pushedAt;
-    private Map<String, Integer> languages;
-    
+	private String name;
+	private String fullName;
+	private String description;
+	private String htmlUrl;
+	private String homepage;
+	private String language;
+	private List<String> topics;
+	private Integer stargazersCount;
+	private Integer forksCount;
+	private Integer watchersCount;
+	private Integer openIssuesCount;
+	private String createdAt;
+	private String updatedAt;
+	private String pushedAt;
+	private Map<String, Integer> languages;
+
 }

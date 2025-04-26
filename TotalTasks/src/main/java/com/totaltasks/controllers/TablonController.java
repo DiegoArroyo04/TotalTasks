@@ -11,17 +11,16 @@ import com.totaltasks.services.TablonService;
 
 @RestController
 public class TablonController {
-    @Autowired
-    TablonService tablonService;
+	@Autowired
+	TablonService tablonService;
 
-    @Autowired
-    ProyectoService proyectoService;
+	@Autowired
+	ProyectoService proyectoService;
 
-    @PostMapping("/crearTablon")
-    public Long crearTablon(@RequestBody TablonDTO tablon) {
-
-        tablon.setProyecto(proyectoService.obtenerProyectoPorId(tablon.getId_proyecto()));
-        return tablonService.crearTablon(tablon);
-    }
+	@PostMapping("/crearTablon")
+	public Long crearTablon(@RequestBody TablonDTO tablon) {
+		tablon.setProyecto(proyectoService.obtenerProyectoPorId(tablon.getId_proyecto()));
+		return tablonService.crearTablon(tablon);
+	}
 
 }

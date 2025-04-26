@@ -10,13 +10,13 @@ import com.totaltasks.entities.ProyectoEntity;
 
 public interface ProyectoRepository extends JpaRepository<ProyectoEntity, Long> {
 
-    @Query("SELECT DISTINCT p FROM ProyectoEntity p " +
-            "LEFT JOIN p.usuarios up " +
-            "WHERE p.creador.idUsuario = :idUsuario OR up.usuario.idUsuario = :idUsuario")
-    List<ProyectoEntity> findTodosLosProyectosDeUnUsuario(@Param("idUsuario") Long idUsuario);
+	@Query("SELECT DISTINCT p FROM ProyectoEntity p " +
+			"LEFT JOIN p.usuarios up " +
+			"WHERE p.creador.idUsuario = :idUsuario OR up.usuario.idUsuario = :idUsuario")
+	List<ProyectoEntity> findTodosLosProyectosDeUnUsuario(@Param("idUsuario") Long idUsuario);
 
-    ProyectoEntity findByCodigo(String codigo);
+	ProyectoEntity findByCodigo(String codigo);
 
-    List<ProyectoEntity> findByNombreProyecto(String nombreProyecto);
+	List<ProyectoEntity> findByNombreProyecto(String nombreProyecto);
 
 }

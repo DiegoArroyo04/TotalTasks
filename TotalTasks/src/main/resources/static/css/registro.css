@@ -2,391 +2,388 @@
 
 /* Reset y configuración global */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--fuente-principal);
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: var(--fuente-principal);
 }
 
 body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--color-sombra);
-    background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png");
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100vh;
+	background-color: var(--color-sombra);
+	background-image: url("https://www.transparenttextures.com/patterns/scribble-light.png");
 
 }
 
 /* Formulario de registro */
 .form-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 550px;
-    width: 100%;
-    text-align: center;
-    margin: 0 auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	max-width: 550px;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
 
 }
 
 .izquierda {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(159.86deg, rgb(10, 25, 47) 0%, rgb(15, 45, 85) 40%, rgb(32, 89, 165) 85%, rgb(50, 130, 250) 120%);
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    height: 100%;
-    text-align: center;
-    color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(159.86deg, rgb(10, 25, 47) 0%, rgb(15, 45, 85) 40%, rgb(32, 89, 165) 85%, rgb(50, 130, 250) 120%);
+	padding: 30px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 30%;
+	height: 100%;
+	text-align: center;
+	color: white;
 }
 
 .izquierda h1 {
-    font-size: var(--tamano-titulo);
-    margin-bottom: 20px;
-    color: white;
+	font-size: var(--tamano-titulo);
+	margin-bottom: 20px;
+	color: white;
 }
 
 .izquierda p {
-    font-size: var(--tamano-texto);
-    margin-bottom: 20px;
+	font-size: var(--tamano-texto);
+	margin-bottom: 20px;
 }
 
 .izquierda img {
-    width: 400px;
-    margin-bottom: 20px;
+	width: 400px;
+	margin-bottom: 20px;
 }
 
 .logo {
-    width: 150px;
+	width: 150px;
 }
 
 h2 {
-    color: var(--color-primario);
-    font-size: var(--tamano-subtitulo);
-    margin-bottom: 20px;
-    font-weight: 600;
+	color: var(--color-primario);
+	font-size: var(--tamano-subtitulo);
+	margin-bottom: 20px;
+	font-weight: 600;
 }
 
 .form-group {
-    width: 100%;
-    margin-bottom: 20px;
+	width: 100%;
+	margin-bottom: 20px;
 }
 
 label {
-    display: block;
-    font-size: var(--tamano-texto);
-    color: var(--color-texto);
-    margin-bottom: 8px;
-    text-align: left;
+	display: block;
+	font-size: var(--tamano-texto);
+	color: var(--color-texto);
+	margin-bottom: 8px;
+	text-align: left;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    font-size: var(--tamano-texto);
-    border-radius: 8px;
-    border: 1px solid var(--color-sombra);
-    background-color: #f8f9fa;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
+	width: 100%;
+	padding: 12px;
+	font-size: var(--tamano-texto);
+	border-radius: 8px;
+	border: 1px solid var(--color-sombra);
+	background-color: #f8f9fa;
+	transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus {
-    border-color: var(--color-primario);
-    box-shadow: 0 0 5px var(--color-primario);
-    outline: none;
+	border-color: var(--color-primario);
+	box-shadow: 0 0 5px var(--color-primario);
+	outline: none;
 }
 
 input::placeholder {
-    color: var(--color-texto);
-    opacity: 0.7;
+	color: var(--color-texto);
+	opacity: 0.7;
 }
 
 /* Botón de envío */
 .btn-submit {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    background-color: var(--color-primario);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: 600;
-    font-family: var(--fuente-principal);
+	width: 100%;
+	padding: 14px;
+	font-size: 16px;
+	background-color: var(--color-primario);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	font-weight: 600;
+	font-family: var(--fuente-principal);
 }
 
 .btn-submit:hover {
-    background-color: var(--color-primario-hover);
+	background-color: var(--color-primario-hover);
 }
 
 /* Estilos base para modales */
 .modal,
 .modalError,
 .modalSuccess {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
 }
 
 .modal {
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+	z-index: 1000;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 }
 
 .modalError,
 .modalSuccess {
-    z-index: 1001;
+	z-index: 1001;
 }
 
 /* Contenido común de los modales */
 .modalContenido,
 .modalErrorContenido,
 .modalSuccessContenido {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    animation: aparecer 0.5s ease-out;
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	animation: aparecer 0.5s ease-out;
 }
 
 .modalContenido {
-    width: 80%;
-    max-width: 600px;
-    text-align: left;
+	width: 80%;
+	max-width: 600px;
+	text-align: left;
 }
 
 .modalErrorContenido,
 .modalSuccessContenido {
-    width: 90%;
-    max-width: 400px;
+	width: 90%;
+	max-width: 400px;
 }
 
 /* Header de modales */
 .modalHeader,
 .modalErrorHeader,
 .modalSuccessHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid;
-    padding-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px solid;
+	padding-bottom: 10px;
 }
 
 .modalHeader {
-    border-color: #ccc;
+	border-color: #ccc;
 }
 
 .modalErrorHeader {
-    border-color: var(--color-error);
+	border-color: var(--color-error);
 }
 
 .modalSuccessHeader {
-    border-color: var(--color-secundario);
+	border-color: var(--color-secundario);
 }
 
 .modalHeader h2 {
-    margin: 0;
-    color: #007BFF;
+	margin: 0;
+	color: #007BFF;
 }
 
 .modalErrorHeader h2 {
-    color: var(--color-error);
-    font-size: var(--tamano-subtitulo);
+	color: var(--color-error);
+	font-size: var(--tamano-subtitulo);
 }
 
 .modalSuccessHeader h2 {
-    color: var(--color-secundario);
-    font-size: var(--tamano-subtitulo);
+	color: var(--color-secundario);
+	font-size: var(--tamano-subtitulo);
 }
 
 /* Botones de cerrar modales */
 .cerrarModal,
 .cerrarModalError,
 .cerrarModalSuccess {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #555;
-    margin-top: -25px;
-    transition: transform 0.3s ease;
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	color: #555;
+	margin-top: -25px;
+	transition: transform 0.3s ease;
 }
 
 .cerrarModal:hover,
 .cerrarModalError:hover,
 .cerrarModalSuccess:hover {
-    transform: scale(1.2);
+	transform: scale(1.2);
 }
 
 .cerrarModal:hover {
-    color: var(--color-error);
+	color: var(--color-error);
 }
 
 .cerrarModalError:hover {
-    color: var(--color-error-hover);
+	color: var(--color-error-hover);
 }
 
 .cerrarModalSuccess:hover {
-    color: var(--color-secundario-hover);
+	color: var(--color-secundario-hover);
 }
 
 /* Cuerpo de modales */
 .modalBody,
 .modalErrorBody,
 .modalSuccessBody {
-    margin-top: 15px;
-    padding: 10px;
-    font-size: var(--tamano-texto);
-    color: #333;
+	margin-top: 15px;
+	padding: 10px;
+	font-size: var(--tamano-texto);
+	color: #333;
 }
 
 .modalErrorBody .iconoError,
 .modalSuccessBody .iconoSuccess {
-    display: block;
-    margin-bottom: 10px;
+	display: block;
+	margin-bottom: 10px;
 }
 
 .iconoError {
-    font-size: 50px;
-    color: var(--color-error);
+	font-size: 50px;
+	color: var(--color-error);
 }
 
 .iconoSuccess {
-    font-size: 50px;
-    color: var(--color-secundario);
+	font-size: 50px;
+	color: var(--color-secundario);
 }
 
 /* Estilos específicos para el modal del registro */
 .modalBody h3 {
-    color: #007BFF;
-    margin-top: 15px;
+	color: #007BFF;
+	margin-top: 15px;
 }
 
 .modalBody p {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #333;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
 }
 
 /* Móviles */
 @media (max-width: 768px) {
-    .izquierda {
-        display: none;
-    }
+	.izquierda {
+		display: none;
+	}
 
-    h2 {
-        font-size: 1.4rem;
-    }
+	h2 {
+		font-size: 1.4rem;
+	}
 
-    .form-container {
-        width: 100%;
-        padding: 20px;
-    }
+	.form-container {
+		width: 100%;
+		padding: 20px;
+	}
 
-    .modalContenido {
-        width: 80%;
-        height: 80%;
-        overflow-y: auto;
-    }
+	.modalContenido {
+		width: 80%;
+		height: 80%;
+		overflow-y: auto;
+	}
 
-    body {
-        align-items: baseline;
-    }
+	body {
+		align-items: baseline;
+	}
 
-    .modalErrorHeader h2 {
-        font-size: var(--tamano-texto-mediano);
-    }
+	.modalErrorHeader h2 {
+		font-size: var(--tamano-texto-mediano);
+	}
 
-    .cerrarModalError {
-        margin-top: -40px;
-    }
+	.cerrarModalError {
+		margin-top: -40px;
+	}
 }
 
 /* Tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .izquierda {
-        display: none;
-    }
+	.izquierda {
+		display: none;
+	}
 
-    .fotoIzquierda {
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
-    }
+	.fotoIzquierda {
+		width: 200px;
+		height: 200px;
+		object-fit: contain;
+	}
 
-    .form-container {
-        max-width: 75%;
-    }
+	.form-container {
+		max-width: 75%;
+	}
 }
 
 /* PORTATILES */
 @media (min-width: 1025px) and (max-width: 1440px) {
+	.form-container {
+		max-height: 100vh;
+		padding: 12px 30px;
+	}
 
+	h2 {
+		margin-bottom: 10px;
+		font-size: var(--tamano-texto-grande);
+	}
 
-    .form-container {
-        max-height: 100vh;
-        padding: 12px 30px;
-    }
+	.fotoIzquierda {
+		max-height: 200px;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+	}
 
-    h2 {
-        margin-bottom: 10px;
-        font-size: var(--tamano-texto-grande);
-    }
+	.logo {
+		width: 130px;
+	}
 
-    .fotoIzquierda {
-        max-height: 200px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-    }
+	.form-group {
 
-    .logo {
-        width: 130px;
-    }
+		margin-bottom: 10px;
+	}
 
-    .form-group {
+	label {
+		font-size: var(--tamano-texto-pequeno);
+		margin-bottom: 4px;
 
-        margin-bottom: 10px;
-    }
+	}
 
+	input {
 
-    label {
-        font-size: var(--tamano-texto-pequeno);
-        margin-bottom: 4px;
+		padding: 8px;
+		font-size: var(--tamano-texto-pequeno);
 
-    }
+	}
 
-    input {
+	/* Botón de envío */
+	.btn-submit {
+		padding: 10px;
+		font-size: var(--tamano-texto-pequeno);
+		margin-top: 12px;
 
-        padding: 8px;
-        font-size: var(--tamano-texto-pequeno);
+	}
 
-    }
-
-    /* Botón de envío */
-    .btn-submit {
-        padding: 10px;
-        font-size: var(--tamano-texto-pequeno);
-        margin-top: 12px;
-
-    }
-
-    p {
-        font-size: var(--tamano-texto-pequeno);
-        line-height: 21px;
-    }
+	p {
+		font-size: var(--tamano-texto-pequeno);
+		line-height: 21px;
+	}
 }

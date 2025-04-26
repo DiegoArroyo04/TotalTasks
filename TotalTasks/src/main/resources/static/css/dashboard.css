@@ -2,579 +2,570 @@
 
 /* Contenedor principal */
 .dashboard-container {
-  display: flex;
-  margin: 182px 32px 32px 32px;
-  gap: 32px;
+	display: flex;
+	margin: 182px 32px 32px 32px;
+	gap: 32px;
 
 }
 
 /* Sidebar de Repositorios */
 .sidebar {
-  flex: 0 0 300px;
-  color: #fff;
-  border-radius: 10px;
-  padding: 24px;
-  overflow-y: auto;
-  max-height: 80vh;
+	flex: 0 0 300px;
+	color: #fff;
+	border-radius: 10px;
+	padding: 24px;
+	overflow-y: auto;
+	max-height: 80vh;
 
 }
 
 .sidebar h2 {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 16px;
+	font-size: 24px;
+	text-align: center;
+	margin-bottom: 16px;
 }
 
 .repo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 .repo-item {
-  background-color: var(--color-primario);
-  border-radius: 8px;
-  padding: 12.8px;
-  transition: background-color 0.3s, transform 0.3s;
+	background-color: var(--color-primario);
+	border-radius: 8px;
+	padding: 12.8px;
+	transition: background-color 0.3s, transform 0.3s;
 }
 
 .repo-item:hover {
-  transform: scale(1.02);
-  cursor: pointer;
+	transform: scale(1.02);
+	cursor: pointer;
 }
 
 .repo-item h3 {
-  font-size: 19.2px;
-  margin-bottom: 8px;
-  color: #fff;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	font-size: 19.2px;
+	margin-bottom: 8px;
+	color: #fff;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .repo-item p {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .btn-modal {
-  margin-top: 8px;
-  background-color: #fff;
-  color: var(--color-primario);
-  ;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
-  width: 100%;
-  cursor: pointer;
-  transition: background-color 0.3s;
+	margin-top: 8px;
+	background-color: #fff;
+	color: var(--color-primario);
+	;
+	border: none;
+	padding: 8px;
+	border-radius: 4px;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 /* Contenido principal */
 .main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
 }
 
 /* Sección de Proyectos */
 .projects-section {
-  background-color: #fff;
-  border: 2px solid var(--color-primario);
-  ;
-  border-radius: 10px;
-  padding: 24px;
-  animation: aparecer 0.5s ease-in-out;
-  color: var(--color-primario);
-  ;
+	background-color: #fff;
+	border: 2px solid var(--color-primario);
+	;
+	border-radius: 10px;
+	padding: 24px;
+	animation: aparecer 0.5s ease-in-out;
+	color: var(--color-primario);
+	;
 }
 
 .projects-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
 }
 
 .project-actions {
-  display: flex;
-  gap: 8px;
+	display: flex;
+	gap: 8px;
 }
 
 .btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s;
-  background-color: var(--color-primario);
-  ;
-  color: #fff;
-  border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: background-color 0.3s;
+	background-color: var(--color-primario);
+	;
+	color: #fff;
+	border: none;
 }
 
 .btn:hover {
-  background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 .btn-create {
-  background-color: var(--color-primario);
-  ;
-  color: #fff;
+	background-color: var(--color-primario);
+	;
+	color: #fff;
 }
 
 .btn-create:hover {
-  background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 .btn-join {
-  background-color: var(--color-primario);
-  ;
-  color: #fff;
+	background-color: var(--color-primario);
+	;
+	color: #fff;
 }
 
 .btn-join:hover {
-  background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 .empty-message {
-  text-align: center;
-  padding: 16px;
-  color: var(--color-primario);
-  ;
+	text-align: center;
+	padding: 16px;
+	color: var(--color-primario);
+	;
 }
 
 .projects-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 50px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	justify-content: center;
+	margin-top: 50px;
 }
 
 .project-card {
-  position: relative;
-  background-color: #fff;
-  border: 2px solid var(--color-primario);
-  border-radius: 10px;
-  width: 280px;
-  height: 200px;
-  padding: 16px;
-  color: var(--color-primario);
-  overflow: hidden;
-  transition: transform 0.3s;
-  text-align: left;
+	position: relative;
+	background-color: #fff;
+	border: 2px solid var(--color-primario);
+	border-radius: 10px;
+	width: 280px;
+	height: 200px;
+	padding: 16px;
+	color: var(--color-primario);
+	overflow: hidden;
+	transition: transform 0.3s;
+	text-align: left;
 }
 
-
 .project-card:hover {
-  transform: translateY(-5px);
-  cursor: pointer;
+	transform: translateY(-5px);
+	cursor: pointer;
 }
 
 .project-title {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  right: 16px;
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--color-primario);
-  ;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	position: absolute;
+	top: 16px;
+	left: 16px;
+	right: 16px;
+	font-size: 18px;
+	font-weight: bold;
+	color: var(--color-primario);
+	;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .project-code {
-  position: absolute;
-  top: 48px;
-  left: 16px;
-  right: 16px;
-  font-size: 14px;
+	position: absolute;
+	top: 48px;
+	left: 16px;
+	right: 16px;
+	font-size: 14px;
 }
 
 .project-description {
-  position: absolute;
-  top: 80px;
-  left: 16px;
-  right: 16px;
-  font-size: 14px;
-  height: 80px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	position: absolute;
+	top: 80px;
+	left: 16px;
+	right: 16px;
+	font-size: 14px;
+	height: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .manualDescripcion {
-  resize: none;
+	resize: none;
 }
 
 .project-meta {
-  position: absolute;
-  bottom: 40px;
-  left: 16px;
-  right: 16px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  border-top: 1px solid var(--color-primario);
-  ;
-  padding-top: 6px;
+	position: absolute;
+	bottom: 40px;
+	left: 16px;
+	right: 16px;
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+	border-top: 1px solid var(--color-primario);
+	;
+	padding-top: 6px;
 }
 
 .project-owner {
-  position: absolute;
-  bottom: 10px;
-  left: 16px;
-  right: 16px;
-  text-align: center;
-  font-size: 13px;
-  color: var(--color-primario);
-  ;
+	position: absolute;
+	bottom: 10px;
+	left: 16px;
+	right: 16px;
+	text-align: center;
+	font-size: 13px;
+	color: var(--color-primario);
+	;
 }
 
 /* Sección de Chat */
 .chat-section {
-  background-color: #fff;
-  border: 2px solid var(--color-primario);
-  ;
-  border-radius: 10px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  color: var(--color-primario);
-  ;
+	background-color: #fff;
+	border: 2px solid var(--color-primario);
+	;
+	border-radius: 10px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	color: var(--color-primario);
+	;
 }
 
 .chat-section h2 {
-  text-align: center;
-  color: var(--color-primario);
-  ;
+	text-align: center;
+	color: var(--color-primario);
 }
 
 .chat-header {
-  background-color: var(--color-primario);
-  ;
-  color: #fff;
-  padding: 8px;
-  border-radius: 5px;
-  text-align: center;
+	background-color: var(--color-primario);
+	color: #fff;
+	padding: 8px;
+	border-radius: 5px;
+	text-align: center;
 }
 
 .chat-body {
-  height: 200px;
-  overflow-y: auto;
-  border: 1px solid var(--color-primario);
-  ;
-  border-radius: 5px;
-  padding: 8px;
-  background-color: #fff;
-  color: var(--color-primario);
-  ;
+	height: 200px;
+	overflow-y: auto;
+	border: 1px solid var(--color-primario);
+	border-radius: 5px;
+	padding: 8px;
+	background-color: #fff;
+	color: var(--color-primario);
 }
 
 .chat-input {
-  display: flex;
-  gap: 8px;
+	display: flex;
+	gap: 8px;
 }
 
 .chat-input input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid var(--color-primario);
-  ;
-  border-radius: 5px;
-  color: var(--color-primario);
-  ;
+	flex: 1;
+	padding: 8px;
+	border: 1px solid var(--color-primario);
+	border-radius: 5px;
+	color: var(--color-primario);
 }
 
 .chat-input button {
-  background-color: var(--color-primario);
-  ;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+	background-color: var(--color-primario);
+	color: #fff;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 .chat-input button:hover {
-  background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 /* Modal */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 200;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  align-items: center;
-  justify-content: center;
+	display: none;
+	position: fixed;
+	z-index: 200;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	align-items: center;
+	justify-content: center;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario-hover) 100%);
-  padding: 32px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 420px;
-  position: relative;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  animation: modal-appear 0.4s ease-in-out;
-  color: #fff;
+	background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario-hover) 100%);
+	padding: 32px;
+	border-radius: 12px;
+	width: 90%;
+	max-width: 420px;
+	position: relative;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+	animation: modal-appear 0.4s ease-in-out;
+	color: #fff;
 }
 
 .modal-content h2 {
-  margin-bottom: 19.2px;
-  font-size: 28.8px;
-  text-align: center;
-  color: #fff;
+	margin-bottom: 19.2px;
+	font-size: 28.8px;
+	text-align: center;
+	color: #fff;
 }
 
 .modal-content label {
-  display: block;
-  margin-bottom: 4.8px;
-  font-size: 16px;
+	display: block;
+	margin-bottom: 4.8px;
+	font-size: 16px;
 }
 
 .modal-content input,
 .modal-content textarea,
 .modal-content select {
-  width: 100%;
-  padding: 9.6px;
-  border-radius: 6px;
-  border: 3px solid var(--color-sombra);
-  margin-bottom: 16px;
-  font-size: 16px;
-  color: var(--color-texto);
-  outline: none;
-  font-family: var(--fuente-principal);
-  background-color: #fff;
+	width: 100%;
+	padding: 9.6px;
+	border-radius: 6px;
+	border: 3px solid var(--color-sombra);
+	margin-bottom: 16px;
+	font-size: 16px;
+	color: var(--color-texto);
+	outline: none;
+	font-family: var(--fuente-principal);
+	background-color: #fff;
 }
 
 .modal-content button[type="submit"] {
-  background: linear-gradient(135deg, #339CFF, #66BFFF);
-  color: #fff;
-  border: none;
-  padding: 11.2px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
+	background: linear-gradient(135deg, #339CFF, #66BFFF);
+	color: #fff;
+	border: none;
+	padding: 11.2px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	width: 100%;
+	box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 .modal-content button[type="submit"]:hover {
-  background: linear-gradient(135deg, #4FC3FF, #85D1FF);
-  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
-  transform: translateY(-2px);
+	background: linear-gradient(135deg, #4FC3FF, #85D1FF);
+	box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+	transform: translateY(-2px);
 }
 
 /* Botón de cerrar */
 .close {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  color: #fff;
-  font-size: 28.8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	color: #fff;
+	font-size: 28.8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
 .close:hover {
-  transform: scale(1.3) rotate(35deg);
+	transform: scale(1.3) rotate(35deg);
 }
 
 /* Fondo modal */
 .modal-error {
-  display: none;
-  position: fixed;
-  z-index: 10000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Contenido del modal */
 .modal-error-content {
-  background-color: #fff5f5;
-  border: 1px solid #ff4d4f;
-  padding: 2rem;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-  position: relative;
+	background-color: #fff5f5;
+	border: 1px solid #ff4d4f;
+	padding: 2rem;
+	border-radius: 10px;
+	max-width: 400px;
+	width: 90%;
+	text-align: center;
+	box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+	position: relative;
 }
 
 /* Título */
 .modal-error-title {
-  color: #d93025;
-  margin-bottom: 1rem;
+	color: #d93025;
+	margin-bottom: 1rem;
 }
 
 /* Mensaje */
 .modal-error-message {
-  color: #333;
-  font-size: 1rem;
+	color: #333;
+	font-size: 1rem;
 }
 
 /* Botón de cierre */
 .modal-error-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 1.5rem;
-  color: #d93025;
-  cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	font-size: 1.5rem;
+	color: #d93025;
+	cursor: pointer;
 }
 
 /* Animación de aparición para el modal */
 @keyframes modal-appear {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
 
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
 }
 
 /* BUTTON DELETE */
 .delete-button {
-  position: absolute;
-  padding: 0.5em;
-  border: none;
-  top: 0;
-  right: 0;
-  background: transparent;
-  cursor: pointer;
-  font-size: 1em;
-  transition: transform 0.2s ease;
-  z-index: 1;
+	position: absolute;
+	padding: 0.5em;
+	border: none;
+	top: 0;
+	right: 0;
+	background: transparent;
+	cursor: pointer;
+	font-size: 1em;
+	transition: transform 0.2s ease;
+	z-index: 1;
 }
 
 .trash-svg {
-  width: 2em;
-  height: 2em;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  overflow: visible;
+	width: 2em;
+	height: 2em;
+	transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+	overflow: visible;
 }
 
 #lid-group {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .delete-button:hover #lid-group {
-  transform: rotate(-28deg) translateY(2px);
+	transform: rotate(-28deg) translateY(2px);
 }
 
 .delete-button:active #lid-group {
-  transform: rotate(-12deg) scale(0.98);
+	transform: rotate(-12deg) scale(0.98);
 }
 
 .delete-button:hover .trash-svg {
-  transform: scale(1.08) rotate(3deg);
+	transform: scale(1.08) rotate(3deg);
 }
 
 .delete-button:active .trash-svg {
-  transform: scale(0.96) rotate(-1deg);
+	transform: scale(0.96) rotate(-1deg);
 }
 
 
 /*BOTON DE ABANDONAR PROYECTO*/
 .Btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 8px;
-  overflow: hidden;
-  transition-duration: .3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(255, 65, 65);
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 2rem;
+	height: 2rem;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 8px;
+	overflow: hidden;
+	transition-duration: .3s;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+	background-color: rgb(255, 65, 65);
 }
 
 .Btn:hover {
-  transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .sign {
-  width: 100%;
-  transition-duration: .3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	width: 100%;
+	transition-duration: .3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .sign svg {
-  width: 17px;
+	width: 17px;
 }
 
 .sign svg path {
-  fill: white;
+	fill: white;
 }
 
 .Btn:active {
-  transform: translate(2px, 2px);
+	transform: translate(2px, 2px);
 }
 
 .copy-btn {
-  position: absolute;
-  top: 45px;
-  right: 15px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 1.2rem;
-  height: 1.2rem;
-  z-index: 1;
+	position: absolute;
+	top: 45px;
+	right: 15px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	width: 1.2rem;
+	height: 1.2rem;
+	z-index: 1;
 }
 
 .copy-btn:hover {
-  transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .tooltip-text {
-  display: none;
-  position: absolute;
-  top: 80px;
-  right: 2px;
-  background-color: #333;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  white-space: nowrap;
-  z-index: 10;
-
+	display: none;
+	position: absolute;
+	top: 80px;
+	right: 2px;
+	background-color: #333;
+	color: #fff;
+	padding: 4px 8px;
+	border-radius: 6px;
+	font-size: 12px;
+	white-space: nowrap;
+	z-index: 10;
 }
 
 /* Pseudo-elemento para el triángulo apuntando hacia abajo */
 .tooltip-text::after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(250%);
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 10px solid #333;
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(250%);
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 10px solid #333;
 }

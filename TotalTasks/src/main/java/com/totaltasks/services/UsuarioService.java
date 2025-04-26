@@ -11,29 +11,29 @@ import com.totaltasks.models.UsuarioDTO;
 
 public interface UsuarioService {
 
-    String registrarUsuario(UsuarioDTO usuario);
+	String registrarUsuario(UsuarioDTO usuario);
 
-    String registrarUsuarioGoogle(UsuarioDTO usuario);
+	String registrarUsuarioGoogle(UsuarioDTO usuario);
 
-    String registrarUsuarioGitHub(UsuarioDTO usuario);
+	String registrarUsuarioGitHub(UsuarioDTO usuario);
 
-    // Metodos github
-    String obtenerAccessTokenDeGitHub(String code);
+	// Metodos github
+	String obtenerAccessTokenDeGitHub(String code);
 
-    UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken);
+	UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken);
 
-    // Metodo adicional datos Github
-    List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken);
+	// Metodo adicional datos Github
+	List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken);
 
-    String comprobarLogin(UsuarioDTO usuario);
+	String comprobarLogin(UsuarioDTO usuario);
 
-    // Buscar por usuario
-    UsuarioEntity encontrarUsuario(String email);
+	// Buscar por usuario
+	UsuarioEntity encontrarUsuario(String email);
 
-    UsuarioEntity encontrarUsuarioPorUsuario(String usuario);
+	UsuarioEntity encontrarUsuarioPorUsuario(String usuario);
 
-    void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia, MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException;
+	void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia, MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException;
 
-    String convertirByteABase64(byte[] foto);
-    
+	String convertirByteABase64(byte[] foto);
+
 }

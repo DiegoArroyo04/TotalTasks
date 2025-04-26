@@ -15,41 +15,42 @@ import com.totaltasks.services.TareaService;
 @Service
 public class TareaServiceImplementation implements TareaService {
 
-    @Autowired
-    private TareaRepository tareaRepository;
+	@Autowired
+	private TareaRepository tareaRepository;
 
-    @Autowired
-    private ProyectoRepository proyectoRepository;
+	@Autowired
+	private ProyectoRepository proyectoRepository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
-    @Override
-    public void crearTarea(TareaDTO dto) {
+	@Override
+	public void crearTarea(TareaDTO dto) {
 
-        TareaEntity tarea = new TareaEntity();
+		TareaEntity tarea = new TareaEntity();
 
-        ProyectoEntity proyecto = proyectoRepository.findById(dto.getIdProyecto()).orElse(null);
-        UsuarioEntity usuario = usuarioRepository.findById(dto.getIdResponsable()).orElse(null);
+		ProyectoEntity proyecto = proyectoRepository.findById(dto.getIdProyecto()).orElse(null);
+		UsuarioEntity usuario = usuarioRepository.findById(dto.getIdResponsable()).orElse(null);
 
-        tarea.setTitulo(dto.getTitulo());
-        tarea.setDescripcion(dto.getDescripcion());
-        tarea.setFechaLimite(dto.getFechaLimite());
-        tarea.setEstado(dto.getEstado());
-        tarea.setProyecto(proyecto);
-        tarea.setResponsable(usuario);
+		tarea.setTitulo(dto.getTitulo());
+		tarea.setDescripcion(dto.getDescripcion());
+		tarea.setFechaLimite(dto.getFechaLimite());
+		tarea.setEstado(dto.getEstado());
+		tarea.setProyecto(proyecto);
+		tarea.setResponsable(usuario);
 
-        tareaRepository.save(tarea);
-    }
+		tareaRepository.save(tarea);
+	}
 
-    @Override
-    public String modificarEstadoTarea(TareaDTO tareaDTO) {
+	@Override
+	public String modificarEstadoTarea(TareaDTO tareaDTO) {
 
-        TareaEntity tareaEntity = tareaRepository.findById(tareaDTO.getIdTarea()).orElse(null);
+		TareaEntity tareaEntity = tareaRepository.findById(tareaDTO.getIdTarea()).orElse(null);
 
-        tareaEntity.setEstado(tareaDTO.getEstado());
-        tareaRepository.save(tareaEntity);
+		tareaEntity.setEstado(tareaDTO.getEstado());
+		tareaRepository.save(tareaEntity);
 
-        return "Tarea Modificada";
-    }
+		return "Tarea Modificada";
+	}
+	
 }

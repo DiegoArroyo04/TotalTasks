@@ -7,8 +7,9 @@ import org.springframework.web.socket.config.annotation.*;
 @EnableWebSocket
 public class ConfiguracionWebSocket implements WebSocketConfigurer {
 
-    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registro) {
-        registro.addHandler(new ManejadorChatWebSocket(), "/chat");
-    }
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registro) {
+		registro.addHandler(new ManejadorChatWebSocket(), "/chat");
+	}
+	
 }

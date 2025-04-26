@@ -15,20 +15,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UsuarioProyectoEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario_proyecto", unique = true, nullable = false)
-    private Long idUsuarioProyecto;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuario_proyecto", unique = true, nullable = false)
+	private Long idUsuarioProyecto;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private UsuarioEntity usuario;
+	@ManyToOne
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private UsuarioEntity usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_proyecto", nullable = false)
-    private ProyectoEntity proyecto;
+	@ManyToOne
+	@JoinColumn(name = "id_proyecto", nullable = false)
+	private ProyectoEntity proyecto;
 
-    @Column(name = "rol")
-    private String rol;
-    
+	@Column(name = "rol")
+	private String rol;
+
 }

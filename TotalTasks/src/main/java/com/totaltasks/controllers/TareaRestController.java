@@ -10,11 +10,11 @@ import com.totaltasks.services.TareaService;
 
 @RestController
 public class TareaRestController {
-    @Autowired
-    private TareaService tareaService;
+	@Autowired
+	private TareaService tareaService;
 
-    @PostMapping("/actualizarEstadoTarea")
-    public String crearTarea(@RequestBody TareaDTO tarea) {
-        return tareaService.modificarEstadoTarea(tarea);
-    }
+	@PostMapping("/actualizarEstadoTarea")
+	public String crearTarea(@RequestBody TareaDTO tarea) {
+		return tareaService.modificarEstadoTarea(tarea);
+	}
 }

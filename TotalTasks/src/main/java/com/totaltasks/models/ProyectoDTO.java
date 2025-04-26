@@ -13,13 +13,13 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ProyectoDTO {
 
-    private Long idProyecto;
-    private String nombreProyecto;
-    private String descripcion;
-    private Timestamp fechaCreacion;
-    private String metodologia;
-    private String codigo;
-    private Long idCreador;
-    private String nombreCreador;
+	private Long idProyecto;
+	private String nombreProyecto;
+	private String descripcion;
+	private Timestamp fechaCreacion;
+	private String metodologia;
+	private String codigo;
+	private Long idCreador;
+	private String nombreCreador;
 
 }

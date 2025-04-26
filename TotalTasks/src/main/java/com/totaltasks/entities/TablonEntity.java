@@ -14,19 +14,19 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TablonEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tablon")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_tablon")
+	private Long id;
 
-    @Column(name = "nombre_tablon", nullable = false)
-    private String nombreTablon;
+	@Column(name = "nombre_tablon", nullable = false)
+	private String nombreTablon;
 
-    @Column(name = "orden", nullable = false)
-    private Integer orden;
+	@Column(name = "orden", nullable = false)
+	private Integer orden;
 
-    @ManyToOne
-    @JoinColumn(name = "id_proyecto", nullable = false)
-    private ProyectoEntity proyecto;
+	@ManyToOne
+	@JoinColumn(name = "id_proyecto", nullable = false)
+	private ProyectoEntity proyecto;
 
 }

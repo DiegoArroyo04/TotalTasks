@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UsuarioProyectoDTO {
 
-    private Long idUsuario;
-    private Long idProyecto;
-    private String rol;
-    
+	private Long idUsuario;
+	private Long idProyecto;
+	private String rol;
+
 }

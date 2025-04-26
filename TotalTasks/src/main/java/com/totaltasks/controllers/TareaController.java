@@ -9,13 +9,13 @@ import com.totaltasks.services.TareaService;
 @Controller
 public class TareaController {
 
-    @Autowired
-    private TareaService tareaService;
+	@Autowired
+	private TareaService tareaService;
 
-    @PostMapping("/crearTarea")
-    public String crearTarea(@ModelAttribute TareaDTO tareaDTO) {
-        tareaService.crearTarea(tareaDTO);
-        return "redirect:/proyecto/" + tareaDTO.getIdProyecto();
-    }
+	@PostMapping("/crearTarea")
+	public String crearTarea(@ModelAttribute TareaDTO tareaDTO) {
+		tareaService.crearTarea(tareaDTO);
+		return "redirect:/proyecto/" + tareaDTO.getIdProyecto();
+	}
 
 }

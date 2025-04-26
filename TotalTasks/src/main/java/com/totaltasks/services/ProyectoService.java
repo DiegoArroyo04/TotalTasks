@@ -8,20 +8,20 @@ import com.totaltasks.entities.ProyectoEntity;
 
 public interface ProyectoService {
 
-    List<ProyectoEntity> todosLosProyectosDeUnUsuario(UsuarioEntity usuario);
+	List<ProyectoEntity> todosLosProyectosDeUnUsuario(UsuarioEntity usuario);
 
-    void guardarProyecto(ProyectoDTO proyecto);
+	void guardarProyecto(ProyectoDTO proyecto);
 
-    boolean unirseAProyectoPorCodigo(String codigo, UsuarioEntity usuario);
+	boolean unirseAProyectoPorCodigo(String codigo, UsuarioEntity usuario);
 
-    ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto);
+	ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto);
 
-    ProyectoEntity obtenerProyectoPorId(Long id);
+	ProyectoEntity obtenerProyectoPorId(Long id);
 
-    ProyectoEntity findByCodigo(String codigo);
+	ProyectoEntity findByCodigo(String codigo);
 
-    void deleteById(Long id, boolean abandonar);
+	void deleteById(Long id, boolean abandonar);
 
-    String obtenerCodigoAleatorio();
+	String obtenerCodigoAleatorio();
 
 }

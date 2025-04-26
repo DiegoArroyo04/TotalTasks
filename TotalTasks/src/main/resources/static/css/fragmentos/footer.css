@@ -2,227 +2,227 @@
 
 /* Footer General */
 .footer {
-  background-color: var(--color-texto);
-  color: var(--color-fondo);
-  padding: 40px 20px;
-  font-size: var(--tamano-texto);
-  text-align: center;
+	background-color: var(--color-texto);
+	color: var(--color-fondo);
+	padding: 40px 20px;
+	font-size: var(--tamano-texto);
+	text-align: center;
 }
 
 /* Enlaces */
 .footer a {
-  color: var(--color-fondo);
-  text-decoration: none;
-  transition: color 0.3s ease;
+	color: var(--color-fondo);
+	text-decoration: none;
+	transition: color 0.3s ease;
 }
 
 .footer a:hover {
-  color: var(--color-primario-hover);
+	color: var(--color-primario-hover);
 }
 
 /* Contenedor Principal */
 .contenedor-footer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 60px;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--color-sombra);
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 60px;
+	max-width: 1500px;
+	margin: 0 auto;
+	padding-bottom: 20px;
+	border-bottom: 1px solid var(--color-sombra);
 }
 
 /* Marca */
 .marca-footer {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex: 1 1 300px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	flex: 1 1 300px;
 }
 
 .logo-footer {
-  width: 150px;
-  height: auto;
-  object-fit: contain;
+	width: 150px;
+	height: auto;
+	object-fit: contain;
 }
 
 .texto-marca h2 {
-  font-size: 1.8rem;
-  margin: 0;
+	font-size: 1.8rem;
+	margin: 0;
 }
 
 .texto-marca p {
-  font-size: 0.9rem;
-  margin: 4px 0 0;
+	font-size: 0.9rem;
+	margin: 4px 0 0;
 }
 
 /* Newsletter */
 .newsletter-footer {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 300px;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 300px;
+	justify-content: center;
 }
 
 .newsletter-footer h4,
 .enlaces-footer h4 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+	font-size: 1.2rem;
+	margin-bottom: 10px;
 }
 
 .newsletter-footer p {
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+	font-size: 0.9rem;
+	margin-bottom: 10px;
 }
 
 .newsletter-footer form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 0;
 }
 
 .newsletter-footer input[type="email"] {
-  padding: 8px 10px;
-  width: 250px;
-  border: none;
-  border-radius: 4px 0 0 4px;
-  outline: none;
+	padding: 8px 10px;
+	width: 250px;
+	border: none;
+	border-radius: 4px 0 0 4px;
+	outline: none;
 }
 
 .newsletter-footer button {
-  padding: 10px 15px;
-  border: none;
-  background-color: var(--color-primario);
-  color: #fff;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  transition: background-color 0.3s;
+	padding: 10px 15px;
+	border: none;
+	background-color: var(--color-primario);
+	color: #fff;
+	border-radius: 0 4px 4px 0;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 /* Enlaces rápidos */
 .enlaces-footer {
-  flex: 1 1 300px;
+	flex: 1 1 300px;
 }
 
 .enlaces-footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0;
+	list-style: none;
+	padding: 0;
+	margin: 10px 0 0;
 }
 
 .enlaces-footer li {
-  margin-bottom: 8px;
+	margin-bottom: 8px;
 }
 
 .enlaces-footer li a {
-  font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 /* Extra Footer */
 .extra-footer {
-  margin: 20px auto;
-  max-width: 1200px;
+	margin: 20px auto;
+	max-width: 1200px;
 }
 
 .extra-footer ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
 }
 
 .extra-footer ul li a {
-  font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 /* Redes Sociales */
 .redes-footer {
-  margin: 20px auto;
-  max-width: 1200px;
+	margin: 20px auto;
+	max-width: 1200px;
 }
 
 .iconos-redes {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 20px;
 }
 
 .iconos-redes a img {
-  width: 30px;
-  height: 30px;
-  transition: transform 0.3s;
+	width: 30px;
+	height: 30px;
+	transition: transform 0.3s;
 }
 
 .iconos-redes a:hover img {
-  transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 /* Footer Final */
 .final-footer {
-  margin-top: 20px;
-  font-size: 0.8rem;
+	margin-top: 20px;
+	font-size: 0.8rem;
 }
 
 /* Responsive - Móviles */
 @media (max-width: 768px) {
-  .contenedor-footer {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
+	.contenedor-footer {
+		flex-direction: column;
+		align-items: center;
+		gap: 30px;
+	}
 
-  .marca-footer {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+	.marca-footer {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
 
-  .newsletter-footer form {
-    justify-content: center;
-  }
+	.newsletter-footer form {
+		justify-content: center;
+	}
 
-  .extra-footer ul {
-    gap: 15px;
-  }
+	.extra-footer ul {
+		gap: 15px;
+	}
 
-  .iconos-redes {
-    gap: 15px;
-  }
+	.iconos-redes {
+		gap: 15px;
+	}
 }
 
 /* Responsive - Tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .contenedor-footer {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-  }
+	.contenedor-footer {
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 30px;
+	}
 
-  .marca-footer,
-  .newsletter-footer,
-  .enlaces-footer {
-    align-items: center;
-    text-align: center;
-  }
+	.marca-footer,
+	.newsletter-footer,
+	.enlaces-footer {
+		align-items: center;
+		text-align: center;
+	}
 
-  .newsletter-footer input[type="email"] {
-    width: 200px;
-  }
+	.newsletter-footer input[type="email"] {
+		width: 200px;
+	}
 
-  .newsletter-footer button {
-    font-size: 14px;
-  }
+	.newsletter-footer button {
+		font-size: 14px;
+	}
 
-  .iconos-redes a img {
-    width: 25px;
-    height: 25px;
-  }
+	.iconos-redes a img {
+		width: 25px;
+		height: 25px;
+	}
 
-  .final-footer {
-    font-size: 12px;
-  }
+	.final-footer {
+		font-size: 12px;
+	}
 }

@@ -2,374 +2,374 @@
 
 /* Estilo general */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: var(--fuente-principal);
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: var(--fuente-principal);
 }
 
 /* Estilo hero */
 .hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	flex-wrap: wrap;
 }
 
 .hero-texto,
 .hero-imagen {
-  flex: 1;
-  padding: 20px;
+	flex: 1;
+	padding: 20px;
 }
 
 .hero h1 {
-  font-size: var(--tamano-titulo);
-  color: var(--color-texto);
-  margin-bottom: 20px;
+	font-size: var(--tamano-titulo);
+	color: var(--color-texto);
+	margin-bottom: 20px;
 }
 
 .hero p {
-  font-size: var(--tamano-texto-mediano);
-  color: var(--color-texto);
-  line-height: 1.6;
-  margin-bottom: 20px;
+	font-size: var(--tamano-texto-mediano);
+	color: var(--color-texto);
+	line-height: 1.6;
+	margin-bottom: 20px;
 }
 
 .hero .boton-probar {
-  text-decoration: none;
-  color: white;
-  font-size: var(--tamano-texto-mediano);
-  background-color: var(--color-primario);
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+	text-decoration: none;
+	color: white;
+	font-size: var(--tamano-texto-mediano);
+	background-color: var(--color-primario);
+	padding: 10px 20px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
 }
 
 .hero .boton-probar:hover {
-  background-color: var(--color-primario-hover);
+	background-color: var(--color-primario-hover);
 }
 
 .hero img {
-  max-width: 60%;
-  height: auto;
-  border-radius: 10px;
-  display: block;
-  margin: 0 auto;
+	max-width: 60%;
+	height: auto;
+	border-radius: 10px;
+	display: block;
+	margin: 0 auto;
 }
 
 /* Estilo general de la sección de funcionalidades */
 .pestanas-funcionalidades {
-  padding: 60px 20px;
+	padding: 60px 20px;
 }
 
 .pestanas-funcionalidades .pestanas {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-  gap: 10px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 40px;
+	gap: 10px;
 }
 
 .pestanas-funcionalidades .boton-pestana {
-  background: none;
-  border: none;
-  font-size: var(--tamano-texto-mediano);
-  padding: 10px 20px;
-  cursor: pointer;
-  color: var(--color-texto);
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  border-bottom: 2px solid transparent;
+	background: none;
+	border: none;
+	font-size: var(--tamano-texto-mediano);
+	padding: 10px 20px;
+	cursor: pointer;
+	color: var(--color-texto);
+	transition: color 0.3s ease, border-bottom 0.3s ease;
+	border-bottom: 2px solid transparent;
 }
 
 .pestanas-funcionalidades .boton-pestana:hover {
-  color: var(--color-primario-hover);
+	color: var(--color-primario-hover);
 }
 
 .pestanas-funcionalidades .boton-pestana.active {
-  color: var(--color-primario);
-  border-bottom: 2px solid var(--color-primario);
+	color: var(--color-primario);
+	border-bottom: 2px solid var(--color-primario);
 }
 
 .pestanas-funcionalidades .contenido-pestanas {
-  max-width: 1200px;
-  margin: 0 auto;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 .pestanas-funcionalidades .contenido-pestana {
-  display: none;
-  animation: aparecer 0.5s ease-out;
+	display: none;
+	animation: aparecer 0.5s ease-out;
 }
 
 .pestanas-funcionalidades .contenido-pestana.active {
-  display: block;
+	display: block;
 }
 
 .detalle-funcionalidad {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	gap: 35px;
+	flex-wrap: wrap;
 }
 
 .texto-funcionalidad {
-  flex: 1;
-  text-align: justify;
+	flex: 1;
+	text-align: justify;
 }
 
 .imagen-funcionalidad {
-  width: 300px;
-  height: auto;
+	width: 300px;
+	height: auto;
 }
 
 .imagen-funcionalidad img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
+	max-width: 100%;
+	height: auto;
+	border-radius: 10px;
 }
 
 .pestanas-funcionalidades .contenido-pestana h2 {
-  font-size: var(--tamano-subtitulo);
-  margin-bottom: 20px;
-  color: var(--color-primario);
+	font-size: var(--tamano-subtitulo);
+	margin-bottom: 20px;
+	color: var(--color-primario);
 }
 
 .pestanas-funcionalidades .contenido-pestana p,
 .pestanas-funcionalidades .contenido-pestana ul {
-  font-size: var(--tamano-texto-mediano);
-  margin-bottom: 20px;
-  color: var(--color-texto);
+	font-size: var(--tamano-texto-mediano);
+	margin-bottom: 20px;
+	color: var(--color-texto);
 }
 
 .pestanas-funcionalidades .contenido-pestana ul {
-  list-style: disc;
-  margin-left: 20px;
+	list-style: disc;
+	margin-left: 20px;
 }
 
 /* Estilo características */
 .contenedor-caracteristicas {
-  margin: 0 auto;
-  padding: 50px 20px;
-  text-align: center;
+	margin: 0 auto;
+	padding: 50px 20px;
+	text-align: center;
 }
 
 .contenedor-caracteristicas h1 {
-  margin-bottom: 40px;
-  font-size: 2.5rem;
-  color: var(--color-texto);
+	margin-bottom: 40px;
+	font-size: 2.5rem;
+	color: var(--color-texto);
 }
 
 .tarjetas {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
 }
 
 .tarjeta {
-  border-radius: 15px;
-  padding: 20px;
+	border-radius: 15px;
+	padding: 20px;
 }
 
 .tarjeta .icono {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  color: #fff;
+	width: 60px;
+	height: 60px;
+	margin: 0 auto 20px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	color: #fff;
 }
 
 .icono img {
-  width: 100%;
-  height: 100%;
-  animation: parpadeo 1.5s ease-in-out infinite;
+	width: 100%;
+	height: 100%;
+	animation: parpadeo 1.5s ease-in-out infinite;
 }
 
 @keyframes parpadeo {
-  0% {
+	0% {
 
-    transform: scale(1);
-  }
+		transform: scale(1);
+	}
 
-  50% {
+	50% {
 
-    transform: scale(1.05);
-  }
+		transform: scale(1.05);
+	}
 
-  100% {
+	100% {
 
-    transform: scale(1);
-  }
+		transform: scale(1);
+	}
 }
 
 .tarjeta h3 {
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-  color: var(--color-primario);
+	margin-bottom: 10px;
+	font-size: 1.3rem;
+	color: var(--color-primario);
 }
 
 .tarjeta p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--color-texto);
+	font-size: 1rem;
+	line-height: 1.5;
+	color: var(--color-texto);
 }
 
 /* Historias de Productividad */
 .historias-productividad {
-  width: 100%;
+	width: 100%;
 
 }
 
 .texto-productividad {
-  font-size: var(--tamano-titulo);
-  color: var(--color-primario);
-  margin-bottom: 40px;
-  text-align: center;
+	font-size: var(--tamano-titulo);
+	color: var(--color-primario);
+	margin-bottom: 40px;
+	text-align: center;
 }
 
 .historias-columnas {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
 }
 
 .historia-card {
-  display: flex;
-  align-items: center;
-  width: 70%;
-  gap: 20px;
-  padding: 20px;
+	display: flex;
+	align-items: center;
+	width: 70%;
+	gap: 20px;
+	padding: 20px;
 }
 
 .historia1 {
-  align-self: flex-start;
-  margin: 20px;
+	align-self: flex-start;
+	margin: 20px;
 }
 
 .historia2 {
-  align-self: flex-end;
-  margin: 20px;
+	align-self: flex-end;
+	margin: 20px;
 }
 
 .historia3 {
-  align-self: flex-start;
-  margin: 20px;
+	align-self: flex-start;
+	margin: 20px;
 }
 
 .historia4 {
-  align-self: flex-end;
-  margin: 20px;
+	align-self: flex-end;
+	margin: 20px;
 }
 
 .historia-foto {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .historia-texto {
-  text-align: justify;
+	text-align: justify;
 }
 
 .historia-texto h3 {
-  font-weight: 600;
-  color: var(--color-primario);
-  margin-bottom: 10px;
+	font-weight: 600;
+	color: var(--color-primario);
+	margin-bottom: 10px;
 }
 
 .texto-cortado {
-  font-style: italic;
-  color: var(--color-advertencia);
+	font-style: italic;
+	color: var(--color-advertencia);
 }
 
 /* Estilo del separador */
 .divider {
-  width: 95%;
-  height: 2px;
-  margin: 0 auto;
-  background-color: var(--color-primario);
+	width: 95%;
+	height: 2px;
+	margin: 0 auto;
+	background-color: var(--color-primario);
 }
 
 /* Preguntas Frecuentes (FAQ) */
 .faq {
-  max-width: 80%;
-  margin: 0 auto 40px;
-  padding: 60px 20px;
+	max-width: 80%;
+	margin: 0 auto 40px;
+	padding: 60px 20px;
 }
 
 .faq h2 {
-  text-align: center;
-  font-size: var(--tamano-titulo);
-  margin-bottom: 40px;
-  color: var(--color-primario);
+	text-align: center;
+	font-size: var(--tamano-titulo);
+	margin-bottom: 40px;
+	color: var(--color-primario);
 }
 
 .faq-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
 }
 
 /* Estilo para la pregunta (burbujas a la izquierda) */
 .faq-pregunta {
-  position: relative;
-  align-self: flex-start;
-  border: 2px solid var(--color-primario);
-  padding: 20px 30px;
-  border-radius: 20px;
-  max-width: 80%;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 1rem;
-  line-height: 1.5;
+	position: relative;
+	align-self: flex-start;
+	border: 2px solid var(--color-primario);
+	padding: 20px 30px;
+	border-radius: 20px;
+	max-width: 80%;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	font-size: 1rem;
+	line-height: 1.5;
 }
 
 /* Estilo para la respuesta (burbujas a la derecha) */
 .faq-respuesta {
-  position: relative;
-  align-self: flex-end;
-  background-color: var(--color-primario);
-  color: #fff;
-  padding: 20px 30px;
-  border-radius: 20px;
-  max-width: 80%;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 1rem;
-  line-height: 1.5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+	align-self: flex-end;
+	background-color: var(--color-primario);
+	color: #fff;
+	padding: 20px 30px;
+	border-radius: 20px;
+	max-width: 80%;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	font-size: 1rem;
+	line-height: 1.5;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Avatar en ambas secciones */
 .avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #fff;
 }
 
 /* Link para ver más FAQ */
 .faq-link {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 1.1rem;
+	text-align: center;
+	margin-top: 30px;
+	font-size: 1.1rem;
 }
 
 .faq-link a {
-  color: var(--color-secundario);
-  font-weight: 800;
-  text-decoration: none;
-  transition: color 0.3s ease;
+	color: var(--color-secundario);
+	font-weight: 800;
+	text-decoration: none;
+	transition: color 0.3s ease;
 }
 
 .faq-link a:hover {
-  color: var(--color-secundario-hover);
+	color: var(--color-secundario-hover);
 }

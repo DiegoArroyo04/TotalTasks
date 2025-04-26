@@ -4,8 +4,8 @@ import com.totaltasks.models.TareaDTO;
 
 public interface TareaService {
 
-    void crearTarea(TareaDTO tareaDTO);
+	void crearTarea(TareaDTO tareaDTO);
 
-    String modificarEstadoTarea(TareaDTO tareaDTO);
+	String modificarEstadoTarea(TareaDTO tareaDTO);
 
 }

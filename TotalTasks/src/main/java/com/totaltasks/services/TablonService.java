@@ -8,12 +8,12 @@ import com.totaltasks.models.TablonDTO;
 
 public interface TablonService {
 
-    Long crearTablon(TablonDTO tablonDTO);
+	Long crearTablon(TablonDTO tablonDTO);
 
-    List<TablonEntity> ordenarTablones(List<TablonEntity> listaSinOrdenar);
+	List<TablonEntity> ordenarTablones(List<TablonEntity> listaSinOrdenar);
 
-    String actualizarOrdenTablones(List<TablonDTO> tablonOrdenList);
+	String actualizarOrdenTablones(List<TablonDTO> tablonOrdenList);
 
-    String eliminarTablon(ProyectoEntity proyecto, String nombreTablon);
+	String eliminarTablon(ProyectoEntity proyecto, String nombreTablon);
 
 }

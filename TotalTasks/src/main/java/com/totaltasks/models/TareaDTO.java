@@ -14,19 +14,19 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class TareaDTO {
 
-    private Long idTarea;
-    private String titulo;
-    private String descripcion;
-    private Timestamp fechaCreacion;
-    private Date fechaLimite;
-    private String estado;
-    private Long idProyecto;
-    private Long idResponsable;
+	private Long idTarea;
+	private String titulo;
+	private String descripcion;
+	private Timestamp fechaCreacion;
+	private Date fechaLimite;
+	private String estado;
+	private Long idProyecto;
+	private Long idResponsable;
 
-    // CONSTRUCTOR PARA MODIFICAR EL ESTADO DE LAS TAREAS
-    public TareaDTO(Long idTarea, String estado) {
-        this.idTarea = idTarea;
-        this.estado = estado;
-    }
+	// CONSTRUCTOR PARA MODIFICAR EL ESTADO DE LAS TAREAS
+	public TareaDTO(Long idTarea, String estado) {
+		this.idTarea = idTarea;
+		this.estado = estado;
+	}
 
 }

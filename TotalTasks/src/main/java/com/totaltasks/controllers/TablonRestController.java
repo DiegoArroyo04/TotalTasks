@@ -16,25 +16,25 @@ import com.totaltasks.services.TablonService;
 @RestController
 public class TablonRestController {
 
-    @Autowired
-    private TablonService tablonService;
+	@Autowired
+	private TablonService tablonService;
 
-    @Autowired
-    private ProyectoService proyectoService;
+	@Autowired
+	private ProyectoService proyectoService;
 
-    @PostMapping("/actualizarOrdenTablones")
-    public String actualizarOrden(@RequestBody List<TablonDTO> ordenes) {
-        return tablonService.actualizarOrdenTablones(ordenes);
-    }
+	@PostMapping("/actualizarOrdenTablones")
+	public String actualizarOrden(@RequestBody List<TablonDTO> ordenes) {
+		return tablonService.actualizarOrdenTablones(ordenes);
+	}
 
-    @PostMapping("/eliminarTablon")
-    public String eliminarTablon(@RequestBody TablonDTO tablon) {
-        ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(tablon.getId_proyecto());
-        if (proyecto != null) {
-            return tablonService.eliminarTablon(proyecto, tablon.getNombreTablon());
-        } else {
-            return "Proyecto no encontrado";
-        }
-    }
+	@PostMapping("/eliminarTablon")
+	public String eliminarTablon(@RequestBody TablonDTO tablon) {
+		ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(tablon.getId_proyecto());
+		if (proyecto != null) {
+			return tablonService.eliminarTablon(proyecto, tablon.getNombreTablon());
+		} else {
+			return "Proyecto no encontrado";
+		}
+	}
 
 }

@@ -29,287 +29,254 @@ import org.springframework.http.MediaType;
 @Service
 public class UsuarioServiceImplementation implements UsuarioService {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+	@Autowired
+	UsuarioRepository usuarioRepository;
 
-    // Objeto para encriptar contraseñas
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	// Objeto para encriptar contraseñas
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Override
-    public String registrarUsuario(UsuarioDTO usuario) {
+	@Override
+	public String registrarUsuario(UsuarioDTO usuario) {
 
-        UsuarioEntity usuarioEntity = new UsuarioEntity();
+		UsuarioEntity usuarioEntity = new UsuarioEntity();
 
-        // Comprobamos que el usuario existe
-        if (usuarioRepository.findByusuario(usuario.getUsuario()) != null) {
-            return "Ya existe un usuario registrado con ese nombre de usuario.";
-        } else if (usuarioRepository.findByemail(usuario.getEmail()) != null) {
-            return "Ya existe un usuario registrado con ese email.";
-        } else {
+		// Comprobamos que el usuario existe
+		if (usuarioRepository.findByusuario(usuario.getUsuario()) != null) {
+			return "Ya existe un usuario registrado con ese nombre de usuario.";
+		} else if (usuarioRepository.findByemail(usuario.getEmail()) != null) {
+			return "Ya existe un usuario registrado con ese email.";
+		} else {
 
-            // Convertir a entity y guardar en BBDD
-            usuarioEntity.setNombre(usuario.getNombre());
-            usuarioEntity.setUsuario(usuario.getUsuario());
-            usuarioEntity.setEmail(usuario.getEmail());
+			// Convertir a entity y guardar en BBDD
+			usuarioEntity.setNombre(usuario.getNombre());
+			usuarioEntity.setUsuario(usuario.getUsuario());
+			usuarioEntity.setEmail(usuario.getEmail());
 
-            // Encriptar contraseña
-            usuarioEntity.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+			// Encriptar contraseña
+			usuarioEntity.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
 
-            usuarioRepository.save(usuarioEntity);
-            return "Cuenta creada con Éxito.";
-        }
+			usuarioRepository.save(usuarioEntity);
+			return "Cuenta creada con Éxito.";
+		}
 
-    }
+	}
 
-    @Override
-    public String registrarUsuarioGoogle(UsuarioDTO usuario) {
-        UsuarioEntity email = usuarioRepository.findByemail(usuario.getEmail());
-        UsuarioEntity user = usuarioRepository.findByemail(usuario.getEmail());
+	@Override
+	public String registrarUsuarioGoogle(UsuarioDTO usuario) {
+		UsuarioEntity email = usuarioRepository.findByemail(usuario.getEmail());
+		UsuarioEntity user = usuarioRepository.findByemail(usuario.getEmail());
 
-        if (email != null && user != null) {
-            // Si el usuario ya existe, solo iniciar sesión
-            return "Usuario encontrado. Iniciando sesión...";
-        } else {
-            // Si no existe, lo registramos
-            UsuarioEntity usuarioEntity = new UsuarioEntity();
-            usuarioEntity.setNombre(usuario.getNombre());
-            usuarioEntity.setUsuario(usuario.getUsuario());
-            usuarioEntity.setEmail(usuario.getEmail());
+		if (email != null && user != null) {
+			// Si el usuario ya existe, solo iniciar sesión
+			return "Usuario encontrado. Iniciando sesión...";
+		} else {
+			// Si no existe, lo registramos
+			UsuarioEntity usuarioEntity = new UsuarioEntity();
+			usuarioEntity.setNombre(usuario.getNombre());
+			usuarioEntity.setUsuario(usuario.getUsuario());
+			usuarioEntity.setEmail(usuario.getEmail());
 
-            usuarioRepository.save(usuarioEntity);
-            return "Cuenta creada con Éxito.";
-        }
-    }
+			usuarioRepository.save(usuarioEntity);
+			return "Cuenta creada con Éxito.";
+		}
+	}
 
-    @Override
-    public String registrarUsuarioGitHub(UsuarioDTO usuario) {
+	@Override
+	public String registrarUsuarioGitHub(UsuarioDTO usuario) {
 
-        UsuarioEntity existente = usuarioRepository.findByemail(usuario.getEmail());
+		UsuarioEntity existente = usuarioRepository.findByemail(usuario.getEmail());
 
-        if (existente != null) {
-            return "Usuario encontrado. Iniciando sesión...";
-        } else {
-            UsuarioEntity nuevoUsuario = new UsuarioEntity();
-            nuevoUsuario.setNombre(usuario.getNombre());
-            nuevoUsuario.setUsuario(usuario.getUsuario());
-            nuevoUsuario.setEmail(usuario.getEmail());
-            usuarioRepository.save(nuevoUsuario);
-            return "Cuenta creada con Éxito.";
-        }
-    }
+		if (existente != null) {
+			return "Usuario encontrado. Iniciando sesión...";
+		} else {
+			UsuarioEntity nuevoUsuario = new UsuarioEntity();
+			nuevoUsuario.setNombre(usuario.getNombre());
+			nuevoUsuario.setUsuario(usuario.getUsuario());
+			nuevoUsuario.setEmail(usuario.getEmail());
+			usuarioRepository.save(nuevoUsuario);
+			return "Cuenta creada con Éxito.";
+		}
+	}
 
-    // Método para obtener el access token de GitHub
-    @SuppressWarnings({ "rawtypes", "unchecked" }) // Adevertencia de tipos de datos
-    @Override
-    public String obtenerAccessTokenDeGitHub(String code) {
-        /*
-         * Este método envía una solicitud POST a
-         * "https://github.com/login/oauth/access_token"
-         * usando un RestTemplate. Se le envían tres parámetros:
-         * - client_id: el identificador de la aplicación en GitHub.
-         * - client_secret: la clave secreta (debe mantenerse confidencial).
-         * - code: el código que GitHub nos devuelve en el callback.
-         * 
-         * Además, se establece el header "Accept" con el valor "application/json" para
-         * indicarle a GitHub que queremos recibir la respuesta en formato JSON.
-         * 
-         * La respuesta es un mapa en el que se extrae el "access_token", que es
-         * necesario
-         * para realizar futuras solicitudes a la API de GitHub (como obtener los datos
-         * del usuario).
-         */
-        RestTemplate restTemplate = new RestTemplate();
+	// Método para obtener el access token de GitHub
+	@SuppressWarnings({ "rawtypes", "unchecked" }) // Adevertencia de tipos de datos
+	@Override
+	public String obtenerAccessTokenDeGitHub(String code) {
+		RestTemplate restTemplate = new RestTemplate();
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("client_id", "Ov23li9EsZ9MUsqhPpoX");
-        params.add("client_secret", "0b382c7410bfde696afcc987b8423cecd50fa30a");
-        params.add("code", code);
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("client_id", "Ov23li9EsZ9MUsqhPpoX");
+		params.add("client_secret", "0b382c7410bfde696afcc987b8423cecd50fa30a");
+		params.add("code", code);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        // Indicamos que la respuesta se espere en formato JSON
-        headers.set("Accept", "application/json");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		// Indicamos que la respuesta se espere en formato JSON
+		headers.set("Accept", "application/json");
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        String tokenUrl = "https://github.com/login/oauth/access_token";
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+		String tokenUrl = "https://github.com/login/oauth/access_token";
 
-        ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
-        Map<String, Object> responseBody = response.getBody();
-        return responseBody != null ? (String) responseBody.get("access_token") : null;
-    }
+		ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
+		Map<String, Object> responseBody = response.getBody();
+		return responseBody != null ? (String) responseBody.get("access_token") : null;
+	}
 
-    // Método para obtener los datos del usuario de GitHub usando el access token
-    @SuppressWarnings({ "rawtypes", "unchecked" }) // Advertencia de tipo de datos
-    @Override
-    public UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken) {
-        RestTemplate restTemplate = new RestTemplate();
+	// Método para obtener los datos del usuario de GitHub usando el access token
+	@SuppressWarnings({ "rawtypes", "unchecked" }) // Advertencia de tipo de datos
+	@Override
+	public UsuarioDTO obtenerDatosUsuarioGitHub(String accessToken) {
+		RestTemplate restTemplate = new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "token " + accessToken);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "token " + accessToken);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        String userUrl = "https://api.github.com/user";
-        ResponseEntity<Map> response = restTemplate.exchange(userUrl, HttpMethod.GET, entity, Map.class);
-        Map<String, Object> userData = response.getBody();
+		String userUrl = "https://api.github.com/user";
+		ResponseEntity<Map> response = restTemplate.exchange(userUrl, HttpMethod.GET, entity, Map.class);
+		Map<String, Object> userData = response.getBody();
 
-        // Imprimir todos los datos obtenidos en consola de forma ordenada
-        if (userData != null) {
-            System.out.println("==== Datos del usuario GitHub ====");
-            userData.forEach((key, value) -> System.out.println(String.format("%-20s : %s", key, value)));
-            System.out.println("===================================");
-        }
+		// Imprimir todos los datos obtenidos en consola de forma ordenada
+		if (userData != null) {
+			userData.forEach((key, value) -> System.out.println(String.format("%-20s : %s", key, value)));
+		}
 
-        // Extraer campos específicos para el DTO (con valores por defecto si son nulos)
-        String nombre = (String) userData.get("name");
-        String usuario = (String) userData.get("login");
-        String email = (String) userData.get("email");
-        String fotoPerfilGithub = (String) userData.get("avatar_url"); // <-- Foto de perfil
+		// Extraer campos específicos para el DTO (con valores por defecto si son nulos)
+		String nombre = (String) userData.get("name");
+		String usuario = (String) userData.get("login");
+		String email = (String) userData.get("email");
+		String fotoPerfilGithub = (String) userData.get("avatar_url"); // Foto de perfil
 
-        if (email == null) {
-            String emailUrl = "https://api.github.com/user/emails";
-            ResponseEntity<List> emailResponse = restTemplate.exchange(emailUrl, HttpMethod.GET, entity, List.class);
-            List<Map<String, Object>> emails = emailResponse.getBody();
-            if (emails != null) {
-                for (Map<String, Object> emailObj : emails) {
-                    boolean primary = (boolean) emailObj.get("primary");
-                    boolean verified = (boolean) emailObj.get("verified");
-                    if (primary && verified) {
-                        email = (String) emailObj.get("email");
-                        break;
-                    }
-                }
-            }
-        }
+		if (email == null) {
+			String emailUrl = "https://api.github.com/user/emails";
+			ResponseEntity<List> emailResponse = restTemplate.exchange(emailUrl, HttpMethod.GET, entity, List.class);
+			List<Map<String, Object>> emails = emailResponse.getBody();
+			if (emails != null) {
+				for (Map<String, Object> emailObj : emails) {
+					boolean primary = (boolean) emailObj.get("primary");
+					boolean verified = (boolean) emailObj.get("verified");
+					if (primary && verified) {
+						email = (String) emailObj.get("email");
+						break;
+					}
+				}
+			}
+		}
 
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setNombre(nombre != null ? nombre : usuario);
-        usuarioDTO.setUsuario(usuario);
-        usuarioDTO.setEmail(email != null ? email : usuario + "@github.com");
-        usuarioDTO.setFotoPerfilGithub(fotoPerfilGithub);
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setNombre(nombre != null ? nombre : usuario);
+		usuarioDTO.setUsuario(usuario);
+		usuarioDTO.setEmail(email != null ? email : usuario + "@github.com");
+		usuarioDTO.setFotoPerfilGithub(fotoPerfilGithub);
 
-        return usuarioDTO;
-    }
+		return usuarioDTO;
+	}
 
-    // Obtener datos del repositorio de GITHUB
-    @SuppressWarnings({ "rawtypes", "unchecked" }) // Advertencia de tipo de datos
-    @Override
-    public List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken) {
-        RestTemplate restTemplate = new RestTemplate();
+	// Obtener datos del repositorio de GITHUB
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<RepoDTO> obtenerRepositoriosUsuarioGitHub(String accessToken) {
+		RestTemplate restTemplate = new RestTemplate();
 
-        // Configuramos las cabeceras con el token y el header de preview para topics
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "token " + accessToken);
-        headers.set("Accept", "application/vnd.github.mercy-preview+json"); // Necesario para obtener topics
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "token " + accessToken);
+		headers.set("Accept", "application/vnd.github.mercy-preview+json");
+		HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        // Obtenemos la lista de repositorios del usuario
-        String reposUrl = "https://api.github.com/user/repos";
-        ResponseEntity<List> response = restTemplate.exchange(reposUrl, HttpMethod.GET, entity, List.class);
-        List<Map> reposList = response.getBody();
+		String reposUrl = "https://api.github.com/user/repos";
+		ResponseEntity<List> response = restTemplate.exchange(reposUrl, HttpMethod.GET, entity, List.class);
+		List<Map> reposList = response.getBody();
 
-        List<RepoDTO> repoDTOList = new ArrayList<>();
-        if (reposList != null) {
-            for (Map repo : reposList) {
-                // Imprimir todos los datos del repositorio de forma ordenada
-                System.out.println("==== Repositorio: " + repo.get("full_name") + " ====");
-                repo.forEach((key, value) -> {
-                    System.out.println(String.format("%-25s: %s", key, value));
-                });
-                System.out.println("============================================\n");
+		List<RepoDTO> repoDTOList = new ArrayList<>();
+		if (reposList != null) {
+			for (Map repo : reposList) {
+				RepoDTO repoDTO = new RepoDTO();
+				repoDTO.setName((String) repo.get("name"));
+				repoDTO.setFullName((String) repo.get("full_name"));
+				repoDTO.setDescription((String) repo.get("description"));
+				repoDTO.setHtmlUrl((String) repo.get("html_url"));
+				repoDTO.setHomepage((String) repo.get("homepage"));
+				repoDTO.setLanguage((String) repo.get("language"));
+				repoDTO.setStargazersCount((Integer) repo.get("stargazers_count"));
+				repoDTO.setForksCount((Integer) repo.get("forks_count"));
+				repoDTO.setWatchersCount((Integer) repo.get("watchers_count"));
+				repoDTO.setOpenIssuesCount((Integer) repo.get("open_issues_count"));
+				repoDTO.setCreatedAt((String) repo.get("created_at"));
+				repoDTO.setUpdatedAt((String) repo.get("updated_at"));
+				repoDTO.setPushedAt((String) repo.get("pushed_at"));
 
-                // Creamos el objeto DTO y extraemos algunos campos importantes
-                RepoDTO repoDTO = new RepoDTO();
-                repoDTO.setName((String) repo.get("name"));
-                repoDTO.setFullName((String) repo.get("full_name"));
-                repoDTO.setDescription((String) repo.get("description"));
-                repoDTO.setHtmlUrl((String) repo.get("html_url"));
-                repoDTO.setHomepage((String) repo.get("homepage"));
-                repoDTO.setLanguage((String) repo.get("language"));
-                repoDTO.setStargazersCount((Integer) repo.get("stargazers_count"));
-                repoDTO.setForksCount((Integer) repo.get("forks_count"));
-                repoDTO.setWatchersCount((Integer) repo.get("watchers_count"));
-                repoDTO.setOpenIssuesCount((Integer) repo.get("open_issues_count"));
-                repoDTO.setCreatedAt((String) repo.get("created_at"));
-                repoDTO.setUpdatedAt((String) repo.get("updated_at"));
-                repoDTO.setPushedAt((String) repo.get("pushed_at"));
+				List<String> topics = (List<String>) repo.get("topics");
+				repoDTO.setTopics(topics);
 
-                // Extraer topics (si existen)
-                List<String> topics = (List<String>) repo.get("topics");
-                repoDTO.setTopics(topics);
+				String languagesUrl = (String) repo.get("languages_url");
+				ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity, Map.class);
+				Map<String, Integer> languages = languagesResponse.getBody();
+				repoDTO.setLanguages(languages);
 
-                // Para cada repositorio, obtenemos el detalle de lenguajes usando el
-                // languages_url
-                String languagesUrl = (String) repo.get("languages_url");
-                ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity,
-                        Map.class);
-                Map<String, Integer> languages = languagesResponse.getBody();
-                repoDTO.setLanguages(languages);
+				repoDTOList.add(repoDTO);
+			}
+		}
+		return repoDTOList;
+	}
 
-                repoDTOList.add(repoDTO);
-            }
-            System.out.println("Total de repositorios obtenidos: " + repoDTOList.size());
-        }
-        return repoDTOList;
-    }
+	@Override
+	public String comprobarLogin(UsuarioDTO usuario) {
 
-    @Override
-    public String comprobarLogin(UsuarioDTO usuario) {
+		// BUSCAR USUARIO
+		UsuarioEntity usuarioEntity = usuarioRepository.findByusuario(usuario.getUsuario());
 
-        // BUSCAR USUARIO
-        UsuarioEntity usuarioEntity = usuarioRepository.findByusuario(usuario.getUsuario());
+		if (usuarioEntity == null) {
+			return "Usuario no encontrado.Por favor,registrese.";
+		} else {
 
-        if (usuarioEntity == null) {
-            return "Usuario no encontrado.Por favor,registrese.";
-        } else {
+			// Comprobamos las contraseñas
+			if (passwordEncoder.matches(usuario.getContrasenia(), usuarioEntity.getContrasenia())) {
+				return "Encontrado";
+			} else {
+				return "La contraseña no coincide.Por favor,vuelve a intentarlo.";
+			}
+		}
+	}
 
-            // Comprobamos las contraseñas
-            if (passwordEncoder.matches(usuario.getContrasenia(), usuarioEntity.getContrasenia())) {
-                return "Encontrado";
-            } else {
-                return "La contraseña no coincide.Por favor,vuelve a intentarlo.";
-            }
-        }
-    }
+	@Override
+	public UsuarioEntity encontrarUsuario(String email) {
+		// Buscar por email
+		return usuarioRepository.findByemail(email);
+	}
 
-    @Override
-    public UsuarioEntity encontrarUsuario(String email) {
-        // Buscar por email
-        return usuarioRepository.findByemail(email);
-    }
+	@Override
+	public UsuarioEntity encontrarUsuarioPorUsuario(String usuario) {
+		// Buscar por usuario
+		return usuarioRepository.findByusuario(usuario);
+	}
 
-    @Override
-    public UsuarioEntity encontrarUsuarioPorUsuario(String usuario) {
-        // Buscar por usuario
-        return usuarioRepository.findByusuario(usuario);
-    }
+	// Método para actualizar el usuario en la base de datos
+	@Override
+	public void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia,
+	MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException {
 
-    // Método para actualizar el usuario en la base de datos
-    @Override
-    public void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia,
-            MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException {
+		usuario.setNombre(nombre);
+		usuario.setUsuario(nombreUsuario);
+		usuario.setEmail(email);
+		usuario.setContrasenia(contrasenia);
 
-        usuario.setNombre(nombre);
-        usuario.setUsuario(nombreUsuario);
-        usuario.setEmail(email);
-        usuario.setContrasenia(contrasenia);
+		// Si hay nueva foto, actualízala
+		if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
+			usuario.setFotoPerfil(fotoPerfil.getBytes());
+		}
 
-        // Si hay nueva foto, actualízala
-        if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
-            usuario.setFotoPerfil(fotoPerfil.getBytes());
-        }
+		usuarioRepository.save(usuario);
+	}
 
-        usuarioRepository.save(usuario);
-    }
+	@Override
+	public String convertirByteABase64(byte[] foto) {
 
-    @Override
-    public String convertirByteABase64(byte[] foto) {
+		if (foto != null) {
+			return Base64.getEncoder().encodeToString(foto);
+		} else {
+			return null;
+		}
 
-        if (foto != null) {
-            return Base64.getEncoder().encodeToString(foto);
-        } else {
-            return null;
-        }
-
-    }
+	}
 
 }

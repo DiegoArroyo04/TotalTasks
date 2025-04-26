@@ -24,118 +24,118 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/usuarios/")
 public class UsuarioController {
 
-    @Autowired
-    UsuarioService usuarioService;
+	@Autowired
+	UsuarioService usuarioService;
 
-    @PostMapping("registrar")
-    public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
-        return usuarioService.registrarUsuario(usuario);
-    }
+	@PostMapping("registrar")
+	public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
+		return usuarioService.registrarUsuario(usuario);
+	}
 
-    @PostMapping("registrarGoogle")
-    public String registrarUsuarioGoogle(@RequestBody UsuarioDTO usuario, HttpSession session) {
+	@PostMapping("registrarGoogle")
+	public String registrarUsuarioGoogle(@RequestBody UsuarioDTO usuario, HttpSession session) {
 
-        // Llamamos al servicio para registrar al usuario o iniciar sesión si ya existe
-        String respuesta = usuarioService.registrarUsuarioGoogle(usuario);
+		// Llamamos al servicio para registrar al usuario o iniciar sesión si ya existe
+		String respuesta = usuarioService.registrarUsuarioGoogle(usuario);
 
-        // Si el usuario fue encontrado se agrega a la sesión
-        if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
-            session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
-        } else {
-            // Si el usuario fue creado, también lo agregamos a la sesión
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
-            session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
-        }
+		// Si el usuario fue encontrado se agrega a la sesión
+		if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
+			session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
+			session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
+		} else {
+			// Si el usuario fue creado, también lo agregamos a la sesión
+			session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
+			session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
+		}
 
-        return respuesta;
+		return respuesta;
 
-    }
+	}
 
-    // REGISTRO GITHUB
-    @GetMapping("githubCallback")
-    public void githubCallback(@RequestParam(value = "code", required = false) String code, HttpServletResponse response,
-    @RequestParam(value = "error", required = false) String error,HttpSession session) throws IOException {
+	// REGISTRO GITHUB
+	@GetMapping("githubCallback")
+	public void githubCallback(@RequestParam(value = "code", required = false) String code, HttpServletResponse response,
+	@RequestParam(value = "error", required = false) String error, HttpSession session) throws IOException {
 
-        // Si el usuario cancela los permisos redireccion al lobby
-        if (error != null && error.equals("access_denied")) {
-            response.sendRedirect("/login");
-            return;
-        }
+		// Si el usuario cancela los permisos redireccion al lobby
+		if (error != null && error.equals("access_denied")) {
+			response.sendRedirect("/login");
+			return;
+		}
 
-        // Obtener token de acceso
-        String accessToken = usuarioService.obtenerAccessTokenDeGitHub(code);
+		// Obtener token de acceso
+		String accessToken = usuarioService.obtenerAccessTokenDeGitHub(code);
 
-        // Obtener datos básicos del usuario
-        UsuarioDTO usuarioDTO = usuarioService.obtenerDatosUsuarioGitHub(accessToken);
+		// Obtener datos básicos del usuario
+		UsuarioDTO usuarioDTO = usuarioService.obtenerDatosUsuarioGitHub(accessToken);
 
-        // Registrar o iniciar sesión
-        String respuesta = usuarioService.registrarUsuarioGitHub(usuarioDTO);
-        if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
-            session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getEmail()));
-        }
+		// Registrar o iniciar sesión
+		String respuesta = usuarioService.registrarUsuarioGitHub(usuarioDTO);
+		if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
+			session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getEmail()));
+		}
 
-        // Obtener la lista de repositorios
-        List<RepoDTO> repositorios = usuarioService.obtenerRepositoriosUsuarioGitHub(accessToken);
+		// Obtener la lista de repositorios
+		List<RepoDTO> repositorios = usuarioService.obtenerRepositoriosUsuarioGitHub(accessToken);
 
-        // Guardar información en la sesión
-        session.setAttribute("access_token", accessToken);
-        session.setAttribute("repositorios", repositorios);
-        session.setAttribute("fotoPerfilGithub", usuarioDTO.getFotoPerfilGithub());
+		// Guardar información en la sesión
+		session.setAttribute("access_token", accessToken);
+		session.setAttribute("repositorios", repositorios);
+		session.setAttribute("fotoPerfilGithub", usuarioDTO.getFotoPerfilGithub());
 
-        // Redirigir al login
-        response.sendRedirect("/login");
-    }
+		// Redirigir al login
+		response.sendRedirect("/login");
+	}
 
-    @PostMapping("comprobarLogin")
-    public String comprobarLogin(@RequestBody UsuarioDTO usuario, HttpSession session) {
+	@PostMapping("comprobarLogin")
+	public String comprobarLogin(@RequestBody UsuarioDTO usuario, HttpSession session) {
 
-        // Si encontramos al usuario y es valido lo añadimos a la sesion
-        if (usuarioService.comprobarLogin(usuario).equals("Encontrado")) {
+		// Si encontramos al usuario y es valido lo añadimos a la sesion
+		if (usuarioService.comprobarLogin(usuario).equals("Encontrado")) {
 
-            UsuarioEntity usuarioEntity = usuarioService.encontrarUsuarioPorUsuario(usuario.getUsuario());
+			UsuarioEntity usuarioEntity = usuarioService.encontrarUsuarioPorUsuario(usuario.getUsuario());
 
-            // Añadimos el usuario a la sesión
-            session.setAttribute("usuario", usuarioEntity);
+			// Añadimos el usuario a la sesión
+			session.setAttribute("usuario", usuarioEntity);
 
-            return "Encontrado";
-        } else {
+			return "Encontrado";
+		} else {
 
-            return usuarioService.comprobarLogin(usuario);
-        }
+			return usuarioService.comprobarLogin(usuario);
+		}
 
-    }
+	}
 
-    // Método para configuarar mi perfil
-    @GetMapping("miCuenta")
-    public void miCuenta(HttpServletResponse response) throws Exception {
-        response.sendRedirect("/editarPerfil");
-    }
+	// Método para configuarar mi perfil
+	@GetMapping("miCuenta")
+	public void miCuenta(HttpServletResponse response) throws Exception {
+		response.sendRedirect("/editarPerfil");
+	}
 
-    // Metodo con la funcionalidad del perfil actualizado
-    @PostMapping("perfilEditado")
-    public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre, @RequestParam("usuario") String nombreUsuario,
-    @RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia, @RequestParam(value = "fotoPerfil", required = false)
-    MultipartFile fotoPerfil, HttpSession session) throws Exception {
+	// Metodo con la funcionalidad del perfil actualizado
+	@PostMapping("perfilEditado")
+	public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre, @RequestParam("usuario") String nombreUsuario,
+	@RequestParam("email") String email, @RequestParam("contrasenia") String contrasenia, @RequestParam(value = "fotoPerfil", required = false)
+	MultipartFile fotoPerfil, HttpSession session) throws Exception {
 
-        UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
-        if (usuario == null) {
-            response.sendRedirect("/login");
-            return;
-        }
+		if (usuario == null) {
+			response.sendRedirect("/login");
+			return;
+		}
 
-        usuarioService.actualizarUsuario(nombre, nombreUsuario, email, contrasenia, fotoPerfil, usuario);
-        session.setAttribute("usuario", usuario);
+		usuarioService.actualizarUsuario(nombre, nombreUsuario, email, contrasenia, fotoPerfil, usuario);
+		session.setAttribute("usuario", usuario);
 
-        response.sendRedirect("/usuarios/miCuenta");
-    }
+		response.sendRedirect("/usuarios/miCuenta");
+	}
 
-    // Método para cerrar sesión
-    @GetMapping("cerrarSesion")
-    public void cerrarSesion(HttpServletResponse response, HttpSession session) throws IOException {
-        session.invalidate();
-        response.sendRedirect("/login");
-    }
+	// Método para cerrar sesión
+	@GetMapping("cerrarSesion")
+	public void cerrarSesion(HttpServletResponse response, HttpSession session) throws IOException {
+		session.invalidate();
+		response.sendRedirect("/login");
+	}
 
 }

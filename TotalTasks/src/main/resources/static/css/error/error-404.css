@@ -1,202 +1,201 @@
 @import url('/css/general.css');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--fuente-principal);
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: var(--fuente-principal);
 }
 
 body {
-    background-color: var(--color-texto);
-    color: var(--color-fondo);
+	background-color: var(--color-texto);
+	color: var(--color-fondo);
 }
 
 .contenedor {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 32px;
-    padding: 16px;
-    width: 100vw;
-    height: 100vh;
-    text-align: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 32px;
+	padding: 16px;
+	width: 100vw;
+	height: 100vh;
+	text-align: center;
 }
 
 .columna {
-    flex: 1;
-    padding: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	flex: 1;
+	padding: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .codigo-error {
-    font-size: 224px;
-    font-weight: 800;
-    text-align: center;
-    color: var(--color-fondo);
-    line-height: 1;
-    animation-delay: 0s;
-    opacity: 0;
-    animation: bounceIn 1s ease-out forwards;
+	font-size: 224px;
+	font-weight: 800;
+	text-align: center;
+	color: var(--color-fondo);
+	line-height: 1;
+	animation-delay: 0s;
+	opacity: 0;
+	animation: bounceIn 1s ease-out forwards;
 }
 
 .mensaje-error {
-    padding: 16px;
-    line-height: 1.6;
-    font-weight: 400;
-    font-size: 16px;
-    text-align: center;
-    color: var(--color-fondo);
-    margin-top: 2px;
-    animation-delay: 1s;
-    opacity: 0;
-    animation: bounceIn 1s ease-out forwards;
+	padding: 16px;
+	line-height: 1.6;
+	font-weight: 400;
+	font-size: 16px;
+	text-align: center;
+	color: var(--color-fondo);
+	margin-top: 2px;
+	animation-delay: 1s;
+	opacity: 0;
+	animation: bounceIn 1s ease-out forwards;
 }
 
 .emoji-cerebro {
-    font-size: 96px;
-    text-align: center;
-    opacity: 0;
-    animation: bounceIn 1s ease-out forwards, brainPulse 2s ease-in-out infinite;
-    transition: opacity 0.8s ease-in-out;
-    animation-delay: 2s;
+	font-size: 96px;
+	text-align: center;
+	opacity: 0;
+	animation: bounceIn 1s ease-out forwards, brainPulse 2s ease-in-out infinite;
+	transition: opacity 0.8s ease-in-out;
+	animation-delay: 2s;
 }
 
 .burbuja {
-    position: relative;
-    padding: 24px;
-    max-width: 225px;
-    font-size: 16px;
-    border-radius: 48px;
-    text-align: center;
-    animation: brainPulse 5s;
-    opacity: 0;
+	position: relative;
+	padding: 24px;
+	max-width: 225px;
+	font-size: 16px;
+	border-radius: 48px;
+	text-align: center;
+	animation: brainPulse 5s;
+	opacity: 0;
 }
 
 .izquierda .burbuja {
-    background: var(--color-error);
-    color: black;
+	background: var(--color-error);
+	color: black;
 }
 
 .derecha .burbuja {
-    background: var(--color-secundario);
-    color: black;
+	background: var(--color-secundario);
+	color: black;
 }
 
 .glow-rojo {
-    filter: drop-shadow(0 0 10px var(--color-error)) drop-shadow(0 0 30px #ff7777);
+	filter: drop-shadow(0 0 10px var(--color-error)) drop-shadow(0 0 30px #ff7777);
 }
 
 .glow-verde {
-    filter: drop-shadow(0 0 10px var(--color-secundario)) drop-shadow(0 0 30px var(--color-secundario));
+	filter: drop-shadow(0 0 10px var(--color-secundario)) drop-shadow(0 0 30px var(--color-secundario));
 }
 
 /* Animaciones */
 @keyframes brainPulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
 
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
+	50% {
+		transform: scale(1.1);
+	}
 }
 
 @keyframes bounceIn {
-    0% {
-        transform: scale(0.7);
-        opacity: 0;
-    }
+	0% {
+		transform: scale(0.7);
+		opacity: 0;
+	}
 
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
+	50% {
+		transform: scale(1.1);
+		opacity: 1;
+	}
 
-    70% {
-        transform: scale(0.9);
-    }
+	70% {
+		transform: scale(0.9);
+	}
 
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
 }
 
 /* Móviles */
 @media (max-width: 768px) {
-    .contenedor {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
-        height: 100vh;
-        padding: 0 16px;
-    }
+	.contenedor {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 16px;
+		height: 100vh;
+		padding: 0 16px;
+	}
 
-    .codigo-error {
-        font-size: 80px;
-        text-align: center;
-        margin-top: 20px;
-    }
+	.codigo-error {
+		font-size: 80px;
+		text-align: center;
+		margin-top: 20px;
+	}
 
-    .emoji-cerebro {
-        font-size: 48px;
-        margin-top: 20px;
-    }
+	.emoji-cerebro {
+		font-size: 48px;
+		margin-top: 20px;
+	}
 
-    .burbuja {
-        position: absolute;
-        bottom: 10%;
-        left: 27%;
-        transform: translate(-50%, 0);
-        font-size: 12px;
-        padding: 12px;
-        border-radius: 24px;
-        text-align: center;
-    }
+	.burbuja {
+		position: absolute;
+		bottom: 10%;
+		left: 27%;
+		transform: translate(-50%, 0);
+		font-size: 12px;
+		padding: 12px;
+		border-radius: 24px;
+		text-align: center;
+	}
 
-    .mensaje-error {
-        font-size: 12px;
-        text-align: center;
-        padding: 8px;
-        margin-top: 8px;
-        max-width: 80%;
-    }
+	.mensaje-error {
+		font-size: 12px;
+		text-align: center;
+		padding: 8px;
+		margin-top: 8px;
+		max-width: 80%;
+	}
 }
 
 
 /* Tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .contenedor {
-        gap: 24px;
-        padding: 12px;
-        height: 100vh;
-    }
+	.contenedor {
+		gap: 24px;
+		padding: 12px;
+		height: 100vh;
+	}
 
-    .codigo-error {
-        font-size: 160px;
-    }
+	.codigo-error {
+		font-size: 160px;
+	}
 
-    .emoji-cerebro {
-        font-size: 72px;
-    }
+	.emoji-cerebro {
+		font-size: 72px;
+	}
 
-    .mensaje-error {
-        font-size: 14px;
-        padding: 12px;
-    }
+	.mensaje-error {
+		font-size: 14px;
+		padding: 12px;
+	}
 
-    .burbuja {
-        max-width: 200px;
-        font-size: 14px;
-        padding: 20px;
-        border-radius: 40px;
-    }
+	.burbuja {
+		max-width: 200px;
+		font-size: 14px;
+		padding: 20px;
+		border-radius: 40px;
+	}
 }

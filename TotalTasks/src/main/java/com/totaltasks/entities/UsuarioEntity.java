@@ -27,38 +27,38 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UsuarioEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario", unique = true, nullable = false)
-    private Long idUsuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuario", unique = true, nullable = false)
+	private Long idUsuario;
 
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
+	@Column(name = "nombre", nullable = false)
+	private String nombre;
 
-    @Column(name = "usuario", unique = true, nullable = false)
-    private String usuario;
+	@Column(name = "usuario", unique = true, nullable = false)
+	private String usuario;
 
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
+	@Column(name = "email", unique = true, nullable = false)
+	private String email;
 
-    @Column(name = "contrasenia", nullable = true)
-    private String contrasenia;
+	@Column(name = "contrasenia", nullable = true)
+	private String contrasenia;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_creacion", nullable = false, insertable = false)
-    private Timestamp fechaCreacion;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_creacion", nullable = false, insertable = false)
+	private Timestamp fechaCreacion;
 
-    @Lob
-    @Column(name = "foto_perfil", nullable = true)
-    private byte[] fotoPerfil;
+	@Lob
+	@Column(name = "foto_perfil", nullable = true)
+	private byte[] fotoPerfil;
 
-    @OneToMany(mappedBy = "creador")
-    private List<ProyectoEntity> proyectosCreados;
+	@OneToMany(mappedBy = "creador")
+	private List<ProyectoEntity> proyectosCreados;
 
-    @OneToMany(mappedBy = "responsable")
-    private List<TareaEntity> tareasAsignadas;
+	@OneToMany(mappedBy = "responsable")
+	private List<TareaEntity> tareasAsignadas;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<UsuarioProyectoEntity> proyectosParticipados;
+	@OneToMany(mappedBy = "usuario")
+	private List<UsuarioProyectoEntity> proyectosParticipados;
 
 }
