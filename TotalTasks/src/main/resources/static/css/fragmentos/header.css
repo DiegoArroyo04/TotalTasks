@@ -11,10 +11,10 @@
   left: 0;
   width: 100%;
   background-color: var(--color-fondo);
+  z-index: 2;
 }
 
 .fixed {
-  z-index: 2;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 

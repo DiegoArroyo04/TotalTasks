@@ -16,6 +16,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin: 182px 32px 32px 32px;
 }
 
 .btn-crear-tablero {
@@ -35,9 +36,12 @@ main {
 .tableros {
     display: flex;
     gap: 20px;
+    padding: 20px;
     overflow-x: auto;
-    justify-content: center;
+    justify-content: flex-start;
 }
+
+
 
 .columna {
     background-color: white;

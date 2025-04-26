@@ -3,7 +3,7 @@
 /* Contenedor principal */
 .dashboard-container {
   display: flex;
-  margin: 32px;
+  margin: 182px 32px 32px 32px;
   gap: 32px;
 
 }
