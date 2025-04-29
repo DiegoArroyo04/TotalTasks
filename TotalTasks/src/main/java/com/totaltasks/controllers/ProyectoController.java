@@ -1,5 +1,7 @@
 package com.totaltasks.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
+import com.totaltasks.models.RepoDTO;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.TablonService;
 import com.totaltasks.services.UsuarioService;
@@ -32,7 +35,7 @@ public class ProyectoController {
 
 	@PostMapping("/crearProyectoManualmente")
 	public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
-	@RequestParam String descripcion, @RequestParam String metodologia, HttpSession session) {
+			@RequestParam String descripcion, @RequestParam String metodologia, HttpSession session) {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -60,7 +63,7 @@ public class ProyectoController {
 
 	@PostMapping("/crearProyectoDesdeRepo")
 	public String crearProyectoDesdeRepo(RedirectAttributes redirectAttributes, @RequestParam String repoName,
-	@RequestParam String repoDescription, @RequestParam String metodologia, HttpSession session) {
+			@RequestParam String repoDescription, @RequestParam String metodologia, HttpSession session) {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -87,7 +90,8 @@ public class ProyectoController {
 	}
 
 	@PostMapping("/unirseProyecto")
-	public String unirseAProyecto(@RequestParam String codigoProyecto, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String unirseAProyecto(@RequestParam String codigoProyecto, HttpSession session,
+			RedirectAttributes redirectAttributes) {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -111,6 +115,7 @@ public class ProyectoController {
 
 		ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(id);
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+		List<RepoDTO> repositorios = (List<RepoDTO>) session.getAttribute("repositorios");
 
 		if (usuario == null) {
 			return "redirect:/login";
