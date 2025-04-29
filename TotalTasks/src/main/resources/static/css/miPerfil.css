@@ -1,6 +1,7 @@
+@import url('/css/general.css');
+
 body {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	background-color: #f5f7fa;
+	background-color: var(--color-fondo);
 	margin: 0;
 	padding: 40px;
 	display: flex;
@@ -71,4 +72,8 @@ img {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+p {
+	margin-bottom: 20px;
 }

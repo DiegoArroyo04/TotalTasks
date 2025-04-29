@@ -209,7 +209,8 @@ public class UsuarioServiceImplementation implements UsuarioService {
 				repoDTO.setTopics(topics);
 
 				String languagesUrl = (String) repo.get("languages_url");
-				ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity, Map.class);
+				ResponseEntity<Map> languagesResponse = restTemplate.exchange(languagesUrl, HttpMethod.GET, entity,
+						Map.class);
 				Map<String, Integer> languages = languagesResponse.getBody();
 				repoDTO.setLanguages(languages);
 
@@ -252,14 +253,10 @@ public class UsuarioServiceImplementation implements UsuarioService {
 
 	// Método para actualizar el usuario en la base de datos
 	@Override
-	public void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia,
-	MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException {
+	public void actualizarUsuario(String nombre,
+			MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException {
 
 		usuario.setNombre(nombre);
-		usuario.setUsuario(nombreUsuario);
-		usuario.setEmail(email);
-		usuario.setContrasenia(contrasenia);
-
 		// Si hay nueva foto, actualízala
 		if (fotoPerfil != null && !fotoPerfil.isEmpty()) {
 			usuario.setFotoPerfil(fotoPerfil.getBytes());

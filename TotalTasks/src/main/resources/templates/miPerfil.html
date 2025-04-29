@@ -42,19 +42,8 @@
     <form th:action="@{/usuarios/perfilEditado}" method="post" enctype="multipart/form-data">
         <div>
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" th:value="${usuario.nombre}" required>
-        </div>
-        <div>
-            <label for="usuario">Usuario</label>
-            <input type="text" id="usuario" name="usuario" th:value="${usuario.usuario}" required>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" th:value="${usuario.email}" required>
-        </div>
-        <div>
-            <label for="contrasenia">Contraseña</label>
-            <input type="password" id="contrasenia" name="contrasenia" th:value="${usuario.contrasenia}">
+            <input type="text" id="nombre" name="nombre" th:value="${usuario.nombre}" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+                title="El nombre no puede contener números ni caracteres especiales." maxlength="100" required>
         </div>
         <div>
             <label for="fotoPerfil">Nueva foto de perfil</label>
@@ -63,6 +52,7 @@
         <div>
             <button type="submit">Guardar cambios</button>
         </div>
+        <a href="/dashboard">Volver a mis proyectos.</a>
     </form>
 </body>
 

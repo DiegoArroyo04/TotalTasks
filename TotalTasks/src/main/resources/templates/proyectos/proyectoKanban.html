@@ -20,8 +20,55 @@
             <!-- Botón para crear nuevas columnas -->
             <div class="acciones-tablero">
                 <h1 th:text="${proyecto.nombreProyecto}"></h1>
+                <button th:if="${repositorio != null}"
+                    th:attr="onclick='window.open(\'' + ${repositorio.htmlUrl} + '\', \'_blank\')'">
+                    <svg aria-label="github" height="16" viewBox="0 0 16 16" width="16">
+                        <path
+                            d="M7 .175c-3.872 0-7 3.128-7 7 0 3.084 2.013 5.71 4.79 6.65.35.066.482-.153.482-.328v-1.181c-1.947.415-2.363-.941-2.363-.941-.328-.81-.787-1.028-.787-1.028-.634-.438.044-.416.044-.416.7.044 1.071.722 1.071.722.635 1.072 1.641.766 2.035.59.066-.459.24-.765.437-.94-1.553-.175-3.193-.787-3.193-3.456 0-.766.262-1.378.721-1.881-.065-.175-.306-.897.066-1.86 0 0 .59-.197 1.925.722a6.754 6.754 0 0 1 1.75-.24c.59 0 1.203.087 1.75.24 1.335-.897 1.925-.722 1.925-.722.372.963.131 1.685.066 1.86.46.48.722 1.115.722 1.88 0 2.691-1.641 3.282-3.194 3.457.24.219.481.634.481 1.29v1.926c0 .197.131.415.481.328C11.988 12.884 14 10.259 14 7.175c0-3.872-3.128-7-7-7z"
+                            fill="var(--color-fondo)" fill-rule="nonzero"></path>
+                    </svg>
+                    Repositorio</button>
+                <button th:if="${repositorio != null && repositorio.homepage != null}"
+                    th:attr="onclick='window.open(\'' + ${repositorio.homepage} + '\', \'_blank\')'">
+
+                    <svg data-testid="geist-icon" height="16" stroke-linejoin="round" viewBox="0 0 16 16" width="16">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.25 10.75V11.5H8.75V10.75V6.56066L10.2197 8.03033L10.75 8.56066L11.8107 7.5L11.2803 6.96967L8.53033 4.21967C8.23744 3.92678 7.76256 3.92678 7.46967 4.21967L4.71967 6.96967L4.18934 7.5L5.25 8.56066L5.78033 8.03033L7.25 6.56066V10.75ZM14.5 8C14.5 11.5899 11.5899 14.5 8 14.5C4.41015 14.5 1.5 11.5899 1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z"
+                            fill="var(--color-fondo)"></path>
+                    </svg>
+
+                    Despliegue web</button>
                 <button id="agregarTarea">Crear tarea</button>
+                <button id="personalizarTablero">Personalizar Tablero</button>
             </div>
+
+            <div id="colorPicker" class="colorPickerContainer">
+                <div class="colorPicker">
+                    <p>Elige un color para tu tablero:</p>
+                    <div id="color-options" class="color-options">
+                        <span class="color-box" data-color="#f87171" style="background-color: #f87171;"></span>
+                        <span class="color-box" data-color="#60a5fa" style="background-color: #60a5fa;"></span>
+                        <span class="color-box" data-color="#34d399" style="background-color: #34d399;"></span>
+                        <span class="color-box" data-color="#fbbf24" style="background-color: #fbbf24;"></span>
+                        <span class="color-box" data-color="#a78bfa" style="background-color: #a78bfa;"></span>
+
+                        <!-- Botón para abrir el selector de color personalizado -->
+                        <button id="personalizarColor" class="custom-Color">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
+                            </svg>
+                        </button>
+
+
+                        <!-- Selector de color oculto -->
+                        <input type="color" class="custom-Color" id="colorSelector"
+                            style="visibility:hidden; position: absolute; right:0; top: 40px; opacity: 0;" />
+                    </div>
+                </div>
+            </div>
+
+
 
             <!-- Contenedor de columnas -->
             <div id="tableros" class="tableros">
@@ -41,7 +88,10 @@
                 </div>
             </div>
 
+
+
             <input id="idProyecto" type="hidden" th:value="${proyecto.idProyecto}">
+            <input id="idUsuario" type="hidden" th:value="${usuario.idUsuario}" />
             <input id="orden" type="hidden" th:value="${tablones.size()}">
 
         </div>

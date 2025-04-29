@@ -31,4 +31,13 @@ public class UsuarioProyectoEntity {
 	@Column(name = "rol")
 	private String rol;
 
+	@Column(name = "color_primario", length = 7, nullable = false)
+	private String colorPrimario = "#007BFF";
+
+	@Column(name = "color_hover", length = 7, nullable = false)
+	private String colorHover = "#0056b3";
+
+	@Column(name = "custom_color", length = 7, nullable = true)
+	private String customColor;
+
 }

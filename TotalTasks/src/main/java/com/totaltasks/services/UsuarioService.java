@@ -32,7 +32,7 @@ public interface UsuarioService {
 
 	UsuarioEntity encontrarUsuarioPorUsuario(String usuario);
 
-	void actualizarUsuario(String nombre, String nombreUsuario, String email, String contrasenia, MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException;
+	void actualizarUsuario(String nombre, MultipartFile fotoPerfil, UsuarioEntity usuario) throws IOException;
 
 	String convertirByteABase64(byte[] foto);
 

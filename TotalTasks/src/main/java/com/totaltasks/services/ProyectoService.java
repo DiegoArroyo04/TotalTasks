@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
+import com.totaltasks.models.RepoDTO;
 import com.totaltasks.entities.ProyectoEntity;
 
 public interface ProyectoService {
@@ -23,5 +24,9 @@ public interface ProyectoService {
 	void deleteById(Long id, boolean abandonar);
 
 	String obtenerCodigoAleatorio();
+
+	RepoDTO comprobarRepo(ProyectoEntity proyecto, List<RepoDTO> repositorios);
+
+	boolean usuarioExiste(ProyectoEntity proyecto, UsuarioEntity usuario);
 
 }

@@ -36,6 +36,9 @@ CREATE TABLE usuario_proyecto (
     id_usuario BIGINT,
     id_proyecto BIGINT,
     rol VARCHAR(100),
+	color_primario VARCHAR(7) NOT NULL DEFAULT('#007BFF'),
+    color_hover VARCHAR(7) NOT NULL DEFAULT('#0056b3'),
+    custom_color VARCHAR(7) NULL,
     CONSTRAINT pk_usuario_proyecto PRIMARY KEY (id_usuario_proyecto),
     CONSTRAINT fk_usuario_proyecto_usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario) ,
     CONSTRAINT fk_usuario_proyecto_proyecto FOREIGN KEY (id_proyecto) REFERENCES Proyecto (id_proyecto) 
@@ -67,7 +70,6 @@ CREATE TABLE tablon (
     CONSTRAINT pk_tablon PRIMARY KEY (id_tablon),
     CONSTRAINT fk_tablon_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
 );
-
 
 -- Inserción de proyectos
 INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador, codigo) VALUES 

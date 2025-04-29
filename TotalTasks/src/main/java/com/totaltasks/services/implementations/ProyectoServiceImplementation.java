@@ -9,6 +9,7 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.ProyectoDTO;
+import com.totaltasks.models.RepoDTO;
 import com.totaltasks.models.TablonDTO;
 import com.totaltasks.repositories.ProyectoRepository;
 import com.totaltasks.repositories.TablonRepository;
@@ -151,6 +152,34 @@ public class ProyectoServiceImplementation implements ProyectoService {
 
 		return codigo;
 
+	}
+
+	@Override
+	public RepoDTO comprobarRepo(ProyectoEntity proyecto, List<RepoDTO> repositorios) {
+
+		RepoDTO repoEncontrado = null;
+
+		// COMPROBAR QUE EL PROYECTO TENGA UN REPO
+		for (int i = 0; i < repositorios.size(); i++) {
+			if (repositorios.get(i).getName().equals(proyecto.getNombreProyecto())) {
+				repoEncontrado = repositorios.get(i);
+			}
+		}
+
+		return repoEncontrado;
+	}
+
+	@Override
+	public boolean usuarioExiste(ProyectoEntity proyecto, UsuarioEntity usuario) {
+		boolean encontrado = false;
+		// COMPROBAR QUE UN USUARIO EXISTA EN UN PROYECTO
+		for (int i = 0; i < proyecto.getUsuarios().size(); i++) {
+			if (usuario.getEmail().equals(proyecto.getUsuarios().get(i).getUsuario().getEmail())) {
+				encontrado = true;
+			}
+		}
+
+		return encontrado;
 	}
 
 }

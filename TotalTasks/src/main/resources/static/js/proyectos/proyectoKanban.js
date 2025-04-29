@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
+	//LEER SI HAY COLORES PERSONALIZADOS
+	const idProyecto = document.getElementById("idProyecto").value;
+	const idUsuario = document.getElementById("idUsuario").value;
+	const colorGuardado = localStorage.getItem(`${idProyecto}_colorPrimario`);
+	const hoverGuardado = localStorage.getItem(`${idProyecto}_colorHover`);
+
+	if (colorGuardado && hoverGuardado) {
+		document.documentElement.style.setProperty('--color-primario', colorGuardado);
+		document.documentElement.style.setProperty('--color-primario-hover', hoverGuardado);
+	}
+
 	const tableros = document.getElementById("tableros");
 	const btnAgregar = document.getElementById("agregarColumna");
 	const modal = document.getElementById("modalColumna");
@@ -246,7 +257,159 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	initSortableCol();
 
+	document.getElementById("personalizarTablero").addEventListener("click", function () {
+		document.getElementById("colorPicker").style.display = "flex";
+
+
+
+		document.getElementById("personalizarColor").addEventListener("click", function () {
+			document.getElementById("colorSelector").click();
+		});
+
+		//EVENTO QUE ESCUCHA EL NUEVO COLOR PERSONALIZADO
+		document.getElementById("colorSelector").addEventListener("change", function (event) {
+			const color = event.target.value;
+			const container = document.getElementById("color-options");
+
+
+			// Verificar si ya existe un color con ese valor en el contenedor
+			const colorOptions = document.getElementById("color-options");
+			if (!colorOptions.querySelector(`span[data-color='${color}']`)) {
+
+				let customBox = container.querySelector("span.color-box.custom-box");
+
+
+				//VERIFICAR SI YA EXISTE UN SPAN CUSTOM PARA MODIFICAR SUS VALORES
+				if (customBox) {
+					customBox.dataset.color = color;
+					customBox.style.backgroundColor = color;
+				} else {
+					// Crear el nuevo <span> con el color seleccionado
+					const colorBox = document.createElement("span");
+					colorBox.classList.add("color-box", "custom-box");
+					colorBox.setAttribute("data-color", color);
+					colorBox.style.backgroundColor = color;
+
+					// Agregar el nuevo <span> al contenedor de colores
+					colorOptions.insertBefore(colorBox, document.getElementById("personalizarColor"));
+				}
+
+			}
+
+
+		});
+
+	});
+
+
+	document.addEventListener("click", function (event) {
+
+		// Cerrar al hacer clic fuera del colorPicker
+		const pickerContainer = document.getElementById("colorPicker");
+		const pickerBox = document.querySelector(".colorPicker");
+
+		const isClickInside = pickerBox.contains(event.target);
+		const isButton = event.target.id === "personalizarTablero";
+
+		if (!isClickInside && !isButton) {
+			pickerContainer.style.display = "none";
+		}
+
+
+		//EVENT LISTENER PARA CADA COLOR 
+		document.querySelectorAll('.color-box').forEach(box => {
+			box.addEventListener('click', () => {
+				const color = box.getAttribute('data-color');
+				document.documentElement.style.setProperty('--color-primario', color);
+				const hoverColor = oscurecerColor(color, 0.15);
+				document.documentElement.style.setProperty('--color-primario-hover', hoverColor);
+				const idProyecto = document.getElementById("idProyecto").value;
+
+
+
+
+
+				// Guardar en localStorage
+				localStorage.setItem(`${idProyecto}_colorPrimario`, color);
+				localStorage.setItem(`${idProyecto}_colorHover`, hoverColor);
+
+
+
+				//GUARDAR COLOR EN BBDD
+				$.ajax({
+					url: "/crearTablon",
+					type: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({
+						idUsuario: idUsuario,
+						idProyecto: idProyecto,
+
+					}),
+
+					success: function (response) {
+						if (response == "Duplicado") {
+
+							modal.style.display = "none";
+							const modalError = document.getElementById("modalError");
+							const mensajeElem = document.getElementById("mensajeError");
+							mensajeElem.textContent = "Este tablón ya existe.";
+							modalError.style.display = "flex";
+
+
+						} else {
+							// Crear columna en el DOM
+							const nuevaColumna = document.createElement("div");
+							nuevaColumna.classList.add("columna");
+							nuevaColumna.setAttribute(
+								"data-etapa",
+								nombre.toLowerCase().replace(/\s+/g, "")
+							);
+							nuevaColumna.innerHTML = `
+					<h3>${nombre}</h3>
+					<div class="tareas"></div>
+				`;
+
+							nuevaColumna.setAttribute("data-id", String(response));
+							tableros.appendChild(nuevaColumna);
+							initSortableCol(); // activar drag en la nueva columna
+							modal.style.display = "none";
+							console.log("Columna creada con éxito");
+						}
+
+					},
+					error: function (xhr, status, error) {
+						console.error("❌ Error al crear columna:", error);
+					},
+				});
+
+				// Cerrar el selector
+				document.getElementById("colorPicker").style.display = "none";
+
+			});
+		});
+
+	});
+
+
+
+
 });
+
+
+
+// Función para oscurecer un color hexadecimal
+function oscurecerColor(hex, porcentaje) {
+	let r = parseInt(hex.slice(1, 3), 16);
+	let g = parseInt(hex.slice(3, 5), 16);
+	let b = parseInt(hex.slice(5, 7), 16);
+
+	r = Math.floor(r * (1 - porcentaje));
+	g = Math.floor(g * (1 - porcentaje));
+	b = Math.floor(b * (1 - porcentaje));
+
+	return `#${[r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')}`;
+}
+
 
 function cerrarModalError() {
 	document.getElementById("modalError").style.display = "none";
