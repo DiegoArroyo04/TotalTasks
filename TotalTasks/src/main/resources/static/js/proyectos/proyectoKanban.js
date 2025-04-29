@@ -222,7 +222,8 @@ document.addEventListener("DOMContentLoaded", () => {
 						}),
 						success: function () {
 							columnaArrastrada.remove(); // eliminar del DOM
-							console.log("🗑️ Columna eliminada");
+							actualizarOrdenTablones();
+
 						},
 						error: function (xhr, status, error) {
 							console.error(
@@ -238,45 +239,46 @@ document.addEventListener("DOMContentLoaded", () => {
 					columnaArrastrada = null;
 				}, 200);
 
-				//ACTUALIZAR ORDEN
-				const columnas = document.querySelectorAll(".columna");
-				const ordenActualizado = [];
-
-				columnas.forEach((columna, i) => {
-					const idTablon = columna.getAttribute("data-id");
-					if (idTablon) {
-						ordenActualizado.push({
-							id: parseInt(idTablon),
-							orden: i + 1,
-						});
-					}
-				});
-
-				$.ajax({
-					url: "/actualizarOrdenTablones",
-					method: "POST",
-					contentType: "application/json",
-					data: JSON.stringify(ordenActualizado),
-					success: function () {
-						console.log("✅ Orden de columnas actualizado");
-					},
-					error: function (xhr, status, error) {
-						console.error(
-							"❌ Error al actualizar orden de columnas:",
-							error
-						);
-					},
-				});
+				actualizarOrdenTablones();
 			},
 		});
 	}
 
 	initSortableCol();
 
-
-
 });
 
 function cerrarModalError() {
 	document.getElementById("modalError").style.display = "none";
+}
+
+function actualizarOrdenTablones() {
+	const columnas = document.querySelectorAll(".columna");
+	const ordenActualizado = [];
+
+	columnas.forEach((columna, i) => {
+		const idTablon = columna.getAttribute("data-id");
+		if (idTablon) {
+			ordenActualizado.push({
+				id: parseInt(idTablon),
+				orden: i + 1,
+			});
+		}
+	});
+
+	$.ajax({
+		url: "/actualizarOrdenTablones",
+		method: "POST",
+		contentType: "application/json",
+		data: JSON.stringify(ordenActualizado),
+		success: function () {
+			console.log("✅ Orden de columnas actualizado");
+		},
+		error: function (xhr, status, error) {
+			console.error(
+				"❌ Error al actualizar orden de columnas:",
+				error
+			);
+		},
+	});
 }
