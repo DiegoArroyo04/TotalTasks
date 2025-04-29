@@ -30,13 +30,28 @@ public class TablonServiceImplementation implements TablonService {
 	@Override
 	public Long crearTablon(TablonDTO tablonDTO) {
 
-		TablonEntity tablonEntity = new TablonEntity();
-		tablonEntity.setNombreTablon(tablonDTO.getNombreTablon());
-		tablonEntity.setOrden(tablonDTO.getOrden());
-		tablonEntity.setProyecto(tablonDTO.getProyecto());
-		tablonRepository.save(tablonEntity);
+		ProyectoEntity proyecto = tablonDTO.getProyecto();
+		boolean tablonExistente = false;
 
-		return tablonEntity.getId();
+		// RECORRER TABLONES DEL PROYECTO COMPROBANDO QUE YA EXISTA
+		for (int i = 0; i < proyecto.getTablones().size(); i++) {
+			if (proyecto.getTablones().get(i).getNombreTablon().equals(tablonDTO.getNombreTablon())) {
+				tablonExistente = true;
+			}
+		}
+
+		if (tablonExistente) {
+			return null;
+		} else {
+			TablonEntity tablonEntity = new TablonEntity();
+			tablonEntity.setNombreTablon(tablonDTO.getNombreTablon());
+			tablonEntity.setOrden(tablonDTO.getOrden());
+			tablonEntity.setProyecto(tablonDTO.getProyecto());
+			tablonRepository.save(tablonEntity);
+
+			return tablonEntity.getId();
+		}
+
 	}
 
 	@Override

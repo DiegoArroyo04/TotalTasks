@@ -38,6 +38,11 @@ main {
 	gap: 20px;
 	padding: 20px;
 	overflow-x: auto;
+	justify-content: center;
+}
+
+
+.tableros:has(.columna:nth-child(n + 6)) {
 	justify-content: flex-start;
 }
 

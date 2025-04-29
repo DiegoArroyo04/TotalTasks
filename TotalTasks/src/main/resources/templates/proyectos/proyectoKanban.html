@@ -91,6 +91,15 @@
         </div>
     </div>
 
+    <!-- Error -->
+    <div id="modalError" class="modal-error">
+        <div class="modal-error-content">
+            <span class="modal-error-close" onclick="cerrarModalError()">&times;</span>
+            <h2 class="modal-error-title">Error</h2>
+            <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer th:insert="~{fragmentos/footer :: footer}"></footer>
     <script src="/js/proyectos/proyectoKanban.js"></script>

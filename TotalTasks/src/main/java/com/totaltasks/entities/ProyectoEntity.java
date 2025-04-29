@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -50,7 +51,7 @@ public class ProyectoEntity {
 	@OneToMany(mappedBy = "proyecto")
 	private List<UsuarioProyectoEntity> usuarios;
 
-	@OneToMany(mappedBy = "proyecto")
-	private List<TablonEntity> tablones;
+	@OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+	private List<TablonEntity> tablones = new ArrayList<>();
 
 }
