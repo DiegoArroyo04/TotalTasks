@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.models.TablonDTO;
+import com.totaltasks.models.UsuarioProyectoDTO;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.TablonService;
 
@@ -47,6 +48,12 @@ public class TablonRestController {
 		} else {
 			return respuesta.toString();
 		}
+
+	}
+
+	@PostMapping("/guardarColores")
+	public void guardarColores(@RequestBody UsuarioProyectoDTO usuarioProyectoDTO) {
+		tablonService.guardarColores(usuarioProyectoDTO);
 
 	}
 

@@ -10,5 +10,7 @@ public interface UsuarioProyectoRepository extends JpaRepository<UsuarioProyecto
 
     boolean existsByUsuarioAndProyecto(UsuarioEntity usuario, ProyectoEntity proyecto);
 
+    UsuarioProyectoEntity findByUsuarioAndProyecto(UsuarioEntity usuario, ProyectoEntity proyecto);
+
     void deleteAllByProyecto(ProyectoEntity proyecto);
 }

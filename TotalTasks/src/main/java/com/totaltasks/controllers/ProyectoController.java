@@ -45,7 +45,6 @@ public class ProyectoController {
 
 		ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(nombre);
 
-		System.out.println(proyectoService.usuarioExiste(proyectoExistente, usuario));
 		// SI EL USUARIO YA TIENE ESE PROYECTO DECIRLE QUE YA EXISTE
 		if (proyectoExistente != null && proyectoService.usuarioExiste(proyectoExistente, usuario)) {
 			redirectAttributes.addAttribute("error", "El proyecto ya existe");

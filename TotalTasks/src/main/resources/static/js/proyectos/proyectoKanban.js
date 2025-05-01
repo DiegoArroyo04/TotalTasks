@@ -335,46 +335,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
 				//GUARDAR COLOR EN BBDD
 				$.ajax({
-					url: "/crearTablon",
+					url: "/guardarColores",
 					type: "POST",
 					contentType: "application/json",
 					data: JSON.stringify({
 						idUsuario: idUsuario,
 						idProyecto: idProyecto,
-
+						color: color,
+						colorHover: hoverColor
 					}),
 
 					success: function (response) {
-						if (response == "Duplicado") {
-
-							modal.style.display = "none";
-							const modalError = document.getElementById("modalError");
-							const mensajeElem = document.getElementById("mensajeError");
-							mensajeElem.textContent = "Este tablón ya existe.";
-							modalError.style.display = "flex";
-
-
-						} else {
-							// Crear columna en el DOM
-							const nuevaColumna = document.createElement("div");
-							nuevaColumna.classList.add("columna");
-							nuevaColumna.setAttribute(
-								"data-etapa",
-								nombre.toLowerCase().replace(/\s+/g, "")
-							);
-							nuevaColumna.innerHTML = `
-					<h3>${nombre}</h3>
-					<div class="tareas"></div>
-				`;
-
-							nuevaColumna.setAttribute("data-id", String(response));
-							tableros.appendChild(nuevaColumna);
-							initSortableCol(); // activar drag en la nueva columna
-							modal.style.display = "none";
-							console.log("Columna creada con éxito");
-						}
+						console.log("Colores guardados");
 
 					},
 					error: function (xhr, status, error) {

@@ -11,9 +11,15 @@ import org.springframework.stereotype.Service;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.entities.TareaEntity;
+import com.totaltasks.entities.UsuarioEntity;
+import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.TablonDTO;
+import com.totaltasks.models.UsuarioProyectoDTO;
+import com.totaltasks.repositories.ProyectoRepository;
 import com.totaltasks.repositories.TablonRepository;
 import com.totaltasks.repositories.TareaRepository;
+import com.totaltasks.repositories.UsuarioProyectoRepository;
+import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.TablonService;
 
 import jakarta.transaction.Transactional;
@@ -26,6 +32,15 @@ public class TablonServiceImplementation implements TablonService {
 
 	@Autowired
 	private TareaRepository tareaRepository;
+
+	@Autowired
+	private UsuarioProyectoRepository usuarioProyectoRepository;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private ProyectoRepository proyectoRepository;
 
 	@Override
 	public Long crearTablon(TablonDTO tablonDTO) {
@@ -106,6 +121,29 @@ public class TablonServiceImplementation implements TablonService {
 		tablonRepository.flush(); // sincronizamos ahora con la base de datos
 
 		return "Tablón eliminado exitosamente";
+	}
+
+	@Override
+	public void guardarColores(UsuarioProyectoDTO usuarioProyectoDTO) {
+
+		UsuarioProyectoEntity usuarioProyecto = usuarioProyectoRepository.findByUsuarioAndProyecto(
+				usuarioRepository.findById(usuarioProyectoDTO.getIdUsuario()).orElse(null),
+				proyectoRepository.findById(usuarioProyectoDTO.getIdProyecto()).orElse(null));
+
+		// SI ENCUENTRA EL PROYECTO DAR DE ALTA LOS COLORES
+		if (usuarioProyecto != null) {
+			if (usuarioProyectoDTO.getCustomColor() == null) {
+				usuarioProyecto.setColorPrimario(usuarioProyectoDTO.getColor());
+				usuarioProyecto.setColorHover(usuarioProyectoDTO.getColorHover());
+			} else {
+				usuarioProyecto.setColorPrimario(usuarioProyectoDTO.getColor());
+				usuarioProyecto.setColorHover(usuarioProyectoDTO.getColorHover());
+				usuarioProyecto.setCustomColor(usuarioProyectoDTO.getCustomColor());
+			}
+
+			usuarioProyectoRepository.save(usuarioProyecto);
+		}
+
 	}
 
 }
