@@ -40,4 +40,9 @@ public class UsuarioProyectoEntity {
 	@Column(name = "custom_color", length = 7, nullable = true)
 	private String customColor;
 
+	@Override
+	public String toString() {
+		return "UsuarioProyectoEntity [proyecto=" + proyecto + "]";
+	}
+
 }
