@@ -473,7 +473,6 @@ function activarEdicion(input) {
 		const columna = this.closest('.columna');
 		const idColumna = columna.getAttribute('data-id');
 		const nombreActual = this.value;
-
 		this.readOnly = false;
 		this.focus();
 

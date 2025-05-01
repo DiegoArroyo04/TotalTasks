@@ -51,11 +51,18 @@
         </div>
         <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
           <div th:each="proyecto : ${proyectos}" class="project-card"
-            th:attr="onclick='irAProyecto(' + ${proyecto.idProyecto} + ')'">
-            <h3 class="project-title" th:text="${proyecto.nombreProyecto}">Nombre del Proyecto</h3>
-            <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}">Código</p>
-            <button type="button" class="copy-btn" th:attr="data-codigo=${proyecto.codigo}"
-              onclick="copiarCodigo(event,this)">
+            th:attr="data-id-proyecto=${proyecto.idProyecto}, onclick='irAProyecto(' + ${proyecto.idProyecto} + ')'"
+            th:style="'border: 3px solid ' + ${coloresPrimarios[proyecto.idProyecto]}">
+
+            <h3 class="project-title" th:text="${proyecto.nombreProyecto}"
+              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Nombre del Proyecto</h3>
+
+            <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}"
+              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Código</p>
+
+            <button type="button" class="copy-btn"
+              th:attr="data-codigo=${proyecto.codigo}, onclick='copiarCodigo(event,this)'"
+              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">
               <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="copy"
                 class="svg-inline--fa fa-copy " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="currentColor"
@@ -63,22 +70,31 @@
                 </path>
               </svg>
             </button>
-            <span class="tooltip-text">Código Copiado</span>
-            <p class="project-description" th:text="${proyecto.descripcion}">Descripción</p>
-            <div class="project-meta">
-              <span th:text="${proyecto.metodologia}">Metodología</span>
-              <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}">Fecha</span>
-            </div>
-            <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}">Creador</p>
-            <form th:action="@{/proyecto/eliminar/{id}(id=${proyecto.idProyecto})}" method="post">
 
+            <span class="tooltip-text" th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Código
+              Copiado</span>
+
+            <p class="project-description" th:text="${proyecto.descripcion}"
+              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Descripción</p>
+
+            <div class="project-meta" th:style="'border-top: 2px solid ' + ${coloresPrimarios[proyecto.idProyecto]}">
+              <span th:text="${proyecto.metodologia}"
+                th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Metodología</span>
+              <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}"
+                th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Fecha</span>
+            </div>
+
+            <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}"
+              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Creador</p>
+
+            <form th:action="@{/proyecto/eliminar/{id}(id=${proyecto.idProyecto})}" method="post">
               <input type="hidden" name="abandonar" th:value="${usuario.idUsuario != proyecto.creador.idUsuario}" />
+
               <button th:if="${usuario.idUsuario == proyecto.creador.idUsuario}" type="submit" aria-label="Delete item"
                 class="delete-button">
                 <svg class="trash-svg" viewBox="0 -10 64 74" xmlns="http://www.w3.org/2000/svg">
                   <g id="trash-can">
                     <rect x="16" y="24" width="32" height="30" rx="3" ry="3" fill="#e74c3c"></rect>
-
                     <g transform-origin="12 18" id="lid-group">
                       <rect x="12" y="12" width="40" height="6" rx="2" ry="2" fill="#c0392b"></rect>
                       <rect x="26" y="8" width="12" height="4" rx="2" ry="2" fill="#c0392b"></rect>
@@ -86,8 +102,8 @@
                   </g>
                 </svg>
               </button>
-              <button th:if="${usuario.idUsuario != proyecto.creador.idUsuario}" type="submit" class="Btn">
 
+              <button th:if="${usuario.idUsuario != proyecto.creador.idUsuario}" type="submit" class="Btn">
                 <div class="sign">
                   <svg viewBox="0 0 512 512">
                     <path
@@ -96,7 +112,6 @@
                   </svg>
                 </div>
               </button>
-
             </form>
           </div>
         </div>

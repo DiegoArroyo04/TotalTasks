@@ -1,11 +1,18 @@
 package com.totaltasks.controllers;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
+import com.totaltasks.entities.UsuarioProyectoEntity;
+import com.totaltasks.repositories.UsuarioProyectoRepository;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.UsuarioService;
 
@@ -13,6 +20,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {
+	@Autowired
+	UsuarioProyectoRepository usuarioProyectoRepository;
 
 	@Autowired
 	UsuarioService usuarioService;
@@ -61,29 +70,37 @@ public class IndexController {
 
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, Model model) {
-
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
-		// Si no hay usuario, redirigimos al login
 		if (usuario == null) {
 			return "redirect:/login";
 		} else {
-
 			model.addAttribute("usuario", usuario);
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
-
-			// FOTO DE PERFIL DE GOOGLE Y GITHUB
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
-
 			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
-
 			model.addAttribute("paginaActual", "dashboard");
 
-			model.addAttribute("proyectos", proyectoService.todosLosProyectosDeUnUsuario(usuario));
+			List<ProyectoEntity> proyectos = proyectoService.todosLosProyectosDeUnUsuario(usuario);
+			model.addAttribute("proyectos", proyectos);
+
+			// Obtener colores
+			List<UsuarioProyectoEntity> usuarioProyectos = usuarioProyectoRepository.findByUsuario(usuario);
+
+			// Mapeamos idProyecto → colores
+			Map<Long, String> coloresPrimarios = new HashMap<>();
+			Map<Long, String> coloresHover = new HashMap<>();
+
+			for (UsuarioProyectoEntity up : usuarioProyectos) {
+				coloresPrimarios.put(up.getProyecto().getIdProyecto(), up.getColorPrimario());
+				coloresHover.put(up.getProyecto().getIdProyecto(), up.getColorHover());
+			}
+
+			model.addAttribute("coloresPrimarios", coloresPrimarios);
+			model.addAttribute("coloresHover", coloresHover);
 
 			return "dashboard";
 		}
-
 	}
 
 	@GetMapping("/privacidad")

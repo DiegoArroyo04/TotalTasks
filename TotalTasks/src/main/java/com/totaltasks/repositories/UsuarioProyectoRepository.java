@@ -1,5 +1,7 @@
 package com.totaltasks.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.totaltasks.entities.ProyectoEntity;
@@ -13,4 +15,6 @@ public interface UsuarioProyectoRepository extends JpaRepository<UsuarioProyecto
     UsuarioProyectoEntity findByUsuarioAndProyecto(UsuarioEntity usuario, ProyectoEntity proyecto);
 
     void deleteAllByProyecto(ProyectoEntity proyecto);
+
+    List<UsuarioProyectoEntity> findByUsuario(UsuarioEntity usuario);
 }
