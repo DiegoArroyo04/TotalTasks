@@ -10,6 +10,7 @@ import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.repositories.ProyectoRepository;
 import com.totaltasks.repositories.TareaRepository;
 import com.totaltasks.repositories.UsuarioRepository;
+import com.totaltasks.services.TablonService;
 import com.totaltasks.services.TareaService;
 
 @Service
@@ -20,6 +21,9 @@ public class TareaServiceImplementation implements TareaService {
 
 	@Autowired
 	private ProyectoRepository proyectoRepository;
+
+	@Autowired
+	private TablonService tablonService;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -35,7 +39,7 @@ public class TareaServiceImplementation implements TareaService {
 		tarea.setTitulo(dto.getTitulo());
 		tarea.setDescripcion(dto.getDescripcion());
 		tarea.setFechaLimite(dto.getFechaLimite());
-		tarea.setEstado(dto.getEstado());
+		tarea.setEstado(tablonService.ordenarTablones(proyecto.getTablones()).get(0).getNombreTablon());
 		tarea.setProyecto(proyecto);
 		tarea.setResponsable(usuario);
 
@@ -52,5 +56,5 @@ public class TareaServiceImplementation implements TareaService {
 
 		return "Tarea Modificada";
 	}
-	
+
 }

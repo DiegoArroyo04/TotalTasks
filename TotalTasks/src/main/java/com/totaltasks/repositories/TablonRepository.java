@@ -11,5 +11,6 @@ public interface TablonRepository extends JpaRepository<TablonEntity, Long> {
 
 	TablonEntity findByNombreTablonAndProyecto(String nombreTablon, ProyectoEntity proyecto);
 
-	boolean existsByNombreTablonIgnoreCaseAndIdNot(String nombreTablon, Long id);
+	boolean existsByNombreTablonIgnoreCaseAndIdNotAndProyecto_IdProyecto(String nombreTablon, Long idNot,
+			Long proyectoId);
 }

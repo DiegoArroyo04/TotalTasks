@@ -161,22 +161,27 @@ public class TablonServiceImplementation implements TablonService {
 	@Override
 	public boolean actualizarNombreTablon(Long idTablon, String nuevoNombre) {
 
-		boolean nombreExiste = tablonRepository.existsByNombreTablonIgnoreCaseAndIdNot(nuevoNombre, idTablon);
-
-		if (nombreExiste) {
-			return false;
-		}
-
 		Optional<TablonEntity> optionalTablon = tablonRepository.findById(idTablon);
 
 		if (optionalTablon.isPresent()) {
 			TablonEntity tablon = optionalTablon.get();
+			Long idProyecto = tablon.getProyecto().getIdProyecto();
+
+			// Validar si ya existe otro tablón con ese nombre en el mismo proyecto
+			boolean nombreExiste = tablonRepository.existsByNombreTablonIgnoreCaseAndIdNotAndProyecto_IdProyecto(
+					nuevoNombre, idTablon, idProyecto);
+
+			if (nombreExiste) {
+				return false; // Ya existe otro tablón con ese nombre → no actualizamos
+			}
+
+			// No existe actualizamos
 			tablon.setNombreTablon(nuevoNombre);
 			tablonRepository.save(tablon);
 			return true;
 		}
 
-		return false;
+		return false; // Tablón no encontrado
 	}
 
 }

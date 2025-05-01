@@ -127,8 +127,9 @@ main {
 
 .tarea:hover {
 	transform: scale(1.02);
-	cursor: move;
+	cursor: grab;
 }
+
 
 .agregar-tarea {
 	background-color: var(--color-primario);

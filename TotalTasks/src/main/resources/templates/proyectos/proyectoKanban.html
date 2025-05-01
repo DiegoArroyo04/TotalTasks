@@ -131,14 +131,8 @@
                 <input type="text" name="titulo" placeholder="Título de la tarea" required />
                 <textarea name="descripcion" placeholder="Descripción detallada..." rows="10" cols="44"></textarea>
                 <input type="date" name="fechaLimite" required />
-                <select name="estado" required>
-                    <option value="Por Hacer">Por Hacer</option>
-                    <option value="En Curso">En Curso</option>
-                    <option value="Hecha">Hecha</option>
-                </select>
                 <input type="hidden" th:value="${proyecto.idProyecto}" name="idProyecto" />
                 <input type="hidden" th:value="${usuario.idUsuario}" name="idResponsable" />
-
                 <div class="modal-acciones">
                     <button type="submit" class="btn-confirmar">Crear</button>
                     <button type="button" id="cancelarModalTarea" class="btn-cancelar">Cancelar</button>
