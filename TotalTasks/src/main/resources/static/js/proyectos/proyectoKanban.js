@@ -122,13 +122,18 @@ document.addEventListener("DOMContentLoaded", () => {
 							nombre.toLowerCase().replace(/\s+/g, "")
 						);
 						nuevaColumna.innerHTML = `
-                <h3>${nombre}</h3>
-                <div class="tareas"></div>
-            `;
+                        <input type="text" value="${nombre}" class="titulo-tablon" readonly />
+                        <div class="tareas"></div>
+                    `;
 
 						nuevaColumna.setAttribute("data-id", String(response));
 						tableros.appendChild(nuevaColumna);
 						initSortableCol(); // activar drag en la nueva columna
+
+						// 🔧 ACTIVAR EDICIÓN EN EL NUEVO INPUT
+						const nuevoInput = nuevaColumna.querySelector("input.titulo-tablon");
+						activarEdicion(nuevoInput);
+
 						modal.style.display = "none";
 						console.log("Columna creada con éxito");
 					}

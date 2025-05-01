@@ -130,6 +130,10 @@ main {
 	cursor: grab;
 }
 
+.tarea:active {
+	cursor: grabbing !important;
+}
+
 
 .agregar-tarea {
 	background-color: var(--color-primario);
@@ -207,6 +211,7 @@ main {
 }
 
 .ghost-columna {
+	cursor: grabbing !important;
 	opacity: 0.6;
 	background-color: #fef3c7;
 	border: 2px dashed #f59e0b;
