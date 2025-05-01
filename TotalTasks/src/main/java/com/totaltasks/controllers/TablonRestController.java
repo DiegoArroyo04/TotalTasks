@@ -3,8 +3,10 @@ package com.totaltasks.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.totaltasks.entities.ProyectoEntity;
@@ -55,6 +57,27 @@ public class TablonRestController {
 	public void guardarColores(@RequestBody UsuarioProyectoDTO usuarioProyectoDTO) {
 		tablonService.guardarColores(usuarioProyectoDTO);
 
+	}
+
+	@GetMapping("/obtenerColores")
+	public UsuarioProyectoDTO obtenerColores(@RequestParam Long usuarioId,
+			@RequestParam Long proyectoId) {
+		return tablonService.obtenerColores(usuarioId, proyectoId);
+
+	}
+
+	@PostMapping("/actualizarNombreTablon")
+	public String actualizarNombreTablon(@RequestBody TablonDTO tablonDTO) {
+		Long id = tablonDTO.getId();
+		String nuevoNombre = tablonDTO.getNombreTablon();
+
+		boolean actualizado = tablonService.actualizarNombreTablon(id, nuevoNombre);
+
+		if (actualizado) {
+			return "Nombre actualizado correctamente";
+		} else {
+			return "No se pudo actualizar (tablero no encontrado o nombre duplicado)";
+		}
 	}
 
 }

@@ -43,10 +43,10 @@ public class ProyectoController {
 			return "redirect:/login";
 		}
 
-		ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(nombre);
+		ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombreYUsuario(nombre, usuario);
 
 		// SI EL USUARIO YA TIENE ESE PROYECTO DECIRLE QUE YA EXISTE
-		if (proyectoExistente != null && proyectoService.usuarioExiste(proyectoExistente, usuario)) {
+		if (proyectoExistente != null) {
 			redirectAttributes.addAttribute("error", "El proyecto ya existe");
 			return "redirect:/dashboard";
 		}
@@ -72,7 +72,7 @@ public class ProyectoController {
 			return "redirect:/login";
 		}
 
-		ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombre(repoName);
+		ProyectoEntity proyectoExistente = proyectoService.obtenerProyectoPorNombreYUsuario(repoName, usuario);
 
 		if (proyectoExistente != null) {
 			redirectAttributes.addAttribute("error", "El proyecto ya existe");
@@ -105,7 +105,7 @@ public class ProyectoController {
 		if (unido) {
 			return "redirect:/dashboard";
 		} else {
-			redirectAttributes.addAttribute("error", "No se ha encontrado el proyecto");
+			redirectAttributes.addAttribute("error", "Ya te has unido a ese proyecto");
 			return "redirect:/dashboard";
 		}
 	}

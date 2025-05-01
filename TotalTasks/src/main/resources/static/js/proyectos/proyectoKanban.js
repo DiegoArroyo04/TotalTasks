@@ -2,13 +2,46 @@ document.addEventListener("DOMContentLoaded", () => {
 	//LEER SI HAY COLORES PERSONALIZADOS
 	const idProyecto = document.getElementById("idProyecto").value;
 	const idUsuario = document.getElementById("idUsuario").value;
-	const colorGuardado = localStorage.getItem(`${idProyecto}_colorPrimario`);
-	const hoverGuardado = localStorage.getItem(`${idProyecto}_colorHover`);
+	$.ajax({
+		type: "GET",
+		url: `/obtenerColores?usuarioId=${idUsuario}&proyectoId=${idProyecto}`,
+		success: function (data) {
+			const colorGuardado = data.color;
+			const hoverGuardado = data.colorHover;
+			const customColor = data.customColor;
 
-	if (colorGuardado && hoverGuardado) {
-		document.documentElement.style.setProperty('--color-primario', colorGuardado);
-		document.documentElement.style.setProperty('--color-primario-hover', hoverGuardado);
-	}
+			const container = document.getElementById("color-options");
+			const colorOptions = document.getElementById("color-options");
+			let customBox = container.querySelector("span.color-box.custom-box");
+
+			//VERIFICAR SI YA EXISTE UN SPAN CUSTOM PARA MODIFICAR SUS VALORES
+			if (customBox) {
+				customBox.dataset.color = customColor;
+				customBox.style.backgroundColor = customColor;
+			} else {
+				if (customColor != null) {
+					// Crear el nuevo <span> con el color seleccionado
+					const colorBox = document.createElement("span");
+					colorBox.classList.add("color-box", "custom-box");
+					colorBox.setAttribute("data-color", customColor);
+					colorBox.style.backgroundColor = customColor;
+					// Agregar el nuevo <span> al contenedor de colores
+					colorOptions.insertBefore(colorBox, document.getElementById("personalizarColor"));
+				}
+
+			}
+
+			if (colorGuardado && hoverGuardado) {
+				document.documentElement.style.setProperty('--color-primario', colorGuardado);
+				document.documentElement.style.setProperty('--color-primario-hover', hoverGuardado);
+			}
+
+		},
+		error: function (error) {
+
+		}
+	});
+
 
 	const tableros = document.getElementById("tableros");
 	const btnAgregar = document.getElementById("agregarColumna");
@@ -294,6 +327,26 @@ document.addEventListener("DOMContentLoaded", () => {
 					colorOptions.insertBefore(colorBox, document.getElementById("personalizarColor"));
 				}
 
+				const idProyecto = document.getElementById("idProyecto").value;
+				const idUsuario = document.getElementById("idUsuario").value;
+
+				$.ajax({
+					url: "/guardarColores",
+					type: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({
+						idUsuario: idUsuario,
+						idProyecto: idProyecto,
+						customColor: color
+					}),
+					success: function () {
+						console.log("✅ Color personalizado guardado");
+					},
+					error: function () {
+						console.error("❌ Error al guardar el color personalizado");
+					}
+				});
+
 			}
 
 
@@ -325,17 +378,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				document.documentElement.style.setProperty('--color-primario-hover', hoverColor);
 				const idProyecto = document.getElementById("idProyecto").value;
 
-
-
-
-
-				// Guardar en localStorage
-				localStorage.setItem(`${idProyecto}_colorPrimario`, color);
-				localStorage.setItem(`${idProyecto}_colorHover`, hoverColor);
-
-
-
-
 				//GUARDAR COLOR EN BBDD
 				$.ajax({
 					url: "/guardarColores",
@@ -349,11 +391,11 @@ document.addEventListener("DOMContentLoaded", () => {
 					}),
 
 					success: function (response) {
-						console.log("Colores guardados");
+
 
 					},
 					error: function (xhr, status, error) {
-						console.error("❌ Error al crear columna:", error);
+
 					},
 				});
 
@@ -420,3 +462,65 @@ function actualizarOrdenTablones() {
 		},
 	});
 }
+
+function activarEdicion(input) {
+	input.addEventListener('click', function () {
+		const columna = this.closest('.columna');
+		const idColumna = columna.getAttribute('data-id');
+		const nombreActual = this.value;
+
+		this.readOnly = false;
+		this.focus();
+
+
+		function salirEdicion(nuevoNombre, exitoso) {
+			input.readOnly = true;
+			input.value = nuevoNombre;
+			if (!exitoso) {
+				const modalError = document.getElementById("modalError");
+				const mensajeElem = document.getElementById("mensajeError");
+				mensajeElem.textContent = "Ya existe un tablon con ese nombre.";
+				modalError.style.display = "flex";
+			};
+		}
+
+		input.addEventListener('blur', function () {
+			const nuevoNombre = input.value.trim();
+			if (nuevoNombre && nuevoNombre !== nombreActual) {
+				$.ajax({
+					url: '/actualizarNombreTablon',
+					method: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						id: parseInt(idColumna),
+						nombreTablon: nuevoNombre
+					}),
+					success: function (data) {
+						if (data == "No se pudo actualizar (tablero no encontrado o nombre duplicado)") {
+							salirEdicion(nombreActual, false);
+						} else {
+							salirEdicion(nuevoNombre, true);
+						}
+
+					},
+					error: function () {
+						salirEdicion(nombreActual, false);
+					}
+				});
+			} else {
+				salirEdicion(nombreActual, true);
+			}
+		});
+
+		input.addEventListener('keypress', function (e) {
+			if (e.key === 'Enter') input.blur();
+		}, { once: true });
+	});
+}
+
+// Activar doble click en todos los inputs iniciales
+document.querySelectorAll('#tableros .columna input.titulo-tablon').forEach(activarEdicion);
+
+
+
+

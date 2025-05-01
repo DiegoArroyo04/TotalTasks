@@ -2,6 +2,8 @@ package com.totaltasks.services;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.models.TablonDTO;
@@ -19,4 +21,7 @@ public interface TablonService {
 
 	void guardarColores(UsuarioProyectoDTO usuarioProyectoDTO);
 
+	UsuarioProyectoDTO obtenerColores(Long usuarioId, Long proyectoId);
+
+	boolean actualizarNombreTablon(Long idTablon, String nuevoNombre);
 }

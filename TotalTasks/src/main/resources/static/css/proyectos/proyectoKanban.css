@@ -80,10 +80,20 @@ main {
 	cursor: move;
 }
 
-.columna h3 {
-	margin-top: 0;
+.titulo-tablon {
+	width: 100%;
+	padding: 4px;
+	font-size: 20px;
+	border: none;
 	text-align: center;
-	font-size: 18px;
+	color: var(--color-primario);
+	font-weight: 900;
+	font-family: 'Poppins', sans-serif;
+	border-radius: 4px;
+	box-sizing: border-box;
+	outline: none;
+	background: transparent;
+
 }
 
 .eliminar-columna {

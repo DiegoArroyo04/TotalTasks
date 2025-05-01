@@ -105,9 +105,24 @@ public class ProyectoServiceImplementation implements ProyectoService {
 	}
 
 	@Override
-	public ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto) {
+	public ProyectoEntity obtenerProyectoPorNombreYUsuario(String nombreProyecto, UsuarioEntity usuarioEntity) {
+		// RECUPERAR TODOS LOS PROYECTOS QUE TENGAN ESE NOMBRE
 		List<ProyectoEntity> proyectos = proyectoRepository.findByNombreProyecto(nombreProyecto);
-		return proyectos.isEmpty() ? null : proyectos.get(0);
+		ProyectoEntity proyectoADevolver = null;
+		if (proyectos.isEmpty()) {
+			return null;
+		} else {
+			// Buscar en cada proyecto si contiene al usuario
+			for (ProyectoEntity proyecto : proyectos) {
+				for (UsuarioProyectoEntity usuario : proyecto.getUsuarios()) {
+					if (usuario.getUsuario().getEmail().equals(usuarioEntity.getEmail())) {
+						proyectoADevolver = proyecto;
+					}
+				}
+			}
+		}
+		return proyectoADevolver;
+
 	}
 
 	@Override

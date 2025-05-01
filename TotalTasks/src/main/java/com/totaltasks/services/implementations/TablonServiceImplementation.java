@@ -136,14 +136,47 @@ public class TablonServiceImplementation implements TablonService {
 				usuarioProyecto.setColorPrimario(usuarioProyectoDTO.getColor());
 				usuarioProyecto.setColorHover(usuarioProyectoDTO.getColorHover());
 			} else {
-				usuarioProyecto.setColorPrimario(usuarioProyectoDTO.getColor());
-				usuarioProyecto.setColorHover(usuarioProyectoDTO.getColorHover());
 				usuarioProyecto.setCustomColor(usuarioProyectoDTO.getCustomColor());
 			}
 
 			usuarioProyectoRepository.save(usuarioProyecto);
 		}
 
+	}
+
+	@Override
+	public UsuarioProyectoDTO obtenerColores(Long usuarioId, Long proyectoId) {
+
+		UsuarioProyectoEntity usuarioProyecto = usuarioProyectoRepository.findByUsuarioAndProyecto(
+				usuarioRepository.findById(usuarioId).orElse(null),
+				proyectoRepository.findById(proyectoId).orElse(null));
+
+		UsuarioProyectoDTO usuarioProyectoDTO = new UsuarioProyectoDTO();
+		usuarioProyectoDTO.setColor(usuarioProyecto.getColorPrimario());
+		usuarioProyectoDTO.setColorHover(usuarioProyecto.getColorHover());
+		usuarioProyectoDTO.setCustomColor(usuarioProyecto.getCustomColor());
+		return usuarioProyectoDTO;
+	}
+
+	@Override
+	public boolean actualizarNombreTablon(Long idTablon, String nuevoNombre) {
+
+		boolean nombreExiste = tablonRepository.existsByNombreTablonIgnoreCaseAndIdNot(nuevoNombre, idTablon);
+
+		if (nombreExiste) {
+			return false;
+		}
+
+		Optional<TablonEntity> optionalTablon = tablonRepository.findById(idTablon);
+
+		if (optionalTablon.isPresent()) {
+			TablonEntity tablon = optionalTablon.get();
+			tablon.setNombreTablon(nuevoNombre);
+			tablonRepository.save(tablon);
+			return true;
+		}
+
+		return false;
 	}
 
 }

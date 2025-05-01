@@ -15,7 +15,7 @@ public interface ProyectoService {
 
 	boolean unirseAProyectoPorCodigo(String codigo, UsuarioEntity usuario);
 
-	ProyectoEntity obtenerProyectoPorNombre(String nombreProyecto);
+	ProyectoEntity obtenerProyectoPorNombreYUsuario(String nombreProyecto, UsuarioEntity usuario);
 
 	ProyectoEntity obtenerProyectoPorId(Long id);
 

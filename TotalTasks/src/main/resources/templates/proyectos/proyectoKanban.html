@@ -75,7 +75,7 @@
                 <!-- Iterar sobre los tablones pasados desde el backend -->
                 <div th:each="tablon : ${tablones}" class="columna" th:data-etapa="${tablon.nombreTablon}"
                     th:attr="data-id=${tablon.id}" draggable="true">
-                    <h3 th:text="${tablon.nombreTablon}">Nombre de la columna</h3>
+                    <input type="text" th:value="${tablon.nombreTablon}" readonly class="titulo-tablon">
                     <div class="tareas">
                         <div th:each="tarea : ${tareas}" th:if="${tarea.estado == tablon.nombreTablon}"
                             th:attr="data-id=${tarea.idTarea}" class="tarea">
