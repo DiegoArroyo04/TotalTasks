@@ -51,7 +51,7 @@ CREATE TABLE tarea (
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_limite DATE NULL,
+    fecha_limite DATE NULL,	
     id_proyecto BIGINT,
     id_responsable BIGINT,
     estado VARCHAR(100),
@@ -71,6 +71,39 @@ CREATE TABLE tablon (
     CONSTRAINT fk_tablon_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto)
 );
 
+
+-- Notificaciones
+CREATE TABLE notificacion (
+    id_notificacion BIGINT AUTO_INCREMENT,
+    
+    id_usuario_emisor BIGINT NULL,
+    id_proyecto BIGINT NOT NULL,
+    id_tarea BIGINT NULL,
+
+    tipo VARCHAR(50) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_programada TIMESTAMP NULL,
+
+    CONSTRAINT pk_notificacion PRIMARY KEY (id_notificacion),
+    CONSTRAINT fk_notif_emisor FOREIGN KEY (id_usuario_emisor) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_notif_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
+    CONSTRAINT fk_notif_tarea FOREIGN KEY (id_tarea) REFERENCES tarea(id_tarea)
+);
+
+
+CREATE TABLE notificacion_usuario (
+    id_notificacion_usuario BIGINT AUTO_INCREMENT,
+    
+    id_notificacion BIGINT NOT NULL,
+    id_usuario_destinatario BIGINT NOT NULL,
+    vista BOOLEAN DEFAULT FALSE,
+
+    CONSTRAINT pk_notif_usuario PRIMARY KEY (id_notificacion_usuario),
+    CONSTRAINT fk_notif_usuario_notif FOREIGN KEY (id_notificacion) REFERENCES notificacion(id_notificacion),
+    CONSTRAINT fk_notif_usuario_dest FOREIGN KEY (id_usuario_destinatario) REFERENCES usuario(id_usuario)
+);
+
 -- Inserción de proyectos
 INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador, codigo) VALUES 
 ('Proyecto Alpha', 'Sistema de gestión de tareas', 'Scrum', 1, 'ALPHA123'), 
@@ -88,6 +121,9 @@ INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol) VALUES
 INSERT INTO tarea (titulo, descripcion, fecha_limite, id_proyecto, id_responsable, estado) VALUES
 ('Diseñar base de datos', 'Diseñar el esquema inicial de la base de datos', '2025-04-20', 1, 1, 'En progreso'),
 ('Maquetar la app', 'Hacer la estructura de pantallas principales', '2025-04-22', 2, 2, 'Pendiente');
+
+
+
 
 
 -- Tablones para Proyecto

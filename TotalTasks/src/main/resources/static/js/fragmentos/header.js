@@ -15,4 +15,23 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	}
+
+	// Menú notificaciones
+	const notificacionesModal = document.getElementById("notificacionesModal");
+	const botonNotificaciones = document.getElementById("notificaciones");
+
+	if (notificacionesModal && botonNotificaciones) {
+		botonNotificaciones.addEventListener("click", () => {
+			notificacionesModal.style.display = notificacionesModal.style.display === "block" ? "none" : "block";
+		});
+
+		// Ocultar al hacer clic fuera
+		document.addEventListener("click", (e) => {
+			if (!botonNotificaciones.contains(e.target) && !notificacionesModal.contains(e.target)) {
+				notificacionesModal.style.display = "none";
+			}
+		});
+	}
+
+
 });

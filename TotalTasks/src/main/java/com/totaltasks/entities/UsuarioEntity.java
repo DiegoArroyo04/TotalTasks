@@ -1,8 +1,10 @@
 package com.totaltasks.entities;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -61,5 +63,8 @@ public class UsuarioEntity {
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<UsuarioProyectoEntity> proyectosParticipados;
+
+	@OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<NotificacionUsuarioEntity> notificacionesRecibidas = new ArrayList<>();
 
 }

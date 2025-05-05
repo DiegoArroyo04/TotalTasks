@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tarea")
@@ -47,5 +49,8 @@ public class TareaEntity {
 	@ManyToOne
 	@JoinColumn(name = "id_responsable", nullable = false)
 	private UsuarioEntity responsable;
+
+	@OneToMany(mappedBy = "tarea")
+	private List<NotificacionEntity> notificaciones = new ArrayList<>();
 
 }

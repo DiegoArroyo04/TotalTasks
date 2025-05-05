@@ -54,4 +54,7 @@ public class ProyectoEntity {
 	@OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
 	private List<TablonEntity> tablones = new ArrayList<>();
 
+	@OneToMany(mappedBy = "proyecto")
+	private List<NotificacionEntity> notificaciones = new ArrayList<>();
+
 }

@@ -13,6 +13,7 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.repositories.UsuarioProyectoRepository;
+import com.totaltasks.services.NotificacionUsuarioService;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.UsuarioService;
 
@@ -29,6 +30,9 @@ public class IndexController {
 	@Autowired
 	ProyectoService proyectoService;
 
+	@Autowired
+	NotificacionUsuarioService notificacionUsuarioService;
+
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
 
@@ -37,6 +41,8 @@ public class IndexController {
 		// Si existe, lo añadimos al modelo
 		if (usuario != null) {
 			model.addAttribute("usuario", usuario);
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 
 			// Convertimos la foto de perfil a Base64 y la añadimos al modelo
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
@@ -76,6 +82,8 @@ public class IndexController {
 			return "redirect:/login";
 		} else {
 			model.addAttribute("usuario", usuario);
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
 			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));

@@ -19,6 +19,62 @@
                 <!-- Enlaces del dashboard -->
                 <li th:if="${paginaActual != 'index'}"><a href="/dashboard">Mis proyectos</a></li>
 
+                <!-- Ícono de notificaciones (campanita) -->
+                <li th:if="${usuario != null and paginaActual != 'index'}" class="icono-notificaciones">
+                    <button id="notificaciones" class="notificaciones">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </button>
+
+                    <div class="notificacionesModal" id="notificacionesModal">
+                        <ul class="lista-notificaciones">
+                            <li th:if="${notificacionesNoLeidas == null or notificacionesNoLeidas.isEmpty()}"
+                                class="mensaje-vacio">
+                                No tienes notificaciones nuevas.
+                            </li>
+
+                            <li th:each="notificacionUsuario  : ${notificacionesNoLeidas}" class="notificacion-item">
+                                <!-- Mostrar nombre del proyecto -->
+                                <strong
+                                    th:text="'Proyecto: ' + ${notificacionUsuario.notificacion.proyecto.nombreProyecto}"></strong>
+
+                                <!-- Mostrar según el tipo de notificación -->
+                                <div th:switch="${notificacionUsuario.notificacion.tipo}">
+
+                                    <!-- Modificación por administrador -->
+                                    <div th:case="'ADMIN_MODIFICACION'">
+                                        <p><strong>Modificación del proyecto</strong></p>
+                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+
+                                    </div>
+
+                                    <!-- Asignación de tarea -->
+                                    <div th:case="'TAREA_ASIGNADA'">
+                                        <p><strong>Nueva tarea asignada:</strong></p>
+                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                                    </div>
+
+                                    <!-- Notificación programada -->
+                                    <div th:case="'RECORDATORIO_FECHA'">
+                                        <p><strong>Recordatorio tarea apunto de finalizar:</strong></p>
+                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+
+                                    </div>
+
+                                    <!-- Por defecto -->
+                                    <div th:case="*">
+                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                                    </div>
+                                </div>
+
+                                <span class="fecha"
+                                    th:text="${#dates.format(notificacionUsuario.notificacion.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <div class="separador"></div>
 
