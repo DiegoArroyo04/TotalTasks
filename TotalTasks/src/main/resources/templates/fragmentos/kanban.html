@@ -21,7 +21,7 @@
 				</svg>
 
 				Despliegue web</button>
-			<button id="agregarTarea">Crear tarea</button>
+			<button id="agregarTarea" th:text="${proyecto.metodologia == 'Kanban'} ? 'Crear tarea' : 'Crear historia'"></button>
 			<button id="personalizarTablero">Personalizar Tablero</button>
 		</div>
 

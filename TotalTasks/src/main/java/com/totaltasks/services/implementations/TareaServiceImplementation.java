@@ -1,11 +1,14 @@
 package com.totaltasks.services.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.totaltasks.models.TareaDTO;
 import com.totaltasks.entities.TareaEntity;
 import com.totaltasks.entities.ProyectoEntity;
+import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.repositories.ProyectoRepository;
 import com.totaltasks.repositories.TareaRepository;
@@ -29,21 +32,28 @@ public class TareaServiceImplementation implements TareaService {
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public void crearTarea(TareaDTO dto) {
-
+	public boolean crearTarea(TareaDTO dto) {
 		TareaEntity tarea = new TareaEntity();
 
 		ProyectoEntity proyecto = proyectoRepository.findById(dto.getIdProyecto()).orElse(null);
 		UsuarioEntity usuario = usuarioRepository.findById(dto.getIdResponsable()).orElse(null);
 
+		List<TablonEntity> tablonesOrdenados = tablonService.ordenarTablones(proyecto.getTablones());
+
+		if (tablonesOrdenados == null || tablonesOrdenados.isEmpty()) {
+			// No hay tablones → no podemos crear la tarea
+			return false;
+		}
+
 		tarea.setTitulo(dto.getTitulo());
 		tarea.setDescripcion(dto.getDescripcion());
 		tarea.setFechaLimite(dto.getFechaLimite());
-		tarea.setEstado(tablonService.ordenarTablones(proyecto.getTablones()).get(0).getNombreTablon());
+		tarea.setEstado(tablonesOrdenados.get(0).getNombreTablon());
 		tarea.setProyecto(proyecto);
 		tarea.setResponsable(usuario);
 
 		tareaRepository.save(tarea);
+		return true;
 	}
 
 	@Override
