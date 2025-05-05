@@ -150,7 +150,18 @@ public class ProyectoController {
 
 				return "proyectos/proyectoKanban";
 			} else if (proyecto.getMetodologia().equals("Scrum")) {
-				return "proyectos/proyectoScrum";
+				model.addAttribute("tablones", tablonService.ordenarTablones(proyecto.getTablones()));
+				model.addAttribute("tareas", proyecto.getTareas());
+				model.addAttribute("usuario", usuario);
+				model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+
+				// FOTO DE PERFIL DE GOOGLE Y GITHUB
+				model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+				model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+
+				model.addAttribute("paginaActual", "proyecto");
+				
+				return "metodologias/scrum";
 			} else {
 				return "proyectoXP";
 			}
