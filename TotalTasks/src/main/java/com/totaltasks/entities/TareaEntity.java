@@ -50,7 +50,7 @@ public class TareaEntity {
 	@JoinColumn(name = "id_responsable", nullable = false)
 	private UsuarioEntity responsable;
 
-	@OneToMany(mappedBy = "tarea")
+	@OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<NotificacionEntity> notificaciones = new ArrayList<>();
 
 }

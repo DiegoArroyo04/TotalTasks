@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.totaltasks.entities.NotificacionUsuarioEntity;
 import com.totaltasks.repositories.NotificacionUsuarioRepository;
 import com.totaltasks.services.NotificacionUsuarioService;
+import com.totaltasks.services.UsuarioService;
 
 @Service
 public class NotificacionesUsuarioServiceImplementation implements NotificacionUsuarioService {
@@ -18,6 +19,27 @@ public class NotificacionesUsuarioServiceImplementation implements NotificacionU
     @Override
     public List<NotificacionUsuarioEntity> notificacionesNoLeidasPorUserId(Long userId) {
         return notificacionUsuarioRepository.findByDestinatarioIdUsuarioAndVistaFalse(userId);
+    }
+
+    @Override
+    public void actualizarEstadoNoti(Long idUsuarioNoti) {
+        NotificacionUsuarioEntity notificacionUsuarioEntity = notificacionUsuarioRepository.findById(idUsuarioNoti)
+                .orElse(null);
+
+        notificacionUsuarioEntity.setVista(true);
+        notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
+    }
+
+    @Override
+    public void leerTodasLasNotis(Long idUsuario) {
+        List<NotificacionUsuarioEntity> notificacionesNoLeidas = notificacionesNoLeidasPorUserId(idUsuario);
+
+        for (int i = 0; i < notificacionesNoLeidas.size(); i++) {
+            notificacionesNoLeidas.get(i).setVista(true);
+            notificacionUsuarioRepository.save(notificacionesNoLeidas.get(i));
+        }
+
     }
 
 }
