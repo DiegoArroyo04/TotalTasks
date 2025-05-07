@@ -15,6 +15,7 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
+import com.totaltasks.services.NotificacionUsuarioService;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.TablonService;
 import com.totaltasks.services.UsuarioService;
@@ -32,6 +33,9 @@ public class ProyectoController {
 
 	@Autowired
 	private TablonService tablonService;
+
+	@Autowired
+	private NotificacionUsuarioService notificacionUsuarioService;
 
 	@PostMapping("/crearProyectoManualmente")
 	public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
@@ -116,11 +120,14 @@ public class ProyectoController {
 
 		ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(id);
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
-		List<RepoDTO> repositorios = (List<RepoDTO>) session.getAttribute("repositorios");
-
 		if (usuario == null) {
 			return "redirect:/login";
 		}
+
+		List<RepoDTO> repositorios = (List<RepoDTO>) session.getAttribute("repositorios");
+
+		model.addAttribute("notificacionesNoLeidas",
+				notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 
 		if (proyecto == null) {
 			return "redirect:/dashboard";
@@ -134,33 +141,20 @@ public class ProyectoController {
 
 			model.addAttribute("proyecto", proyecto);
 			model.addAttribute("usuario", session.getAttribute("usuario"));
+			model.addAttribute("tablones", tablonService.ordenarTablones(proyecto.getTablones()));
+			model.addAttribute("tareas", proyecto.getTareas());
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+
+			// FOTO DE PERFIL DE GOOGLE Y GITHUB
+			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+
+			model.addAttribute("paginaActual", "proyecto");
 
 			if (proyecto.getMetodologia().equals("Kanban")) {
-
-				model.addAttribute("tablones", tablonService.ordenarTablones(proyecto.getTablones()));
-				model.addAttribute("tareas", proyecto.getTareas());
-				model.addAttribute("usuario", usuario);
-				model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
-
-				// FOTO DE PERFIL DE GOOGLE Y GITHUB
-				model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
-				model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
-
-				model.addAttribute("paginaActual", "proyecto");
-
 				return "proyectos/proyectoKanban";
 			} else if (proyecto.getMetodologia().equals("Scrum")) {
-				model.addAttribute("tablones", tablonService.ordenarTablones(proyecto.getTablones()));
-				model.addAttribute("tareas", proyecto.getTareas());
-				model.addAttribute("usuario", usuario);
-				model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
-
-				// FOTO DE PERFIL DE GOOGLE Y GITHUB
-				model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
-				model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
-
-				model.addAttribute("paginaActual", "proyecto");
-				
 				return "metodologias/scrum";
 			} else {
 				return "proyectoXP";

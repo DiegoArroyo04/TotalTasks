@@ -33,5 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-
 });
+
+function irAProyecto(idProyecto) {
+	window.location.href = "/proyecto/" + idProyecto;
+}

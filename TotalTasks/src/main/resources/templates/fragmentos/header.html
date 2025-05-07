@@ -29,50 +29,83 @@
                     </button>
 
                     <div class="notificacionesModal" id="notificacionesModal">
-                        <ul class="lista-notificaciones">
-                            <li th:if="${notificacionesNoLeidas == null or notificacionesNoLeidas.isEmpty()}"
-                                class="mensaje-vacio">
-                                No tienes notificaciones nuevas.
-                            </li>
+                        <div class="notificacionesRelative">
+                            <ul class="lista-notificaciones">
+                                <li th:if="${notificacionesNoLeidas == null or notificacionesNoLeidas.isEmpty()}"
+                                    class="mensaje-vacio">
+                                    No tienes notificaciones nuevas.
+                                </li>
 
-                            <li th:each="notificacionUsuario  : ${notificacionesNoLeidas}" class="notificacion-item">
-                                <!-- Mostrar nombre del proyecto -->
-                                <strong
-                                    th:text="'Proyecto: ' + ${notificacionUsuario.notificacion.proyecto.nombreProyecto}"></strong>
+                                <li th:each="notificacionUsuario  : ${notificacionesNoLeidas}"
+                                    th:attr="data-id-proyecto=${notificacionUsuario.notificacion.proyecto.idProyecto}, onclick='irAProyecto(' + ${notificacionUsuario.notificacion.proyecto.idProyecto} + ')'"
+                                    class="notificacion-item">
+                                    <!-- Mostrar nombre del proyecto -->
+                                    <strong
+                                        th:text="'Proyecto: ' + ${notificacionUsuario.notificacion.proyecto.nombreProyecto}"></strong>
 
-                                <!-- Mostrar según el tipo de notificación -->
-                                <div th:switch="${notificacionUsuario.notificacion.tipo}">
+                                    <!-- Mostrar según el tipo de notificación -->
+                                    <div th:switch="${notificacionUsuario.notificacion.tipo}">
 
-                                    <!-- Modificación por administrador -->
-                                    <div th:case="'ADMIN_MODIFICACION'">
-                                        <p><strong>Modificación del proyecto</strong></p>
-                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                                        <!-- Modificación por administrador -->
+                                        <div th:case="'ADMIN_MODIFICACION'">
+                                            <p><strong>Modificación del proyecto</strong></p>
+                                            <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
 
+                                        </div>
+
+                                        <!-- Asignación de tarea -->
+                                        <div th:case="'TAREA_ASIGNADA'">
+                                            <p><strong>Nueva tarea asignada:</strong></p>
+                                            <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                                        </div>
+
+                                        <!-- Notificación programada -->
+                                        <div th:case="'RECORDATORIO_FECHA'">
+                                            <p><strong>Recordatorio tarea apunto de finalizar:</strong></p>
+                                            <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+
+                                        </div>
+
+                                        <!-- Por defecto -->
+                                        <div th:case="*">
+                                            <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                                        </div>
                                     </div>
-
-                                    <!-- Asignación de tarea -->
-                                    <div th:case="'TAREA_ASIGNADA'">
-                                        <p><strong>Nueva tarea asignada:</strong></p>
-                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                                    <div class="leerFecha">
+                                        <span class="fecha"
+                                            th:text="${#dates.format(notificacionUsuario.notificacion.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
+                                        </span>
+                                        <form th:action="@{/leerNotificacion}" method="post">
+                                            <input type="hidden" name="idUsuarioNoti"
+                                                th:value="${notificacionUsuario.idNotificacionUsuario}" />
+                                            <button class="descartarBtn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    fill="currentColor" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M13.485 1.929a1 1 0 0 1 1.414 1.414l-8.243 8.243a1 1 0 0 1-1.414 0L1.1 7.929a1 1 0 1 1 1.414-1.414l3.314 3.314 7.657-7.657z" />
+                                                </svg>
+                                            </button>
+                                        </form>
                                     </div>
+                                </li>
+                            </ul>
+                            <div class="descartarTodo"
+                                th:if="${notificacionesNoLeidas != null and !notificacionesNoLeidas.empty}">
+                                <form th:action="@{/leerTodasLasNotis}" method="post" class="hiddenForm">
+                                    <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}" />
+                                    <button class="descartarTodoBtn">
+                                        <span>Descartar todo</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            fill="currentColor" viewBox="0 0 16 16">
+                                            <path
+                                                d="M13.485 1.929a1 1 0 0 1 1.414 1.414l-8.243 8.243a1 1 0 0 1-1.414 0L1.1 7.929a1 1 0 1 1 1.414-1.414l3.314 3.314 7.657-7.657z" />
+                                        </svg>
+                                    </button>
+                                </form>
 
-                                    <!-- Notificación programada -->
-                                    <div th:case="'RECORDATORIO_FECHA'">
-                                        <p><strong>Recordatorio tarea apunto de finalizar:</strong></p>
-                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+                            </div>
+                        </div>
 
-                                    </div>
-
-                                    <!-- Por defecto -->
-                                    <div th:case="*">
-                                        <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
-                                    </div>
-                                </div>
-
-                                <span class="fecha"
-                                    th:text="${#dates.format(notificacionUsuario.notificacion.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></span>
-                            </li>
-                        </ul>
                     </div>
                 </li>
 

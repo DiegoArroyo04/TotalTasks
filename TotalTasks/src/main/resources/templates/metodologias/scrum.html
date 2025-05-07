@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org/" lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrum Board Todo Visible</title>
-    <link rel="stylesheet" href="/css/metodologias/scrum.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Scrum Board Todo Visible</title>
+	<link rel="stylesheet" href="/css/metodologias/scrum.css">
 </head>
+
 <body>
 
-    <!-- Header -->
+	<!-- Header -->
 	<div th:insert="~{fragmentos/header :: header}"></div>
 
 	<main class="scrum-content">
@@ -24,17 +26,17 @@
 			</form>
 			<ul id="backlog-list"></ul>
 		</section>
-	
+
 		<!-- Tablero Kanban -->
 		<div th:insert="~{fragmentos/kanban :: kanban}"></div>
-	
+
 		<!-- SPRINT BACKLOG -->
 		<section id="sprint-backlog" class="panel">
 			<h2>Sprint Backlog</h2>
 			<p>Arrastra las historias aquí desde el Product Backlog</p>
 			<ul id="sprint-list"></ul>
 		</section>
-	
+
 		<!-- SCRUM BOARD -->
 		<section id="scrum-board" class="panel">
 			<h2>Scrum Board</h2>
@@ -53,20 +55,20 @@
 				</div>
 			</div>
 		</section>
-	
+
 		<!-- RETROSPECTIVE -->
 		<section id="retrospective" class="panel">
 			<h2>Retrospective</h2>
 			<form id="retro-form">
 				<label for="retro-task">Tarea relacionada:</label>
 				<select id="retro-task"></select>
-	
+
 				<label for="retro-author">Autor:</label>
 				<input type="text" id="retro-author" placeholder="Tu nombre" required>
-	
+
 				<label for="retro-comment">Comentario:</label>
 				<textarea id="retro-comment" placeholder="Comentario" required></textarea>
-	
+
 				<button type="submit">Añadir Comentario</button>
 			</form>
 			<ul id="retro-list"></ul>
@@ -77,6 +79,7 @@
 	<!-- Footer -->
 	<footer th:insert="~{fragmentos/footer :: footer}"></footer>
 
-    <script src="/js/metodologias/scrum.js"></script>
+	<script src="/js/metodologias/scrum.js"></script>
 </body>
+
 </html>

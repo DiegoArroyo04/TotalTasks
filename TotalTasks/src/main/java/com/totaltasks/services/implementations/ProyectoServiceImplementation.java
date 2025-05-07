@@ -11,6 +11,7 @@ import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
 import com.totaltasks.models.TablonDTO;
+import com.totaltasks.repositories.NotificacionUsuarioRepository;
 import com.totaltasks.repositories.ProyectoRepository;
 import com.totaltasks.repositories.TablonRepository;
 import com.totaltasks.repositories.TareaRepository;
@@ -38,6 +39,9 @@ public class ProyectoServiceImplementation implements ProyectoService {
 
 	@Autowired
 	private UsuarioProyectoRepository usuarioProyectoRepository;
+
+	@Autowired
+	private NotificacionUsuarioRepository notificacionUsuarioRepository;
 
 	@Autowired
 	private TablonService tablonService;
@@ -145,6 +149,7 @@ public class ProyectoServiceImplementation implements ProyectoService {
 		if (abandonar == true) {
 			usuarioProyectoRepository.deleteAllByProyecto(proyecto);
 		} else {
+			notificacionUsuarioRepository.deleteAllByProyectoId(proyecto.getIdProyecto());
 			tareaRepository.deleteAllByProyecto(proyecto);
 			tablonRepository.deleteAllByProyecto(proyecto);
 			usuarioProyectoRepository.deleteAllByProyecto(proyecto);
