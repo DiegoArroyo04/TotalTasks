@@ -11,64 +11,68 @@
     <!-- Header -->
 	<div th:insert="~{fragmentos/header :: header}"></div>
 
-	<!-- Tablero Kanban -->
-	<main th:insert="~{fragmentos/kanban :: kanban}"></main>
+	<main class="scrum-content">
 
-    <!-- PRODUCT BACKLOG -->
-    <section id="product-backlog" class="panel">
-        <h2>Product Backlog</h2>
-        <form id="task-form">
-            <input type="text" id="task-title" placeholder="Título de la historia" required>
-            <textarea id="task-desc" placeholder="Descripción"></textarea>
-            <input type="number" id="task-points" placeholder="Story Points" min="1" max="21">
-            <button type="submit">Añadir Historia</button>
-        </form>
-        <ul id="backlog-list"></ul>
-    </section>
+		<!-- PRODUCT BACKLOG -->
+		<section id="product-backlog" class="panel">
+			<h2>Product Backlog</h2>
+			<form id="task-form">
+				<input type="text" id="task-title" placeholder="Título de la historia" required>
+				<textarea id="task-desc" placeholder="Descripción"></textarea>
+				<input type="number" id="task-points" placeholder="Story Points" min="1" max="21">
+				<button type="submit">Añadir Historia</button>
+			</form>
+			<ul id="backlog-list"></ul>
+		</section>
+	
+		<!-- Tablero Kanban -->
+		<div th:insert="~{fragmentos/kanban :: kanban}"></div>
+	
+		<!-- SPRINT BACKLOG -->
+		<section id="sprint-backlog" class="panel">
+			<h2>Sprint Backlog</h2>
+			<p>Arrastra las historias aquí desde el Product Backlog</p>
+			<ul id="sprint-list"></ul>
+		</section>
+	
+		<!-- SCRUM BOARD -->
+		<section id="scrum-board" class="panel">
+			<h2>Scrum Board</h2>
+			<div class="board">
+				<div class="column" data-status="todo">
+					<h3>To Do</h3>
+					<ul class="task-list" id="todo-list"></ul>
+				</div>
+				<div class="column" data-status="in-progress">
+					<h3>In Progress</h3>
+					<ul class="task-list" id="inprogress-list"></ul>
+				</div>
+				<div class="column" data-status="done">
+					<h3>Done</h3>
+					<ul class="task-list" id="done-list"></ul>
+				</div>
+			</div>
+		</section>
+	
+		<!-- RETROSPECTIVE -->
+		<section id="retrospective" class="panel">
+			<h2>Retrospective</h2>
+			<form id="retro-form">
+				<label for="retro-task">Tarea relacionada:</label>
+				<select id="retro-task"></select>
+	
+				<label for="retro-author">Autor:</label>
+				<input type="text" id="retro-author" placeholder="Tu nombre" required>
+	
+				<label for="retro-comment">Comentario:</label>
+				<textarea id="retro-comment" placeholder="Comentario" required></textarea>
+	
+				<button type="submit">Añadir Comentario</button>
+			</form>
+			<ul id="retro-list"></ul>
+		</section>
 
-    <!-- SPRINT BACKLOG -->
-    <section id="sprint-backlog" class="panel">
-        <h2>Sprint Backlog</h2>
-        <p>Arrastra las historias aquí desde el Product Backlog</p>
-        <ul id="sprint-list"></ul>
-    </section>
-
-    <!-- SCRUM BOARD -->
-    <section id="scrum-board" class="panel">
-        <h2>Scrum Board</h2>
-        <div class="board">
-            <div class="column" data-status="todo">
-                <h3>To Do</h3>
-                <ul class="task-list" id="todo-list"></ul>
-            </div>
-            <div class="column" data-status="in-progress">
-                <h3>In Progress</h3>
-                <ul class="task-list" id="inprogress-list"></ul>
-            </div>
-            <div class="column" data-status="done">
-                <h3>Done</h3>
-                <ul class="task-list" id="done-list"></ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- RETROSPECTIVE -->
-    <section id="retrospective" class="panel">
-        <h2>Retrospective</h2>
-        <form id="retro-form">
-            <label for="retro-task">Tarea relacionada:</label>
-            <select id="retro-task"></select>
-
-            <label for="retro-author">Autor:</label>
-            <input type="text" id="retro-author" placeholder="Tu nombre" required>
-
-            <label for="retro-comment">Comentario:</label>
-            <textarea id="retro-comment" placeholder="Comentario" required></textarea>
-
-            <button type="submit">Añadir Comentario</button>
-        </form>
-        <ul id="retro-list"></ul>
-    </section>
+	</main>
 
 	<!-- Footer -->
 	<footer th:insert="~{fragmentos/footer :: footer}"></footer>
