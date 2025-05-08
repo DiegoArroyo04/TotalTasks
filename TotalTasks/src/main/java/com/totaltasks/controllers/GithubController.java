@@ -88,7 +88,7 @@ public class GithubController {
 	}
 
 	// Metodo para actualizar archivo
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes"})
 	@PostMapping("/actualizarArchivo")
 	public ResponseEntity<String> actualizarArchivo(@RequestParam String accessToken, @RequestParam String owner, @RequestParam String repoName,
 	@RequestParam String filePath, @RequestParam String nuevoContenido, @RequestParam String commitMessage) {
@@ -133,7 +133,7 @@ public class GithubController {
 	}
 
 	// Metodo para extraer commits
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes"})
 	@GetMapping("/extraerCommits")
 	public ResponseEntity<String> extraerCommits(@RequestParam String accessToken, @RequestParam String owner, @RequestParam String repoName) {
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.entities.TareaEntity;
-import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.TablonDTO;
 import com.totaltasks.models.UsuarioProyectoDTO;

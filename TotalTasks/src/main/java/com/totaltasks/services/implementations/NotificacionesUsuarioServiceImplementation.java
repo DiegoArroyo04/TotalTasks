@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.totaltasks.entities.NotificacionUsuarioEntity;
 import com.totaltasks.repositories.NotificacionUsuarioRepository;
 import com.totaltasks.services.NotificacionUsuarioService;
-import com.totaltasks.services.UsuarioService;
 
 @Service
 public class NotificacionesUsuarioServiceImplementation implements NotificacionUsuarioService {

@@ -2,8 +2,6 @@ package com.totaltasks.services;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.models.TablonDTO;
