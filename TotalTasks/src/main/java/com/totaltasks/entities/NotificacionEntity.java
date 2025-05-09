@@ -40,7 +40,7 @@ public class NotificacionEntity {
     private ProyectoEntity proyecto;
 
     @ManyToOne
-    @JoinColumn(name = "id_tarea", nullable = false)
+    @JoinColumn(name = "id_tarea", nullable = true)
     private TareaEntity tarea;
 
     @Column(name = "tipo", nullable = false)
