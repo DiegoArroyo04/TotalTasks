@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.totaltasks.services.NotificacionUsuarioService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class NotificacionController {
 
@@ -14,15 +16,20 @@ public class NotificacionController {
     NotificacionUsuarioService notificacionUsuarioService;
 
     @PostMapping("/leerNotificacion")
-    public String leerNotificacion(@RequestParam Long idUsuarioNoti) {
+    public String leerNotificacion(@RequestParam Long idUsuarioNoti, HttpServletRequest request) {
         notificacionUsuarioService.actualizarEstadoNoti(idUsuarioNoti);
-        return "redirect:/dashboard";
+        // REDIRECCION A LA ULTIMA RUTA DISPONIBLE
+        String referer = request.getHeader("Referer");
+        return "redirect:" + (referer != null ? referer : "/dashboard");
     }
 
     @PostMapping("/leerTodasLasNotis")
-    public String leerTodasLasNotis(@RequestParam Long idUsuario) {
+    public String leerTodasLasNotis(@RequestParam Long idUsuario, HttpServletRequest request) {
         notificacionUsuarioService.leerTodasLasNotis(idUsuario);
-        return "redirect:/dashboard";
+        // REDIRECCION A LA ULTIMA RUTA DISPONIBLE
+        String referer = request.getHeader("Referer");
+        return "redirect:" + (referer != null ? referer : "/dashboard");
+
     }
 
 }

@@ -82,13 +82,13 @@ public class ProyectoServiceImplementation implements ProyectoService {
 			TablonDTO tablonEnCurso = new TablonDTO("En Curso", 2, proyectoEntity);
 			TablonDTO tablonHecho = new TablonDTO("Hecho", 3, proyectoEntity);
 
-			tablonService.crearTablon(tablonPorHacer);
-			tablonService.crearTablon(tablonEnCurso);
-			tablonService.crearTablon(tablonHecho);
+			tablonService.crearTablon(tablonPorHacer, null);
+			tablonService.crearTablon(tablonEnCurso, null);
+			tablonService.crearTablon(tablonHecho, null);
 		} else if (proyectoEntity.getMetodologia().equals("Scrum")) {
 			TablonDTO tablonBacklog = new TablonDTO("Backlog", 2, proyectoEntity);
 
-			tablonService.crearTablon(tablonBacklog);
+			tablonService.crearTablon(tablonBacklog, null);
 		}
 	}
 

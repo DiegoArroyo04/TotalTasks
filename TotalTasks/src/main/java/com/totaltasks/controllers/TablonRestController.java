@@ -3,6 +3,7 @@ package com.totaltasks.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.totaltasks.entities.ProyectoEntity;
+import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.TablonDTO;
 import com.totaltasks.models.UsuarioProyectoDTO;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.TablonService;
+
+import jakarta.servlet.http.HttpSession;
 
 // TablonRestController.java
 @RestController
@@ -26,8 +30,16 @@ public class TablonRestController {
 	private ProyectoService proyectoService;
 
 	@PostMapping("/actualizarOrdenTablones")
-	public String actualizarOrden(@RequestBody List<TablonDTO> ordenes) {
-		return tablonService.actualizarOrdenTablones(ordenes);
+	public String actualizarOrden(@RequestBody List<TablonDTO> ordenes, HttpSession session) {
+
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		if (usuario != null) {
+			return tablonService.actualizarOrdenTablones(ordenes, usuario);
+		} else {
+			return tablonService.actualizarOrdenTablones(ordenes, null);
+		}
+
 	}
 
 	@PostMapping("/eliminarTablon")
@@ -41,10 +53,19 @@ public class TablonRestController {
 	}
 
 	@PostMapping("/crearTablon")
-	public String crearTablon(@RequestBody TablonDTO tablon) {
+	public String crearTablon(@RequestBody TablonDTO tablon, HttpSession session) {
 		tablon.setProyecto(proyectoService.obtenerProyectoPorId(tablon.getId_proyecto()));
 
-		Long respuesta = tablonService.crearTablon(tablon);
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		Long respuesta;
+
+		if (usuario != null) {
+			respuesta = tablonService.crearTablon(tablon, usuario);
+		} else {
+			respuesta = tablonService.crearTablon(tablon, null);
+		}
+
 		if (respuesta == null) {
 			return "Duplicado";
 		} else {

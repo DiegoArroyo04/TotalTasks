@@ -79,7 +79,24 @@
 	transition: color 0.3s ease;
 	width: 24px;
 	height: 100%;
+	position: relative;
+	display: inline-block;
 }
+
+.contador-notis {
+	position: absolute;
+	bottom: -5px;
+	right: -5px;
+	background-color: red;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 2px 5px;
+	border-radius: 50%;
+	min-width: 18px;
+	text-align: center;
+}
+
 
 .notificaciones:hover svg {
 	color: var(--color-primario-hover);
