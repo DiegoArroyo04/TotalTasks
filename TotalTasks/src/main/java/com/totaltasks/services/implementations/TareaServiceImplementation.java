@@ -82,7 +82,23 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionRepository.save(notificacionEntity);
 		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
 
+		// CREAR NOTIFICACION PARA EL USUARIO QUE SE LE HA ASIGNADO LA TAREA
+		NotificacionEntity notificacionUser = new NotificacionEntity();
+		notificacionUser.setProyecto(proyecto);
+		notificacionUser.setTarea(tarea);
+		notificacionUser.setTipo("TAREA_ASIGNADA");
+		notificacionUser.setMensaje(
+				"Se te ha asignado la tarea " + tarea.getTitulo());
+
+		NotificacionUsuarioEntity notificacionUsuarioUser = new NotificacionUsuarioEntity();
+		notificacionUsuarioUser.setNotificacion(notificacionUser);
+		notificacionUsuarioUser.setDestinatario(tarea.getResponsable());
+
+		notificacionRepository.save(notificacionUser);
+		notificacionUsuarioRepository.save(notificacionUsuarioUser);
+
 		return true;
+
 	}
 
 	@Override
@@ -157,7 +173,7 @@ public class TareaServiceImplementation implements TareaService {
 		NotificacionEntity notificacionEntity = new NotificacionEntity();
 		notificacionEntity.setProyecto(tarea.getProyecto());
 		notificacionEntity.setTarea(tarea);
-		notificacionEntity.setTipo("ADMIN_MODIFICACION");
+		notificacionEntity.setTipo("RECORDATORIO_FECHA");
 		notificacionEntity.setMensaje(
 				"El usuario " + tarea.getResponsable().getNombre() + " tiene pendiente la tarea " + tarea.getTitulo()
 						+ " y finaliza  "

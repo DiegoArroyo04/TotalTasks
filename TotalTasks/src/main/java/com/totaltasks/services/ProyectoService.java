@@ -6,7 +6,6 @@ import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
 import com.totaltasks.entities.ProyectoEntity;
-import com.totaltasks.entities.TareaEntity;
 
 public interface ProyectoService {
 
