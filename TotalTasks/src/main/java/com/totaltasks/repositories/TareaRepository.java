@@ -8,4 +8,5 @@ import com.totaltasks.entities.TareaEntity;
 public interface TareaRepository extends JpaRepository<TareaEntity, Long> {
 
     void deleteAllByProyecto(ProyectoEntity proyecto);
+
 }

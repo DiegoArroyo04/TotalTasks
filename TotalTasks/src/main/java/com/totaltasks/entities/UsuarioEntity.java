@@ -58,7 +58,7 @@ public class UsuarioEntity {
 	@OneToMany(mappedBy = "creador")
 	private List<ProyectoEntity> proyectos;
 
-	@OneToMany(mappedBy = "responsable")
+	@OneToMany(mappedBy = "responsable", fetch = FetchType.EAGER)
 	private List<TareaEntity> tareasAsignadas;
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)

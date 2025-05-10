@@ -1,6 +1,9 @@
 package com.totaltasks.services.implementations;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,6 +112,64 @@ public class TareaServiceImplementation implements TareaService {
 		tareaRepository.save(tareaEntity);
 
 		return "Tarea Modificada";
+	}
+
+	@Override
+	public void verificarTareasProximas(UsuarioEntity usuario) {
+
+		// Obtener la fecha de hoy y la fecha en dos días
+		LocalDate hoy = LocalDate.now();
+		LocalDate fechaLimite = hoy.plusDays(2);
+
+		// Filtrar las tareas que tienen una fecha límite dentro de hoy y dos días
+		List<TareaEntity> tareasProximas = usuario.getTareasAsignadas().stream()
+				.filter(t -> {
+					// Obtener la fecha de límite de la tarea
+					LocalDate fechaTarea = t.getFechaLimite().toLocalDate();
+					// Verificar si la fecha de la tarea está en el rango de hoy y dos días
+					return !fechaTarea.isBefore(hoy) && !fechaTarea.isAfter(fechaLimite);
+				})
+				.collect(Collectors.toList());
+
+		for (TareaEntity tarea : tareasProximas) {
+			crearRecordatorioFecha(tarea);
+		}
+	}
+
+	@Override
+	public void crearRecordatorioFecha(TareaEntity tarea) {
+		// NOTIFICACION PARA RECORDAR QUE TIENE TAREAS A PUNTO DE VENCER
+		NotificacionEntity notificacion = new NotificacionEntity();
+		notificacion.setProyecto(tarea.getProyecto());
+		notificacion.setTarea(tarea);
+		notificacion.setTipo("RECORDATORIO_FECHA");
+		notificacion
+				.setMensaje("La tarea '" + tarea.getTitulo() + "' está próxima a vencer el " + tarea.getFechaLimite());
+
+		NotificacionUsuarioEntity notificacionUsuario = new NotificacionUsuarioEntity();
+		notificacionUsuario.setNotificacion(notificacion);
+		notificacionUsuario.setDestinatario(tarea.getResponsable());
+
+		notificacionRepository.save(notificacion);
+		notificacionUsuarioRepository.save(notificacionUsuario);
+
+		// CREAR NOTIFICACION PARA EL ADMINISTRADOR
+		NotificacionEntity notificacionEntity = new NotificacionEntity();
+		notificacionEntity.setProyecto(tarea.getProyecto());
+		notificacionEntity.setTarea(tarea);
+		notificacionEntity.setTipo("ADMIN_MODIFICACION");
+		notificacionEntity.setMensaje(
+				"El usuario " + tarea.getResponsable().getNombre() + " tiene pendiente la tarea " + tarea.getTitulo()
+						+ " y finaliza  "
+						+ tarea.getFechaLimite());
+
+		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+		notificacionUsuarioEntity.setDestinatario(tarea.getProyecto().getCreador());
+
+		notificacionRepository.save(notificacionEntity);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
 	}
 
 }

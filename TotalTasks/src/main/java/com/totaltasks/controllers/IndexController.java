@@ -15,6 +15,7 @@ import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.repositories.UsuarioProyectoRepository;
 import com.totaltasks.services.NotificacionUsuarioService;
 import com.totaltasks.services.ProyectoService;
+
 import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -76,11 +77,13 @@ public class IndexController {
 
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, Model model) {
+
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
 		if (usuario == null) {
 			return "redirect:/login";
 		} else {
+
 			model.addAttribute("usuario", usuario);
 			model.addAttribute("notificacionesNoLeidas",
 					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
