@@ -237,6 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	initSortable();
 
 	function initSortableCol() {
+		let ordenInicial = [];
+
 		new Sortable(tableros, {
 			animation: 150,
 			handle: "div", // para arrastrar desde el título
@@ -244,8 +246,19 @@ document.addEventListener("DOMContentLoaded", () => {
 			onStart: function (evt) {
 				columnaArrastrada = evt.item;
 				botonEliminarColumna.style.display = "block";
+
+				// Guardar el orden actual
+				ordenInicial = Array.from(tableros.children).map(col => col.getAttribute("data-id"));
 			},
 			onEnd: function (evt) {
+
+				// COMPROBAR QUE EL ORDEN DE LOS TABLONES A CAMBIADO
+				const nuevoOrden = Array.from(tableros.children).map(col => col.getAttribute("data-id"));
+				const haCambiado = ordenInicial.some((id, index) => id !== nuevoOrden[index]);
+				if (haCambiado) {
+					actualizarOrdenTablones();
+				}
+
 				const papelera = botonEliminarColumna.getBoundingClientRect();
 				const mouseX = evt.originalEvent.clientX;
 				const mouseY = evt.originalEvent.clientY;
@@ -288,7 +301,6 @@ document.addEventListener("DOMContentLoaded", () => {
 					columnaArrastrada = null;
 				}, 200);
 
-				actualizarOrdenTablones();
 			},
 		});
 	}
@@ -440,6 +452,7 @@ function cerrarModalError() {
 function actualizarOrdenTablones() {
 	const columnas = document.querySelectorAll(".columna");
 	const ordenActualizado = [];
+
 
 	columnas.forEach((columna, i) => {
 		const idTablon = columna.getAttribute("data-id");
