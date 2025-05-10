@@ -107,6 +107,21 @@ CREATE TABLE product_backlog (
     CONSTRAINT fk_backlog_usuario FOREIGN KEY (id_creador) REFERENCES usuario(id_usuario)
 );
 
+-- Creación de la tabla Sprint
+CREATE TABLE sprint (
+    id_sprint BIGINT AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_proyecto BIGINT NOT NULL,
+    id_responsable BIGINT NOT NULL,
+    estado VARCHAR(50) DEFAULT 'pendiente', -- Por ejemplo: 'pendiente', 'en_progreso', 'finalizado'
+    CONSTRAINT pk_sprint PRIMARY KEY (id_sprint),
+    CONSTRAINT fk_sprint_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
+    CONSTRAINT fk_sprint_responsable FOREIGN KEY (id_responsable) REFERENCES usuario(id_usuario)
+);
+
+
 
 
 -- Inserción de proyectos
@@ -142,6 +157,7 @@ SELECT * FROM USUARIO_PROYECTO;
 SELECT * FROM TAREA;
 SELECT * FROM TABLON;
 SELECT * FROM PRODUCT_BACKLOG;
+SELECT * FROM SPRINT;
 
 
 -- Sript destructivo
