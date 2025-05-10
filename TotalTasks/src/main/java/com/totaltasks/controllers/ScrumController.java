@@ -14,15 +14,32 @@ import java.io.IOException;
 @RestController
 public class ScrumController {
 
-
-    @Autowired
+	@Autowired
 	private ScrumService scrumService;
 
-    @PostMapping("/scrum/agregarHistoria")
-    public void agregarHistoria(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam Integer storyPoints, @RequestParam Long idProyecto,
-    @RequestParam Long idUsuario, HttpServletResponse response) throws IOException {
-        ProductBacklogDTO backlogDTO = new ProductBacklogDTO(titulo, descripcion, storyPoints, idProyecto, idUsuario);
-        scrumService.agregarHistoria(backlogDTO);
-        response.sendRedirect("/proyecto/" + idProyecto);
-    }
+	@PostMapping("/scrum/agregarHistoria")
+	public void agregarHistoria(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam Integer storyPoints, @RequestParam Long idProyecto,
+	@RequestParam Long idUsuario, HttpServletResponse response) throws IOException {
+		ProductBacklogDTO backlogDTO = new ProductBacklogDTO(titulo, descripcion, storyPoints, idProyecto, idUsuario);
+		scrumService.agregarHistoria(backlogDTO);
+		response.sendRedirect("/proyecto/" + idProyecto);
+	}
+
+	@PostMapping("/scrum/moverAtrasado")
+	public String moverHistoriaASprint(@RequestParam Long idBacklog, @RequestParam Long idProyecto, @RequestParam Long idResponsable) {
+		scrumService.moverHistoriaASprint(idBacklog, idProyecto, idResponsable);
+		return "Historia movida a Sprint";
+	}
+
+	@PostMapping("/scrum/moverDeSprintABacklog")
+	public String moverHistoriaDeSprintABacklog(@RequestParam Long idSprint, @RequestParam Long idProyecto, @RequestParam Long idResponsable) {
+		scrumService.moverHistoriaDeSprintABacklog(idSprint, idProyecto, idResponsable);
+		return "Historia movida de Sprint al Product Backlog";
+	}
+
+	@PostMapping("/scrum/comenzarSprint")
+	public String comenzarSprint(@RequestParam Long idProyecto) {
+		//scrumService.comenzarSprint(idProyecto);
+		return "Sprint iniciado";
+	}
 }

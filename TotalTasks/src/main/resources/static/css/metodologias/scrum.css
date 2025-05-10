@@ -69,7 +69,8 @@ button[type="submit"]:hover {
 	margin-top: 1rem;
 }
 
-.tablon-pb th, .tablon-pb td {
+.tablon-pb th,
+.tablon-pb td {
 	border: 1px solid #ddd;
 	padding: 8px;
 }

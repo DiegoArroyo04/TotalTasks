@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.totaltasks.entities.ProductBacklogEntity;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
@@ -153,6 +152,9 @@ public class ProyectoController {
 
 			// obtener solo las historias de este proyecto
 			model.addAttribute("historias", scrumService.historiasDelProyecto(proyecto.getIdProyecto()));
+
+			model.addAttribute("sprint", scrumService.historiasDelSprint(id));
+
 
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));

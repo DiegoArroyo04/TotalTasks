@@ -49,7 +49,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="historia : ${historias}">
+						<!-- Aquí agregamos los atributos data-* -->
+						<tr th:each="historia : ${historias}"
+							th:attr="data-id=${historia.idBacklog}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.creador.idUsuario}">
 							<td th:text="${historia.idBacklog}">1</td>
 							<td th:text="${historia.titulo}">Título historia</td>
 							<td th:text="${historia.descripcion}">Descripción historia</td>
@@ -59,7 +61,32 @@
 					</tbody>
 				</table>
 			</div>
+		</section>
 
+		<!-- SPRINT -->
+		<section id="sprint" class="panel">
+			<h2>Sprint</h2>
+			<button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}" onclick="comenzarSprint()">Comenzar Sprint</button>
+			<table id="sprint-table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Título</th>
+						<th>Descripción</th>
+						<th>Responsable</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Aquí también agregamos los atributos data-* para cada historia en el Sprint -->
+					<tr th:each="historia : ${sprint}"
+						th:attr="data-id=${historia.idSprint}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.responsable.idUsuario}">
+						<td th:text="${historia.idSprint}">1</td>
+						<td th:text="${historia.titulo}">Título historia</td>
+						<td th:text="${historia.descripcion}">Descripción historia</td>
+						<td th:text="${historia.responsable.nombre}">Responsable</td>
+					</tr>
+				</tbody>
+			</table>
 		</section>
 
 	</main>
@@ -67,6 +94,8 @@
 	<!-- Footer -->
 	<footer th:insert="~{fragmentos/footer :: footer}"></footer>
 
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 	<script src="/js/metodologias/scrum.js"></script>
 </body>
 
