@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.totaltasks.entities.ProductBacklogEntity;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
 import com.totaltasks.services.NotificacionUsuarioService;
 import com.totaltasks.services.ProyectoService;
+import com.totaltasks.services.ScrumService;
 import com.totaltasks.services.TablonService;
 import com.totaltasks.services.UsuarioService;
 
@@ -36,6 +38,9 @@ public class ProyectoController {
 
 	@Autowired
 	private NotificacionUsuarioService notificacionUsuarioService;
+
+	@Autowired
+	private ScrumService scrumService;
 
 	@PostMapping("/crearProyectoManualmente")
 	public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
@@ -145,6 +150,9 @@ public class ProyectoController {
 			model.addAttribute("tareas", proyecto.getTareas());
 			model.addAttribute("usuario", usuario);
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+
+			// obtener solo las historias de este proyecto
+			model.addAttribute("historias", scrumService.historiasDelProyecto(proyecto.getIdProyecto()));
 
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));

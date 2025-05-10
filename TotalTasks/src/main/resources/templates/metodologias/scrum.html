@@ -17,61 +17,49 @@
 
 		<!-- PRODUCT BACKLOG -->
 		<section id="product-backlog" class="panel">
-			<h2>Product Backlog</h2>
-			<form id="task-form">
-				<input type="text" id="task-title" placeholder="Título de la historia" required>
-				<textarea id="task-desc" placeholder="Descripción"></textarea>
-				<input type="number" id="task-points" placeholder="Story Points" min="1" max="21">
-				<button type="submit">Añadir Historia</button>
-			</form>
-			<ul id="backlog-list"></ul>
-		</section>
+			<div class="formulario-pb">
+				<h2>Product Backlog</h2>
+				<form id="task-form" method="post" action="/scrum/agregarHistoria">
+					<label for="task-title">Título de la historia</label>
+					<input type="text" id="task-title" name="titulo" placeholder="Título de la historia" required>
 
-		<!-- Tablero Kanban -->
-		<div th:insert="~{fragmentos/kanban :: kanban}"></div>
+					<label for="task-desc">Descripción</label>
+					<textarea id="task-desc" name="descripcion" placeholder="Descripción"></textarea>
 
-		<!-- SPRINT BACKLOG -->
-		<section id="sprint-backlog" class="panel">
-			<h2>Sprint Backlog</h2>
-			<p>Arrastra las historias aquí desde el Product Backlog</p>
-			<ul id="sprint-list"></ul>
-		</section>
+					<label for="task-points">Story Points</label>
+					<input type="number" id="task-points" name="storyPoints" placeholder="Story Points" min="1" max="21" required>
 
-		<!-- SCRUM BOARD -->
-		<section id="scrum-board" class="panel">
-			<h2>Scrum Board</h2>
-			<div class="board">
-				<div class="column" data-status="todo">
-					<h3>To Do</h3>
-					<ul class="task-list" id="todo-list"></ul>
-				</div>
-				<div class="column" data-status="in-progress">
-					<h3>In Progress</h3>
-					<ul class="task-list" id="inprogress-list"></ul>
-				</div>
-				<div class="column" data-status="done">
-					<h3>Done</h3>
-					<ul class="task-list" id="done-list"></ul>
-				</div>
+					<!-- Inputs ocultos para idUsuario y idProyecto -->
+					<input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}">
+					<input type="hidden" name="idProyecto" th:value="${proyecto.idProyecto}">
+
+					<button type="submit">Añadir Historia</button>
+				</form>
 			</div>
-		</section>
+			<div class="tablon-pb">
+				<h2>Product Backlog</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Título</th>
+							<th>Descripción</th>
+							<th>Story Points</th>
+							<th>Responsable</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="historia : ${historias}">
+							<td th:text="${historia.idBacklog}">1</td>
+							<td th:text="${historia.titulo}">Título historia</td>
+							<td th:text="${historia.descripcion}">Descripción historia</td>
+							<td><span class="badge" th:text="${historia.storyPoints}">5</span></td>
+							<td th:text="${historia.creador.nombre}">Usuario</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-		<!-- RETROSPECTIVE -->
-		<section id="retrospective" class="panel">
-			<h2>Retrospective</h2>
-			<form id="retro-form">
-				<label for="retro-task">Tarea relacionada:</label>
-				<select id="retro-task"></select>
-
-				<label for="retro-author">Autor:</label>
-				<input type="text" id="retro-author" placeholder="Tu nombre" required>
-
-				<label for="retro-comment">Comentario:</label>
-				<textarea id="retro-comment" placeholder="Comentario" required></textarea>
-
-				<button type="submit">Añadir Comentario</button>
-			</form>
-			<ul id="retro-list"></ul>
 		</section>
 
 	</main>
