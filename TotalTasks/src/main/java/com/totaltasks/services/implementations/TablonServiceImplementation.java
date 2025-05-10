@@ -137,7 +137,7 @@ public class TablonServiceImplementation implements TablonService {
 
 	@Transactional
 	@Override
-	public String eliminarTablon(ProyectoEntity proyecto, String nombreTablon) {
+	public String eliminarTablon(ProyectoEntity proyecto, String nombreTablon, UsuarioEntity usuario) {
 
 		// Primero: encontrar el tablon
 		TablonEntity tablon = tablonRepository.findByNombreTablonAndProyecto(nombreTablon, proyecto);
@@ -167,6 +167,24 @@ public class TablonServiceImplementation implements TablonService {
 		// Cuarto: eliminar el tablon
 		tablonRepository.delete(tablonOpt.get());
 		tablonRepository.flush(); // sincronizamos ahora con la base de datos
+
+		// SI EXISTE EL USUARIO QUE ELIMINO EL TABLON PUES CREAMOS NOTIFICACION
+		if (usuario != null) {
+			// CREAR NOTIFICACION PARA EL ADMINISTRADOR
+			NotificacionEntity notificacionEntity = new NotificacionEntity();
+			notificacionEntity.setProyecto(tablon.getProyecto());
+			notificacionEntity.setTipo("ADMIN_MODIFICACION");
+			notificacionEntity.setMensaje(
+					"El usuario " + usuario.getNombre() + " ha eliminado el tablon  "
+							+ nombreTablon);
+
+			NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+			notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+			notificacionUsuarioEntity.setDestinatario(proyecto.getCreador());
+
+			notificacionRepository.save(notificacionEntity);
+			notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+		}
 
 		return "Tablón eliminado exitosamente";
 	}
@@ -207,7 +225,7 @@ public class TablonServiceImplementation implements TablonService {
 	}
 
 	@Override
-	public boolean actualizarNombreTablon(Long idTablon, String nuevoNombre) {
+	public boolean actualizarNombreTablon(Long idTablon, String nuevoNombre, UsuarioEntity usuario) {
 
 		Optional<TablonEntity> optionalTablon = tablonRepository.findById(idTablon);
 
@@ -223,10 +241,30 @@ public class TablonServiceImplementation implements TablonService {
 				return false; // Ya existe otro tablón con ese nombre → no actualizamos
 			}
 
+			// SI EXISTE EL USUARIO QUE ACTUALIZO EL NOMBRE AL TABLON PUES CREAMOS
+			// NOTIFICACION
+			if (usuario != null) {
+				// CREAR NOTIFICACION PARA EL ADMINISTRADOR
+				NotificacionEntity notificacionEntity = new NotificacionEntity();
+				notificacionEntity.setProyecto(tablon.getProyecto());
+				notificacionEntity.setTipo("ADMIN_MODIFICACION");
+				notificacionEntity.setMensaje(
+						"El usuario " + usuario.getNombre() + " ha actualizado el tablon  "
+								+ tablon.getNombreTablon() + " a " + nuevoNombre);
+
+				NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+				notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+				notificacionUsuarioEntity.setDestinatario(tablon.getProyecto().getCreador());
+
+				notificacionRepository.save(notificacionEntity);
+				notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+			}
+
 			// No existe actualizamos
 			tablon.setNombreTablon(nuevoNombre);
 			tablonRepository.save(tablon);
 			return true;
+
 		}
 
 		return false; // Tablón no encontrado

@@ -13,7 +13,10 @@ import jakarta.transaction.Transactional;
 
 public interface NotificacionUsuarioRepository extends JpaRepository<NotificacionUsuarioEntity, Long> {
 
-    List<NotificacionUsuarioEntity> findByDestinatarioIdUsuarioAndVistaFalse(Long idUsuario);
+    // ESTE METODO RETORNA LA LISTA DE NOTIFICACIONES NO LEIDAS POR UN USUARIO
+    // ORDENADAS POR FECHA
+    List<NotificacionUsuarioEntity> findByDestinatarioIdUsuarioAndVistaFalseOrderByNotificacion_FechaCreacionDesc(
+            Long userId);
 
     @Modifying
     @Transactional

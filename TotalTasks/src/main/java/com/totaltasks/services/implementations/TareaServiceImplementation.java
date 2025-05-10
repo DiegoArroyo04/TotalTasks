@@ -83,9 +83,27 @@ public class TareaServiceImplementation implements TareaService {
 	}
 
 	@Override
-	public String modificarEstadoTarea(TareaDTO tareaDTO) {
+	public String modificarEstadoTarea(TareaDTO tareaDTO, UsuarioEntity usuario) {
 
 		TareaEntity tareaEntity = tareaRepository.findById(tareaDTO.getIdTarea()).orElse(null);
+
+		if (usuario != null) {
+			// CREAR NOTIFICACION PARA EL ADMINISTRADOR
+			NotificacionEntity notificacionEntity = new NotificacionEntity();
+			notificacionEntity.setProyecto(tareaEntity.getProyecto());
+			notificacionEntity.setTarea(tareaEntity);
+			notificacionEntity.setTipo("ADMIN_MODIFICACION");
+			notificacionEntity.setMensaje(
+					"El usuario " + usuario.getNombre() + " ha movido la tarea de " + tareaEntity.getEstado() + " a "
+							+ tareaDTO.getEstado());
+
+			NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+			notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+			notificacionUsuarioEntity.setDestinatario(tareaEntity.getProyecto().getCreador());
+
+			notificacionRepository.save(notificacionEntity);
+			notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+		}
 
 		tareaEntity.setEstado(tareaDTO.getEstado());
 		tareaRepository.save(tareaEntity);

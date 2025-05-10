@@ -252,16 +252,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			},
 			onEnd: function (evt) {
 
-				// COMPROBAR QUE EL ORDEN DE LOS TABLONES A CAMBIADO
-				const nuevoOrden = Array.from(tableros.children).map(col => col.getAttribute("data-id"));
-				const haCambiado = ordenInicial.some((id, index) => id !== nuevoOrden[index]);
-				if (haCambiado) {
-					actualizarOrdenTablones();
-				}
-
 				const papelera = botonEliminarColumna.getBoundingClientRect();
 				const mouseX = evt.originalEvent.clientX;
 				const mouseY = evt.originalEvent.clientY;
+				let eliminado = false;
 
 				//VERIFICACION DE QUE EL EVENTO NO SE HA HECHO PARA ELIMINAR EL TABLON ENTERA
 				if (
@@ -273,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					const idProyecto =
 						document.getElementById("idProyecto").value;
 					const estado = columnaArrastrada.getAttribute("data-etapa");
+					eliminado = true;
 
 					$.ajax({
 						url: "/eliminarTablon",
@@ -295,6 +290,14 @@ document.addEventListener("DOMContentLoaded", () => {
 						},
 					});
 				}
+
+				// COMPROBAR QUE EL ORDEN DE LOS TABLONES A CAMBIADO
+				const nuevoOrden = Array.from(tableros.children).map(col => col.getAttribute("data-id"));
+				const haCambiado = ordenInicial.some((id, index) => id !== nuevoOrden[index]);
+				if (haCambiado && eliminado == false) {
+					actualizarOrdenTablones();
+				}
+
 				// Ocultar el botón de eliminar columna siempre que se suelta
 				setTimeout(() => {
 					botonEliminarColumna.style.display = "none";
