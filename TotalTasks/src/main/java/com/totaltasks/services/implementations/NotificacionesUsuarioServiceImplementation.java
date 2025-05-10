@@ -17,7 +17,8 @@ public class NotificacionesUsuarioServiceImplementation implements NotificacionU
 
     @Override
     public List<NotificacionUsuarioEntity> notificacionesNoLeidasPorUserId(Long userId) {
-        return notificacionUsuarioRepository.findByDestinatarioIdUsuarioAndVistaFalse(userId);
+        return notificacionUsuarioRepository
+                .findByDestinatarioIdUsuarioAndVistaFalseOrderByNotificacion_FechaCreacionDesc(userId);
     }
 
     @Override

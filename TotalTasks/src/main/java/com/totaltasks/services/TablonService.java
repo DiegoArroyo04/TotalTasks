@@ -16,11 +16,11 @@ public interface TablonService {
 
 	String actualizarOrdenTablones(List<TablonDTO> tablonOrdenList, UsuarioEntity usuario);
 
-	String eliminarTablon(ProyectoEntity proyecto, String nombreTablon);
+	String eliminarTablon(ProyectoEntity proyecto, String nombreTablon, UsuarioEntity usuario);
 
 	void guardarColores(UsuarioProyectoDTO usuarioProyectoDTO);
 
 	UsuarioProyectoDTO obtenerColores(Long usuarioId, Long proyectoId);
 
-	boolean actualizarNombreTablon(Long idTablon, String nuevoNombre);
+	boolean actualizarNombreTablon(Long idTablon, String nuevoNombre, UsuarioEntity usuario);
 }

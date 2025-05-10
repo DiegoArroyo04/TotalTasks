@@ -43,10 +43,15 @@ public class TablonRestController {
 	}
 
 	@PostMapping("/eliminarTablon")
-	public String eliminarTablon(@RequestBody TablonDTO tablon) {
+	public String eliminarTablon(@RequestBody TablonDTO tablon, HttpSession session) {
 		ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(tablon.getId_proyecto());
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 		if (proyecto != null) {
-			return tablonService.eliminarTablon(proyecto, tablon.getNombreTablon());
+			if (usuario != null) {
+				return tablonService.eliminarTablon(proyecto, tablon.getNombreTablon(), usuario);
+			} else {
+				return tablonService.eliminarTablon(proyecto, tablon.getNombreTablon(), null);
+			}
 		} else {
 			return "Proyecto no encontrado";
 		}
@@ -88,11 +93,19 @@ public class TablonRestController {
 	}
 
 	@PostMapping("/actualizarNombreTablon")
-	public String actualizarNombreTablon(@RequestBody TablonDTO tablonDTO) {
+	public String actualizarNombreTablon(@RequestBody TablonDTO tablonDTO, HttpSession session) {
 		Long id = tablonDTO.getId();
 		String nuevoNombre = tablonDTO.getNombreTablon();
 
-		boolean actualizado = tablonService.actualizarNombreTablon(id, nuevoNombre);
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		boolean actualizado;
+
+		if (usuario != null) {
+			actualizado = tablonService.actualizarNombreTablon(id, nuevoNombre, usuario);
+		} else {
+			actualizado = tablonService.actualizarNombreTablon(id, nuevoNombre, null);
+		}
 
 		if (actualizado) {
 			return "Nombre actualizado correctamente";
