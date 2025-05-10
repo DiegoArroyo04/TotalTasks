@@ -1,11 +1,15 @@
 package com.totaltasks.services.implementations;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.totaltasks.entities.NotificacionEntity;
+import com.totaltasks.entities.NotificacionUsuarioEntity;
 import com.totaltasks.entities.ProyectoEntity;
+import com.totaltasks.entities.TareaEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.ProyectoDTO;

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.RepoDTO;
 import com.totaltasks.models.UsuarioDTO;
+import com.totaltasks.services.TareaService;
 import com.totaltasks.services.UsuarioService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +27,9 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioService usuarioService;
+
+	@Autowired
+	TareaService tareaService;
 
 	@PostMapping("registrar")
 	public String registrarUsuario(@RequestBody UsuarioDTO usuario) {
@@ -40,7 +44,13 @@ public class UsuarioController {
 
 		// Si el usuario fue encontrado se agrega a la sesión
 		if (respuesta.equals("Usuario encontrado. Iniciando sesión...")) {
-			session.setAttribute("usuario", usuarioService.encontrarUsuario(usuario.getEmail()));
+			UsuarioEntity usuarioEntity = usuarioService.encontrarUsuario(usuario.getEmail());
+			session.setAttribute("usuario", usuarioEntity);
+
+			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de
+			// finalizar
+			tareaService.verificarTareasProximas(usuarioEntity);
+
 			session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
 		} else {
 			// Si el usuario fue creado, también lo agregamos a la sesión
@@ -73,7 +83,11 @@ public class UsuarioController {
 		// Registrar o iniciar sesión
 		String respuesta = usuarioService.registrarUsuarioGitHub(usuarioDTO);
 		if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
-			session.setAttribute("usuario", usuarioService.encontrarUsuario(usuarioDTO.getEmail()));
+			UsuarioEntity usuarioEntity = usuarioService.encontrarUsuario(usuarioDTO.getEmail());
+			session.setAttribute("usuario", usuarioEntity);
+			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de
+			// finalizar
+			tareaService.verificarTareasProximas(usuarioEntity);
 		}
 
 		// Obtener la lista de repositorios
@@ -98,6 +112,10 @@ public class UsuarioController {
 
 			// Añadimos el usuario a la sesión
 			session.setAttribute("usuario", usuarioEntity);
+
+			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de
+			// finalizar
+			tareaService.verificarTareasProximas(usuarioEntity);
 
 			return "Encontrado";
 		} else {
