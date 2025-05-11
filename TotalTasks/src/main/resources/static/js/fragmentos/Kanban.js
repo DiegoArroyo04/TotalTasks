@@ -427,6 +427,76 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	});
 
+	//CALENDARIO DE GOOGLE 
+	document.getElementById("googleCalendarBtn")?.addEventListener("click", function () {
+		const titulo = document.querySelector('input[name="titulo"]').value.trim();
+		const descripcion = document.querySelector('textarea[name="descripcion"]').value.trim();
+		const fecha = document.querySelector('input[name="fechaLimite"]').value;
+
+		if (!titulo) {
+			const modalError = document.getElementById("modalError");
+			const mensajeElem = document.getElementById("mensajeError");
+			mensajeElem.textContent = "Por favor completa el titulo para poder crear el recordatorio.";
+			modalError.style.display = "flex";
+			return;
+		}
+
+		if (!fecha) {
+			const modalError = document.getElementById("modalError");
+			const mensajeElem = document.getElementById("mensajeError");
+			mensajeElem.textContent = "Por favor completa la fecha para poder crear el recordatorio.";
+			modalError.style.display = "flex";
+			return;
+		}
+
+
+
+		const startDate = fecha.replace(/-/g, "") + "T090000Z";
+		const endDate = fecha.replace(/-/g, "") + "T100000Z";
+
+		const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(descripcion)}`;
+
+		window.open(url, '_blank');
+	});
+
+
+	//CALENDARIO
+	const tareas = /*[[${tareas}]]*/[];
+	console.log(tareas);
+
+	const calendarEl = document.getElementById('calendar')
+	const calendar = new FullCalendar.Calendar(calendarEl, {
+		initialView: 'dayGridMonth',
+		height: '600px',
+		events: [
+			{
+				title: 'Reunión de equipo',
+				start: '2025-05-15T10:00:00',  // Fecha y hora de inicio
+				end: '2025-05-15T12:00:00',    // Fecha y hora de fin
+				description: 'Revisión del progreso.'  // Descripción de la tarea
+			},
+			{
+				title: 'Presentación final',
+				start: '2025-05-18T09:00:00',
+				end: '2025-05-18T11:00:00',
+				description: 'Presentación de resultados.'
+			},
+			{
+				title: 'Tarea pendiente',
+				start: '2025-05-20T14:00:00',
+				end: '2025-05-20T16:00:00',
+				description: 'Terminar el informe mensual.'
+			}
+		],
+		eventClick: function (info) {
+			alert('Título: ' + info.event.title + '\nDescripción: ' + info.event.extendedProps.description);
+		}
+	})
+	calendar.render()
+
+
+
+
 
 
 

@@ -167,3 +167,17 @@ a:hover {
 		opacity: 1;
 	}
 }
+
+
+/* Animación de aparición para el modal */
+@keyframes modal-appear {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

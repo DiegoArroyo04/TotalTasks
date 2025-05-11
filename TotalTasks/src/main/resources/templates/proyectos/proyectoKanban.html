@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${proyecto.nombreProyecto + ' - Proyecto Kanban'}"></title>
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/fragmentos/Kanban.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/js/fragmentos/Kanban.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <div th:insert="~{fragmentos/header :: header}"></div>
 
-	<!-- Tablero Kanban -->
-	<main th:insert="~{fragmentos/kanban :: kanban}"></main>
+    <!-- Tablero Kanban -->
+    <main th:insert="~{fragmentos/kanban :: kanban}"></main>
 
     <!-- Footer -->
     <footer th:insert="~{fragmentos/footer :: footer}"></footer>
