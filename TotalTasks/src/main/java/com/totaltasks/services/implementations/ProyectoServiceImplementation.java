@@ -120,6 +120,35 @@ public class ProyectoServiceImplementation implements ProyectoService {
 		usuarioProyecto.setRol("Colaborador");
 
 		usuarioProyectoRepository.save(usuarioProyecto);
+
+		// CREAR NOTIFICACION PARA EL ADMINISTRADOR
+		NotificacionEntity notificacionEntity = new NotificacionEntity();
+		notificacionEntity.setProyecto(proyecto);
+		notificacionEntity.setTipo("ADMIN_MODIFICACION");
+		notificacionEntity.setMensaje(
+				"El usuario " + usuario.getNombre() + " se acaba de unir al proyecto " + proyecto.getNombreProyecto());
+
+		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+		notificacionUsuarioEntity.setDestinatario(proyecto.getCreador());
+
+		notificacionRepository.save(notificacionEntity);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
+		// CREAR NOTIFICACION PARA EL USUARIO
+		NotificacionEntity notificacionEntityUser = new NotificacionEntity();
+		notificacionEntityUser.setProyecto(proyecto);
+		notificacionEntityUser.setTipo("UNION_USUARIO");
+		notificacionEntityUser.setMensaje(
+				"Te acabas de unir al proyecto " + proyecto.getNombreProyecto());
+
+		NotificacionUsuarioEntity notificacionUsuarioEntityUser = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntityUser.setNotificacion(notificacionEntityUser);
+		notificacionUsuarioEntityUser.setDestinatario(usuario);
+
+		notificacionRepository.save(notificacionEntityUser);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntityUser);
+
 		return true;
 	}
 
