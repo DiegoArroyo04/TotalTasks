@@ -5,6 +5,7 @@ import com.totaltasks.services.ScrumService;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class ScrumController {
 		response.sendRedirect("/proyecto/" + idProyecto);
 	}
 
-	@PostMapping("/scrum/moverAtrasado")
+	@PostMapping("/scrum/moverHistoriaASprint")
 	public String moverHistoriaASprint(@RequestParam Long idBacklog, @RequestParam Long idProyecto, @RequestParam Long idResponsable) {
 		scrumService.moverHistoriaASprint(idBacklog, idProyecto, idResponsable);
 		return "Historia movida a Sprint";
@@ -38,8 +39,9 @@ public class ScrumController {
 	}
 
 	@PostMapping("/scrum/comenzarSprint")
-	public String comenzarSprint(@RequestParam Long idProyecto) {
-		//scrumService.comenzarSprint(idProyecto);
-		return "Sprint iniciado";
+	public ResponseEntity<String> comenzarSprint(@RequestParam Long idProyecto) {
+		scrumService.comenzarSprint(idProyecto);
+		return ResponseEntity.ok("Sprint iniciado");
 	}
+
 }

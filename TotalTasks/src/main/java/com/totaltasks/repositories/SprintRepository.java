@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SprintRepository extends JpaRepository<SprintEntity, Long> {
 	List<SprintEntity> findAllByProyecto_idProyecto(Long idProyecto);
+	List<SprintEntity> findByProyecto_idProyecto(Long idProyecto);
 }

@@ -15,6 +15,7 @@ import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
+import com.totaltasks.repositories.ProductBoardRepository;
 import com.totaltasks.services.NotificacionUsuarioService;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.ScrumService;
@@ -40,6 +41,9 @@ public class ProyectoController {
 
 	@Autowired
 	private ScrumService scrumService;
+
+	@Autowired
+	private ProductBoardRepository productBoardRepository;
 
 	@PostMapping("/crearProyectoManualmente")
 	public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
@@ -154,6 +158,9 @@ public class ProyectoController {
 			model.addAttribute("historias", scrumService.historiasDelProyecto(proyecto.getIdProyecto()));
 
 			model.addAttribute("sprint", scrumService.historiasDelSprint(id));
+
+			model.addAttribute("tareasBoard", productBoardRepository.findByProyecto_idProyecto(proyecto.getIdProyecto()));
+			
 
 
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB

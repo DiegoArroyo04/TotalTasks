@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
 			const idBacklog = item.dataset.id;
 			const idProyecto = item.dataset.proyectoId;
 			const idResponsable = item.dataset.responsableId;
-			
+
 			$.ajax({
-				url: "/scrum/moverAtrasado",
+				url: "/scrum/moverHistoriaASprint",
 				type: "POST",
 				data: {
 					idBacklog: idBacklog,
 					idProyecto: idProyecto,
-					idResponsable: idResponsable
+					idResponsable: idResponsable,
 				},
 				success: function (respuesta) {
 					location.reload();
@@ -39,22 +39,46 @@ document.addEventListener("DOMContentLoaded", function () {
 			const idSprint = item.dataset.id;
 			const idProyecto = item.dataset.proyectoId;
 			const idResponsable = item.dataset.responsableId;
-			
+
 			$.ajax({
 				url: "/scrum/moverDeSprintABacklog",
 				type: "POST",
 				data: {
 					idSprint: idSprint,
 					idProyecto: idProyecto,
-					idResponsable: idResponsable
+					idResponsable: idResponsable,
 				},
 				success: function (respuesta) {
 					location.reload();
 				},
 				error: function (xhr, status, error) {
-					console.error("❌ Error al mover historia de Sprint al Product Backlog:", error);
+					console.error(
+						"❌ Error al mover historia de Sprint al Product Backlog:",
+						error
+					);
 				},
 			});
 		},
 	});
 });
+
+function comenzarSprint() {
+	const idProyecto = document.querySelector("[data-proyecto-id]")?.dataset.proyectoId;
+
+	if (!idProyecto) {
+		alert("No se pudo determinar el proyecto.");
+		return;
+	}
+
+	$.ajax({
+		url: "/scrum/comenzarSprint",
+		type: "POST",
+		data: { idProyecto: idProyecto },
+		success: function () {
+			location.reload();
+		},
+		error: function (xhr, status, error) {
+			console.error("❌ Error al comenzar el Sprint:", error);
+		},
+	});
+}

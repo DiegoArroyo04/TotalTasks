@@ -1,16 +1,19 @@
 package com.totaltasks.services.implementations;
 
 import com.totaltasks.entities.ProductBacklogEntity;
+import com.totaltasks.entities.ProductBoardEntity;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.SprintEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProductBacklogDTO;
+import com.totaltasks.repositories.ProductBoardRepository;
 import com.totaltasks.repositories.ProyectoRepository;
 import com.totaltasks.repositories.ScrumRepository;
 import com.totaltasks.repositories.SprintRepository;
 import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.ScrumService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class ScrumServiceImplementation implements ScrumService {
 
 	@Autowired
 	private SprintRepository sprintRepository;
+
+	@Autowired
+	private ProductBoardRepository productBoardRepository;
 
 	@Override
 	public void agregarHistoria(ProductBacklogDTO productBacklogDTO) {
@@ -95,6 +101,21 @@ public class ScrumServiceImplementation implements ScrumService {
 
 	@Override
 	public void comenzarSprint(Long idProyecto) {
-		// Actualiza el estado de las historias dentro del sprint, o lo que sea necesario.
+		List<SprintEntity> historiasSprint = sprintRepository.findByProyecto_idProyecto(idProyecto);
+
+		for (SprintEntity historia : historiasSprint) {
+			ProductBoardEntity tareaBoard = new ProductBoardEntity();
+			tareaBoard.setTitulo(historia.getTitulo());
+			tareaBoard.setDescripcion(historia.getDescripcion());
+			tareaBoard.setEstado("por_hacer");
+			tareaBoard.setFechaCreacion(new Timestamp(System.currentTimeMillis()));
+			tareaBoard.setProyecto(historia.getProyecto());
+			tareaBoard.setResponsable(historia.getResponsable());
+
+			productBoardRepository.save(tareaBoard);
+
+			sprintRepository.delete(historia);
+		}
 	}
+
 }
