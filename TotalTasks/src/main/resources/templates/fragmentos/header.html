@@ -69,6 +69,14 @@
 
                                         </div>
 
+
+                                        <!-- Notificación programada -->
+                                        <div th:case="'UNION_USUARIO'">
+                                            <p><strong>Bienvenido al proyecto</strong></p>
+                                            <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
+
+                                        </div>
+
                                         <!-- Por defecto -->
                                         <div th:case="*">
                                             <p th:text="${notificacionUsuario.notificacion.mensaje}"></p>
