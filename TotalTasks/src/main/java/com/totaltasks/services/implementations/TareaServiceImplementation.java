@@ -1,6 +1,7 @@
 package com.totaltasks.services.implementations;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -184,6 +185,21 @@ public class TareaServiceImplementation implements TareaService {
 
 		notificacionRepository.save(notificacionEntity);
 		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
+	}
+
+	@Override
+	public List<TareaEntity> obtenerTareasPorUserYProyecto(Long usuarioId, Long proyectoId) {
+
+		UsuarioEntity usuarioEntity = usuarioRepository.findById(usuarioId).orElse(null);
+
+		for (ProyectoEntity proyecto : usuarioEntity.getProyectos()) {
+			if (proyecto.getIdProyecto().equals(proyectoId)) {
+				return proyecto.getTareas();
+			}
+		}
+
+		return Collections.emptyList();
 
 	}
 

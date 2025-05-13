@@ -181,3 +181,8 @@ a:hover {
 		transform: scale(1);
 	}
 }
+
+.fc-button {
+	background-color: var(--color-primario) !important;
+	border: var(--color-primario) !important;
+}

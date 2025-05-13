@@ -1,5 +1,7 @@
 package com.totaltasks.services;
 
+import java.util.List;
+
 import com.totaltasks.entities.TareaEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.TareaDTO;
@@ -13,5 +15,7 @@ public interface TareaService {
 	void verificarTareasProximas(UsuarioEntity usuario);
 
 	void crearRecordatorioFecha(TareaEntity tarea);
+
+	List<TareaEntity> obtenerTareasPorUserYProyecto(Long usuarioId, Long proyectoId);
 
 }

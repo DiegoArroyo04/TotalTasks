@@ -1,5 +1,5 @@
 let conexion;
-let idProyecto = document.getElementById('idProyectoChat').value;
+
 
 window.addEventListener("load", () => {
 	conectarChat();

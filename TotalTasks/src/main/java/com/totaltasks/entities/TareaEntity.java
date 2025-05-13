@@ -12,6 +12,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tarea")
 @Getter
@@ -44,13 +46,16 @@ public class TareaEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "id_proyecto", nullable = false)
+	@JsonIgnore
 	private ProyectoEntity proyecto;
 
 	@ManyToOne
 	@JoinColumn(name = "id_responsable", nullable = false)
+	@JsonIgnore
 	private UsuarioEntity responsable;
 
 	@OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private List<NotificacionEntity> notificaciones = new ArrayList<>();
 
 }

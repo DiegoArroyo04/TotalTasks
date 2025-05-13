@@ -461,44 +461,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 	//CALENDARIO
-	const tareas = /*[[${tareas}]]*/[];
-	console.log(tareas);
 
-	const calendarEl = document.getElementById('calendar')
-	const calendar = new FullCalendar.Calendar(calendarEl, {
-		initialView: 'dayGridMonth',
-		height: '600px',
-		events: [
-			{
-				title: 'Reunión de equipo',
-				start: '2025-05-15T10:00:00',  // Fecha y hora de inicio
-				end: '2025-05-15T12:00:00',    // Fecha y hora de fin
-				description: 'Revisión del progreso.'  // Descripción de la tarea
-			},
-			{
-				title: 'Presentación final',
-				start: '2025-05-18T09:00:00',
-				end: '2025-05-18T11:00:00',
-				description: 'Presentación de resultados.'
-			},
-			{
-				title: 'Tarea pendiente',
-				start: '2025-05-20T14:00:00',
-				end: '2025-05-20T16:00:00',
-				description: 'Terminar el informe mensual.'
+
+	$.ajax({
+		type: "GET",
+		url: `/obtenerTareasPorUserYProyecto?usuarioId=${idUsuario}&proyectoId=${idProyecto}`,
+		dataType: "json",
+		success: function (data) {
+			const tareas = data;
+
+			// Solo pinta el calendario si hay más de una tarea
+			if (tareas.length >= 1) {
+				const eventos = tareas.map(t => ({
+					id: t.idTarea,
+					title: t.titulo,
+					start: new Date(t.fechaLimite),
+					description: t.descripcion
+				}));
+
+				const calendarEl = document.getElementById('calendar');
+				const calendar = new FullCalendar.Calendar(calendarEl, {
+					initialView: 'dayGridMonth',
+					editable: true,
+					height: 'auto',
+					events: eventos,
+					eventDrop: function (info) {
+
+						console.log('Evento movido a:', info.event.start);
+
+						//AJAX PARA MODIFICAR FECHA TAREA
+					},
+					eventClick: function (info) {
+						alert('Título: ' + info.event.title + '\nDescripción: ' + info.event.extendedProps.description);
+					},
+					eventClassNames: function (info) {
+						return "tarea";
+					},
+					eventContent: function (info) {
+						return {
+							html: `<strong>${info.event.title}</strong>`
+						};
+					}
+
+
+
+				});
+				calendar.render();
 			}
-		],
-		eventClick: function (info) {
-			alert('Título: ' + info.event.title + '\nDescripción: ' + info.event.extendedProps.description);
+
+
+		},
+		error: function (error) {
+			console.log(error);
 		}
-	})
-	calendar.render()
-
-
-
-
-
-
+	});
 
 });
 
