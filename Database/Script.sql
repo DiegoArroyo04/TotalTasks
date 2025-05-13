@@ -121,6 +121,19 @@ CREATE TABLE sprint (
     CONSTRAINT fk_sprint_responsable FOREIGN KEY (id_responsable) REFERENCES usuario(id_usuario)
 );
 
+CREATE TABLE product_board (
+    id_tarea_board BIGINT AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    estado VARCHAR(50) DEFAULT 'por_hacer', -- Estados: por_hacer, en_curso, hecho
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_proyecto BIGINT NOT NULL,
+    id_responsable BIGINT NOT NULL,
+    CONSTRAINT pk_product_board PRIMARY KEY (id_tarea_board),
+    CONSTRAINT fk_board_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
+    CONSTRAINT fk_board_usuario FOREIGN KEY (id_responsable) REFERENCES usuario(id_usuario)
+);
+
 
 
 
@@ -158,6 +171,7 @@ SELECT * FROM TAREA;
 SELECT * FROM TABLON;
 SELECT * FROM PRODUCT_BACKLOG;
 SELECT * FROM SPRINT;
+SELECT * FROM PRODUCT_BOARD;
 
 
 -- Sript destructivo
