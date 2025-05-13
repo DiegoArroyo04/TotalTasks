@@ -117,6 +117,27 @@
       </section>
 
     </div>
+
+	<!-- CHAT DEL PROYECTO -->
+    <section class="chat-section panel">
+		<h2 class="panel-title">Chat del Proyecto</h2>
+		<div class="chat-header">
+			<p>
+				<strong>Estado WebSocket:</strong>
+				<span id="estado-conexion">Desconectado</span>
+			</p>
+		</div>
+		<div class="chat-body">
+			<div id="mensajesRecibidos" class="chat-messages"></div>
+		</div>
+		<div class="chat-input">
+			<input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
+			<button type="button" onclick="enviarMensaje()" class="btn-primary">Enviar</button>
+		</div>
+      </section>
+
+	  <input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
+      <script src="/js/chat.js"></script>
   </main>
 
   <!-- Footer -->

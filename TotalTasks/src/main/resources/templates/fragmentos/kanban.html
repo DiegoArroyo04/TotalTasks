@@ -146,6 +146,32 @@
 		</div>
 	</div>
 
+		      <!-- CHAT DEL PROYECTO -->
+      <section class="chat-section panel">
+        <h2 class="panel-title">Chat del Proyecto</h2>
+        <div class="chat-header">
+          <p>
+            <strong>Estado WebSocket:</strong>
+            <span id="estado-conexion">Desconectado</span>
+          </p>
+        </div>
+        <div class="chat-body">
+          <div id="mensajesRecibidos" class="chat-messages"></div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
+          <button type="button" onclick="enviarMensaje()" class="btn-primary">Enviar</button>
+        </div>
+      </section>
+
+      <!-- Inyección de idProyecto para chat.js -->
+      <script th:inline="javascript">
+        /*<![CDATA[*/
+        const idProyecto = /*[[${proyecto.idProyecto}]]*/ '0';
+        /*]]>*/
+      </script>
+      <script src="/js/chat.js"></script>
+
 	<!-- Error -->
 	<div id="modalError" class="modal-error">
 		<div class="modal-error-content">
@@ -160,8 +186,6 @@
 	<script src="/js/fragmentos/Kanban.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 	<!-- FullCalendar JS -->
-	<script src="
-https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js
-"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
 
 </main>
