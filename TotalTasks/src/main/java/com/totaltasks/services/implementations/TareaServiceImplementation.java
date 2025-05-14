@@ -17,6 +17,7 @@ import com.totaltasks.entities.NotificacionUsuarioEntity;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
 import com.totaltasks.entities.UsuarioEntity;
+import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.repositories.NotificacionRepository;
 import com.totaltasks.repositories.NotificacionUsuarioRepository;
 import com.totaltasks.repositories.ProyectoRepository;
@@ -195,9 +196,9 @@ public class TareaServiceImplementation implements TareaService {
 
 		UsuarioEntity usuarioEntity = usuarioRepository.findById(usuarioId).orElse(null);
 
-		for (ProyectoEntity proyecto : usuarioEntity.getProyectos()) {
-			if (proyecto.getIdProyecto().equals(proyectoId)) {
-				return proyecto.getTareas();
+		for (UsuarioProyectoEntity proyecto : usuarioEntity.getProyectosParticipados()) {
+			if (proyecto.getProyecto().getIdProyecto().equals(proyectoId)) {
+				return proyecto.getProyecto().getTareas();
 			}
 		}
 
@@ -206,14 +207,13 @@ public class TareaServiceImplementation implements TareaService {
 	}
 
 	@Override
-	public void actualizarFechaTarea(Long idTarea, Date nuevaFecha,Long idUsuario) {
-		TareaEntity tareaEntity=tareaRepository.findById(idTarea).orElse(null);
+	public void actualizarFechaTarea(Long idTarea, Date nuevaFecha, Long idUsuario) {
+		TareaEntity tareaEntity = tareaRepository.findById(idTarea).orElse(null);
 		tareaEntity.setFechaLimite(nuevaFecha);
 		tareaRepository.save(tareaEntity);
-		UsuarioEntity usuario=usuarioRepository.findById(idUsuario).orElse(null);
+		UsuarioEntity usuario = usuarioRepository.findById(idUsuario).orElse(null);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		String fechaFormateada = sdf.format(nuevaFecha);	
-
+		String fechaFormateada = sdf.format(nuevaFecha);
 
 		// CREAR NOTIFICACION PARA EL ADMINISTRADOR
 		NotificacionEntity notificacionEntity = new NotificacionEntity();
@@ -221,7 +221,8 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionEntity.setTarea(tareaEntity);
 		notificacionEntity.setTipo("ADMIN_MODIFICACION");
 		notificacionEntity.setMensaje(
-				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  " + tareaEntity.getTitulo()
+				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  "
+						+ tareaEntity.getTitulo()
 						+ " a el dia  "
 						+ fechaFormateada);
 
@@ -232,14 +233,14 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionRepository.save(notificacionEntity);
 		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
 
-
 		// CREAR NOTIFICACION PARA EL RESPONSABLE DE LA TAREA
 		NotificacionEntity notificacionEntityResponsable = new NotificacionEntity();
 		notificacionEntityResponsable.setProyecto(tareaEntity.getProyecto());
 		notificacionEntityResponsable.setTarea(tareaEntity);
 		notificacionEntityResponsable.setTipo("ADMIN_MODIFICACION");
 		notificacionEntityResponsable.setMensaje(
-				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  " + tareaEntity.getTitulo()
+				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  "
+						+ tareaEntity.getTitulo()
 						+ " a el dia  "
 						+ fechaFormateada);
 
@@ -249,11 +250,6 @@ public class TareaServiceImplementation implements TareaService {
 
 		notificacionRepository.save(notificacionEntityResponsable);
 		notificacionUsuarioRepository.save(notificacionUsuarioEntityResponsable);
-
-
-
-
-
 
 	}
 
