@@ -48,10 +48,10 @@ public class TareaRestController {
 	}
 
 	@PostMapping( "/cambiarFechaTarea")
-	public void obtenerTareasPorUserYProyecto(@RequestParam Long idTarea,
+	public void obtenerTareasPorUserYProyecto(@RequestParam Long idUsuario, Long idTarea,
 			@RequestParam Date nuevaFecha) {
 
-			 tareaService.actualizarFechaTarea(idTarea, nuevaFecha);
+			 tareaService.actualizarFechaTarea(idTarea, nuevaFecha,idUsuario);
 
 	}
 

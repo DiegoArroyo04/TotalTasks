@@ -1,150 +1,226 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/" lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scrum Board Todo Visible</title>
-  <link rel="stylesheet" href="/css/metodologias/scrum.css">
-</head>
-<body>
-  <!-- Header -->
-  <div th:insert="~{fragmentos/header :: header}"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrum Board Todo Visible</title>
+    <link rel="stylesheet" href="/css/metodologias/scrum.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:insert="~{fragmentos/header :: header}"></div>
 
-  <main class="scrum-content">
-    <div class="grid-container">
+    <main class="scrum-content">
+      <div class="grid-container">
+        <!-- PRODUCT BACKLOG -->
+        <section id="product-backlog" class="panel">
+          <h2 class="panel-title">Product Backlog</h2>
+          <div class="panel-body grid-inner">
+            <form
+              id="task-form"
+              method="post"
+              action="/scrum/agregarHistoria"
+              class="form-pb"
+            >
+              <div class="form-group">
+                <label for="task-title">Título de la historia</label>
+                <input
+                  type="text"
+                  id="task-title"
+                  name="titulo"
+                  placeholder="Título de la historia"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="task-desc">Descripción</label>
+                <textarea
+                  id="task-desc"
+                  name="descripcion"
+                  placeholder="Descripción"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="task-points">Story Points</label>
+                <input
+                  type="number"
+                  id="task-points"
+                  name="storyPoints"
+                  min="1"
+                  max="21"
+                  required
+                />
+              </div>
+              <input
+                type="hidden"
+                name="idUsuario"
+                th:value="${usuario.idUsuario}"
+              />
+              <input
+                type="hidden"
+                name="idProyecto"
+                th:value="${proyecto.idProyecto}"
+              />
+              <button type="submit" class="btn-primary">Añadir Historia</button>
+            </form>
 
-      <!-- PRODUCT BACKLOG -->
-      <section id="product-backlog" class="panel">
-        <h2 class="panel-title">Product Backlog</h2>
-        <div class="panel-body grid-inner">
-          <form id="task-form" method="post" action="/scrum/agregarHistoria" class="form-pb">
-            <div class="form-group">
-              <label for="task-title">Título de la historia</label>
-              <input type="text" id="task-title" name="titulo" placeholder="Título de la historia" required>
-            </div>
-            <div class="form-group">
-              <label for="task-desc">Descripción</label>
-              <textarea id="task-desc" name="descripcion" placeholder="Descripción"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="task-points">Story Points</label>
-              <input type="number" id="task-points" name="storyPoints" min="1" max="21" required>
-            </div>
-            <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}">
-            <input type="hidden" name="idProyecto" th:value="${proyecto.idProyecto}">
-            <button type="submit" class="btn-primary">Añadir Historia</button>
-          </form>
+            <table class="table-pb">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Points</th>
+                  <th>Resp.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  th:each="historia : ${historias}"
+                  th:attr="data-id=${historia.idBacklog}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.creador.idUsuario}"
+                >
+                  <td th:text="${historia.idBacklog}"></td>
+                  <td th:text="${historia.titulo}"></td>
+                  <td th:text="${historia.descripcion}"></td>
+                  <td>
+                    <span
+                      class="badge"
+                      th:text="${historia.storyPoints}"
+                    ></span>
+                  </td>
+                  <td th:text="${historia.creador.nombre}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-          <table class="table-pb">
-            <thead>
-              <tr>
-                <th>ID</th><th>Título</th><th>Descripción</th><th>Points</th><th>Resp.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="historia : ${historias}"
-                  th:attr="data-id=${historia.idBacklog}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.creador.idUsuario}">
-                <td th:text="${historia.idBacklog}"></td>
-                <td th:text="${historia.titulo}"></td>
-                <td th:text="${historia.descripcion}"></td>
-                <td><span class="badge" th:text="${historia.storyPoints}"></span></td>
-                <td th:text="${historia.creador.nombre}"></td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- SPRINT -->
+        <section id="sprint" class="panel">
+          <h2 class="panel-title">Sprint</h2>
+          <div class="panel-body">
+            <button
+              id="comenzar-sprint"
+              th:if="${sprint != null and not #lists.isEmpty(sprint)}"
+              onclick="comenzarSprint()"
+              class="btn-primary"
+            >
+              Comenzar Sprint
+            </button>
+            <table id="sprint-table" class="table-pb">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Desc.</th>
+                  <th>Resp.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  th:each="historia : ${sprint}"
+                  th:attr="data-id=${historia.idSprint}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.responsable.idUsuario}"
+                >
+                  <td th:text="${historia.idSprint}"></td>
+                  <td th:text="${historia.titulo}"></td>
+                  <td th:text="${historia.descripcion}"></td>
+                  <td th:text="${historia.responsable.nombre}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- PRODUCT BOARD -->
+        <section id="product-board" class="panel">
+          <h2 class="panel-title">Product Board</h2>
+          <div class="product-board-container">
+            <div class="column">
+              <h3>Por Hacer</h3>
+              <ul id="por-hacer" class="tarea-lista">
+                <li
+                  th:each="tarea : ${tareasBoard}"
+                  th:if="${tarea.estado == 'por_hacer'}"
+                >
+                  <strong th:text="${tarea.titulo}"></strong>
+                  <p th:text="${tarea.descripcion}"></p>
+                  <small
+                    th:text="'Resp: ' + ${tarea.responsable.nombre}"
+                  ></small>
+                </li>
+              </ul>
+            </div>
+            <div class="column">
+              <h3>En Curso</h3>
+              <ul id="en-curso" class="tarea-lista">
+                <li
+                  th:each="tarea : ${tareasBoard}"
+                  th:if="${tarea.estado == 'en_curso'}"
+                >
+                  <strong th:text="${tarea.titulo}"></strong>
+                  <p th:text="${tarea.descripcion}"></p>
+                  <small
+                    th:text="'Resp: ' + ${tarea.responsable.nombre}"
+                  ></small>
+                </li>
+              </ul>
+            </div>
+            <div class="column">
+              <h3>Hecho</h3>
+              <ul id="hecho" class="tarea-lista">
+                <li
+                  th:each="tarea : ${tareasBoard}"
+                  th:if="${tarea.estado == 'hecho'}"
+                >
+                  <strong th:text="${tarea.titulo}"></strong>
+                  <p th:text="${tarea.descripcion}"></p>
+                  <small
+                    th:text="'Resp: ' + ${tarea.responsable.nombre}"
+                  ></small>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- CHAT DEL PROYECTO -->
+      <section class="chat-section panel">
+        <h2 class="panel-title">Chat del Proyecto</h2>
+        <div class="chat-header">
+          <p>
+            <strong>Estado WebSocket:</strong>
+            <span id="estado-conexion">Desconectado</span>
+          </p>
+        </div>
+        <div class="chat-body">
+          <div id="mensajesRecibidos" class="chat-messages"></div>
+        </div>
+        <div class="chat-input">
+          <input
+            type="text"
+            id="mensajeInput"
+            placeholder="Escribe un mensaje..."
+          />
+          <button type="button" onclick="enviarMensaje()" class="btn-primary">
+            Enviar
+          </button>
         </div>
       </section>
 
-      <!-- SPRINT -->
-      <section id="sprint" class="panel">
-        <h2 class="panel-title">Sprint</h2>
-        <div class="panel-body">
-          <button id="comenzar-sprint"
-                  th:if="${sprint != null and not #lists.isEmpty(sprint)}"
-                  onclick="comenzarSprint()" class="btn-primary">Comenzar Sprint</button>
-          <table id="sprint-table" class="table-pb">
-            <thead>
-              <tr><th>ID</th><th>Título</th><th>Desc.</th><th>Resp.</th></tr>
-            </thead>
-            <tbody>
-              <tr th:each="historia : ${sprint}"
-                  th:attr="data-id=${historia.idSprint}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.responsable.idUsuario}">
-                <td th:text="${historia.idSprint}"></td>
-                <td th:text="${historia.titulo}"></td>
-                <td th:text="${historia.descripcion}"></td>
-                <td th:text="${historia.responsable.nombre}"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- PRODUCT BOARD -->
-      <section id="product-board" class="panel">
-        <h2 class="panel-title">Product Board</h2>
-        <div class="product-board-container">
-          <div class="column">
-            <h3>Por Hacer</h3>
-            <ul id="por-hacer" class="tarea-lista">
-              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'por_hacer'}">
-                <strong th:text="${tarea.titulo}"></strong>
-                <p th:text="${tarea.descripcion}"></p>
-                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small>
-              </li>
-            </ul>
-          </div>
-          <div class="column">
-            <h3>En Curso</h3>
-            <ul id="en-curso" class="tarea-lista">
-              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'en_curso'}">
-                <strong th:text="${tarea.titulo}"></strong>
-                <p th:text="${tarea.descripcion}"></p>
-                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small>
-              </li>
-            </ul>
-          </div>
-          <div class="column">
-            <h3>Hecho</h3>
-            <ul id="hecho" class="tarea-lista">
-              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'hecho'}">
-                <strong th:text="${tarea.titulo}"></strong>
-                <p th:text="${tarea.descripcion}"></p>
-                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-	<!-- CHAT DEL PROYECTO -->
-    <section class="chat-section panel">
-		<h2 class="panel-title">Chat del Proyecto</h2>
-		<div class="chat-header">
-			<p>
-				<strong>Estado WebSocket:</strong>
-				<span id="estado-conexion">Desconectado</span>
-			</p>
-		</div>
-		<div class="chat-body">
-			<div id="mensajesRecibidos" class="chat-messages"></div>
-		</div>
-		<div class="chat-input">
-			<input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
-			<button type="button" onclick="enviarMensaje()" class="btn-primary">Enviar</button>
-		</div>
-      </section>
-
-	  <input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
+      <input
+        type="hidden"
+        id="idProyectoChat"
+        th:value="${proyecto.idProyecto}"
+      />
       <script src="/js/chat.js"></script>
-  </main>
+    </main>
 
-  <!-- Footer -->
-  <footer th:insert="~{fragmentos/footer :: footer}"></footer>
+    <!-- Footer -->
+    <footer th:insert="~{fragmentos/footer :: footer}"></footer>
 
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-  <script src="/js/metodologias/scrum.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="/js/metodologias/scrum.js"></script>
+  </body>
 </html>

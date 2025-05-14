@@ -497,6 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
               url: "/cambiarFechaTarea",
               method: "POST",
               data: {
+                idUsuario: idUsuario,
                 idTarea: idTarea,
                 nuevaFecha: nuevaFecha,
               },

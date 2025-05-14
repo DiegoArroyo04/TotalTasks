@@ -1,6 +1,7 @@
 package com.totaltasks.services.implementations;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -205,10 +206,54 @@ public class TareaServiceImplementation implements TareaService {
 	}
 
 	@Override
-	public void actualizarFechaTarea(Long idTarea, Date nuevaFecha) {
+	public void actualizarFechaTarea(Long idTarea, Date nuevaFecha,Long idUsuario) {
 		TareaEntity tareaEntity=tareaRepository.findById(idTarea).orElse(null);
 		tareaEntity.setFechaLimite(nuevaFecha);
 		tareaRepository.save(tareaEntity);
+		UsuarioEntity usuario=usuarioRepository.findById(idUsuario).orElse(null);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String fechaFormateada = sdf.format(nuevaFecha);	
+
+
+		// CREAR NOTIFICACION PARA EL ADMINISTRADOR
+		NotificacionEntity notificacionEntity = new NotificacionEntity();
+		notificacionEntity.setProyecto(tareaEntity.getProyecto());
+		notificacionEntity.setTarea(tareaEntity);
+		notificacionEntity.setTipo("ADMIN_MODIFICACION");
+		notificacionEntity.setMensaje(
+				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  " + tareaEntity.getTitulo()
+						+ " a el dia  "
+						+ fechaFormateada);
+
+		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+		notificacionUsuarioEntity.setDestinatario(tareaEntity.getProyecto().getCreador());
+
+		notificacionRepository.save(notificacionEntity);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
+
+		// CREAR NOTIFICACION PARA EL RESPONSABLE DE LA TAREA
+		NotificacionEntity notificacionEntityResponsable = new NotificacionEntity();
+		notificacionEntityResponsable.setProyecto(tareaEntity.getProyecto());
+		notificacionEntityResponsable.setTarea(tareaEntity);
+		notificacionEntityResponsable.setTipo("ADMIN_MODIFICACION");
+		notificacionEntityResponsable.setMensaje(
+				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  " + tareaEntity.getTitulo()
+						+ " a el dia  "
+						+ fechaFormateada);
+
+		NotificacionUsuarioEntity notificacionUsuarioEntityResponsable = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntityResponsable.setNotificacion(notificacionEntityResponsable);
+		notificacionUsuarioEntityResponsable.setDestinatario(tareaEntity.getResponsable());
+
+		notificacionRepository.save(notificacionEntityResponsable);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntityResponsable);
+
+
+
+
+
 
 	}
 
