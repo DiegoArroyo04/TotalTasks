@@ -1,5 +1,6 @@
 package com.totaltasks.services.implementations;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -200,6 +201,14 @@ public class TareaServiceImplementation implements TareaService {
 		}
 
 		return Collections.emptyList();
+
+	}
+
+	@Override
+	public void actualizarFechaTarea(Long idTarea, Date nuevaFecha) {
+		TareaEntity tareaEntity=tareaRepository.findById(idTarea).orElse(null);
+		tareaEntity.setFechaLimite(nuevaFecha);
+		tareaRepository.save(tareaEntity);
 
 	}
 

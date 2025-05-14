@@ -1,5 +1,6 @@
 package com.totaltasks.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.totaltasks.entities.TareaEntity;
@@ -17,5 +18,7 @@ public interface TareaService {
 	void crearRecordatorioFecha(TareaEntity tarea);
 
 	List<TareaEntity> obtenerTareasPorUserYProyecto(Long usuarioId, Long proyectoId);
+
+	void actualizarFechaTarea(Long idTarea,Date nuevaFecha);
 
 }

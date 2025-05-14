@@ -1,5 +1,6 @@
 package com.totaltasks.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.totaltasks.entities.TareaEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.TareaDTO;
-import com.totaltasks.models.UsuarioProyectoDTO;
+
 import com.totaltasks.services.TareaService;
 
 import jakarta.servlet.http.HttpSession;
@@ -45,4 +46,13 @@ public class TareaRestController {
 		return tareaService.obtenerTareasPorUserYProyecto(usuarioId, proyectoId);
 
 	}
+
+	@PostMapping( "/cambiarFechaTarea")
+	public void obtenerTareasPorUserYProyecto(@RequestParam Long idTarea,
+			@RequestParam Date nuevaFecha) {
+
+			 tareaService.actualizarFechaTarea(idTarea, nuevaFecha);
+
+	}
+
 }
