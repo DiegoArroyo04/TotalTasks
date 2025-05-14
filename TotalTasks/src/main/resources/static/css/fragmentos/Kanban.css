@@ -131,6 +131,7 @@ main {
 .tarea:active {
   cursor: grabbing !important;
 }
+
 .tarea p,
 .descripcion {
   display: block;
@@ -187,11 +188,9 @@ main {
 }
 
 .modal-content {
-  background: linear-gradient(
-    135deg,
-    var(--color-primario) 0%,
-    var(--color-primario-hover) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-primario) 0%,
+      var(--color-primario-hover) 100%);
   padding: 32px;
   border-radius: 12px;
   width: 90%;
@@ -250,11 +249,9 @@ main {
 }
 
 .btn-calendar {
-  background: linear-gradient(
-    180deg,
-    var(--color-info),
-    var(--color-info-hover)
-  );
+  background: linear-gradient(180deg,
+      var(--color-info),
+      var(--color-info-hover));
   color: #fff;
   border: none;
   padding: 11.2px;
@@ -471,6 +468,8 @@ textarea {
   height: 200px;
   overflow-y: auto;
   border: 1px solid var(--color-primario);
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
   padding: 8px;
   background-color: #fff;
@@ -501,5 +500,27 @@ textarea {
 }
 
 .chat-input button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primario-hover);
+}
+
+.mensaje {
+  background-color: var(--color-sombra);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  animation: aparecer 0.2s ease-in-out;
+}
+
+.mensaje-usuario {
+  font-size: var(--tamano-texto-pequeno);
+  color: var(--color-muted);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.mensaje-contenido {
+  font-size: var(--tamano-texto);
+  color: var(--color-texto);
+  word-break: break-word;
 }

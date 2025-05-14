@@ -3,6 +3,7 @@ package com.totaltasks.config;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,13 +13,14 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
     private final Map<String, Set<WebSocketSession>> sesionesPorProyecto = new ConcurrentHashMap<>();
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) {
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String idProyecto = extraerIdProyecto(session);
         sesionesPorProyecto.computeIfAbsent(idProyecto, k -> ConcurrentHashMap.newKeySet()).add(session);
+        enviarCantidadUsuarios(idProyecto);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         String idProyecto = extraerIdProyecto(session);
         Set<WebSocketSession> set = sesionesPorProyecto.get(idProyecto);
         if (set != null) {
@@ -27,6 +29,7 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
                 sesionesPorProyecto.remove(idProyecto);
             }
         }
+        enviarCantidadUsuarios(idProyecto);
     }
 
     @Override
@@ -40,15 +43,19 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
         }
     }
 
-	// Envía a todos la cantidad de usuarios conectados
-	// private void enviarCantidadUsuarios() throws Exception {
-	// 	String mensajeCantidad = "{\"type\":\"count\", \"data\":" + sesionesConectadas.size() + "}";
-	// 	for (WebSocketSession sesion : sesionesConectadas) {
-	// 		if (sesion.isOpen()) {
-	// 			sesion.sendMessage(new TextMessage(mensajeCantidad));
-	// 		}
-	// 	}
-	// }
+    // Envía a todos la cantidad de usuarios conectados
+    private void enviarCantidadUsuarios(String idProyecto) throws IOException {
+
+        Set<WebSocketSession> sesiones = sesionesPorProyecto.getOrDefault(idProyecto, Collections.emptySet());
+        int cantidad = sesiones.size();
+        String mensaje = "{\"type\":\"count\", \"data\":" + cantidad + "}";
+        for (WebSocketSession sesion : sesiones) {
+            if (sesion.isOpen()) {
+                sesion.sendMessage(new TextMessage(mensaje));
+            }
+        }
+
+    }
 
     // Helper: obtiene el {idProyecto} de la URI "/chat/{idProyecto}"
     private String extraerIdProyecto(WebSocketSession session) {
