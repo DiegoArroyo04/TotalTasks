@@ -144,6 +144,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Obtener todas las tareas
+  const tareas = document.querySelectorAll(".tarea");
+
+  // Añadir evento de clic a cada tarea para mostrar su modal informativo
+  tareas.forEach((tarea) => {
+    tarea.addEventListener("click", () => {
+      const titulo = tarea.querySelector("strong").innerText;
+      const descripcion = tarea.querySelector(".descripcion").innerText;
+      const responsable = tarea
+        .querySelector("p:nth-child(3)")
+        .innerText.replace("Asignado a ", "");
+      const fechaLimite = tarea.querySelector("small").innerText;
+
+      // Asignar la información de la tarea al modal
+      document.getElementById("tituloTarea").innerText = titulo;
+      document.getElementById("descripcionTarea").innerText = descripcion;
+      document.getElementById("responsableTarea").innerText = responsable;
+      document.getElementById("fechaLimiteTarea").innerText = fechaLimite;
+
+      // Mostrar el modal
+      document.getElementById("modalMostrarTarea").style.display = "flex";
+    });
+  });
+
+  // Cerrar el modal cuando se haga clic en el botón "Cerrar"
+  document.getElementById("cerrarModalTarea").addEventListener("click", () => {
+    document.getElementById("modalMostrarTarea").style.display = "none";
+  });
+
   // Agregar tareas
   tableros.addEventListener("click", (p) => {
     if (p.target && p.target.classList.contains("agregar-tarea")) {
@@ -511,6 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   ) {
                     const parrafos = tarea.querySelectorAll("p");
                     //RECORREMOS SUS PARAFOS Y EN EL ULTIMO DENTRO DE SMALL COLOCAMOS LA NUEVA FECHA
+
                     for (let i = parrafos.length - 1; i >= 0; i--) {
                       if (parrafos[i].querySelector("small")) {
                         parrafos[i].querySelector("small").innerHTML =
@@ -530,12 +560,44 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           },
           eventClick: function (info) {
-            alert(
-              "Título: " +
-                info.event.title +
-                "\nDescripción: " +
-                info.event.extendedProps.description
-            );
+            const idTarea = info.event.id;
+            // RECORRER LAS TAREAS DE ARRIBA PARA COMPARAR SU ID CON EL DEL EVENTO PARA ASI OBTENER TODOS LOS PARAMETROS NECESARIOS
+            document.querySelectorAll(".tarea").forEach((tarea) => {
+              // Verifica si la tarea NO está dentro del calendario
+              if (
+                !tarea.closest("#calendar") &&
+                tarea.getAttribute("data-id") === idTarea
+              ) {
+                const parrafos = tarea.querySelectorAll("p");
+
+                // Verificar si existen los elementos esperados dentro de los párrafos
+                const titulo =
+                  parrafos[0]?.querySelector("strong")?.innerText ||
+                  "Título no disponible"; // Primer párrafo: título
+                const descripcion =
+                  parrafos[1]?.querySelector(".descripcion")?.innerText ||
+                  "Descripción no disponible"; // Segundo párrafo: descripción
+                const responsable =
+                  parrafos[2]?.innerText?.replace("Asignado a ", "") ||
+                  "Responsable no disponible"; // Tercer párrafo: responsable
+                const fechaLimite =
+                  parrafos[3]?.querySelector("small")?.innerText ||
+                  "Fecha límite no disponible"; // Último párrafo: fecha límite
+
+                // Asignar la información de la tarea al modal
+                document.getElementById("tituloTarea").innerText = titulo;
+                document.getElementById("descripcionTarea").innerText =
+                  descripcion;
+                document.getElementById("responsableTarea").innerText =
+                  responsable;
+                document.getElementById("fechaLimiteTarea").innerText =
+                  fechaLimite;
+
+                // Mostrar el modal
+                document.getElementById("modalMostrarTarea").style.display =
+                  "flex";
+              }
+            });
           },
           eventClassNames: function (info) {
             return "tarea";

@@ -236,6 +236,19 @@ main {
   gap: 20px;
 }
 
+.modal-tarea-detalle {
+  margin-bottom: 20px;
+}
+
+.modal-tarea-detalle p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.modal-tarea-detalle span {
+  font-weight: 600;
+}
+
 .btn-calendar {
   background: linear-gradient(
     180deg,

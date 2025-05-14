@@ -266,6 +266,24 @@
     </div>
   </div>
 
+  <!-- Modal para mostrar tarea -->
+  <div id="modalMostrarTarea" class="modal">
+    <div class="modal-content">
+      <h2>📝 Detalles de la Tarea</h2>
+      <div class="modal-tarea-detalle">
+        <p><strong>Título:</strong> <span id="tituloTarea"></span></p>
+        <p><strong>Descripción:</strong> <span id="descripcionTarea"></span></p>
+        <p><strong>Responsable:</strong> <span id="responsableTarea"></span></p>
+        <p>
+          <strong>Fecha límite:</strong> <span id="fechaLimiteTarea"></span>
+        </p>
+      </div>
+      <div class="modal-acciones">
+        <button id="cerrarModalTarea" class="cancelar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- CHAT DEL PROYECTO -->
   <section class="chat-section panel">
     <h2 class="panel-title">Chat del Proyecto</h2>
@@ -304,4 +322,6 @@
       <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
     </div>
   </div>
+
+  <script src="/js/fragmentos/Kanban.js"></script>
 </main>
