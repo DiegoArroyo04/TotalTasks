@@ -168,14 +168,12 @@
 .chat-section {
 	background-color: #fff;
 	border: 2px solid var(--color-primario);
-	;
 	border-radius: 10px;
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 	color: var(--color-primario);
-	;
 }
 
 .chat-section h2 {
@@ -195,6 +193,8 @@
 	height: 200px;
 	overflow-y: auto;
 	border: 1px solid var(--color-primario);
+	display: flex;
+	flex-direction: column;
 	border-radius: 5px;
 	padding: 8px;
 	background-color: #fff;
@@ -225,5 +225,27 @@
 }
 
 .chat-input button:hover {
-	background-color: #0056b3;
+	background-color: var(--color-primario-hover);
+}
+
+.mensaje {
+	background-color: var(--color-sombra);
+	border-radius: 12px;
+	padding: 8px 12px;
+	margin-bottom: 8px;
+	animation: aparecer 0.2s ease-in-out;
+}
+
+.mensaje-usuario {
+	font-size: var(--tamano-texto-pequeno);
+	color: var(--color-muted);
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 4px;
+}
+
+.mensaje-contenido {
+	font-size: var(--tamano-texto);
+	color: var(--color-texto);
+	word-break: break-word;
 }

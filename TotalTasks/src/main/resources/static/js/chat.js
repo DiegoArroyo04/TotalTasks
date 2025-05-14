@@ -23,18 +23,53 @@ document.addEventListener("keydown", function (event) {
 function enviarMensaje() {
   const entrada = document.getElementById("mensajeInput");
   const texto = entrada.value.trim();
+  const usuario = document.getElementById("nombreUsuario").value;
   if (texto && conexion.readyState === WebSocket.OPEN) {
-    conexion.send(texto);
+    const mensaje = {
+      usuario: usuario,
+      contenido: texto,
+      hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // HH:MM
+    };
+    conexion.send(JSON.stringify(mensaje));
     entrada.value = "";
   }
 }
 
-function mostrarMensaje(texto) {
-  const cont = document.getElementById("mensajesRecibidos");
-  const p = document.createElement("p");
-  p.textContent = texto;
-  cont.appendChild(p);
-  cont.scrollTop = cont.scrollHeight;
+
+function mostrarMensaje(data) {
+  const contenedorMensajes = document.getElementById("mensajesRecibidos");
+  const chatBody = document.querySelector(".chat-body");
+
+  let mensaje;
+  try {
+    mensaje = JSON.parse(data);
+  } catch (e) {
+    // Si no es JSON válido, mostrar como texto plano
+    mensaje = { contenido: data, usuario: "Desconocido", hora: "--:--" };
+  }
+
+
+  if (mensaje.type === "count") {
+    document.getElementById("estado-conexion").textContent = `Usuarios conectados: ${mensaje.data}`;
+    return;
+  }
+
+  const msgDiv = document.createElement("div");
+  msgDiv.classList.add("mensaje");
+
+  msgDiv.innerHTML = `
+    <div class="mensaje-usuario">
+      <strong>${mensaje.usuario}</strong> <span class="mensaje-hora">${mensaje.hora}</span>
+    </div>
+    <div class="mensaje-contenido">${mensaje.contenido}</div>
+  `;
+
+
+  contenedorMensajes.appendChild(msgDiv);
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+
+
 }
 
 function actualizarEstado(estado) {
