@@ -21,7 +21,8 @@ public class ChatMessageEntity {
 
 	private String contenido;
 
-	@Column(name = "fecha_creacion", updatable = false, insertable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_creacion", nullable = false, insertable = false)
 	private Timestamp fechaCreacion;
 
 	@ManyToOne(fetch = FetchType.LAZY)

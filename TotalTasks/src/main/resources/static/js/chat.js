@@ -37,7 +37,14 @@ function conectarChat() {
 		} catch {
 			return;
 		}
-		// mostramos cualquier mensaje (que viene guardado y reenviado)
+
+		// Si es conteo de usuarios conectados
+		if (msg.type === "count") {
+			$("#usuarios-conectados").text(msg.data);
+			return;
+		}
+
+		// Mensaje normal
 		$("#mensajesRecibidos")
 			.append(mensajeHtml(msg))
 			.prop("scrollTop", $("#mensajesRecibidos").prop("scrollHeight"));
@@ -51,9 +58,16 @@ function enviarMensaje() {
 	const payload = {
 		idUsuario: +idUsuario,
 		contenido: texto,
+		fechaCreacion: new Date().toISOString(), // 👈 Añadir la hora
 	};
+
 	conexion.send(JSON.stringify(payload));
 	$("#mensajeInput").val("");
+
+	// Mostrarlo inmediatamente sin esperar el eco del servidor
+	$("#mensajesRecibidos")
+		.append(mensajeHtml(payload))
+		.prop("scrollTop", $("#mensajesRecibidos").prop("scrollHeight"));
 }
 
 $("#mensajeInput").keypress((e) => {
@@ -70,11 +84,14 @@ function actualizarEstado(texto) {
 function mensajeHtml(msg) {
 	const quien =
 		msg.idUsuario === +idUsuario ? "Yo" : `Usuario ${msg.idUsuario}`;
+	const hora = new Date(msg.fechaCreacion);
+	const horaTexto = isNaN(hora.getTime())
+		? "🕒"
+		: hora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
 	return `
     <div class="mensaje">
-      <strong>${quien}</strong> <span class="hora">${new Date(
-		msg.fechaCreacion
-	).toLocaleTimeString()}</span>
+      <strong>${quien}</strong> <span class="hora">${horaTexto}</span>
       <div class="contenido">${msg.contenido}</div>
     </div>
   `;
