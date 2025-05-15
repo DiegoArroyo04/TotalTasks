@@ -465,7 +465,7 @@ textarea {
 }
 
 .chat-body {
-  height: 200px;
+  height: 400px;
   overflow-y: auto;
   border: 1px solid var(--color-primario);
   display: flex;

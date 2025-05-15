@@ -1,77 +1,81 @@
+const idProyecto = document.getElementById("idProyectoChat").value;
+const idUsuario = document.getElementById("idUsuarioChat").value;
 let conexion;
-let idProyecto = document.getElementById("idProyectoChat").value;
+
+// Construye URL
+function wsUrl(path) {
+	const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
+	return `${proto}//${window.location.host}${path}`;
+}
 
 window.addEventListener("load", () => {
-  conectarChat();
+	cargarMensajes();
+	conectarChat();
 });
+
+function cargarMensajes() {
+	$.getJSON(`/chat/mensajes/${idProyecto}`, (data) => {
+		const cont = $("#mensajesRecibidos").empty();
+		data.forEach((msg) => cont.append(mensajeHtml(msg)));
+		cont.scrollTop(cont.prop("scrollHeight"));
+	});
+}
 
 function conectarChat() {
-  conexion = new WebSocket(`ws://${window.location.host}/chat/${idProyecto}`);
-  conexion.onopen = () => actualizarEstado("Conectado ✅");
-  conexion.onclose = () => actualizarEstado("Desconectado ❌");
-  conexion.onerror = () => actualizarEstado("Error ❌");
-  conexion.onmessage = (evt) => mostrarMensaje(evt.data);
-}
+	conexion = new WebSocket(wsUrl(`/chat/${idProyecto}`));
+	conexion.onopen = () => actualizarEstado("Conectado ✅");
+	conexion.onerror = () => actualizarEstado("Error ❌");
+	conexion.onclose = () => {
+		actualizarEstado("Desconectado ❌");
+		setTimeout(conectarChat, 2000);
+	};
 
-document.addEventListener("keydown", function (event) {
-  const entrada = document.getElementById("mensajeInput");
-  if (event.key === "Enter" && document.activeElement === entrada) {
-    enviarMensaje();
-  }
-});
+	conexion.onmessage = (evt) => {
+		let msg;
+		try {
+			msg = JSON.parse(evt.data);
+		} catch {
+			return;
+		}
+		// mostramos cualquier mensaje (que viene guardado y reenviado)
+		$("#mensajesRecibidos")
+			.append(mensajeHtml(msg))
+			.prop("scrollTop", $("#mensajesRecibidos").prop("scrollHeight"));
+	};
+}
 
 function enviarMensaje() {
-  const entrada = document.getElementById("mensajeInput");
-  const texto = entrada.value.trim();
-  const usuario = document.getElementById("nombreUsuario").value;
-  if (texto && conexion.readyState === WebSocket.OPEN) {
-    const mensaje = {
-      usuario: usuario,
-      contenido: texto,
-      hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // HH:MM
-    };
-    conexion.send(JSON.stringify(mensaje));
-    entrada.value = "";
-  }
+	const texto = $("#mensajeInput").val().trim();
+	if (!texto || conexion.readyState !== WebSocket.OPEN) return;
+
+	const payload = {
+		idUsuario: +idUsuario,
+		contenido: texto,
+	};
+	conexion.send(JSON.stringify(payload));
+	$("#mensajeInput").val("");
 }
 
+$("#mensajeInput").keypress((e) => {
+	if (e.which === 13) {
+		enviarMensaje();
+		return false;
+	}
+});
 
-function mostrarMensaje(data) {
-  const contenedorMensajes = document.getElementById("mensajesRecibidos");
-  const chatBody = document.querySelector(".chat-body");
+function actualizarEstado(texto) {
+	$("#estado-conexion").text(texto);
+}
 
-  let mensaje;
-  try {
-    mensaje = JSON.parse(data);
-  } catch (e) {
-    // Si no es JSON válido, mostrar como texto plano
-    mensaje = { contenido: data, usuario: "Desconocido", hora: "--:--" };
-  }
-
-
-  if (mensaje.type === "count") {
-    document.getElementById("estado-conexion").textContent = `Usuarios conectados: ${mensaje.data}`;
-    return;
-  }
-
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("mensaje");
-
-  msgDiv.innerHTML = `
-    <div class="mensaje-usuario">
-      <strong>${mensaje.usuario}</strong> <span class="mensaje-hora">${mensaje.hora}</span>
+function mensajeHtml(msg) {
+	const quien =
+		msg.idUsuario === +idUsuario ? "Yo" : `Usuario ${msg.idUsuario}`;
+	return `
+    <div class="mensaje">
+      <strong>${quien}</strong> <span class="hora">${new Date(
+		msg.fechaCreacion
+	).toLocaleTimeString()}</span>
+      <div class="contenido">${msg.contenido}</div>
     </div>
-    <div class="mensaje-contenido">${mensaje.contenido}</div>
   `;
-
-
-  contenedorMensajes.appendChild(msgDiv);
-  chatBody.scrollTop = chatBody.scrollHeight;
-
-
-
-}
-
-function actualizarEstado(estado) {
-  document.getElementById("estado-conexion").textContent = estado;
 }

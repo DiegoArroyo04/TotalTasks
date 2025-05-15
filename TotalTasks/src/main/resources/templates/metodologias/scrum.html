@@ -132,33 +132,32 @@
 
     <!-- CHAT DEL PROYECTO -->
     <section class="chat-section panel">
-      <h2 class="panel-title" th:text="'Chat del Proyecto: ' + ${proyecto.nombreProyecto}">Chat del Proyecto</h2>
-      <div class="chat-header">
-        <p>
-          <strong>Estado WebSocket:</strong>
-          <span id="estado-conexion">Desconectado</span>
-        </p>
-      </div>
-      <div class="chat-body">
-        <div id="mensajesRecibidos" class="chat-messages"></div>
-      </div>
-      <div class="chat-input">
-        <input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
-        <button type="button" onclick="enviarMensaje()" class="btn-primary">
-          Enviar
-        </button>
-      </div>
+		<h2 class="panel-title" th:text="'Chat del Proyecto: ' + ${proyecto.nombreProyecto}">Chat del Proyecto</h2>
+		<div class="chat-header">
+			<p>
+			<strong>Estado WebSocket:</strong>
+			<span id="estado-conexion">Desconectado</span>
+			</p>
+		</div>
+		<div class="chat-body">
+			<div id="mensajesRecibidos" class="chat-messages"></div>
+		</div>
+		<div class="chat-input">
+			<input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
+			<button type="button" onclick="enviarMensaje()" class="btn-primary">
+			Enviar
+			</button>
+		</div>
     </section>
 
     <input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
-    <input type="hidden" id="nombreUsuario" th:value="${usuario.usuario}" />
+    <input type="hidden" id="idUsuarioChat" th:value="${usuario.idUsuario}" />
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/js/chat.js"></script>
   </main>
 
   <!-- Footer -->
   <footer th:insert="~{fragmentos/footer :: footer}"></footer>
-
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <script src="/js/metodologias/scrum.js"></script>
 </body>

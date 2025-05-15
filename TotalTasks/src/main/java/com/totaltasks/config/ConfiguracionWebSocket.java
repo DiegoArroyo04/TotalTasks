@@ -1,5 +1,6 @@
 package com.totaltasks.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.*;
 
@@ -7,9 +8,13 @@ import org.springframework.web.socket.config.annotation.*;
 @EnableWebSocket
 public class ConfiguracionWebSocket implements WebSocketConfigurer {
 
-    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ManejadorChatWebSocket(), "/chat/{idProyecto}")
-                .setAllowedOrigins("*");
-    }
+	@Autowired
+	private ManejadorChatWebSocket manejador;
+
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		registry
+				.addHandler(manejador, "/chat/{idProyecto}")
+				.setAllowedOrigins("*");
+	}
 }
