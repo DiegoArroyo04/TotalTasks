@@ -524,3 +524,7 @@ textarea {
   color: var(--color-texto);
   word-break: break-word;
 }
+#mensajesRecibidos {
+  max-height: 400px; /* o lo que necesites */
+  overflow-y: auto;
+}

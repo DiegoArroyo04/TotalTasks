@@ -249,3 +249,8 @@
 	color: var(--color-texto);
 	word-break: break-word;
 }
+
+#mensajesRecibidos {
+  max-height: 400px;
+  overflow-y: auto;
+}

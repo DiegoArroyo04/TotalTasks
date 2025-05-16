@@ -17,7 +17,7 @@ function cargarMensajes() {
 	$.getJSON(`/chat/mensajes/${idProyecto}`, (data) => {
 		const cont = $("#mensajesRecibidos").empty();
 		data.forEach((msg) => cont.append(mensajeHtml(msg)));
-		cont.scrollTop(cont.prop("scrollHeight"));
+		scrollToBottom();
 	});
 }
 
@@ -38,16 +38,13 @@ function conectarChat() {
 			return;
 		}
 
-		// Si es conteo de usuarios conectados
 		if (msg.type === "count") {
 			$("#usuarios-conectados").text(msg.data);
 			return;
 		}
 
-		// Mensaje normal
-		$("#mensajesRecibidos")
-			.append(mensajeHtml(msg))
-			.prop("scrollTop", $("#mensajesRecibidos").prop("scrollHeight"));
+		$("#mensajesRecibidos").append(mensajeHtml(msg));
+		scrollToBottom();
 	};
 }
 
@@ -58,16 +55,10 @@ function enviarMensaje() {
 	const payload = {
 		idUsuario: +idUsuario,
 		contenido: texto,
-		fechaCreacion: new Date().toISOString(), // 👈 Añadir la hora
 	};
 
 	conexion.send(JSON.stringify(payload));
 	$("#mensajeInput").val("");
-
-	// Mostrarlo inmediatamente sin esperar el eco del servidor
-	$("#mensajesRecibidos")
-		.append(mensajeHtml(payload))
-		.prop("scrollTop", $("#mensajesRecibidos").prop("scrollHeight"));
 }
 
 $("#mensajeInput").keypress((e) => {
@@ -95,4 +86,10 @@ function mensajeHtml(msg) {
       <div class="contenido">${msg.contenido}</div>
     </div>
   `;
+}
+
+// ✅ Hace scroll automático hacia abajo
+function scrollToBottom() {
+	const cont = $("#mensajesRecibidos");
+	cont.stop().animate({ scrollTop: cont[0].scrollHeight }, 300);
 }
