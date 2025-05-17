@@ -134,34 +134,15 @@ CREATE TABLE product_board (
     CONSTRAINT fk_board_usuario FOREIGN KEY (id_responsable) REFERENCES usuario(id_usuario)
 );
 
-
-
-
--- Inserción de proyectos
-INSERT INTO proyecto (nombre_proyecto, descripcion, metodologia, id_creador, codigo) VALUES 
-('Proyecto Alpha', 'Sistema de gestión de tareas', 'Scrum', 1, 'ALPHA123'), 
-('Proyecto Beta', 'App de colaboración en equipo', 'Kanban', 2, 'BETA456');
-
--- Inserción en tabla intermedia usuario_proyecto
-INSERT INTO usuario_proyecto (id_usuario, id_proyecto, rol) VALUES
-(1, 1, 'Administrador'),
-(1, 2, 'Colaborador'),
-(2, 2, 'Administrador');
-
--- Inserción de tareas
-INSERT INTO tarea (titulo, descripcion, fecha_limite, id_proyecto, id_responsable, estado) VALUES
-('Diseñar base de datos', 'Diseñar el esquema inicial de la base de datos', '2025-04-20', 1, 1, 'En progreso'),
-('Maquetar la app', 'Hacer la estructura de pantallas principales', '2025-04-22', 2, 2, 'Pendiente');
-
--- Tablones para Proyecto
-INSERT INTO tablon (nombre_tablon, orden, id_proyecto) VALUES
-('Pendiente', 1, 1),
-('En progreso', 2, 1),
-('Completado', 3, 1),
-('Pendiente', 1, 2),
-('En progreso', 2, 2),
-('Completado', 3, 2);
-
+CREATE TABLE chat_message (
+  id_message BIGINT AUTO_INCREMENT PRIMARY KEY,
+  contenido TEXT NOT NULL,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id_proyecto BIGINT NOT NULL,
+  id_usuario BIGINT NOT NULL,
+  CONSTRAINT fk_chat_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
+  CONSTRAINT fk_chat_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
 
 -- Selects
 SELECT * FROM USUARIO;
@@ -172,7 +153,18 @@ SELECT * FROM TABLON;
 SELECT * FROM PRODUCT_BACKLOG;
 SELECT * FROM SPRINT;
 SELECT * FROM PRODUCT_BOARD;
+SELECT * FROM CHAT_MESSAGE;
 
+-- Deletes
+DELETE FROM USUARIO;
+DELETE FROM PROYECTO;
+DELETE FROM USUARIO_PROYECTO;
+DELETE FROM TAREA;
+DELETE FROM TABLON;
+DELETE FROM PRODUCT_BACKLOG;
+DELETE FROM SPRINT;
+DELETE FROM PRODUCT_BOARD;
+DELETE FROM CHAT_MESSAGE;
 
 -- Sript destructivo
 DROP DATABASE totaltasks;
