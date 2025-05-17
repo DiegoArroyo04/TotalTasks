@@ -1,16 +1,12 @@
 package com.totaltasks.config;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,62 +21,82 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
+	// Guarda las sesiones WebSocket activas por ID de proyecto
 	private final Map<String, Set<WebSocketSession>> sesionesPorProyecto = new ConcurrentHashMap<>();
 
+	// Cuando un usuario se conecta
 	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		String idProj = extraerIdProyecto(session);
+	public void afterConnectionEstablished(WebSocketSession sesion) {
+		String idProyecto = obtenerIdProyectoDesdeSesion(sesion);
+
+		// Añadir sesión al mapa del proyecto
 		sesionesPorProyecto
-				.computeIfAbsent(idProj, k -> ConcurrentHashMap.newKeySet())
-				.add(session);
-		enviarCantidadUsuarios(idProj);
+			.computeIfAbsent(idProyecto, key -> ConcurrentHashMap.newKeySet())
+			.add(sesion);
+
+		// Enviar a todos los usuarios cuántos están conectados
+		enviarUsuariosConectados(idProyecto);
 	}
 
+	// Cuando un usuario se desconecta
 	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		String idProj = extraerIdProyecto(session);
-		Set<WebSocketSession> set = sesionesPorProyecto.get(idProj);
-		if (set != null) {
-			set.remove(session);
-			if (set.isEmpty()) {
-				sesionesPorProyecto.remove(idProj);
+	public void afterConnectionClosed(WebSocketSession sesion, CloseStatus estado) {
+		String idProyecto = obtenerIdProyectoDesdeSesion(sesion);
+
+		Set<WebSocketSession> sesiones = sesionesPorProyecto.get(idProyecto);
+		if (sesiones != null) {
+			sesiones.remove(sesion);
+			if (sesiones.isEmpty()) {
+				sesionesPorProyecto.remove(idProyecto);
 			}
 		}
-		enviarCantidadUsuarios(idProj);
+
+		enviarUsuariosConectados(idProyecto);
 	}
 
+	// Cuando se recibe un mensaje desde el cliente
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		// 1) Parsear payload → DTO
-		ChatMessageDTO dto = mapper.readValue(message.getPayload(), ChatMessageDTO.class);
-		// 2) Fijar proyecto según URI
-		dto.setIdProyecto(Long.parseLong(extraerIdProyecto(session)));
-		// 3) Guardar en BD (service asigna usuario, timestamp, etc.)
-		ChatMessageDTO guardado = chatService.guardarMensaje(dto);
-		// 4) Serializar el DTO con todos los campos (incluye id, fechaCreacion)
-		String broadcastPayload = mapper.writeValueAsString(guardado);
-		// 5) Reenviar a todas las sesiones de ese proyecto
-		String idProj = extraerIdProyecto(session);
-		for (WebSocketSession s : sesionesPorProyecto.getOrDefault(idProj, Collections.emptySet())) {
-			if (s.isOpen()) {
-				s.sendMessage(new TextMessage(broadcastPayload));
+	protected void handleTextMessage(WebSocketSession sesion, TextMessage mensajeTexto) throws IOException {
+		// Convertir el JSON a objeto Java (DTO)
+		ChatMessageDTO mensaje = mapper.readValue(mensajeTexto.getPayload(), ChatMessageDTO.class);
+
+		// Establecer el ID del proyecto desde la URL
+		String idProyecto = obtenerIdProyectoDesdeSesion(sesion);
+		mensaje.setIdProyecto(Long.parseLong(idProyecto));
+
+		// Guardar el mensaje en la base de datos
+		ChatMessageDTO mensajeGuardado = chatService.guardarMensaje(mensaje);
+
+		// Convertirlo nuevamente a JSON
+		String mensajeJson = mapper.writeValueAsString(mensajeGuardado);
+
+		// Enviar el mensaje a todos los usuarios conectados a ese proyecto
+		for (WebSocketSession sesionDestino : sesionesPorProyecto.getOrDefault(idProyecto, Collections.emptySet())) {
+			if (sesionDestino.isOpen()) {
+				sesionDestino.sendMessage(new TextMessage(mensajeJson));
 			}
 		}
 	}
 
-	private void enviarCantidadUsuarios(String idProyecto) throws IOException {
-		Set<WebSocketSession> sesiones = sesionesPorProyecto.getOrDefault(idProyecto, Collections.emptySet());
-		int cantidad = sesiones.size();
+	// Envía el número de usuarios conectados al proyecto
+	private void enviarUsuariosConectados(String idProyecto) {
+		int cantidad = sesionesPorProyecto.getOrDefault(idProyecto, Collections.emptySet()).size();
 		String mensaje = "{\"type\":\"count\", \"data\":" + cantidad + "}";
-		for (WebSocketSession sesion : sesiones) {
+
+		for (WebSocketSession sesion : sesionesPorProyecto.getOrDefault(idProyecto, Collections.emptySet())) {
 			if (sesion.isOpen()) {
-				sesion.sendMessage(new TextMessage(mensaje));
+				try {
+					sesion.sendMessage(new TextMessage(mensaje));
+				} catch (IOException e) {
+					e.printStackTrace(); // Solo loguea error, no interrumpe
+				}
 			}
 		}
 	}
 
-	private String extraerIdProyecto(WebSocketSession session) {
-		String path = session.getUri().getPath();
-		return path.substring(path.lastIndexOf('/') + 1);
+	// Obtiene el ID del proyecto desde la URL del WebSocket
+	private String obtenerIdProyectoDesdeSesion(WebSocketSession sesion) {
+		String url = sesion.getUri().getPath(); // ejemplo: /chat/123
+		return url.substring(url.lastIndexOf('/') + 1); // devuelve "123"
 	}
 }

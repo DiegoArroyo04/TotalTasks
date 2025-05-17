@@ -503,28 +503,65 @@ textarea {
   background-color: var(--color-primario-hover);
 }
 
-.mensaje {
-  background-color: var(--color-sombra);
-  border-radius: 12px;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  animation: aparecer 0.2s ease-in-out;
-}
-
-.mensaje-usuario {
-  font-size: var(--tamano-texto-pequeno);
-  color: var(--color-muted);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.mensaje-contenido {
-  font-size: var(--tamano-texto);
-  color: var(--color-texto);
-  word-break: break-word;
-}
 #mensajesRecibidos {
-  max-height: 400px; /* o lo que necesites */
+  max-height: 400px;
   overflow-y: auto;
+}
+
+.mensaje {
+	display: flex;
+	margin: 12px 0;
+}
+
+.mensaje-mio {
+	justify-content: flex-end;
+}
+
+.mensaje-otro {
+	justify-content: flex-start;
+}
+
+.mensaje-burbuja {
+	max-width: 50%;
+	padding: 20px 24px;
+	border-radius: 20px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	background-color: #f0f2f5;
+	color: #111;
+	position: relative;
+	animation: aparecer 0.2s ease-in-out;
+	font-size: 1.15rem;
+	line-height: 1.6;
+}
+
+.mensaje-mio .mensaje-burbuja {
+	background-color: var(--color-primario);
+	color: white;
+	border-bottom-right-radius: 0;
+}
+
+.mensaje-otro .mensaje-burbuja {
+	background-color: #e4e6eb;
+	color: #222;
+	border-bottom-left-radius: 0;
+}
+
+.mensaje-header {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.9rem;
+	gap: 50px;
+	margin-bottom: 8px;
+	opacity: 0.85;
+	font-weight: 700;
+}
+
+.mensaje-header .autor {
+	font-weight: 700;
+}
+
+.mensaje-texto {
+	word-wrap: break-word;
 }

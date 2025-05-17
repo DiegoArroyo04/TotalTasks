@@ -171,8 +171,8 @@
 		<h2 class="panel-title" th:text="'Chat del Proyecto: ' + ${proyecto.nombreProyecto}">Chat del Proyecto</h2>
 		<div class="chat-header">
 			<p>
-			<strong>Estado WebSocket:</strong>
-			<span id="estado-conexion">Desconectado</span>
+				<strong>Usuarios conectados:</strong>
+				<span id="usuarios-conectados">0</span>
 			</p>
 		</div>
 		<div class="chat-body">
@@ -188,6 +188,7 @@
 
   	<input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
     <input type="hidden" id="idUsuarioChat" th:value="${usuario.idUsuario}" />
+	<input type="hidden" id="nombreUsuario" th:value="${usuario.usuario}" />
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/js/chat.js"></script>
 

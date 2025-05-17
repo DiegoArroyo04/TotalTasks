@@ -1,11 +1,11 @@
 const idProyecto = document.getElementById("idProyectoChat").value;
 const idUsuario = document.getElementById("idUsuarioChat").value;
+const userName = document.getElementById("nombreUsuario").value;
 let conexion;
 
-// Construye URL
-function wsUrl(path) {
-	const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
-	return `${proto}//${window.location.host}${path}`;
+function websocketURL(ruta) {
+	const protocolo = location.protocol === "https:" ? "wss:" : "ws:";
+	return `${protocolo}//${location.host}${ruta}`;
 }
 
 window.addEventListener("load", () => {
@@ -14,82 +14,87 @@ window.addEventListener("load", () => {
 });
 
 function cargarMensajes() {
-	$.getJSON(`/chat/mensajes/${idProyecto}`, (data) => {
-		const cont = $("#mensajesRecibidos").empty();
-		data.forEach((msg) => cont.append(mensajeHtml(msg)));
-		scrollToBottom();
+	$.getJSON(`/chat/mensajes/${idProyecto}`, (mensajes) => {
+		const areaMensajes = $("#mensajesRecibidos").empty();
+		mensajes.forEach((mensaje) => areaMensajes.append(crearHtmlMensaje(mensaje)));
+		irAbajo();
 	});
 }
 
 function conectarChat() {
-	conexion = new WebSocket(wsUrl(`/chat/${idProyecto}`));
-	conexion.onopen = () => actualizarEstado("Conectado ✅");
-	conexion.onerror = () => actualizarEstado("Error ❌");
-	conexion.onclose = () => {
-		actualizarEstado("Desconectado ❌");
-		setTimeout(conectarChat, 2000);
-	};
+	conexion = new WebSocket(websocketURL(`/chat/${idProyecto}`));
 
-	conexion.onmessage = (evt) => {
-		let msg;
+	conexion.onclose = () => setTimeout(conectarChat, 2000);
+
+	conexion.onmessage = (evento) => {
+		let mensaje;
 		try {
-			msg = JSON.parse(evt.data);
+			mensaje = JSON.parse(evento.data);
 		} catch {
 			return;
 		}
 
-		if (msg.type === "count") {
-			$("#usuarios-conectados").text(msg.data);
+		if (mensaje.type === "count") {
+			$("#usuarios-conectados").text(mensaje.data);
 			return;
 		}
 
-		$("#mensajesRecibidos").append(mensajeHtml(msg));
-		scrollToBottom();
+		$("#mensajesRecibidos").append(crearHtmlMensaje(mensaje));
+		irAbajo();
 	};
 }
 
 function enviarMensaje() {
-	const texto = $("#mensajeInput").val().trim();
-	if (!texto || conexion.readyState !== WebSocket.OPEN) return;
+	const textoMensaje = $("#mensajeInput").val().trim();
+	if (!textoMensaje || conexion.readyState !== WebSocket.OPEN) return;
 
-	const payload = {
+	const mensaje = {
 		idUsuario: +idUsuario,
-		contenido: texto,
+		contenido: textoMensaje,
 	};
 
-	conexion.send(JSON.stringify(payload));
+	conexion.send(JSON.stringify(mensaje));
 	$("#mensajeInput").val("");
 }
 
-$("#mensajeInput").keypress((e) => {
-	if (e.which === 13) {
+$("#mensajeInput").on("keydown", (event) => {
+	if (event.key === "Enter") {
 		enviarMensaje();
-		return false;
+		event.preventDefault();
 	}
 });
 
-function actualizarEstado(texto) {
-	$("#estado-conexion").text(texto);
-}
-
-function mensajeHtml(msg) {
-	const quien =
-		msg.idUsuario === +idUsuario ? "Yo" : `Usuario ${msg.idUsuario}`;
-	const hora = new Date(msg.fechaCreacion);
-	const horaTexto = isNaN(hora.getTime())
-		? "🕒"
-		: hora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+function crearHtmlMensaje(mensaje) {
+	const esMio = mensaje.idUsuario === +idUsuario;
+	const nombreAutor = esMio ? userName : (mensaje.nombreUsuario || `Usuario ${mensaje.idUsuario}`);
+	const fechaHora = mensaje.fechaCreacion ? new Date(mensaje.fechaCreacion) : new Date();
+	const textoHora = formatearFechaCompleta(fechaHora);
 
 	return `
-    <div class="mensaje">
-      <strong>${quien}</strong> <span class="hora">${horaTexto}</span>
-      <div class="contenido">${msg.contenido}</div>
-    </div>
-  `;
+		<div class="mensaje ${esMio ? "mensaje-mio" : "mensaje-otro"}">
+			<div class="mensaje-burbuja">
+				<div class="mensaje-header">
+					<span class="autor">${nombreAutor}</span>
+					<span class="hora">${textoHora}</span>
+				</div>
+				<div class="mensaje-texto">${mensaje.contenido}</div>
+			</div>
+		</div>
+	`;
 }
 
-// ✅ Hace scroll automático hacia abajo
-function scrollToBottom() {
-	const cont = $("#mensajesRecibidos");
-	cont.stop().animate({ scrollTop: cont[0].scrollHeight }, 300);
+function irAbajo() {
+	const contenedor = $("#mensajesRecibidos");
+	contenedor.stop().animate({ scrollTop: contenedor[0].scrollHeight }, 300);
+}
+
+function formatearFechaCompleta(fecha) {
+	const dosDigitos = (n) => n.toString().padStart(2, "0");
+	const año = fecha.getFullYear();
+	const mes = dosDigitos(fecha.getMonth() + 1);
+	const dia = dosDigitos(fecha.getDate());
+	const hora = dosDigitos(fecha.getHours());
+	const minuto = dosDigitos(fecha.getMinutes());
+	const segundo = dosDigitos(fecha.getSeconds());
+	return `${año}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
 }
