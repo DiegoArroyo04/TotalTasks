@@ -13,9 +13,13 @@ import com.totaltasks.entities.UsuarioProyectoEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
 import com.totaltasks.models.TablonDTO;
+import com.totaltasks.repositories.ChatMessageRepository;
 import com.totaltasks.repositories.NotificacionRepository;
 import com.totaltasks.repositories.NotificacionUsuarioRepository;
+import com.totaltasks.repositories.ProductBoardRepository;
 import com.totaltasks.repositories.ProyectoRepository;
+import com.totaltasks.repositories.ScrumRepository;
+import com.totaltasks.repositories.SprintRepository;
 import com.totaltasks.repositories.TablonRepository;
 import com.totaltasks.repositories.TareaRepository;
 import com.totaltasks.repositories.UsuarioProyectoRepository;
@@ -51,6 +55,17 @@ public class ProyectoServiceImplementation implements ProyectoService {
 
 	@Autowired
 	private TablonService tablonService;
+
+	@Autowired
+	private ProductBoardRepository productBoardRepository;
+
+	@Autowired
+	private SprintRepository sprintRepository;
+
+	@Autowired
+	private ScrumRepository scrumRepository; // ProductBacklog
+
+	@Autowired ChatMessageRepository chatMessageRepository;
 
 	@Override
 	public List<ProyectoEntity> todosLosProyectosDeUnUsuario(UsuarioEntity usuario) {
@@ -184,9 +199,12 @@ public class ProyectoServiceImplementation implements ProyectoService {
 		if (abandonar == true) {
 			usuarioProyectoRepository.deleteAllByProyecto(proyecto);
 		} else {
+			productBoardRepository.deleteAllByProyecto(proyecto);
+			sprintRepository.deleteAllByProyecto(proyecto);
+			scrumRepository.deleteAllByProyecto(proyecto);
+			chatMessageRepository.deleteAllByProyecto(proyecto);
 			notificacionRepository.deleteAllByProyecto(proyecto);
 			notificacionUsuarioRepository.deleteAllByProyectoId(proyecto.getIdProyecto());
-
 			tareaRepository.deleteAllByProyecto(proyecto);
 			tablonRepository.deleteAllByProyecto(proyecto);
 			usuarioProyectoRepository.deleteAllByProyecto(proyecto);

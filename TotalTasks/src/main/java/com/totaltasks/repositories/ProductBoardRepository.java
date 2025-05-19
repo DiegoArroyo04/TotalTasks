@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.totaltasks.entities.ProductBoardEntity;
+import com.totaltasks.entities.ProyectoEntity;
 
 @Repository
 public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity, Long> {
     List<ProductBoardEntity> findByProyecto_idProyecto(Long idProyecto);
+	void deleteAllByProyecto(ProyectoEntity proyecto);
 }
