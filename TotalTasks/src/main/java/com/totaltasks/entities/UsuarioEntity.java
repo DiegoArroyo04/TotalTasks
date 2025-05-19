@@ -56,13 +56,13 @@ public class UsuarioEntity {
 	private byte[] fotoPerfil;
 
 	@OneToMany(mappedBy = "creador")
-	private List<ProyectoEntity> proyectos;
+	private List<ProyectoEntity> proyectos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "responsable", fetch = FetchType.EAGER)
-	private List<TareaEntity> tareasAsignadas;
+	private List<TareaEntity> tareasAsignadas = new ArrayList<>();
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-	private List<UsuarioProyectoEntity> proyectosParticipados;
+	private List<UsuarioProyectoEntity> proyectosParticipados = new ArrayList<>();
 
 	@OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<NotificacionUsuarioEntity> notificacionesRecibidas = new ArrayList<>();

@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const btnCancelarTarea = document.getElementById("cancelarModalTarea");
 	const botonEliminarColumna = document.getElementById("botonEliminarColumna");
 	let columnaArrastrada = null;
+	let tarea = null;
 
 	// Mostrar el modal para crear columna
 	btnAgregar.addEventListener("click", () => {
@@ -229,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					const tareaMovida = evento.item;
 					const idTarea = tareaMovida.getAttribute("data-id");
 
+
 					//COLUMNA A LA QUE SE HA MOVIDO
 					const nuevaColumna = evento.to.closest(".columna");
 
@@ -249,7 +251,47 @@ document.addEventListener("DOMContentLoaded", () => {
 							console.error("❌ Error al actualizar tarea:", error);
 						},
 					});
-				},
+				}, onStart: function (evt) {
+					tarea = evt.item;
+					botonEliminarColumna.style.display = "block";
+				}, onEnd: function (evt) {
+					const papelera = botonEliminarColumna.getBoundingClientRect();
+					const mouseX = evt.originalEvent.clientX;
+					const mouseY = evt.originalEvent.clientY;
+
+
+					//VERIFICACION DE QUE EL EVENTO NO SE HA HECHO PARA ELIMINAR LA TAREA NTERA
+					if (
+						mouseX >= papelera.left &&
+						mouseX <= papelera.right &&
+						mouseY >= papelera.top &&
+						mouseY <= papelera.bottom
+					) {
+						const idTarea = tarea.getAttribute("data-id");
+
+
+						$.ajax({
+							url: `/eliminarTarea/${idTarea}`,
+							method: "POST",
+							success: function () {
+								tarea.remove(); // eliminar del DOM
+							},
+							error: function (xhr, status, error) {
+								console.error("❌ Error al eliminar la tara:", error);
+							},
+						});
+					}
+
+
+
+
+
+					// Ocultar el botón de eliminar columna siempre que se suelta
+					setTimeout(() => {
+						botonEliminarColumna.style.display = "none";
+						columnaArrastrada = null;
+					}, 200);
+				}
 			});
 		});
 	}

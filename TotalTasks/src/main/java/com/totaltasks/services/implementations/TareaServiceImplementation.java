@@ -140,6 +140,11 @@ public class TareaServiceImplementation implements TareaService {
 		LocalDate hoy = LocalDate.now();
 		LocalDate fechaLimite = hoy.plusDays(2);
 
+		List<TareaEntity> tareas = usuario.getTareasAsignadas();
+		if (tareas == null) {
+			tareas = Collections.emptyList();
+		}
+
 		// Filtrar las tareas que tienen una fecha límite dentro de hoy y dos días
 		List<TareaEntity> tareasProximas = usuario.getTareasAsignadas().stream()
 				.filter(t -> {
@@ -251,6 +256,11 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionRepository.save(notificacionEntityResponsable);
 		notificacionUsuarioRepository.save(notificacionUsuarioEntityResponsable);
 
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		tareaRepository.deleteById(id);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,12 +48,17 @@ public class TareaRestController {
 
 	}
 
-	@PostMapping( "/cambiarFechaTarea")
+	@PostMapping("/cambiarFechaTarea")
 	public void obtenerTareasPorUserYProyecto(@RequestParam Long idUsuario, Long idTarea,
 			@RequestParam Date nuevaFecha) {
 
-			 tareaService.actualizarFechaTarea(idTarea, nuevaFecha,idUsuario);
+		tareaService.actualizarFechaTarea(idTarea, nuevaFecha, idUsuario);
 
+	}
+
+	@PostMapping("/eliminarTarea/{idTarea}")
+	public void eliminarTarea(@PathVariable Long idTarea) {
+		tareaService.deleteById(idTarea);
 	}
 
 }

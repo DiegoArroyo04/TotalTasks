@@ -19,6 +19,8 @@ public interface TareaService {
 
 	List<TareaEntity> obtenerTareasPorUserYProyecto(Long usuarioId, Long proyectoId);
 
-	void actualizarFechaTarea(Long idTarea,Date nuevaFecha,Long idUsuario);
+	void actualizarFechaTarea(Long idTarea, Date nuevaFecha, Long idUsuario);
+
+	void deleteById(Long id);
 
 }
