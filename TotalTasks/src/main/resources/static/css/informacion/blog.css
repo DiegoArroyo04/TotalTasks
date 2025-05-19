@@ -1,0 +1,46 @@
+@import url('/css/informacion/general.css');
+
+body {
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.blog-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.post {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border-left: 5px solid var(--color-info);
+  transition: transform 0.2s ease;
+}
+
+.post:hover {
+  transform: scale(1.02);
+}
+
+.post h2 {
+  font-size: var(--tamano-subtitulo);
+  margin-bottom: 0.8rem;
+}
+
+.post p {
+  font-size: var(--tamano-texto);
+  color: var(--color-texto);
+}
+
+.fecha {
+  color: var(--color-muted);
+  font-size: var(--tamano-texto-pequeno);
+  margin-bottom: 1rem;
+  display: block;
+}
