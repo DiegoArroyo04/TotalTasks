@@ -1,46 +1,90 @@
-@import url('/css/informacion/general.css');
+@import url('/css/general.css');
 
 body {
   padding: 2rem;
+  background-color: var(--color-fondo);
+  font-family: var(--fuente-principal);
 }
 
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
-.blog-lista {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+.header h1 {
+  font-size: var(--tamano-titulo);
+  color: var(--color-primario);
 }
 
-.post {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  border-left: 5px solid var(--color-info);
-  transition: transform 0.2s ease;
+.header p {
+  font-size: var(--tamano-texto-grande);
+  color: var(--color-muted);
+  margin-top: 1rem;
 }
 
-.post:hover {
-  transform: scale(1.02);
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 900px;
+  margin: auto;
 }
 
-.post h2 {
+.tarjeta {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid var(--color-secundario);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta h2 {
   font-size: var(--tamano-subtitulo);
-  margin-bottom: 0.8rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
 }
 
-.post p {
+.tarjeta p {
   font-size: var(--tamano-texto);
   color: var(--color-texto);
+  line-height: 1.7;
+  margin-bottom: 1rem;
 }
 
-.fecha {
+.footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-sombra);
   color: var(--color-muted);
-  font-size: var(--tamano-texto-pequeno);
-  margin-bottom: 1rem;
-  display: block;
+  font-size: var(--tamano-texto);
+}
+
+.footer a {
+  color: var(--color-info);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .tarjeta {
+    padding: 1.75rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .header p {
+    font-size: var(--tamano-texto);
+  }
 }
