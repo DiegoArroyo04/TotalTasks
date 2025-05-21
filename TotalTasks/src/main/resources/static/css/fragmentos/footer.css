@@ -7,6 +7,7 @@
 	padding: 40px 20px;
 	font-size: var(--tamano-texto);
 	text-align: center;
+
 }
 
 /* Enlaces */
@@ -38,6 +39,8 @@
 	align-items: center;
 	gap: 20px;
 	flex: 1 1 300px;
+
+
 }
 
 .logo-footer {

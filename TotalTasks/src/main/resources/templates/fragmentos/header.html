@@ -17,7 +17,11 @@
                 </li>
 
                 <!-- Enlaces del dashboard -->
-                <li th:if="${paginaActual != 'index'}"><a href="/dashboard">Mis proyectos</a></li>
+                <li th:if="${paginaActual != 'index'}">
+                    <a th:if="${usuario != null}" href="/dashboard">Mis proyectos</a>
+                    <a th:if="${usuario == null}" href="/">Ir al inicio</a>
+                </li>
+
 
                 <!-- Ícono de notificaciones (campanita) -->
                 <li th:if="${usuario != null and paginaActual != 'index'}" class="icono-notificaciones">

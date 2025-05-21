@@ -124,11 +124,6 @@ public class IndexController {
 		return "/textos-legales/terminos-de-uso";
 	}
 
-	@GetMapping("/documentacion")
-	public String documentacion() {
-		return "/informacion/documentacion";
-	}
-
 	@GetMapping("/faq")
 	public String faq() {
 		return "/informacion/faq";
@@ -156,23 +151,4 @@ public class IndexController {
 		return "miPerfil";
 	}
 
-	@GetMapping("/sobreNosotros")
-	public String sobreNosotros() {
-		return "/informacion/sobreNosotros";
-	}
-
-	@GetMapping("/caracteristicas")
-	public String caracteristicas() {
-		return "/informacion/caracteristicas";
-	}
-
-	@GetMapping("/blog")
-	public String blog() {
-		return "/informacion/blog";
-	}
-
-	@GetMapping("/soporte")
-	public String soporte() {
-		return "/informacion/soporte";
-	}
 }

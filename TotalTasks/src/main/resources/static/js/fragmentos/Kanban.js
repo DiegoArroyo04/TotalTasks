@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	btnCrear.addEventListener("click", () => {
 		const nombre = inputNombre.value.trim();
 		if (nombre) {
+
 			const idProyecto = document.getElementById("idProyecto").value;
 			const orden = document.getElementById("orden").value;
 

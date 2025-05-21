@@ -8,6 +8,14 @@ header {
 main {
 	padding: 20px;
 	text-align: justify;
+	margin: 182px 32px 32px;
+}
+
+main h1 {
+	font-size: var(--tamano-titulo);
+	color: var(--color-primario);
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 h1,
