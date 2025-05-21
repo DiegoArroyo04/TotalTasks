@@ -58,6 +58,7 @@ public class TablonRestController {
 
 	@PostMapping("/crearTablon")
 	public String crearTablon(@RequestBody TablonDTO tablon, HttpSession session) {
+
 		tablon.setProyecto(proyectoService.obtenerProyectoPorId(tablon.getId_proyecto()));
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
