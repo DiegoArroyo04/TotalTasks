@@ -51,6 +51,7 @@ function enviarMensaje() {
 	const mensaje = {
 		idUsuario: +idUsuario,
 		contenido: textoMensaje,
+		nombreUsuario: userName
 	};
 
 	conexion.send(JSON.stringify(mensaje));
@@ -95,6 +96,5 @@ function formatearFechaCompleta(fecha) {
 	const dia = dosDigitos(fecha.getDate());
 	const hora = dosDigitos(fecha.getHours());
 	const minuto = dosDigitos(fecha.getMinutes());
-	const segundo = dosDigitos(fecha.getSeconds());
-	return `${año}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+	return `${dia}-${mes}-${año} &nbsp; &nbsp; ${hora}:${minuto}`;
 }

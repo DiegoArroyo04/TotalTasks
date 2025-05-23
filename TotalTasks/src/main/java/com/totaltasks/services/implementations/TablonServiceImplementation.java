@@ -25,6 +25,7 @@ import com.totaltasks.repositories.TareaRepository;
 import com.totaltasks.repositories.UsuarioProyectoRepository;
 import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.TablonService;
+import com.totaltasks.services.TareaService;
 
 import jakarta.transaction.Transactional;
 
@@ -36,6 +37,9 @@ public class TablonServiceImplementation implements TablonService {
 
 	@Autowired
 	private TareaRepository tareaRepository;
+
+	@Autowired
+	private TareaService tareaService;
 
 	@Autowired
 	private UsuarioProyectoRepository usuarioProyectoRepository;
@@ -261,6 +265,19 @@ public class TablonServiceImplementation implements TablonService {
 			}
 
 			// No existe actualizamos
+			List<TareaEntity> tareas = tareaService.obtenerTareasPorUserYProyecto(usuario.getIdUsuario(), idProyecto);
+
+			// SI EL USUARIO TIENE TAREAS EN ESTE PROYECTO CAMBIAR SU ESTADO POR EL NUEVO
+			// NOMBRE
+			if (tareas.size() != 0) {
+				for (int i = 0; i < tareas.size(); i++) {
+					if (tareas.get(i).getEstado().equals(tablon.getNombreTablon())) {
+						tareas.get(i).setEstado(nuevoNombre);
+						tareaRepository.save(tareas.get(i));
+					}
+				}
+			}
+
 			tablon.setNombreTablon(nuevoNombre);
 			tablonRepository.save(tablon);
 			return true;

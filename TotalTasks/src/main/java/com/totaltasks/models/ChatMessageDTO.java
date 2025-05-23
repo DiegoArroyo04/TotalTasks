@@ -14,4 +14,5 @@ public class ChatMessageDTO {
 	private Timestamp fechaCreacion;
 	private Long idProyecto;
 	private Long idUsuario;
+	private String nombreUsuario;
 }

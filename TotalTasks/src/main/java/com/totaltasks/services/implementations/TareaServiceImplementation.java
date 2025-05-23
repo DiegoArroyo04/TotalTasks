@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.totaltasks.models.TareaDTO;
@@ -41,6 +42,7 @@ public class TareaServiceImplementation implements TareaService {
 	@Autowired
 	private ProyectoRepository proyectoRepository;
 
+	@Lazy
 	@Autowired
 	private TablonService tablonService;
 

@@ -383,6 +383,31 @@ document.addEventListener("DOMContentLoaded", () => {
 					document.getElementById("colorSelector").click();
 				});
 
+
+			// CAMBIAR COLOR EN TIEMPO REAL
+			document
+				.getElementById("colorSelector")
+				.addEventListener("input", function (event) {
+					const color = event.target.value;
+
+					// Aplicar a CSS variables en tiempo real
+					document.documentElement.style.setProperty("--color-primario", color);
+					document.documentElement.style.setProperty(
+						"--color-primario-hover",
+						oscurecerColor(color, 0.15)
+					);
+
+					// Vista previa (span personalizado)
+					let customBox = document.querySelector("span.color-box.custom-box");
+					if (customBox) {
+						customBox.style.backgroundColor = color;
+						customBox.dataset.color = color;
+					}
+				});
+
+
+
+
 			//EVENTO QUE ESCUCHA EL NUEVO COLOR PERSONALIZADO
 			document
 				.getElementById("colorSelector")

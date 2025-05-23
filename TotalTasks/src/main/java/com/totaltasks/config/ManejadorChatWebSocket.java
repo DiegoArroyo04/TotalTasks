@@ -10,7 +10,9 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.models.ChatMessageDTO;
+import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.services.ChatService;
 
 @Component
@@ -31,8 +33,8 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
 
 		// Añadir sesión al mapa del proyecto
 		sesionesPorProyecto
-			.computeIfAbsent(idProyecto, key -> ConcurrentHashMap.newKeySet())
-			.add(sesion);
+				.computeIfAbsent(idProyecto, key -> ConcurrentHashMap.newKeySet())
+				.add(sesion);
 
 		// Enviar a todos los usuarios cuántos están conectados
 		enviarUsuariosConectados(idProyecto);

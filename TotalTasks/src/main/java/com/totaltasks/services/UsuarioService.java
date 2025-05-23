@@ -36,4 +36,6 @@ public interface UsuarioService {
 
 	String convertirByteABase64(byte[] foto);
 
+	UsuarioEntity obtenerUsuarioPorId(Long id);
+
 }

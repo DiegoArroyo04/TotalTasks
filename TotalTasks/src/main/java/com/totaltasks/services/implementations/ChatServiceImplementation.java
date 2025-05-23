@@ -48,6 +48,7 @@ public class ChatServiceImplementation implements ChatService {
 		out.setFechaCreacion(saved.getFechaCreacion());
 		out.setIdProyecto(saved.getProyecto().getIdProyecto());
 		out.setIdUsuario(saved.getUsuario().getIdUsuario());
+		out.setNombreUsuario(usuario.getUsuario());
 
 		return out;
 	}

@@ -161,36 +161,37 @@
         </p>
       </div>
       <div class="modal-acciones">
+        <button id="modificarTarea" class="crear">Modificar Tarea</button>
         <button id="cerrarModalTarea" class="cancelar">Cerrar</button>
       </div>
     </div>
   </div>
 
   <!-- CHAT DEL PROYECTO -->
-    <section class="chat-section panel">
-		<h2 class="panel-title" th:text="'Chat del Proyecto: ' + ${proyecto.nombreProyecto}">Chat del Proyecto</h2>
-		<div class="chat-header">
-			<p>
-				<strong>Usuarios conectados:</strong>
-				<span id="usuarios-conectados">0</span>
-			</p>
-		</div>
-		<div class="chat-body">
-			<div id="mensajesRecibidos" class="chat-messages"></div>
-		</div>
-		<div class="chat-input">
-			<input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
-			<button type="button" onclick="enviarMensaje()" class="btn-primary">
-			Enviar
-			</button>
-		</div>
-    </section>
+  <section class="chat-section panel">
+    <h2 class="panel-title" th:text="'Chat del Proyecto: ' + ${proyecto.nombreProyecto}">Chat del Proyecto</h2>
+    <div class="chat-header">
+      <p>
+        <strong>Usuarios conectados:</strong>
+        <span id="usuarios-conectados">0</span>
+      </p>
+    </div>
+    <div class="chat-body">
+      <div id="mensajesRecibidos" class="chat-messages"></div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." />
+      <button type="button" onclick="enviarMensaje()" class="btn-primary">
+        Enviar
+      </button>
+    </div>
+  </section>
 
-  	<input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
-    <input type="hidden" id="idUsuarioChat" th:value="${usuario.idUsuario}" />
-	<input type="hidden" id="nombreUsuario" th:value="${usuario.usuario}" />
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/js/chat.js"></script>
+  <input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
+  <input type="hidden" id="idUsuarioChat" th:value="${usuario.idUsuario}" />
+  <input type="hidden" id="nombreUsuario" th:value="${usuario.usuario}" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="/js/chat.js"></script>
 
   <!-- Error -->
   <div id="modalError" class="modal-error">
@@ -200,4 +201,5 @@
       <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
     </div>
   </div>
+  <script src="/js/fragmentos/Kanban.js"></script>
 </main>

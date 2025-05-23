@@ -16,6 +16,7 @@ import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.models.RepoDTO;
 import com.totaltasks.repositories.ProductBoardRepository;
+import com.totaltasks.repositories.UsuarioProyectoRepository;
 import com.totaltasks.services.NotificacionUsuarioService;
 import com.totaltasks.services.ProyectoService;
 import com.totaltasks.services.ScrumService;
@@ -45,6 +46,9 @@ public class ProyectoController {
 	@Autowired
 	private ProductBoardRepository productBoardRepository;
 
+	@Autowired
+	private UsuarioProyectoRepository usuarioProyectoRepository;
+
 	@PostMapping("/crearProyectoManualmente")
 	public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
 			@RequestParam String descripcion, @RequestParam String metodologia, HttpSession session) {
@@ -68,7 +72,6 @@ public class ProyectoController {
 		proyecto.setDescripcion(descripcion);
 		proyecto.setMetodologia(metodologia);
 		proyecto.setIdCreador(usuario.getIdUsuario());
-
 		proyectoService.guardarProyecto(proyecto);
 
 		return "redirect:/dashboard";
@@ -115,6 +118,9 @@ public class ProyectoController {
 		boolean unido = proyectoService.unirseAProyectoPorCodigo(codigoProyecto, usuario);
 
 		if (unido) {
+			// Actualizar usuario de la sesion
+			session.removeAttribute("usuario");
+			session.setAttribute("usuario", usuario);
 			return "redirect:/dashboard";
 		} else {
 			redirectAttributes.addAttribute("error", "Ya te has unido a ese proyecto");
@@ -127,9 +133,16 @@ public class ProyectoController {
 	public String verProyecto(@PathVariable Long id, Model model, HttpSession session) {
 
 		ProyectoEntity proyecto = proyectoService.obtenerProyectoPorId(id);
+
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 		if (usuario == null) {
 			return "redirect:/login";
+		}
+
+		boolean existsByUsuarioAndProyecto = usuarioProyectoRepository.existsByUsuarioAndProyecto(usuario, proyecto);
+
+		if (!existsByUsuarioAndProyecto) {
+			return "redirect:/dashboard";
 		}
 
 		List<RepoDTO> repositorios = (List<RepoDTO>) session.getAttribute("repositorios");
@@ -159,9 +172,8 @@ public class ProyectoController {
 
 			model.addAttribute("sprint", scrumService.historiasDelSprint(id));
 
-			model.addAttribute("tareasBoard", productBoardRepository.findByProyecto_idProyecto(proyecto.getIdProyecto()));
-			
-
+			model.addAttribute("tareasBoard",
+					productBoardRepository.findByProyecto_idProyecto(proyecto.getIdProyecto()));
 
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
