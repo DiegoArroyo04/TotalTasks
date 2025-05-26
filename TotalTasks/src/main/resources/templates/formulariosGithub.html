@@ -1,97 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Pruebas con GitHub API</title>
-</head>
-<style>
-	body {
-    font-family: system-ui, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
-}
+	<head>
+		<meta charset="UTF-8" />
+		<title>Pruebas con GitHub API</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				padding: 20px;
+				background: #f4f4f4;
+			}
+			form {
+				background: white;
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				max-width: 500px;
+				margin: auto;
+			}
+			label,
+			input {
+				display: block;
+				margin-bottom: 10px;
+			}
+			button {
+				margin: 5px 0;
+				padding: 10px 15px;
+				background-color: #007bff;
+				color: white;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			button:hover {
+				background-color: #0056b3;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Extraer Información del Repositorio</h2>
+		<form method="get">
+			<label>Owner:</label>
+			<input type="text" name="owner" required />
 
-h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-}
+			<label>Repositorio:</label>
+			<input type="text" name="repoName" required />
 
-h2 {
-    margin-top: 2.5rem;
-    color: #34495e;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 0.25rem;
-}
-
-form {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 6px;
-    margin-top: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-label {
-    display: block;
-    margin-top: 0.75rem;
-    font-weight: 500;
-}
-
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 0.25rem;
-    font-size: 1rem;
-}
-
-textarea {
-    resize: vertical;
-}
-
-input[type="checkbox"] {
-    margin-right: 0.5rem;
-}
-
-button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-</style>
-<body>
-    <h1>Interfaz de Pruebas para GitHub API</h1>
-
-    <div th:if="${notLoggedIn}">
-        <p>No has iniciado sesión con GitHub. Por favor, haz login.</p>
-    </div>
-
-    <h2>Extraer Commits</h2>
-    <form th:action="@{/api/github/extraerCommits}" method="get">
-        <label>Owner:</label>
-        <input type="text" name="owner" required>
-
-        <label>Repositorio:</label>
-        <input type="text" name="repoName" required>
-
-        <button type="submit">Extraer Commits</button>
-    </form>
-</body>
+			<button formaction="/api/github/extraerCommits">Commits</button>
+			<button formaction="/api/github/stats/contribuciones">
+				Contribuciones
+			</button>
+			<button formaction="/api/github/stats/actividadSemanal">
+				Actividad Semanal
+			</button>
+			<button formaction="/api/github/stats/lenguajes">Lenguajes</button>
+			<button formaction="/api/github/issues">Issues</button>
+			<button formaction="/api/github/pullRequests">Pull Requests</button>
+			<button formaction="/api/github/extraerTodo">Extraer Todo</button>
+		</form>
+	</body>
 </html>
