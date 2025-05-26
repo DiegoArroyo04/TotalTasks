@@ -149,31 +149,53 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Obtener todas las tareas
 	const tareas = document.querySelectorAll(".tarea");
 
+
+
+
 	// Añadir evento de clic a cada tarea para mostrar su modal informativo
 	tareas.forEach((tarea) => {
 		tarea.addEventListener("click", () => {
-			const titulo = tarea.querySelector("strong").innerText;
-			const descripcion = tarea.querySelector(".descripcion").innerText;
-			const responsable = tarea
-				.querySelector("p:nth-child(3)")
-				.innerText.replace("Asignado a ", "");
-			const fechaLimite = tarea.querySelector("small").innerText;
+			const id = tarea.getAttribute("data-id");
+			const titulo = tarea.getAttribute("data-titulo");
+			const descripcion = tarea.getAttribute("data-descripcion");
+			const fechaLimite = tarea.getAttribute("data-fecha");
+			const responsableId = tarea.getAttribute("data-responsable"); // ✅ ID numérico
 
-			// Asignar la información de la tarea al modal
+			// Rellenar los campos del modal de edición
+			document.getElementById("idTareaEditar").value = id;
+			document.getElementById("tituloEditar").value = titulo;
+			document.getElementById("descripcionEditar").value = descripcion;
+			document.getElementById("fechaLimiteEditar").value = fechaLimite;
+			document.getElementById("idResponsableEditar").value = responsableId; // ✅ Se selecciona correctamente
+
+			// También rellenamos el modal informativo si lo usas antes de editar
 			document.getElementById("tituloTarea").innerText = titulo;
 			document.getElementById("descripcionTarea").innerText = descripcion;
-			document.getElementById("responsableTarea").innerText = responsable;
+			document.getElementById("responsableTarea").innerText = tarea.querySelector("p:nth-child(3)")?.innerText?.replace("Asignado a ", "") || "";
 			document.getElementById("fechaLimiteTarea").innerText = fechaLimite;
 
-			// Mostrar el modal
+			// Mostrar modal de detalle
 			document.getElementById("modalMostrarTarea").style.display = "flex";
 		});
 	});
+
+	document.getElementById("modificarTarea").addEventListener("click", function () {
+		// Mostrar modal
+		document.getElementById("modalEditarTarea").style.display = "flex";
+	});
+
 
 	// Cerrar el modal cuando se haga clic en el botón "Cerrar"
 	document.getElementById("cerrarModalTarea").addEventListener("click", () => {
 		document.getElementById("modalMostrarTarea").style.display = "none";
 	});
+
+	// Botón de cancelar del modal de edicion
+	document.getElementById("cancelarModalEditarTarea").addEventListener("click", () => {
+		document.getElementById("modalEditarTarea").style.display = "none";
+	});
+
+
 
 	// Agregar tareas
 	tableros.addEventListener("click", (p) => {
@@ -269,17 +291,18 @@ document.addEventListener("DOMContentLoaded", () => {
 						mouseY <= papelera.bottom
 					) {
 						const idTarea = tarea.getAttribute("data-id");
-
+						const idUsuario = document.getElementById("idUsuario").value;
+						const idProyecto = document.getElementById("idProyecto").value;
 
 						$.ajax({
-							url: `/eliminarTarea/${idTarea}`,
+							url: `/eliminarTarea/${idTarea}/${idUsuario}/${idProyecto}`,
 							method: "POST",
 							success: function () {
-								tarea.remove(); // eliminar del DOM
+								tarea.remove(); // Eliminar del DOM
 							},
 							error: function (xhr, status, error) {
-								console.error("❌ Error al eliminar la tara:", error);
-							},
+								console.error("❌ Error al eliminar la tarea:", error);
+							}
 						});
 					}
 
@@ -510,31 +533,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	//CALENDARIO DE GOOGLE
-	document
-		.getElementById("googleCalendarBtn")
-		?.addEventListener("click", function () {
-			const titulo = document
-				.querySelector('input[name="titulo"]')
-				.value.trim();
-			const descripcion = document
-				.querySelector('textarea[name="descripcion"]')
-				.value.trim();
-			const fecha = document.querySelector('input[name="fechaLimite"]').value;
+	document.querySelectorAll(".btn-calendar")?.forEach((btn) => {
+		btn.addEventListener("click", function () {
 
-			if (!titulo) {
+			const form = btn.closest("form");
+			if (!form) return;
+
+			const titulo = form.querySelector('input[name="titulo"]')?.value.trim();
+			const descripcion = form.querySelector('textarea[name="descripcion"]')?.value.trim();
+			const fecha = form.querySelector('input[name="fechaLimite"]')?.value;
+
+			if (!titulo || !fecha) {
 				const modalError = document.getElementById("modalError");
 				const mensajeElem = document.getElementById("mensajeError");
-				mensajeElem.textContent =
-					"Por favor completa el titulo para poder crear el recordatorio.";
-				modalError.style.display = "flex";
-				return;
-			}
 
-			if (!fecha) {
-				const modalError = document.getElementById("modalError");
-				const mensajeElem = document.getElementById("mensajeError");
-				mensajeElem.textContent =
-					"Por favor completa la fecha para poder crear el recordatorio.";
+				mensajeElem.textContent = !titulo
+					? "Por favor completa el título para poder crear el recordatorio."
+					: "Por favor completa la fecha para poder crear el recordatorio.";
+
 				modalError.style.display = "flex";
 				return;
 			}
@@ -550,6 +566,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			window.open(url, "_blank");
 		});
+	});
+
 
 	//CALENDARIO
 
@@ -795,3 +813,9 @@ function activarEdicion(input) {
 document
 	.querySelectorAll("#tableros .columna input.titulo-tablon")
 	.forEach(activarEdicion);
+
+
+
+
+
+

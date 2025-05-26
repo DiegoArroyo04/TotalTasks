@@ -56,9 +56,10 @@ public class TareaRestController {
 
 	}
 
-	@PostMapping("/eliminarTarea/{idTarea}")
-	public void eliminarTarea(@PathVariable Long idTarea) {
-		tareaService.deleteById(idTarea);
+	@PostMapping("/eliminarTarea/{idTarea}/{idUsuario}/{idProyecto}")
+	public void eliminarTarea(@PathVariable Long idTarea, @PathVariable Long idUsuario,
+			@PathVariable Long idProyecto) {
+		tareaService.deleteById(idTarea, idUsuario, idProyecto);
 	}
 
 }

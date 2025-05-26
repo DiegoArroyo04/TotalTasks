@@ -21,6 +21,8 @@ public interface TareaService {
 
 	void actualizarFechaTarea(Long idTarea, Date nuevaFecha, Long idUsuario);
 
-	void deleteById(Long id);
+	void actualizarTarea(TareaDTO tarea);
+
+	void deleteById(Long id, Long idUsuario, Long idProyecto);
 
 }

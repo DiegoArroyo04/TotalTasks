@@ -65,7 +65,9 @@
         <input type="text" th:value="${tablon.nombreTablon}" readonly class="titulo-tablon" />
         <div class="tareas">
           <div th:each="tarea : ${tareas}" th:if="${tarea.estado == tablon.nombreTablon}"
-            th:attr="data-id=${tarea.idTarea}" class="tarea">
+            th:attr="data-id=${tarea.idTarea}" class="tarea" th:data-titulo="${tarea.titulo}"
+            th:data-descripcion="${tarea.descripcion}" th:data-fecha="${#dates.format(tarea.fechaLimite, 'yyyy-MM-dd')}"
+            th:data-responsable="${tarea.responsable.idUsuario}">
             <p><strong th:text="${tarea.titulo}">Título</strong></p>
             <p th:text="${tarea.descripcion}" class="descripcion">
               Descripción
@@ -126,6 +128,7 @@
         <input type="date" id="fechaLimite" name="fechaLimite" required
           th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
         <input type="hidden" th:value="${proyecto.idProyecto}" name="idProyecto" />
+        <input type="hidden" th:value="${usuario.idUsuario}" name="idUsuario" />
         <!-- Select de responsables -->
         <label for="idResponsable">Responsable</label>
         <select name="idResponsable" id="idResponsable" required>
@@ -151,7 +154,7 @@
   <!-- Modal para mostrar tarea -->
   <div id="modalMostrarTarea" class="modal">
     <div class="modal-content">
-      <h2>📝 Detalles de la Tarea</h2>
+      <h2>Detalles de la Tarea 📝</h2>
       <div class="modal-tarea-detalle">
         <p><strong>Título:</strong> <span id="tituloTarea"></span></p>
         <p><strong>Descripción:</strong> <span id="descripcionTarea"></span></p>
@@ -166,6 +169,50 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal para editar tarea -->
+  <div id="modalEditarTarea" class="modal">
+    <div class="modal-content">
+      <h2>Editar Tarea ✏️</h2>
+      <form th:action="@{/editarTarea}" method="post" th:object="${tareaDTO}">
+        <!-- ID oculto de la tarea -->
+        <input type="hidden" name="idTarea" id="idTareaEditar" />
+        <input type="hidden" th:value="${usuario.idUsuario}" name="idUsuario" />
+
+        <input type="text" name="titulo" id="tituloEditar" minlength="3" maxlength="100"
+          placeholder="Título de la tarea" required />
+
+        <textarea name="descripcion" id="descripcionEditar" placeholder="Descripción detallada..." rows="5" cols="44"
+          maxlength="255"></textarea>
+
+        <label for="fechaLimiteEditar">Fecha límite</label>
+        <input type="date" id="fechaLimiteEditar" name="fechaLimite" required
+          th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+
+        <input type="hidden" th:value="${proyecto.idProyecto}" name="idProyecto" />
+
+        <!-- Select de responsables -->
+        <label for="idResponsableEditar">Responsable</label>
+        <select name="idResponsable" id="idResponsableEditar" required>
+          <option value="" disabled selected>Selecciona un responsable</option>
+          <option th:each="usuarioProyecto : ${proyecto.usuarios}" th:value="${usuarioProyecto.usuario.idUsuario}"
+            th:text="${usuarioProyecto.usuario.nombre}"></option>
+        </select>
+
+        <button type="button" id="googleCalendarBtnEditar" class="btn-calendar">
+          Añadir a mi Google Calendar
+        </button>
+
+        <div class="modal-acciones">
+          <button type="submit" class="crear">Guardar</button>
+          <button type="button" id="cancelarModalEditarTarea" class="cancelar">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
   <!-- CHAT DEL PROYECTO -->
   <section class="chat-section panel">

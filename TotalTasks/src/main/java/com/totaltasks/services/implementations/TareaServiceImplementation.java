@@ -5,20 +5,21 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import com.totaltasks.models.TareaDTO;
-import com.totaltasks.entities.TareaEntity;
 import com.totaltasks.entities.NotificacionEntity;
 import com.totaltasks.entities.NotificacionUsuarioEntity;
 import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.entities.TablonEntity;
+import com.totaltasks.entities.TareaEntity;
 import com.totaltasks.entities.UsuarioEntity;
 import com.totaltasks.entities.UsuarioProyectoEntity;
+import com.totaltasks.models.TareaDTO;
 import com.totaltasks.repositories.NotificacionRepository;
 import com.totaltasks.repositories.NotificacionUsuarioRepository;
 import com.totaltasks.repositories.ProyectoRepository;
@@ -54,7 +55,8 @@ public class TareaServiceImplementation implements TareaService {
 		TareaEntity tarea = new TareaEntity();
 
 		ProyectoEntity proyecto = proyectoRepository.findById(dto.getIdProyecto()).orElse(null);
-		UsuarioEntity usuario = usuarioRepository.findById(dto.getIdResponsable()).orElse(null);
+		UsuarioEntity responsable = usuarioRepository.findById(dto.getIdResponsable()).orElse(null);
+		UsuarioEntity usuario = usuarioRepository.findById(dto.getIdUsuario()).orElse(null);
 
 		List<TablonEntity> tablonesOrdenados = tablonService.ordenarTablones(proyecto.getTablones());
 
@@ -68,7 +70,7 @@ public class TareaServiceImplementation implements TareaService {
 		tarea.setFechaLimite(dto.getFechaLimite());
 		tarea.setEstado(tablonesOrdenados.get(0).getNombreTablon());
 		tarea.setProyecto(proyecto);
-		tarea.setResponsable(usuario);
+		tarea.setResponsable(responsable);
 
 		tareaRepository.save(tarea);
 
@@ -78,7 +80,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionEntity.setTarea(tarea);
 		notificacionEntity.setTipo("ADMIN_MODIFICACION");
 		notificacionEntity.setMensaje(
-				"El usuario " + tarea.getResponsable().getUsuario() + " ha creado la tarea " + tarea.getTitulo());
+				"El usuario " + usuario.getUsuario() + " ha creado la tarea " + tarea.getTitulo());
 
 		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -261,7 +263,100 @@ public class TareaServiceImplementation implements TareaService {
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void actualizarTarea(TareaDTO tareaDTO) {
+		TareaEntity tarea = tareaRepository.findById(tareaDTO.getIdTarea()).orElse(null);
+		UsuarioEntity responsable = usuarioRepository.findById(tareaDTO.getIdResponsable()).orElse(null);
+		UsuarioEntity usuario = usuarioRepository.findById(tareaDTO.getIdUsuario()).orElse(null);
+		ProyectoEntity proyecto = proyectoRepository.findById(tareaDTO.getIdProyecto()).orElse(null);
+
+		if (tarea == null || usuario == null || responsable == null || proyecto == null) {
+			// Manejar error
+			return;
+		}
+
+		// Guardar el estado anterior
+		String tituloAnterior = tarea.getTitulo();
+		String descripcionAnterior = tarea.getDescripcion();
+		Date fechaLimiteAnterior = tarea.getFechaLimite();
+		UsuarioEntity responsableAnterior = tarea.getResponsable();
+
+		// Aplicar cambios
+		tarea.setTitulo(tareaDTO.getTitulo());
+		tarea.setDescripcion(tareaDTO.getDescripcion());
+		tarea.setFechaLimite(tareaDTO.getFechaLimite());
+		tarea.setResponsable(responsable);
+		tareaRepository.save(tarea);
+
+		// Construir mensaje de cambios para el administrador
+		StringBuilder cambios = new StringBuilder(
+				"El usuario " + usuario.getUsuario() + " ha modificado la tarea " + tarea.getTitulo() + ". Cambios:\n");
+		if (!Objects.equals(tituloAnterior, tareaDTO.getTitulo())) {
+			cambios.append("• Título: '").append(tituloAnterior).append("' → '").append(tareaDTO.getTitulo())
+					.append("'\n");
+		}
+		if (!Objects.equals(descripcionAnterior, tareaDTO.getDescripcion())) {
+			cambios.append("• Descripción: '").append(descripcionAnterior).append("' → '")
+					.append(tareaDTO.getDescripcion()).append("'\n");
+		}
+		if (!Objects.equals(fechaLimiteAnterior, tareaDTO.getFechaLimite())) {
+			cambios.append("• Fecha límite: '").append(fechaLimiteAnterior).append("' → '")
+					.append(tareaDTO.getFechaLimite()).append("'\n");
+		}
+		if (!Objects.equals(responsableAnterior, responsable)) {
+			cambios.append("• Responsable: '").append(responsableAnterior.getUsuario()).append("' → '")
+					.append(responsable.getUsuario()).append("'\n");
+		}
+
+		// Notificación para el ADMIN
+		NotificacionEntity notificacionEntity = new NotificacionEntity();
+		notificacionEntity.setProyecto(proyecto);
+		notificacionEntity.setTarea(tarea);
+		notificacionEntity.setTipo("ADMIN_MODIFICACION");
+		notificacionEntity.setMensaje(cambios.toString().trim());
+
+		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+		notificacionUsuarioEntity.setDestinatario(proyecto.getCreador());
+
+		notificacionRepository.save(notificacionEntity);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
+		// Notificación para el nuevo responsable
+		NotificacionEntity notificacionUser = new NotificacionEntity();
+		notificacionUser.setProyecto(proyecto);
+		notificacionUser.setTarea(tarea);
+		notificacionUser.setTipo("TAREA_ASIGNADA");
+		notificacionUser.setMensaje("Se te ha asignado la tarea " + tarea.getTitulo());
+
+		NotificacionUsuarioEntity notificacionUsuarioUser = new NotificacionUsuarioEntity();
+		notificacionUsuarioUser.setNotificacion(notificacionUser);
+		notificacionUsuarioUser.setDestinatario(responsable);
+
+		notificacionRepository.save(notificacionUser);
+		notificacionUsuarioRepository.save(notificacionUsuarioUser);
+	}
+
+	@Override
+	public void deleteById(Long id, Long idUsuario, Long idProyecto) {
+
+		ProyectoEntity proyecto = proyectoRepository.findById(idProyecto).orElse(null);
+		TareaEntity tarea = tareaRepository.findById(id).orElse(null);
+		UsuarioEntity usuario = usuarioRepository.findById(idUsuario).orElse(null);
+
+		// Notificación para el ADMIN
+		NotificacionEntity notificacionEntity = new NotificacionEntity();
+		notificacionEntity.setProyecto(proyecto);
+		notificacionEntity.setTipo("ADMIN_MODIFICACION");
+		notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha eliminado la tarea   "
+				+ tarea.getTitulo());
+
+		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
+		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
+		notificacionUsuarioEntity.setDestinatario(proyecto.getCreador());
+
+		notificacionRepository.save(notificacionEntity);
+		notificacionUsuarioRepository.save(notificacionUsuarioEntity);
+
 		tareaRepository.deleteById(id);
 	}
 
