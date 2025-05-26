@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Pruebas con GitHub API</title>
@@ -10,86 +10,78 @@
 </head>
 <body>
     <h1>Interfaz de Pruebas para GitHub API</h1>
-    
-    <!-- Formulario para Crear Repositorio -->
+
+    <div th:if="${notLoggedIn}">
+        <p style="color:red;">No has iniciado sesión con GitHub. Por favor, haz login para continuar.</p>
+    </div>
+
+    <!-- CREAR REPOSITORIO -->
     <h2>Crear Repositorio</h2>
-    <form action="/api/github/crearRepo" method="post">
-        <label for="accessTokenRepo">Access Token:</label>
-        <input type="text" id="accessTokenRepo" name="accessToken" required>
-        
+    <form th:action="@{/api/github/crearRepo}" method="post">
         <label for="repoName">Nombre del Repositorio:</label>
         <input type="text" id="repoName" name="repoName" required>
-        
+
         <label for="description">Descripción:</label>
         <input type="text" id="description" name="description" required>
-        
+
         <label for="isPrivate">¿Privado?</label>
         <input type="checkbox" id="isPrivate" name="isPrivate" value="true">
-        
+
         <button type="submit">Crear Repositorio</button>
     </form>
-    
-    <!-- Formulario para Crear Archivo -->
-    <!-- <h2>Crear Archivo</h2>
-    <form action="/api/github/crearArchivo" method="post">
-        <label for="accessTokenArchivo">Access Token:</label>
-        <input type="text" id="accessTokenArchivo" name="accessToken" required>
-        
+
+    <!-- CREAR ARCHIVO -->
+    <h2>Crear Archivo</h2>
+    <form th:action="@{/api/github/crearArchivo}" method="post">
         <label for="ownerArchivo">Owner (Usuario GitHub):</label>
         <input type="text" id="ownerArchivo" name="owner" required>
-        
+
         <label for="repoNameArchivo">Nombre del Repositorio:</label>
         <input type="text" id="repoNameArchivo" name="repoName" required>
-        
-        <label for="filePath">Ruta del Archivo (e.g., archivo.txt o carpeta/archivo.txt):</label>
+
+        <label for="filePath">Ruta del Archivo:</label>
         <input type="text" id="filePath" name="filePath" required>
-        
+
         <label for="contentStr">Contenido del Archivo:</label>
         <textarea id="contentStr" name="contentStr" rows="4" cols="50" required></textarea>
-        
+
         <label for="commitMessageArchivo">Mensaje de Commit:</label>
         <input type="text" id="commitMessageArchivo" name="commitMessage" required>
-        
+
         <button type="submit">Crear Archivo</button>
-    </form> -->
-    
-    <!-- Formulario para Actualizar Archivo -->
-    <!-- <h2>Actualizar Archivo</h2>
-    <form action="/api/github/actualizarArchivo" method="post">
-        <label for="accessTokenActualizar">Access Token:</label>
-        <input type="text" id="accessTokenActualizar" name="accessToken" required>
-        
+    </form>
+
+    <!-- ACTUALIZAR ARCHIVO -->
+    <h2>Actualizar Archivo</h2>
+    <form th:action="@{/api/github/actualizarArchivo}" method="post">
         <label for="ownerActualizar">Owner (Usuario GitHub):</label>
         <input type="text" id="ownerActualizar" name="owner" required>
-        
+
         <label for="repoNameActualizar">Nombre del Repositorio:</label>
         <input type="text" id="repoNameActualizar" name="repoName" required>
-        
+
         <label for="filePathActualizar">Ruta del Archivo a Actualizar:</label>
         <input type="text" id="filePathActualizar" name="filePath" required>
-        
-        <label for="nuevoContenido">Nuevo Contenido del Archivo:</label>
+
+        <label for="nuevoContenido">Nuevo Contenido:</label>
         <textarea id="nuevoContenido" name="nuevoContenido" rows="4" cols="50" required></textarea>
-        
+
         <label for="commitMessageActualizar">Mensaje de Commit:</label>
         <input type="text" id="commitMessageActualizar" name="commitMessage" required>
-        
+
         <button type="submit">Actualizar Archivo</button>
-    </form> -->
-    
-    <!-- Formulario para Extraer Commits -->
-    <!-- <h2>Extraer Commits</h2>
-    <form action="/api/github/extraerCommits" method="get">
-        <label for="accessTokenCommits">Access Token:</label>
-        <input type="text" id="accessTokenCommits" name="accessToken" required>
-        
+    </form>
+
+    <!-- EXTRAER COMMITS -->
+    <h2>Extraer Commits</h2>
+    <form th:action="@{/api/github/extraerCommits}" method="get">
         <label for="ownerCommits">Owner (Usuario GitHub):</label>
         <input type="text" id="ownerCommits" name="owner" required>
-        
+
         <label for="repoNameCommits">Nombre del Repositorio:</label>
         <input type="text" id="repoNameCommits" name="repoName" required>
-        
+
         <button type="submit">Extraer Commits</button>
-    </form> -->
+    </form>
 </body>
 </html>

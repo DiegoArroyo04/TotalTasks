@@ -130,8 +130,12 @@ public class IndexController {
 	}
 
 	@GetMapping("/formulariosGithub")
-	public String formulariosGithub() {
-		return "/formulariosGithub";
+	public String formulariosGithub(HttpSession session, Model model) {
+		String accessToken = (String) session.getAttribute("access_token");
+		if (accessToken == null) {
+			model.addAttribute("notLoggedIn", true);
+		}
+		return "formulariosGithub";
 	}
 
 	@GetMapping("/editarPerfil")
