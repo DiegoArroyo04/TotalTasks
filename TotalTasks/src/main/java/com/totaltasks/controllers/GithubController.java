@@ -1,20 +1,10 @@
 package com.totaltasks.controllers;
 
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,149 +17,46 @@ public class GithubController {
 		return (String) session.getAttribute("access_token");
 	}
 
-	@SuppressWarnings("rawtypes")
-	@PostMapping("/crearRepo")
-	public ResponseEntity<String> crearRepositorio(HttpSession session, @RequestParam String repoName, @RequestParam String description,
-	@RequestParam boolean isPrivate) {
-
-		String accessToken = getAccessToken(session);
-		if (accessToken == null) {
-			return ResponseEntity.status(401).body("Token no disponible. Inicia sesión con GitHub.");
-		}
-
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "token " + accessToken);
-		headers.set("Accept", "application/vnd.github+json");
-		headers.setContentType(MediaType.APPLICATION_JSON);
-
-		Map<String, Object> body = new HashMap<>();
-		body.put("name", repoName);
-		body.put("description", description);
-		body.put("private", isPrivate);
-
-		HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-		String url = "https://api.github.com/user/repos";
-
-		ResponseEntity<Map> response = restTemplate.postForEntity(url, entity, Map.class);
-		if (response.getStatusCode().is2xxSuccessful()) {
-			return ResponseEntity.ok("Repositorio '" + repoName + "' creado exitosamente.");
-		} else {
-			return ResponseEntity.status(response.getStatusCode())
-			                     .body("Error al crear el repositorio: " + response.getStatusCode());
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
-	@PostMapping("/crearArchivo")
-	public ResponseEntity<String> crearArchivo(HttpSession session, @RequestParam String owner, @RequestParam String repoName,
-	@RequestParam String filePath, @RequestParam String contentStr, @RequestParam String commitMessage) {
-
-		String accessToken = getAccessToken(session);
-		if (accessToken == null) {
-			return ResponseEntity.status(401).body("Token no disponible. Inicia sesión con GitHub.");
-		}
-
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "token " + accessToken);
-		headers.set("Accept", "application/vnd.github+json");
-		headers.setContentType(MediaType.APPLICATION_JSON);
-
-		String encodedContent = Base64.getEncoder().encodeToString(contentStr.getBytes());
-
-		Map<String, Object> body = new HashMap<>();
-		body.put("message", commitMessage);
-		body.put("content", encodedContent);
-
-		HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/contents/" + filePath;
-
-		ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.PUT, entity, Map.class);
-		if (response.getStatusCode().is2xxSuccessful()) {
-			return ResponseEntity.ok("Archivo '" + filePath + "' creado exitosamente.");
-		} else {
-			return ResponseEntity.status(response.getStatusCode())
-			                     .body("Error al crear el archivo: " + response.getStatusCode());
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
-	@PostMapping("/actualizarArchivo")
-	public ResponseEntity<String> actualizarArchivo(HttpSession session, @RequestParam String owner,  @RequestParam String repoName,
-	@RequestParam String filePath, @RequestParam String nuevoContenido, @RequestParam String commitMessage) {
-
-		String accessToken = getAccessToken(session);
-		if (accessToken == null) {
-			return ResponseEntity.status(401).body("Token no disponible. Inicia sesión con GitHub.");
-		}
-
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "token " + accessToken);
-		headers.set("Accept", "application/vnd.github+json");
-		headers.setContentType(MediaType.APPLICATION_JSON);
-
-		// Obtener SHA actual
-		String getUrl = "https://api.github.com/repos/" + owner + "/" + repoName + "/contents/" + filePath;
-		HttpEntity<String> getEntity = new HttpEntity<>(headers);
-		ResponseEntity<Map> getResponse = restTemplate.exchange(getUrl, HttpMethod.GET, getEntity, Map.class);
-
-		Map<String, Object> fileData = getResponse.getBody();
-		if (fileData == null || fileData.get("sha") == null) {
-			return ResponseEntity.badRequest().body("No se encontró el archivo o no se pudo obtener el SHA.");
-		}
-
-		String sha = (String) fileData.get("sha");
-		String encodedContent = Base64.getEncoder().encodeToString(nuevoContenido.getBytes());
-
-		Map<String, Object> body = new HashMap<>();
-		body.put("message", commitMessage);
-		body.put("content", encodedContent);
-		body.put("sha", sha);
-
-		HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-		ResponseEntity<Map> response = restTemplate.exchange(getUrl, HttpMethod.PUT, entity, Map.class);
-
-		if (response.getStatusCode().is2xxSuccessful()) {
-			return ResponseEntity.ok("Archivo '" + filePath + "' actualizado exitosamente.");
-		} else {
-			return ResponseEntity.status(response.getStatusCode())
-			                     .body("Error al actualizar el archivo: " + response.getStatusCode());
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
 	@GetMapping("/extraerCommits")
-	public ResponseEntity<String> extraerCommits(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
+	public ResponseEntity<String> extraerCommits(HttpSession session,
+			@RequestParam String owner,
+			@RequestParam String repoName) {
 
-		String accessToken = getAccessToken(session);
-		if (accessToken == null) {
-			return ResponseEntity.status(401).body("Token no disponible. Inicia sesión con GitHub.");
-		}
+		String token = getAccessToken(session);
+		if (token == null) return ResponseEntity.status(401).body("Token no disponible.");
 
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "token " + accessToken);
-		headers.set("Accept", "application/vnd.github+json");
-
-		HttpEntity<String> entity = new HttpEntity<>(headers);
 		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/commits";
 
-		ResponseEntity<List> response = restTemplate.exchange(url, HttpMethod.GET, entity, List.class);
-		List<Map> commits = response.getBody();
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "token " + token);
+		headers.set("Accept", "application/vnd.github+json");
 
-		StringBuilder result = new StringBuilder("===== Commits en el repositorio =====<br>");
+		ResponseEntity<List> response = new RestTemplate().exchange(
+				url, HttpMethod.GET, new HttpEntity<>(headers), List.class);
 
-		if (commits != null) {
-			for (Map commitObj : commits) {
-				Map commitDetail = (Map) commitObj.get("commit");
-				result.append("Mensaje: ").append(commitDetail.get("message")).append("<br>")
-				      .append("Fecha: ").append(((Map) commitDetail.get("author")).get("date")).append("<br>")
-				      .append("-------------------------------------<br>");
+		StringBuilder result = new StringBuilder("===== Commits =====<br>");
+		List<Map<String, Object>> commits = response.getBody();
+
+		if (commits == null || commits.isEmpty()) {
+			return ResponseEntity.ok("No se encontraron commits.");
+		}
+
+		for (Map<String, Object> commitObj : commits) {
+			Map<String, Object> commit = (Map<String, Object>) commitObj.get("commit");
+			Map<String, Object> author = (Map<String, Object>) commit.get("author");
+			Map<String, Object> ghAuthor = (Map<String, Object>) commitObj.get("author");
+
+			result.append("Mensaje: ").append(commit.get("message")).append("<br>");
+			result.append("Autor: ").append(author.get("name")).append(" (").append(author.get("email")).append(")<br>");
+			result.append("Fecha: ").append(author.get("date")).append("<br>");
+
+			if (ghAuthor != null && ghAuthor.get("login") != null) {
+				result.append("GitHub: ").append(ghAuthor.get("login")).append("<br>");
 			}
-		} else {
-			result.append("No se encontraron commits.");
+
+			result.append("SHA: ").append(commitObj.get("sha")).append("<br>");
+			result.append("<a href='").append(commitObj.get("html_url")).append("' target='_blank'>Ver en GitHub</a><br>");
+			result.append("--------------------------------<br>");
 		}
 
 		return ResponseEntity.ok(result.toString());

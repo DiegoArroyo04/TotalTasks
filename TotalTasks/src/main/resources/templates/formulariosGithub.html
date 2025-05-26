@@ -3,83 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Pruebas con GitHub API</title>
-    <style>
-        form { margin-bottom: 30px; padding: 10px; border: 1px solid #ccc; }
-        label { display: block; margin-top: 10px; }
-    </style>
 </head>
+<style>
+	body {
+    font-family: system-ui, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    margin-top: 2.5rem;
+    color: #34495e;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.25rem;
+}
+
+form {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+label {
+    display: block;
+    margin-top: 0.75rem;
+    font-weight: 500;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+</style>
 <body>
     <h1>Interfaz de Pruebas para GitHub API</h1>
 
     <div th:if="${notLoggedIn}">
-        <p style="color:red;">No has iniciado sesión con GitHub. Por favor, haz login para continuar.</p>
+        <p>No has iniciado sesión con GitHub. Por favor, haz login.</p>
     </div>
 
-    <!-- CREAR REPOSITORIO -->
-    <h2>Crear Repositorio</h2>
-    <form th:action="@{/api/github/crearRepo}" method="post">
-        <label for="repoName">Nombre del Repositorio:</label>
-        <input type="text" id="repoName" name="repoName" required>
-
-        <label for="description">Descripción:</label>
-        <input type="text" id="description" name="description" required>
-
-        <label for="isPrivate">¿Privado?</label>
-        <input type="checkbox" id="isPrivate" name="isPrivate" value="true">
-
-        <button type="submit">Crear Repositorio</button>
-    </form>
-
-    <!-- CREAR ARCHIVO -->
-    <h2>Crear Archivo</h2>
-    <form th:action="@{/api/github/crearArchivo}" method="post">
-        <label for="ownerArchivo">Owner (Usuario GitHub):</label>
-        <input type="text" id="ownerArchivo" name="owner" required>
-
-        <label for="repoNameArchivo">Nombre del Repositorio:</label>
-        <input type="text" id="repoNameArchivo" name="repoName" required>
-
-        <label for="filePath">Ruta del Archivo:</label>
-        <input type="text" id="filePath" name="filePath" required>
-
-        <label for="contentStr">Contenido del Archivo:</label>
-        <textarea id="contentStr" name="contentStr" rows="4" cols="50" required></textarea>
-
-        <label for="commitMessageArchivo">Mensaje de Commit:</label>
-        <input type="text" id="commitMessageArchivo" name="commitMessage" required>
-
-        <button type="submit">Crear Archivo</button>
-    </form>
-
-    <!-- ACTUALIZAR ARCHIVO -->
-    <h2>Actualizar Archivo</h2>
-    <form th:action="@{/api/github/actualizarArchivo}" method="post">
-        <label for="ownerActualizar">Owner (Usuario GitHub):</label>
-        <input type="text" id="ownerActualizar" name="owner" required>
-
-        <label for="repoNameActualizar">Nombre del Repositorio:</label>
-        <input type="text" id="repoNameActualizar" name="repoName" required>
-
-        <label for="filePathActualizar">Ruta del Archivo a Actualizar:</label>
-        <input type="text" id="filePathActualizar" name="filePath" required>
-
-        <label for="nuevoContenido">Nuevo Contenido:</label>
-        <textarea id="nuevoContenido" name="nuevoContenido" rows="4" cols="50" required></textarea>
-
-        <label for="commitMessageActualizar">Mensaje de Commit:</label>
-        <input type="text" id="commitMessageActualizar" name="commitMessage" required>
-
-        <button type="submit">Actualizar Archivo</button>
-    </form>
-
-    <!-- EXTRAER COMMITS -->
     <h2>Extraer Commits</h2>
     <form th:action="@{/api/github/extraerCommits}" method="get">
-        <label for="ownerCommits">Owner (Usuario GitHub):</label>
-        <input type="text" id="ownerCommits" name="owner" required>
+        <label>Owner:</label>
+        <input type="text" name="owner" required>
 
-        <label for="repoNameCommits">Nombre del Repositorio:</label>
-        <input type="text" id="repoNameCommits" name="repoName" required>
+        <label>Repositorio:</label>
+        <input type="text" name="repoName" required>
 
         <button type="submit">Extraer Commits</button>
     </form>
