@@ -556,3 +556,53 @@ textarea {
 .mensaje-texto {
   word-wrap: break-word;
 }
+
+.modal-estadisticas {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  &.activo {
+    display: flex;
+  }
+
+  .modal-contenido {
+    background-color: var(--color-claro, #fff);
+    color: var(--color-oscuro, #000);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+
+  .modal-cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #f00;
+    }
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 60vh;
+  }
+}

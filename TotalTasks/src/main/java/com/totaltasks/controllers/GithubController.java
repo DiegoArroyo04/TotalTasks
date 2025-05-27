@@ -1,9 +1,17 @@
 package com.totaltasks.controllers;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import jakarta.servlet.http.HttpSession;
@@ -17,66 +25,33 @@ public class GithubController {
 	}
 
 	@GetMapping("/extraerTodo")
-	public ResponseEntity<Map<String, Object>> extraerTodo(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
+	public ResponseEntity<Map<String, Object>> extraerTodo(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
 
 		String token = getAccessToken(session);
 		if (token == null) return ResponseEntity.status(401).build();
 
 		Map<String, Object> resultado = new HashMap<>();
 		resultado.put("commits", getCommits(token, owner, repoName));
-		resultado.put("contribuciones", getContribuciones(token, owner, repoName));
-		resultado.put("actividadSemanal", getActividadSemanal(token, owner, repoName));
 		resultado.put("lenguajes", getLenguajes(token, owner, repoName));
-		resultado.put("issues", getIssues(token, owner, repoName));
 		resultado.put("pullRequests", getPullRequests(token, owner, repoName));
 
 		return ResponseEntity.ok(resultado);
 	}
 
 	@GetMapping("/extraerCommits")
-	public ResponseEntity<List<Map<String, Object>>> extraerCommits(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
-
+	public ResponseEntity<List<Map<String, Object>>> extraerCommits(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
 		String token = getAccessToken(session);
 		if (token == null) return ResponseEntity.status(401).build();
 		return ResponseEntity.ok(getCommits(token, owner, repoName));
 	}
 
-	@GetMapping("/stats/contribuciones")
-	public ResponseEntity<Object> contribuciones(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
-		return ResponseEntity.ok(getContribuciones(getAccessToken(session), owner, repoName));
-	}
-
-	@GetMapping("/stats/actividadSemanal")
-	public ResponseEntity<Object> actividadSemanal(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
-		return ResponseEntity.ok(getActividadSemanal(getAccessToken(session), owner, repoName));
-	}
-
 	@GetMapping("/stats/lenguajes")
-	public ResponseEntity<Object> lenguajes(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
+	public ResponseEntity<Object> lenguajes(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
 		return ResponseEntity.ok(getLenguajes(getAccessToken(session), owner, repoName));
 	}
 
-	@GetMapping("/issues")
-	public ResponseEntity<Object> issues(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
-		return ResponseEntity.ok(getIssues(getAccessToken(session), owner, repoName));
-	}
-
 	@GetMapping("/pullRequests")
-	public ResponseEntity<Object> pullRequests(HttpSession session,
-			@RequestParam String owner,
-			@RequestParam String repoName) {
+	public ResponseEntity<Object> pullRequests(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
 		return ResponseEntity.ok(getPullRequests(getAccessToken(session), owner, repoName));
 	}
 
@@ -85,27 +60,12 @@ public class GithubController {
 	private List<Map<String, Object>> getCommits(String token, String owner, String repoName) {
 		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/commits";
 		HttpHeaders headers = createHeaders(token);
-		ResponseEntity<List> response = new RestTemplate().exchange(url, HttpMethod.GET, new HttpEntity<>(headers), List.class);
+		ResponseEntity<List> response = new RestTemplate().exchange(url, HttpMethod.GET, new HttpEntity<>(headers),List.class);
 		return response.getBody();
-	}
-
-	private Object getContribuciones(String token, String owner, String repoName) {
-		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/stats/contributors";
-		return fetchData(token, url);
-	}
-
-	private Object getActividadSemanal(String token, String owner, String repoName) {
-		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/stats/commit_activity";
-		return fetchData(token, url);
 	}
 
 	private Object getLenguajes(String token, String owner, String repoName) {
 		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/languages";
-		return fetchData(token, url);
-	}
-
-	private Object getIssues(String token, String owner, String repoName) {
-		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/issues?state=all";
 		return fetchData(token, url);
 	}
 

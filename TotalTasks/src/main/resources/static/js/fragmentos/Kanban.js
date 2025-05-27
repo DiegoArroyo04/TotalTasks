@@ -703,6 +703,76 @@ document.addEventListener("DOMContentLoaded", () => {
 			console.log(error);
 		},
 	});
+
+	document.getElementById("botonEstadisticas").addEventListener("click", () => {
+		const form = document.getElementById("formularioGithub");
+		const modal = document.getElementById("modalEstadisticas");
+
+		if (!form || !modal) {
+			console.error("Formulario o modal no encontrado.");
+			return;
+		}
+
+		const datos = {
+			name: document.getElementById("repoName").value,
+			fullName: document.getElementById("repoFullName").value,
+			description: document.getElementById("repoDescription").value,
+			htmlUrl: document.getElementById("repoHtmlUrl").value,
+			homepage: document.getElementById("repoHomepage").value,
+			language: document.getElementById("repoLanguage").value,
+			stars: +document.getElementById("repoStargazers").value,
+			forks: +document.getElementById("repoForks").value,
+			watchers: +document.getElementById("repoWatchers").value,
+			issues: +document.getElementById("repoOpenIssues").value,
+			createdAt: document.getElementById("repoCreatedAt").value,
+			updatedAt: document.getElementById("repoUpdatedAt").value,
+			pushedAt: document.getElementById("repoPushedAt").value
+		};
+
+		modal.classList.add("activo");
+		generarGraficoConDatos(datos);
+	});
+
+	document.getElementById("cerrarModalEstadisticas")?.addEventListener("click", () => {
+		document.getElementById("modalEstadisticas")?.classList.remove("activo");
+	});
+
+	// Función para generar el gráfico dentro del modal
+	function generarGraficoConDatos(datos) {
+		const contenedor = document.querySelector("#modalEstadisticas .modal-contenido");
+
+		// Eliminar canvas anterior si existe
+		const viejoCanvas = document.getElementById("graficoGithub");
+		if (viejoCanvas) viejoCanvas.remove();
+
+		// Crear y agregar nuevo canvas
+		const canvas = document.createElement("canvas");
+		canvas.id = "graficoGithub";
+		contenedor.appendChild(canvas);
+
+		const ctx = canvas.getContext("2d");
+
+		new Chart(ctx, {
+			type: "bar",
+			data: {
+				labels: ["Stars", "Forks", "Watchers", "Issues"],
+				datasets: [{
+					label: "Estadísticas del repositorio",
+					data: [datos.stars, datos.forks, datos.watchers, datos.issues],
+					backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0"]
+				}]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+	}
+
 });
 
 // Función para oscurecer un color hexadecimal
@@ -813,9 +883,3 @@ function activarEdicion(input) {
 document
 	.querySelectorAll("#tableros .columna input.titulo-tablon")
 	.forEach(activarEdicion);
-
-
-
-
-
-

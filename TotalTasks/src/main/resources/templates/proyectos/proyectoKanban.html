@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title th:text="${proyecto.nombreProyecto + ' - Proyecto Kanban'}"></title>
+		<link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon"/>
+		<link rel="stylesheet" href="/css/fragmentos/Kanban.css"/>
+		<!-- FullCalendar CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet"/>
+		<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+		<!-- FullCalendar JS -->
+		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title th:text="${proyecto.nombreProyecto + ' - Proyecto Kanban'}"></title>
-  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
-  <link rel="stylesheet" href="/css/fragmentos/Kanban.css" />
-  <!-- FullCalendar CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+	<body>
+		<!-- Header -->
+		<div th:insert="~{fragmentos/header :: header}"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-  <!-- FullCalendar JS -->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
-</head>
+		<!-- Tablero Kanban -->
+		<main th:insert="~{fragmentos/kanban :: kanban}"></main>
 
-<body>
-  <!-- Header -->
-  <div th:insert="~{fragmentos/header :: header}"></div>
-
-  <!-- Tablero Kanban -->
-  <main th:insert="~{fragmentos/kanban :: kanban}"></main>
-
-  <!-- Footer -->
-  <footer th:insert="~{fragmentos/footer :: footer}"></footer>
-</body>
-
+		<!-- Footer -->
+		<footer th:insert="~{fragmentos/footer :: footer}"></footer>
+	</body>
 </html>

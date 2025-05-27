@@ -162,6 +162,7 @@ public class ProyectoController {
 
 			model.addAttribute("proyecto", proyecto);
 			model.addAttribute("usuario", session.getAttribute("usuario"));
+			model.addAttribute("accessToken", session.getAttribute("access_token"));
 			model.addAttribute("tablones", tablonService.ordenarTablones(proyecto.getTablones()));
 			model.addAttribute("tareas", proyecto.getTareas());
 			model.addAttribute("usuario", usuario);
