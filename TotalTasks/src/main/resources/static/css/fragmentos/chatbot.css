@@ -16,8 +16,6 @@
 	justify-content: center;
 	align-items: center;
 	transition: transform 0.2s ease;
-
-
 }
 
 .chatToggle:hover {
@@ -35,14 +33,12 @@
 }
 
 .chatbotContainer {
-
 	position: fixed;
 	bottom: 130px;
 	right: 30px;
 	width: 320px;
 	font-family: var(--fuente-principal);
 	z-index: 1000;
-
 }
 
 .chatbotContainer p {

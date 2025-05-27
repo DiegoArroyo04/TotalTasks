@@ -28,7 +28,6 @@ public class TareaController {
 
 	@PostMapping("/editarTarea")
 	public String editarTarea(@ModelAttribute TareaDTO tareaDTO) {
-
 		tareaService.actualizarTarea(tareaDTO);
 		return "redirect:/proyecto/" + tareaDTO.getIdProyecto();
 	}

@@ -41,24 +41,17 @@ public class TareaRestController {
 
 	@GetMapping(value = "/obtenerTareasPorUserYProyecto", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<TareaEntity> obtenerTareasPorUserYProyecto(@RequestParam Long usuarioId,
-			@RequestParam Long proyectoId) {
-
+	public List<TareaEntity> obtenerTareasPorUserYProyecto(@RequestParam Long usuarioId, @RequestParam Long proyectoId) {
 		return tareaService.obtenerTareasPorUserYProyecto(usuarioId, proyectoId);
-
 	}
 
 	@PostMapping("/cambiarFechaTarea")
-	public void obtenerTareasPorUserYProyecto(@RequestParam Long idUsuario, Long idTarea,
-			@RequestParam Date nuevaFecha) {
-
+	public void obtenerTareasPorUserYProyecto(@RequestParam Long idUsuario, Long idTarea, @RequestParam Date nuevaFecha) {
 		tareaService.actualizarFechaTarea(idTarea, nuevaFecha, idUsuario);
-
 	}
 
 	@PostMapping("/eliminarTarea/{idTarea}/{idUsuario}/{idProyecto}")
-	public void eliminarTarea(@PathVariable Long idTarea, @PathVariable Long idUsuario,
-			@PathVariable Long idProyecto) {
+	public void eliminarTarea(@PathVariable Long idTarea, @PathVariable Long idUsuario, @PathVariable Long idProyecto) {
 		tareaService.deleteById(idTarea, idUsuario, idProyecto);
 	}
 

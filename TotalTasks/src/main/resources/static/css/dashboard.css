@@ -5,7 +5,6 @@
 	display: flex;
 	margin: 182px 32px 32px 32px;
 	gap: 32px;
-
 }
 
 /* Sidebar de Repositorios */
@@ -16,7 +15,6 @@
 	padding: 24px;
 	overflow-y: auto;
 	max-height: 80vh;
-
 }
 
 .sidebar h2 {
@@ -59,7 +57,6 @@
 	margin-top: 8px;
 	background-color: #fff;
 	color: var(--color-primario);
-	;
 	border: none;
 	padding: 8px;
 	border-radius: 4px;
@@ -107,7 +104,6 @@
 	font-weight: 600;
 	transition: background-color 0.3s;
 	background-color: var(--color-primario);
-	;
 	color: #fff;
 	border: none;
 }
@@ -118,7 +114,6 @@
 
 .btn-create {
 	background-color: var(--color-primario);
-	;
 	color: #fff;
 }
 
@@ -128,7 +123,6 @@
 
 .btn-join {
 	background-color: var(--color-primario);
-	;
 	color: #fff;
 }
 
@@ -140,7 +134,6 @@
 	text-align: center;
 	padding: 16px;
 	color: var(--color-primario);
-	;
 }
 
 .projects-grid {
@@ -219,7 +212,6 @@
 	justify-content: space-between;
 	font-size: 13px;
 	border-top: 1px solid var(--color-primario);
-	;
 	padding-top: 6px;
 }
 
@@ -231,7 +223,6 @@
 	text-align: center;
 	font-size: 13px;
 	color: var(--color-primario);
-	;
 }
 
 /* Modal */

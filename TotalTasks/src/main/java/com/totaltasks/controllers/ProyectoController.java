@@ -51,7 +51,7 @@ public class ProyectoController {
 
 	@PostMapping("/crearProyectoManualmente")
 	public String crearProyectoManualmente(RedirectAttributes redirectAttributes, @RequestParam String nombre,
-			@RequestParam String descripcion, @RequestParam String metodologia, HttpSession session) {
+	@RequestParam String descripcion, @RequestParam String metodologia, HttpSession session) {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -79,7 +79,7 @@ public class ProyectoController {
 
 	@PostMapping("/crearProyectoDesdeRepo")
 	public String crearProyectoDesdeRepo(RedirectAttributes redirectAttributes, @RequestParam String repoName,
-			@RequestParam String repoDescription, @RequestParam String metodologia, HttpSession session) {
+	@RequestParam String repoDescription, @RequestParam String metodologia, HttpSession session) {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -106,8 +106,7 @@ public class ProyectoController {
 	}
 
 	@PostMapping("/unirseProyecto")
-	public String unirseAProyecto(@RequestParam String codigoProyecto, HttpSession session,
-			RedirectAttributes redirectAttributes) {
+	public String unirseAProyecto(@RequestParam String codigoProyecto, HttpSession session, RedirectAttributes redirectAttributes) {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 
@@ -147,15 +146,13 @@ public class ProyectoController {
 
 		List<RepoDTO> repositorios = (List<RepoDTO>) session.getAttribute("repositorios");
 
-		model.addAttribute("notificacionesNoLeidas",
-				notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+		model.addAttribute("notificacionesNoLeidas", notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 
 		if (proyecto == null) {
 			return "redirect:/dashboard";
 		} else {
 
-			// SI HAY LOGIN CON GITHUB COMPROBAR QUE EL PROYECTO EN EL QUE ESTAMOS ESTE
-			// VINCULADO A UN REPO
+			// SI HAY LOGIN CON GITHUB COMPROBAR QUE EL PROYECTO EN EL QUE ESTAMOS, ESTE VINCULADO A UN REPO
 			if (repositorios != null) {
 				model.addAttribute("repositorio", proyectoService.comprobarRepo(proyecto, repositorios));
 			}
@@ -170,11 +167,8 @@ public class ProyectoController {
 
 			// obtener solo las historias de este proyecto
 			model.addAttribute("historias", scrumService.historiasDelProyecto(proyecto.getIdProyecto()));
-
 			model.addAttribute("sprint", scrumService.historiasDelSprint(id));
-
-			model.addAttribute("tareasBoard",
-					productBoardRepository.findByProyecto_idProyecto(proyecto.getIdProyecto()));
+			model.addAttribute("tareasBoard", productBoardRepository.findByProyecto_idProyecto(proyecto.getIdProyecto()));
 
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));

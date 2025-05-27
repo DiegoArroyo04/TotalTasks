@@ -82,14 +82,11 @@ public class TablonRestController {
 	@PostMapping("/guardarColores")
 	public void guardarColores(@RequestBody UsuarioProyectoDTO usuarioProyectoDTO) {
 		tablonService.guardarColores(usuarioProyectoDTO);
-
 	}
 
 	@GetMapping("/obtenerColores")
-	public UsuarioProyectoDTO obtenerColores(@RequestParam Long usuarioId,
-			@RequestParam Long proyectoId) {
+	public UsuarioProyectoDTO obtenerColores(@RequestParam Long usuarioId, @RequestParam Long proyectoId) {
 		return tablonService.obtenerColores(usuarioId, proyectoId);
-
 	}
 
 	@PostMapping("/actualizarNombreTablon")

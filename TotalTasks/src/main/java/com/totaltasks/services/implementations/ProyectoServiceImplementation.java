@@ -138,8 +138,7 @@ public class ProyectoServiceImplementation implements ProyectoService {
 		NotificacionEntity notificacionEntity = new NotificacionEntity();
 		notificacionEntity.setProyecto(proyecto);
 		notificacionEntity.setTipo("ADMIN_MODIFICACION");
-		notificacionEntity.setMensaje(
-				"El usuario " + usuario.getNombre() + " se acaba de unir al proyecto " + proyecto.getNombreProyecto());
+		notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " se acaba de unir al proyecto " + proyecto.getNombreProyecto());
 
 		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -152,8 +151,7 @@ public class ProyectoServiceImplementation implements ProyectoService {
 		NotificacionEntity notificacionEntityUser = new NotificacionEntity();
 		notificacionEntityUser.setProyecto(proyecto);
 		notificacionEntityUser.setTipo("UNION_USUARIO");
-		notificacionEntityUser.setMensaje(
-				"Te acabas de unir al proyecto " + proyecto.getNombreProyecto());
+		notificacionEntityUser.setMensaje("Te acabas de unir al proyecto " + proyecto.getNombreProyecto());
 
 		NotificacionUsuarioEntity notificacionUsuarioEntityUser = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntityUser.setNotificacion(notificacionEntityUser);

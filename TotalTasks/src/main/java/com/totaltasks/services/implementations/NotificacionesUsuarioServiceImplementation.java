@@ -17,18 +17,14 @@ public class NotificacionesUsuarioServiceImplementation implements NotificacionU
 
     @Override
     public List<NotificacionUsuarioEntity> notificacionesNoLeidasPorUserId(Long userId) {
-        return notificacionUsuarioRepository
-                .findByDestinatarioIdUsuarioAndVistaFalseOrderByNotificacion_FechaCreacionDesc(userId);
+        return notificacionUsuarioRepository.findByDestinatarioIdUsuarioAndVistaFalseOrderByNotificacion_FechaCreacionDesc(userId);
     }
 
     @Override
     public void actualizarEstadoNoti(Long idUsuarioNoti) {
-        NotificacionUsuarioEntity notificacionUsuarioEntity = notificacionUsuarioRepository.findById(idUsuarioNoti)
-                .orElse(null);
-
+        NotificacionUsuarioEntity notificacionUsuarioEntity = notificacionUsuarioRepository.findById(idUsuarioNoti).orElse(null);
         notificacionUsuarioEntity.setVista(true);
         notificacionUsuarioRepository.save(notificacionUsuarioEntity);
-
     }
 
     @Override
@@ -39,7 +35,6 @@ public class NotificacionesUsuarioServiceImplementation implements NotificacionU
             notificacionesNoLeidas.get(i).setVista(true);
             notificacionUsuarioRepository.save(notificacionesNoLeidas.get(i));
         }
-
     }
 
 }

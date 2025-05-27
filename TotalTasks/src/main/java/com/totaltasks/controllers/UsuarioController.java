@@ -47,8 +47,7 @@ public class UsuarioController {
 			UsuarioEntity usuarioEntity = usuarioService.encontrarUsuario(usuario.getEmail());
 			session.setAttribute("usuario", usuarioEntity);
 
-			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de
-			// finalizar
+			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de finalizar
 			tareaService.verificarTareasProximas(usuarioEntity);
 
 			session.setAttribute("fotoPerfilGoogle", usuario.getFotoPerfilGoogle());
@@ -64,9 +63,8 @@ public class UsuarioController {
 
 	// REGISTRO GITHUB
 	@GetMapping("githubCallback")
-	public void githubCallback(@RequestParam(value = "code", required = false) String code,
-			HttpServletResponse response,
-			@RequestParam(value = "error", required = false) String error, HttpSession session) throws IOException {
+	public void githubCallback(@RequestParam(value = "code", required = false) String code, HttpServletResponse response,
+	@RequestParam(value = "error", required = false) String error, HttpSession session) throws IOException {
 
 		// Si el usuario cancela los permisos redireccion al lobby
 		if (error != null && error.equals("access_denied")) {
@@ -85,8 +83,7 @@ public class UsuarioController {
 		if (respuesta.contains("Iniciando sesión") || respuesta.contains("Cuenta creada")) {
 			UsuarioEntity usuarioEntity = usuarioService.encontrarUsuario(usuarioDTO.getEmail());
 			session.setAttribute("usuario", usuarioEntity);
-			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de
-			// finalizar
+			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de finalizar
 			tareaService.verificarTareasProximas(usuarioEntity);
 		}
 
@@ -113,13 +110,11 @@ public class UsuarioController {
 			// Añadimos el usuario a la sesión
 			session.setAttribute("usuario", usuarioEntity);
 
-			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de
-			// finalizar
+			// Cada vez que se loguee el usuario verificar si tiene tareas a punto de finalizar
 			tareaService.verificarTareasProximas(usuarioEntity);
 
 			return "Encontrado";
 		} else {
-
 			return usuarioService.comprobarLogin(usuario);
 		}
 
@@ -133,9 +128,8 @@ public class UsuarioController {
 
 	// Metodo con la funcionalidad del perfil actualizado
 	@PostMapping("perfilEditado")
-	public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre,
-			@RequestParam(value = "fotoPerfil", required = false) MultipartFile fotoPerfil, HttpSession session)
-			throws Exception {
+	public void perfilEditado(HttpServletResponse response, @RequestParam("nombre") String nombre, @RequestParam(value = "fotoPerfil", required = false)
+	MultipartFile fotoPerfil, HttpSession session) throws Exception {
 
 		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
 

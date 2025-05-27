@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {
+
 	@Autowired
 	UsuarioProyectoRepository usuarioProyectoRepository;
 
@@ -42,9 +43,7 @@ public class IndexController {
 		// Si existe, lo añadimos al modelo
 		if (usuario != null) {
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("notificacionesNoLeidas",
-					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
-
+			model.addAttribute("notificacionesNoLeidas", notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 			// Convertimos la foto de perfil a Base64 y la añadimos al modelo
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
@@ -85,8 +84,7 @@ public class IndexController {
 		} else {
 
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("notificacionesNoLeidas",
-					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+			model.addAttribute("notificacionesNoLeidas", notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
 			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));

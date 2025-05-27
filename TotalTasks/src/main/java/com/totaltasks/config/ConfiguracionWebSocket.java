@@ -14,8 +14,6 @@ public class ConfiguracionWebSocket implements WebSocketConfigurer {
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// Registrar el WebSocket en la ruta
-		registry
-				.addHandler(manejador, "/chat/{idProyecto}")
-				.setAllowedOrigins("*");
+		registry.addHandler(manejador, "/chat/{idProyecto}").setAllowedOrigins("*");
 	}
 }

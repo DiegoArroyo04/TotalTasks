@@ -12,10 +12,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ProductBoardDTO {
+
     private Long idTareaBoard;
     private String titulo;
     private String descripcion;
     private String estado;
     private Long idProyecto;
     private Long idResponsable;
+	
 }

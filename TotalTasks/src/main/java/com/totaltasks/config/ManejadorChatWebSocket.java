@@ -30,9 +30,7 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
 		String idProyecto = obtenerIdProyectoDesdeSesion(sesion);
 
 		// Añadir sesión al mapa del proyecto
-		sesionesPorProyecto
-				.computeIfAbsent(idProyecto, key -> ConcurrentHashMap.newKeySet())
-				.add(sesion);
+		sesionesPorProyecto.computeIfAbsent(idProyecto, key -> ConcurrentHashMap.newKeySet()).add(sesion);
 
 		// Enviar a todos los usuarios cuántos están conectados
 		enviarUsuariosConectados(idProyecto);
@@ -96,7 +94,7 @@ public class ManejadorChatWebSocket extends TextWebSocketHandler {
 
 	// Obtiene el ID del proyecto desde la URL del WebSocket
 	private String obtenerIdProyectoDesdeSesion(WebSocketSession sesion) {
-		String url = sesion.getUri().getPath(); // ejemplo: /chat/123
-		return url.substring(url.lastIndexOf('/') + 1); // devuelve "123"
+		String url = sesion.getUri().getPath();
+		return url.substring(url.lastIndexOf('/') + 1);
 	}
 }

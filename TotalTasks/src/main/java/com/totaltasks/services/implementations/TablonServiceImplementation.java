@@ -84,9 +84,7 @@ public class TablonServiceImplementation implements TablonService {
 				NotificacionEntity notificacionEntity = new NotificacionEntity();
 				notificacionEntity.setProyecto(proyecto);
 				notificacionEntity.setTipo("ADMIN_MODIFICACION");
-				notificacionEntity.setMensaje(
-						"El usuario " + usuario.getNombre() + " ha creado el tablon  "
-								+ tablonEntity.getNombreTablon());
+				notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha creado el tablon  " + tablonEntity.getNombreTablon());
 
 				NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 				notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -121,10 +119,7 @@ public class TablonServiceImplementation implements TablonService {
 					NotificacionEntity notificacionEntity = new NotificacionEntity();
 					notificacionEntity.setProyecto(tablon.getProyecto());
 					notificacionEntity.setTipo("ADMIN_MODIFICACION");
-					notificacionEntity.setMensaje(
-							"El usuario " + usuario.getNombre() + " ha cambiado el orden del tablon  "
-									+ tablon.getNombreTablon() + " ahora se encuentra en la posición "
-									+ tablon.getOrden());
+					notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha cambiado el orden del tablon  " + tablon.getNombreTablon() + " ahora se encuentra en la posición " + tablon.getOrden());
 
 					NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 					notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -178,9 +173,7 @@ public class TablonServiceImplementation implements TablonService {
 			NotificacionEntity notificacionEntity = new NotificacionEntity();
 			notificacionEntity.setProyecto(tablon.getProyecto());
 			notificacionEntity.setTipo("ADMIN_MODIFICACION");
-			notificacionEntity.setMensaje(
-					"El usuario " + usuario.getNombre() + " ha eliminado el tablon  "
-							+ nombreTablon);
+			notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha eliminado el tablon  " + nombreTablon);
 
 			NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 			notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -196,9 +189,11 @@ public class TablonServiceImplementation implements TablonService {
 	@Override
 	public void guardarColores(UsuarioProyectoDTO usuarioProyectoDTO) {
 
-		UsuarioProyectoEntity usuarioProyecto = usuarioProyectoRepository.findByUsuarioAndProyecto(
-				usuarioRepository.findById(usuarioProyectoDTO.getIdUsuario()).orElse(null),
-				proyectoRepository.findById(usuarioProyectoDTO.getIdProyecto()).orElse(null));
+		UsuarioProyectoEntity usuarioProyecto = usuarioProyectoRepository.findByUsuarioAndProyecto
+		(
+			usuarioRepository.findById(usuarioProyectoDTO.getIdUsuario()).orElse(null),
+			proyectoRepository.findById(usuarioProyectoDTO.getIdProyecto()).orElse(null)
+		);
 
 		// SI ENCUENTRA EL PROYECTO DAR DE ALTA LOS COLORES
 		if (usuarioProyecto != null) {
@@ -208,7 +203,6 @@ public class TablonServiceImplementation implements TablonService {
 			} else {
 				usuarioProyecto.setCustomColor(usuarioProyectoDTO.getCustomColor());
 			}
-
 			usuarioProyectoRepository.save(usuarioProyecto);
 		}
 
@@ -217,9 +211,11 @@ public class TablonServiceImplementation implements TablonService {
 	@Override
 	public UsuarioProyectoDTO obtenerColores(Long usuarioId, Long proyectoId) {
 
-		UsuarioProyectoEntity usuarioProyecto = usuarioProyectoRepository.findByUsuarioAndProyecto(
-				usuarioRepository.findById(usuarioId).orElse(null),
-				proyectoRepository.findById(proyectoId).orElse(null));
+		UsuarioProyectoEntity usuarioProyecto = usuarioProyectoRepository.findByUsuarioAndProyecto
+		(
+			usuarioRepository.findById(usuarioId).orElse(null),
+			proyectoRepository.findById(proyectoId).orElse(null)
+		);
 
 		UsuarioProyectoDTO usuarioProyectoDTO = new UsuarioProyectoDTO();
 		usuarioProyectoDTO.setColor(usuarioProyecto.getColorPrimario());
@@ -238,8 +234,7 @@ public class TablonServiceImplementation implements TablonService {
 			Long idProyecto = tablon.getProyecto().getIdProyecto();
 
 			// Validar si ya existe otro tablón con ese nombre en el mismo proyecto
-			boolean nombreExiste = tablonRepository.existsByNombreTablonIgnoreCaseAndIdNotAndProyecto_IdProyecto(
-					nuevoNombre, idTablon, idProyecto);
+			boolean nombreExiste = tablonRepository.existsByNombreTablonIgnoreCaseAndIdNotAndProyecto_IdProyecto(nuevoNombre, idTablon, idProyecto);
 
 			if (nombreExiste) {
 				return false; // Ya existe otro tablón con ese nombre → no actualizamos
@@ -252,9 +247,7 @@ public class TablonServiceImplementation implements TablonService {
 				NotificacionEntity notificacionEntity = new NotificacionEntity();
 				notificacionEntity.setProyecto(tablon.getProyecto());
 				notificacionEntity.setTipo("ADMIN_MODIFICACION");
-				notificacionEntity.setMensaje(
-						"El usuario " + usuario.getNombre() + " ha actualizado el tablon  "
-								+ tablon.getNombreTablon() + " a " + nuevoNombre);
+				notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha actualizado el tablon  " + tablon.getNombreTablon() + " a " + nuevoNombre);
 
 				NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 				notificacionUsuarioEntity.setNotificacion(notificacionEntity);

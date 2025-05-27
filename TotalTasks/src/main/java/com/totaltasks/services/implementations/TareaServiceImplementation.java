@@ -79,8 +79,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionEntity.setProyecto(proyecto);
 		notificacionEntity.setTarea(tarea);
 		notificacionEntity.setTipo("ADMIN_MODIFICACION");
-		notificacionEntity.setMensaje(
-				"El usuario " + usuario.getUsuario() + " ha creado la tarea " + tarea.getTitulo());
+		notificacionEntity.setMensaje("El usuario " + usuario.getUsuario() + " ha creado la tarea " + tarea.getTitulo());
 
 		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -94,8 +93,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionUser.setProyecto(proyecto);
 		notificacionUser.setTarea(tarea);
 		notificacionUser.setTipo("TAREA_ASIGNADA");
-		notificacionUser.setMensaje(
-				"Se te ha asignado la tarea " + tarea.getTitulo());
+		notificacionUser.setMensaje("Se te ha asignado la tarea " + tarea.getTitulo());
 
 		NotificacionUsuarioEntity notificacionUsuarioUser = new NotificacionUsuarioEntity();
 		notificacionUsuarioUser.setNotificacion(notificacionUser);
@@ -119,9 +117,7 @@ public class TareaServiceImplementation implements TareaService {
 			notificacionEntity.setProyecto(tareaEntity.getProyecto());
 			notificacionEntity.setTarea(tareaEntity);
 			notificacionEntity.setTipo("ADMIN_MODIFICACION");
-			notificacionEntity.setMensaje(
-					"El usuario " + usuario.getNombre() + " ha movido la tarea de " + tareaEntity.getEstado() + " a "
-							+ tareaDTO.getEstado());
+			notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha movido la tarea de " + tareaEntity.getEstado() + " a " + tareaDTO.getEstado());
 
 			NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 			notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -171,8 +167,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacion.setProyecto(tarea.getProyecto());
 		notificacion.setTarea(tarea);
 		notificacion.setTipo("RECORDATORIO_FECHA");
-		notificacion
-				.setMensaje("La tarea '" + tarea.getTitulo() + "' está próxima a vencer el " + tarea.getFechaLimite());
+		notificacion.setMensaje("La tarea '" + tarea.getTitulo() + "' está próxima a vencer el " + tarea.getFechaLimite());
 
 		NotificacionUsuarioEntity notificacionUsuario = new NotificacionUsuarioEntity();
 		notificacionUsuario.setNotificacion(notificacion);
@@ -186,10 +181,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionEntity.setProyecto(tarea.getProyecto());
 		notificacionEntity.setTarea(tarea);
 		notificacionEntity.setTipo("RECORDATORIO_FECHA");
-		notificacionEntity.setMensaje(
-				"El usuario " + tarea.getResponsable().getNombre() + " tiene pendiente la tarea " + tarea.getTitulo()
-						+ " y finaliza  "
-						+ tarea.getFechaLimite());
+		notificacionEntity.setMensaje("El usuario " + tarea.getResponsable().getNombre() + " tiene pendiente la tarea " + tarea.getTitulo() + " y finaliza  " + tarea.getFechaLimite());
 
 		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -229,11 +221,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionEntity.setProyecto(tareaEntity.getProyecto());
 		notificacionEntity.setTarea(tareaEntity);
 		notificacionEntity.setTipo("ADMIN_MODIFICACION");
-		notificacionEntity.setMensaje(
-				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  "
-						+ tareaEntity.getTitulo()
-						+ " a el dia  "
-						+ fechaFormateada);
+		notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  " + tareaEntity.getTitulo() + " a el dia  " + fechaFormateada);
 
 		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntity.setNotificacion(notificacionEntity);
@@ -247,11 +235,7 @@ public class TareaServiceImplementation implements TareaService {
 		notificacionEntityResponsable.setProyecto(tareaEntity.getProyecto());
 		notificacionEntityResponsable.setTarea(tareaEntity);
 		notificacionEntityResponsable.setTipo("ADMIN_MODIFICACION");
-		notificacionEntityResponsable.setMensaje(
-				"El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  "
-						+ tareaEntity.getTitulo()
-						+ " a el dia  "
-						+ fechaFormateada);
+		notificacionEntityResponsable.setMensaje("El usuario " + usuario.getNombre() + " ha cambiado la fecha de finalizacion de la tarea  " + tareaEntity.getTitulo() + " a el dia  " + fechaFormateada);
 
 		NotificacionUsuarioEntity notificacionUsuarioEntityResponsable = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntityResponsable.setNotificacion(notificacionEntityResponsable);
@@ -288,23 +272,18 @@ public class TareaServiceImplementation implements TareaService {
 		tareaRepository.save(tarea);
 
 		// Construir mensaje de cambios para el administrador
-		StringBuilder cambios = new StringBuilder(
-				"El usuario " + usuario.getUsuario() + " ha modificado la tarea " + tarea.getTitulo() + ". Cambios:\n");
+		StringBuilder cambios = new StringBuilder("El usuario " + usuario.getUsuario() + " ha modificado la tarea " + tarea.getTitulo() + ". Cambios:\n");
 		if (!Objects.equals(tituloAnterior, tareaDTO.getTitulo())) {
-			cambios.append("• Título: '").append(tituloAnterior).append("' → '").append(tareaDTO.getTitulo())
-					.append("'\n");
+			cambios.append("• Título: '").append(tituloAnterior).append("' → '").append(tareaDTO.getTitulo()).append("'\n");
 		}
 		if (!Objects.equals(descripcionAnterior, tareaDTO.getDescripcion())) {
-			cambios.append("• Descripción: '").append(descripcionAnterior).append("' → '")
-					.append(tareaDTO.getDescripcion()).append("'\n");
+			cambios.append("• Descripción: '").append(descripcionAnterior).append("' → '").append(tareaDTO.getDescripcion()).append("'\n");
 		}
 		if (!Objects.equals(fechaLimiteAnterior, tareaDTO.getFechaLimite())) {
-			cambios.append("• Fecha límite: '").append(fechaLimiteAnterior).append("' → '")
-					.append(tareaDTO.getFechaLimite()).append("'\n");
+			cambios.append("• Fecha límite: '").append(fechaLimiteAnterior).append("' → '").append(tareaDTO.getFechaLimite()).append("'\n");
 		}
 		if (!Objects.equals(responsableAnterior, responsable)) {
-			cambios.append("• Responsable: '").append(responsableAnterior.getUsuario()).append("' → '")
-					.append(responsable.getUsuario()).append("'\n");
+			cambios.append("• Responsable: '").append(responsableAnterior.getUsuario()).append("' → '").append(responsable.getUsuario()).append("'\n");
 		}
 
 		// Notificación para el ADMIN
@@ -347,8 +326,7 @@ public class TareaServiceImplementation implements TareaService {
 		NotificacionEntity notificacionEntity = new NotificacionEntity();
 		notificacionEntity.setProyecto(proyecto);
 		notificacionEntity.setTipo("ADMIN_MODIFICACION");
-		notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha eliminado la tarea   "
-				+ tarea.getTitulo());
+		notificacionEntity.setMensaje("El usuario " + usuario.getNombre() + " ha eliminado la tarea   " + tarea.getTitulo());
 
 		NotificacionUsuarioEntity notificacionUsuarioEntity = new NotificacionUsuarioEntity();
 		notificacionUsuarioEntity.setNotificacion(notificacionEntity);

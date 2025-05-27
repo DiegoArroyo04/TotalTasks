@@ -29,7 +29,6 @@ public class NotificacionController {
         // REDIRECCION A LA ULTIMA RUTA DISPONIBLE
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/dashboard");
-
     }
 
 }

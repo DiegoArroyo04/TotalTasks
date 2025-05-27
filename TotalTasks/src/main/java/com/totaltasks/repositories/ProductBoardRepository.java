@@ -10,6 +10,8 @@ import com.totaltasks.entities.ProyectoEntity;
 
 @Repository
 public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity, Long> {
+	
     List<ProductBoardEntity> findByProyecto_idProyecto(Long idProyecto);
+
 	void deleteAllByProyecto(ProyectoEntity proyecto);
 }
