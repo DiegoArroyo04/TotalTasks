@@ -2,194 +2,185 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard</title>
-  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <link rel="stylesheet" href="css/dashboard.css" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dashboard</title>
+	<link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<link rel="stylesheet" href="css/dashboard.css" />
 </head>
 
 <body>
-  <!-- Header -->
-  <div th:insert="~{fragmentos/header :: header}"></div>
+	<!-- Header -->
+	<div th:insert="~{fragmentos/header :: header}"></div>
 
-  <!-- Contenedor Principal -->
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar" th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}">
-      <h2>Repositorios GitHub</h2>
-      <div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repo-list">
-        <div th:each="repo : ${session.repositorios}" class="repo-item">
-          <h3 th:text="${repo.name}">Repo Name</h3>
-          <p th:text="${repo.description}">Descripción del Repo</p>
-          <p><strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span></p>
-          <button type="button" class="btn-modal"
-            th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
-            Usar este Repo
-          </button>
-        </div>
-      </div>
-    </aside>
+	<!-- Contenedor Principal -->
+	<div class="dashboard-container">
+		<!-- Sidebar -->
+		<aside class="sidebar" th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}">
+		<h2>Repositorios GitHub</h2>
+		<div th:if="${session.repositorios != null and !#lists.isEmpty(session.repositorios)}" class="repo-list">
+			<div th:each="repo : ${session.repositorios}" class="repo-item">
+			<h3 th:text="${repo.name}">Repo Name</h3>
+			<p th:text="${repo.description}">Descripción del Repo</p>
+			<p><strong>Lenguaje:</strong> <span th:text="${repo.language}">Lenguaje</span></p>
+			<button type="button" class="btn-modal"
+				th:attr="data-nombre=${repo.name}, data-descripcion=${repo.description}">
+				Usar este Repo
+			</button>
+			</div>
+		</div>
+		</aside>
 
-    <!-- Contenido Principal -->
-    <main class="main-content">
-      <!-- Proyectos -->
-      <section class="projects-section">
-        <div class="projects-header">
-          <h2>Proyectos</h2>
-          <div class="project-actions">
-            <a class="btn btn-create" href="#" onclick="abrirModalCrearProyectoManual()">Crear Proyecto</a>
-            <a class="btn btn-join" href="#" onclick="abrirModalUnirse()">Unirse a un Proyecto</a>
-          </div>
-        </div>
-        <div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
-          <p class="empty-message">No has creado ni te has unido a proyectos.</p>
-        </div>
-        <div th:if="${error}">
-          <h1>Ya existe el proyecto</h1>
-        </div>
-        <div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
-          <div th:each="proyecto : ${proyectos}" class="project-card"
-            th:attr="data-id-proyecto=${proyecto.idProyecto}, onclick='irAProyecto(' + ${proyecto.idProyecto} + ')'"
-            th:style="'border: 3px solid ' + ${coloresPrimarios[proyecto.idProyecto]}">
+		<!-- Contenido Principal -->
+		<main class="main-content">
+		<!-- Proyectos -->
+		<section class="projects-section">
+			<div class="projects-header">
+			<h2>Proyectos</h2>
+			<div class="project-actions">
+				<a class="btn btn-create" href="#" onclick="abrirModalCrearProyectoManual()">Crear Proyecto</a>
+				<a class="btn btn-join" href="#" onclick="abrirModalUnirse()">Unirse a un Proyecto</a>
+			</div>
+			</div>
+			<div th:if="${proyectos == null or #lists.isEmpty(proyectos)}">
+				<p class="empty-message">No has creado ni te has unido a proyectos.</p>
+			</div>
+			<div th:if="${error}">
+				<h1>Ya existe el proyecto</h>
+			</div>
+			<div th:if="${proyectos != null and !#lists.isEmpty(proyectos)}" class="projects-grid">
+				<div th:each="proyecto : ${proyectos}" class="project-card"
+					th:attr="data-id-proyecto=${proyecto.idProyecto}, onclick='irAProyecto(' + ${proyecto.idProyecto} + ')'"
+					th:style="'border: 3px solid ' + ${coloresPrimarios[proyecto.idProyecto]}">
 
-            <h3 class="project-title" th:text="${proyecto.nombreProyecto}"
-              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Nombre del Proyecto</h3>
+					<h3 class="project-title" th:text="${proyecto.nombreProyecto}"
+					th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Nombre del Proyecto</h3>
 
-            <p class="project-code" th:text="'Código: ' + ${proyecto.codigo}"
-              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Código</p>
+					<p class="project-code" th:text="'Código: ' + ${proyecto.codigo}"
+					th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Código</p>
 
-            <button type="button" class="copy-btn"
-              th:attr="data-codigo=${proyecto.codigo}, onclick='copiarCodigo(event,this)'"
-              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">
-              <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="copy"
-                class="svg-inline--fa fa-copy " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path fill="currentColor"
-                  d="M384 336l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L400 115.9 400 320c0 8.8-7.2 16-16 16zM192 384l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1L192 0c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-32-48 0 0 32c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l32 0 0-48-32 0z">
-                </path>
-              </svg>
-            </button>
+					<button type="button" class="copy-btn"
+						th:attr="data-codigo=${proyecto.codigo}, onclick='copiarCodigo(event,this)'"
+						th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">
+						<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="copy" class="svg-inline--fa fa-copy " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+							<path fill="currentColor" d="M384 336l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L400 115.9 400 320c0 8.8-7.2 16-16 16zM192 384l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1L192 0c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-32-48 0 0 32c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l32 0 0-48-32 0z"> </path>
+						</svg>
+					</button>
 
-            <span class="tooltip-text">Código
-              Copiado</span>
+					<span class="tooltip-text">Código Copiado</span>
 
-            <p class="project-description" th:text="${proyecto.descripcion}"
-              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Descripción</p>
+					<p class="project-description" th:text="${proyecto.descripcion}"
+					th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Descripción</p>
 
-            <div class="project-meta" th:style="'border-top: 2px solid ' + ${coloresPrimarios[proyecto.idProyecto]}">
-              <span th:text="${proyecto.metodologia}"
-                th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Metodología</span>
-              <span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}"
-                th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Fecha</span>
-            </div>
+					<div class="project-meta" th:style="'border-top: 2px solid ' + ${coloresPrimarios[proyecto.idProyecto]}">
+						<span th:text="${proyecto.metodologia}" th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Metodología</span>
+						<span th:text="${#dates.format(proyecto.fechaCreacion, 'dd/MM/yyyy')}" th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Fecha</span>
+					</div>
 
-            <p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}"
-              th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Creador</p>
+					<p class="project-owner" th:text="'Creador: ' + ${proyecto.creador.usuario}"
+					th:style="'color: ' + ${coloresPrimarios[proyecto.idProyecto]}">Creador</p>
 
-            <form th:action="@{/proyecto/eliminar/{id}(id=${proyecto.idProyecto})}" method="post">
-              <input type="hidden" name="abandonar" th:value="${usuario.idUsuario != proyecto.creador.idUsuario}" />
+					<form th:action="@{/proyecto/eliminar/{id}(id=${proyecto.idProyecto})}" method="post">
+					<input type="hidden" name="abandonar" th:value="${usuario.idUsuario != proyecto.creador.idUsuario}" />
 
-              <button th:if="${usuario.idUsuario == proyecto.creador.idUsuario}" type="submit" aria-label="Delete item"
-                class="delete-button">
-                <svg class="trash-svg" viewBox="0 -10 64 74" xmlns="http://www.w3.org/2000/svg">
-                  <g id="trash-can">
-                    <rect x="16" y="24" width="32" height="30" rx="3" ry="3" fill="#e74c3c"></rect>
-                    <g transform-origin="12 18" id="lid-group">
-                      <rect x="12" y="12" width="40" height="6" rx="2" ry="2" fill="#c0392b"></rect>
-                      <rect x="26" y="8" width="12" height="4" rx="2" ry="2" fill="#c0392b"></rect>
-                    </g>
-                  </g>
-                </svg>
-              </button>
+					<button th:if="${usuario.idUsuario == proyecto.creador.idUsuario}" type="submit" aria-label="Delete item" class="delete-button">
+						<svg class="trash-svg" viewBox="0 -10 64 74" xmlns="http://www.w3.org/2000/svg">
+						<g id="trash-can">
+							<rect x="16" y="24" width="32" height="30" rx="3" ry="3" fill="#e74c3c"></rect>
+							<g transform-origin="12 18" id="lid-group">
+							<rect x="12" y="12" width="40" height="6" rx="2" ry="2" fill="#c0392b"></rect>
+							<rect x="26" y="8" width="12" height="4" rx="2" ry="2" fill="#c0392b"></rect>
+							</g>
+						</g>
+						</svg>
+					</button>
 
-              <button th:if="${usuario.idUsuario != proyecto.creador.idUsuario}" type="submit" class="Btn">
-                <div class="sign">
-                  <svg viewBox="0 0 512 512">
-                    <path
-                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
-                    </path>
-                  </svg>
-                </div>
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+					<button th:if="${usuario.idUsuario != proyecto.creador.idUsuario}" type="submit" class="Btn">
+						<div class="sign">
+						<svg viewBox="0 0 512 512">
+							<path
+							d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+							</path>
+						</svg>
+						</div>
+					</button>
+					</form>
+				</div>
+			</div>
+		</section>
+		</main>
+	</div>
 
-  <!-- Modales -->
-  <!-- Crear desde Repo -->
-  <div id="modalCrearProyecto" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <h2>Crear Proyecto desde Repo</h2>
-      <form action="/crearProyectoDesdeRepo" method="post">
-        <label for="repoName">Nombre del Proyecto</label>
-        <input type="text" id="repoName" maxlength="100" name="repoName" required />
-        <label for="repoDescription">Descripción</label>
-        <textarea id="repoDescription" name="repoDescription" class="manualDescripcion" maxlength="200"
-          rows="3"></textarea>
-        <label for="metodologia">Metodología</label>
-        <select id="metodologia" name="metodologia">
-          <option value="Scrum">Scrum</option>
-          <option value="Kanban">Kanban</option>
-        </select>
-        <button type="submit">Crear Proyecto</button>
-      </form>
-    </div>
-  </div>
+	<!-- Modales -->
+	<!-- Crear desde Repo -->
+	<div id="modalCrearProyecto" class="modal">
+		<div class="modal-content">
+		<span class="close" onclick="cerrarModal()">&times;</span>
+		<h2>Crear Proyecto desde Repo</h2>
+		<form action="/crearProyectoDesdeRepo" method="post">
+			<label for="repoName">Nombre del Proyecto</label>
+			<input type="text" id="repoName" maxlength="100" name="repoName" required />
+			<label for="repoDescription">Descripción</label>
+			<textarea id="repoDescription" name="repoDescription" class="manualDescripcion" maxlength="200"
+			rows="3"></textarea>
+			<label for="metodologia">Metodología</label>
+			<select id="metodologia" name="metodologia">
+				<option value="Scrum">Scrum</option>
+				<option value="Kanban">Kanban</option>
+			</select>
+			<button type="submit">Crear Proyecto</button>
+		</form>
+		</div>
+	</div>
 
-  <!-- Crear Manual -->
-  <div id="modalCrearProyectoManual" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModalCrearProyectoManual()">&times;</span>
-      <h2>Crear Proyecto</h2>
-      <form th:action="@{/crearProyectoManualmente}" method="post">
-        <label for="nombre">Nombre del proyecto</label>
-        <input type="text" maxlength="100" name="nombre" required />
-        <label for="descripcion">Descripción</label>
-        <textarea name="descripcion" rows="3" required maxlength="200" class="manualDescripcion"></textarea>
-        <label for="metodologia">Metodología</label>
-        <select name="metodologia" required>
-          <option value="Scrum">Scrum</option>
-          <option value="Kanban">Kanban</option>
-          <option value="XP">XP</option>
-        </select>
-        <button type="submit">Crear</button>
-      </form>
-    </div>
-  </div>
+	<!-- Crear Manual -->
+	<div id="modalCrearProyectoManual" class="modal">
+		<div class="modal-content">
+		<span class="close" onclick="cerrarModalCrearProyectoManual()">&times;</span>
+		<h2>Crear Proyecto</h2>
+		<form th:action="@{/crearProyectoManualmente}" method="post">
+			<label for="nombre">Nombre del proyecto</label>
+			<input type="text" maxlength="100" name="nombre" required />
+			<label for="descripcion">Descripción</label>
+			<textarea name="descripcion" rows="3" required maxlength="200" class="manualDescripcion"></textarea>
+			<label for="metodologia">Metodología</label>
+			<select id="metodologia" name="metodologia">
+				<option value="Scrum">Scrum</option>
+				<option value="Kanban">Kanban</option>
+			</select>
+			<button type="submit">Crear</button>
+		</form>
+		</div>
+	</div>
 
-  <!-- Unirse -->
-  <div id="modalUnirse" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModalUnirse()">&times;</span>
-      <h2>Unirse a un Proyecto</h2>
-      <form th:action="@{/unirseProyecto}" method="post">
-        <label for="codigoProyecto">Código del Proyecto</label>
-        <input type="text" id="codigoProyecto" name="codigoProyecto" required maxlength="10" />
-        <button type="submit">Unirse</button>
-      </form>
-    </div>
-  </div>
+	<!-- Unirse -->
+	<div id="modalUnirse" class="modal">
+		<div class="modal-content">
+		<span class="close" onclick="cerrarModalUnirse()">&times;</span>
+		<h2>Unirse a un Proyecto</h2>
+		<form th:action="@{/unirseProyecto}" method="post">
+			<label for="codigoProyecto">Código del Proyecto</label>
+			<input type="text" id="codigoProyecto" name="codigoProyecto" required maxlength="10" />
+			<button type="submit">Unirse</button>
+		</form>
+		</div>
+	</div>
 
-  <!-- Error -->
-  <div id="modalError" class="modal-error">
-    <div class="modal-error-content">
-      <span class="modal-error-close" onclick="cerrarModalError()">&times;</span>
-      <h2 class="modal-error-title">Error</h2>
-      <p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
-    </div>
-  </div>
+	<!-- Error -->
+	<div id="modalError" class="modal-error">
+		<div class="modal-error-content">
+		<span class="modal-error-close" onclick="cerrarModalError()">&times;</span>
+		<h2 class="modal-error-title">Error</h2>
+		<p class="modal-error-message" id="mensajeError">Ha ocurrido un error.</p>
+		</div>
+	</div>
 
-  <!-- Footer -->
-  <footer th:insert="~{fragmentos/footer :: footer}"></footer>
+	<!-- Footer -->
+	<footer th:insert="~{fragmentos/footer :: footer}"></footer>
 
-  <!-- Scripts -->
-  <script src="js/dashboard.js"></script>
-
+	<!-- Scripts -->
+	<script src="js/dashboard.js"></script>
 </body>
 
 </html>

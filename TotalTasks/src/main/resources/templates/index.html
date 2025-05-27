@@ -2,307 +2,313 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="/assets/logo.png">
-  <link rel="stylesheet" href="/css/index.css">
-  <title>TotalTasks - Plataforma de Gestión de Tareas</title>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/assets/logo.png">
+	<link rel="stylesheet" href="/css/index.css">
+	<title>TotalTasks - Plataforma de Gestión de Tareas</title>
 </head>
 
 <body>
 
-  <!-- Fragmento header -->
-  <div th:insert="~{fragmentos/header :: header}"></div>
+ 	<!-- Fragmento header -->
+	<div th:insert="~{fragmentos/header :: header}"></div>
 
-  <div class="hero">
-    <div class="hero-texto">
-      <h1>Organiza tu vida con TotalTasks</h1>
-      <p>La mejor aplicación para gestionar tus tareas y proyectos de forma sencilla y eficaz.</p>
-      <p>Con TotalTasks, experimenta una nueva forma de organizar tus actividades diarias. Disfruta de recordatorios
-        inteligentes, integración con tus herramientas favoritas y una interfaz intuitiva que se adapta a tus
-        necesidades. Simplifica tu día a día y alcanza tu máxima productividad.</p>
-      <a href="/registro" class="boton-probar">Pruébala gratis</a>
-    </div>
-    <div class="hero-imagen">
-      <img src="/assets/index/hero.png" alt="Imagen de TotalTasks">
-    </div>
-  </div>
+	<div class="hero">
+		<div class="hero-texto">
+			<h1>Organiza tu vida con TotalTasks</h1>
+			<p>
+			La mejor aplicación para gestionar tus tareas y proyectos de forma sencilla y eficaz.
+			</p>
+			<p>
+			Con TotalTasks, experimenta una nueva forma de organizar tus actividades diarias. 
+			Disfruta de recordatorios inteligentes, integración con tus herramientas favoritas 
+			y una interfaz intuitiva que se adapta a tus necesidades. Simplifica tu día a día 
+			y alcanza tu máxima productividad.
+			</p>
+			<a href="/registro" class="boton-probar">Pruébala gratis</a>
+		</div>
+		
+		<div class="hero-imagen">
+			<img src="/assets/index/hero.png" alt="Imagen de TotalTasks">
+		</div>
+	</div>
 
-  <div class="pestanas-funcionalidades" id="caracteristicas">
-    <div class="pestanas">
-      <button class="boton-pestana active" data-pestana="funcionalidad1">📊 Dashboard</button>
-      <button class="boton-pestana" data-pestana="funcionalidad2">🚀 Proyectos</button>
-      <button class="boton-pestana" data-pestana="funcionalidad3">✅ Tareas</button>
-      <button class="boton-pestana" data-pestana="funcionalidad4">🔔 Notificaciones</button>
-      <button class="boton-pestana" data-pestana="funcionalidad5">💬 Colaboración</button>
-      <button class="boton-pestana" data-pestana="funcionalidad6">🔌 Integraciones</button>
-    </div>
-    <div class="contenido-pestanas">
-      <!-- Funcionalidad 1: Dashboard -->
-      <div class="contenido-pestana active" id="funcionalidad1">
-        <div class="detalle-funcionalidad">
-          <div class="texto-funcionalidad">
-            <h2>Dashboard Intuitivo</h2>
-            <p>Una vista principal que resume la actividad, permite acceso rápido a proyectos y tareas, y muestra
-              notificaciones y alertas relevantes.</p>
-            <ul>
-              <li>Vista general de actividad</li>
-              <li>Acceso rápido a funcionalidades</li>
-              <li>Notificaciones in-app</li>
-            </ul>
-          </div>
-          <div class="imagen-funcionalidad">
-            <img src="/assets/index/funcionalidades/imagen-funcionalidad-1.jpeg" alt="Dashboard">
-          </div>
-        </div>
-      </div>
-      <!-- Funcionalidad 2: Proyectos -->
-      <div class="contenido-pestana" id="funcionalidad2">
-        <div class="detalle-funcionalidad">
-          <div class="texto-funcionalidad">
-            <h2>Gestión de Proyectos</h2>
-            <p>Crea y administra proyectos utilizando metodologías como Scrum, Kanban o Cascada, adaptándose a las
-              necesidades de tu equipo.</p>
-            <ul>
-              <li>Creación de proyectos</li>
-              <li>Asignación de roles (Administrador, Miembro)</li>
-              <li>Invitación mediante código de acceso</li>
-            </ul>
-          </div>
-          <div class="imagen-funcionalidad">
-            <img src="/assets/index/funcionalidades/imagen-funcionalidad-2.jpeg" alt="Gestión de Proyectos">
-          </div>
-        </div>
-      </div>
-      <!-- Funcionalidad 3: Tareas -->
-      <div class="contenido-pestana" id="funcionalidad3">
-        <div class="detalle-funcionalidad">
-          <div class="texto-funcionalidad">
-            <h2>Gestión de Tareas</h2>
-            <p>Organiza y administra las tareas dentro de cada proyecto de forma intuitiva, permitiendo crear,
-              modificar, eliminar y asignar tareas.</p>
-            <ul>
-              <li>Crear, modificar y eliminar tareas</li>
-              <li>Asignación de tareas a usuarios</li>
-              <li>Estados: Pendiente, En progreso, Finalizado</li>
-            </ul>
-          </div>
-          <div class="imagen-funcionalidad">
-            <img src="/assets/index/funcionalidades/imagen-funcionalidad-3.jpeg" alt="Gestión de Tareas">
-          </div>
-        </div>
-      </div>
-      <!-- Funcionalidad 4: Notificaciones -->
-      <div class="contenido-pestana" id="funcionalidad4">
-        <div class="detalle-funcionalidad">
-          <div class="texto-funcionalidad">
-            <h2>Notificaciones y Recordatorios</h2>
-            <p>Mantén a los usuarios informados con alertas personalizadas, recordatorios automáticos y un historial de
-              cambios para un mejor seguimiento.</p>
-            <ul>
-              <li>Alertas y recordatorios</li>
-              <li>Notificaciones en tiempo real</li>
-              <li>Historial de cambios</li>
-            </ul>
-          </div>
-          <div class="imagen-funcionalidad">
-            <img src="/assets/index/funcionalidades/imagen-funcionalidad-4.jpeg" alt="Notificaciones">
-          </div>
-        </div>
-      </div>
-      <!-- Funcionalidad 5: Colaboración -->
-      <div class="contenido-pestana" id="funcionalidad5">
-        <div class="detalle-funcionalidad">
-          <div class="texto-funcionalidad">
-            <h2>Colaboración y Comunicación</h2>
-            <p>Facilita la interacción y el trabajo en equipo mediante comentarios, chat integrado y feedback en tiempo
-              real.</p>
-            <ul>
-              <li>Comentarios en tareas</li>
-              <li>Chat en tiempo real</li>
-              <li>Feedback y votaciones</li>
-            </ul>
-          </div>
-          <div class="imagen-funcionalidad">
-            <img src="/assets/index/funcionalidades/imagen-funcionalidad-5.png" alt="Colaboración">
-          </div>
-        </div>
-      </div>
-      <!-- Funcionalidad 6: Integraciones -->
-      <div class="contenido-pestana" id="funcionalidad6">
-        <div class="detalle-funcionalidad">
-          <div class="texto-funcionalidad">
-            <h2>Integraciones y Personalización</h2>
-            <p>Conecta TotalTasks con herramientas externas y personaliza la plataforma para optimizar el flujo de
-              trabajo.</p>
-            <ul>
-              <li>Integración con calendarios y aplicaciones (Google Calendar, Outlook, etc.)</li>
-              <li>Personalización de tableros y etiquetas</li>
-              <li>Exportación a Excel o PDF</li>
-            </ul>
-          </div>
-          <div class="imagen-funcionalidad">
-            <img src="/assets/index/funcionalidades/imagen-funcionalidad-6.jpg" alt="Integraciones">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="contenedor-caracteristicas">
-    <h1>Gestión Integral para tu Negocio</h1>
-    <p>
-      Gestiona todas las áreas clave de tu empresa en una única herramienta: Ventas, Marketing, Proyectos, Clientes,
-      Recursos Humanos y Análisis.
-    </p>
-    <br>
-    <div class="tarjetas">
-      <div class="tarjeta ventas">
-        <div class="icono"><img src="/assets/index/icons/maletin.png"></div>
-        <h3>Ventas</h3>
-        <p>Administra oportunidades, realiza seguimientos y cierra más tratos.</p>
-      </div>
-      <div class="tarjeta marketing">
-        <div class="icono"><img src="/assets/index/icons/grafico.png"></div>
-        <h3>Marketing</h3>
-        <p>Crea campañas efectivas y analiza resultados en tiempo real.</p>
-      </div>
-      <div class="tarjeta proyectos">
-        <div class="icono"><img src="/assets/index/icons/carpeta.png"></div>
-        <h3>Proyectos</h3>
-        <p>Planifica, organiza y ejecuta proyectos colaborativos con éxito.</p>
-      </div>
-      <div class="tarjeta clientes">
-        <div class="icono"><img src="/assets/index/icons/manos.png"></div>
-        <h3>Clientes</h3>
-        <p>Gestiona relaciones y mejora la satisfacción de tus clientes.</p>
-      </div>
-      <div class="tarjeta rrhh">
-        <div class="icono"><img src="/assets/index/icons/gente.png"></div>
-        <h3>Recursos Humanos</h3>
-        <p>Optimiza procesos de contratación, formación y seguimiento del personal.</p>
-      </div>
-      <div class="tarjeta analisis">
-        <div class="icono"><img src="/assets/index/icons/graficoLupa.png"></div>
-        <h3>Análisis</h3>
-        <p>Monitorea indicadores clave y toma decisiones basadas en datos.</p>
-      </div>
-    </div>
-  </div>
+	<div class="pestanas-funcionalidades" id="caracteristicas">
+		<div class="pestanas">
+		<button class="boton-pestana active" data-pestana="funcionalidad1">📊 Dashboard</button>
+		<button class="boton-pestana" data-pestana="funcionalidad2">🚀 Proyectos</button>
+		<button class="boton-pestana" data-pestana="funcionalidad3">✅ Tareas</button>
+		<button class="boton-pestana" data-pestana="funcionalidad4">🔔 Notificaciones</button>
+		<button class="boton-pestana" data-pestana="funcionalidad5">💬 Colaboración</button>
+		<button class="boton-pestana" data-pestana="funcionalidad6">🔌 Integraciones</button>
+		</div>
+		<div class="contenido-pestanas">
+			<!-- Funcionalidad 1: Dashboard -->
+			<div class="contenido-pestana active" id="funcionalidad1">
+				<div class="detalle-funcionalidad">
+				<div class="texto-funcionalidad">
+					<h2>Dashboard Intuitivo</h2>
+					<p>Una vista principal que resume la actividad, permite acceso rápido a proyectos y tareas, y muestra
+					notificaciones y alertas relevantes.</p>
+					<ul>
+					<li>Vista general de actividad</li>
+					<li>Acceso rápido a funcionalidades</li>
+					<li>Notificaciones in-app</li>
+					</ul>
+				</div>
+				<div class="imagen-funcionalidad">
+					<img src="/assets/index/funcionalidades/imagen-funcionalidad-1.jpeg" alt="Dashboard">
+				</div>
+				</div>
+			</div>
+			<!-- Funcionalidad 2: Proyectos -->
+			<div class="contenido-pestana" id="funcionalidad2">
+				<div class="detalle-funcionalidad">
+				<div class="texto-funcionalidad">
+					<h2>Gestión de Proyectos</h2>
+					<p>Crea y administra proyectos utilizando metodologías como Scrum, Kanban o Cascada, adaptándose a las
+					necesidades de tu equipo.</p>
+					<ul>
+					<li>Creación de proyectos</li>
+					<li>Asignación de roles (Administrador, Miembro)</li>
+					<li>Invitación mediante código de acceso</li>
+					</ul>
+				</div>
+				<div class="imagen-funcionalidad">
+					<img src="/assets/index/funcionalidades/imagen-funcionalidad-2.jpeg" alt="Gestión de Proyectos">
+				</div>
+				</div>
+			</div>
+			<!-- Funcionalidad 3: Tareas -->
+			<div class="contenido-pestana" id="funcionalidad3">
+				<div class="detalle-funcionalidad">
+				<div class="texto-funcionalidad">
+					<h2>Gestión de Tareas</h2>
+					<p>Organiza y administra las tareas dentro de cada proyecto de forma intuitiva, permitiendo crear,
+					modificar, eliminar y asignar tareas.</p>
+					<ul>
+					<li>Crear, modificar y eliminar tareas</li>
+					<li>Asignación de tareas a usuarios</li>
+					<li>Estados: Pendiente, En progreso, Finalizado</li>
+					</ul>
+				</div>
+				<div class="imagen-funcionalidad">
+					<img src="/assets/index/funcionalidades/imagen-funcionalidad-3.jpeg" alt="Gestión de Tareas">
+				</div>
+				</div>
+			</div>
+			<!-- Funcionalidad 4: Notificaciones -->
+			<div class="contenido-pestana" id="funcionalidad4">
+				<div class="detalle-funcionalidad">
+				<div class="texto-funcionalidad">
+					<h2>Notificaciones y Recordatorios</h2>
+					<p>Mantén a los usuarios informados con alertas personalizadas, recordatorios automáticos y un historial de
+					cambios para un mejor seguimiento.</p>
+					<ul>
+					<li>Alertas y recordatorios</li>
+					<li>Notificaciones en tiempo real</li>
+					<li>Historial de cambios</li>
+					</ul>
+				</div>
+				<div class="imagen-funcionalidad">
+					<img src="/assets/index/funcionalidades/imagen-funcionalidad-4.jpeg" alt="Notificaciones">
+				</div>
+				</div>
+			</div>
+			<!-- Funcionalidad 5: Colaboración -->
+			<div class="contenido-pestana" id="funcionalidad5">
+				<div class="detalle-funcionalidad">
+				<div class="texto-funcionalidad">
+					<h2>Colaboración y Comunicación</h2>
+					<p>Facilita la interacción y el trabajo en equipo mediante comentarios, chat integrado y feedback en tiempo
+					real.</p>
+					<ul>
+					<li>Comentarios en tareas</li>
+					<li>Chat en tiempo real</li>
+					<li>Feedback y votaciones</li>
+					</ul>
+				</div>
+				<div class="imagen-funcionalidad">
+					<img src="/assets/index/funcionalidades/imagen-funcionalidad-5.png" alt="Colaboración">
+				</div>
+				</div>
+			</div>
+			<!-- Funcionalidad 6: Integraciones -->
+			<div class="contenido-pestana" id="funcionalidad6">
+				<div class="detalle-funcionalidad">
+				<div class="texto-funcionalidad">
+					<h2>Integraciones y Personalización</h2>
+					<p>Conecta TotalTasks con herramientas externas y personaliza la plataforma para optimizar el flujo de
+					trabajo.</p>
+					<ul>
+					<li>Integración con calendarios y aplicaciones (Google Calendar, Outlook, etc.)</li>
+					<li>Personalización de tableros y etiquetas</li>
+					<li>Exportación a Excel o PDF</li>
+					</ul>
+				</div>
+				<div class="imagen-funcionalidad">
+					<img src="/assets/index/funcionalidades/imagen-funcionalidad-6.jpg" alt="Integraciones">
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <!-- Historias de Productividad -->
-  <h2 class="texto-productividad">Historias de Productividad</h2>
-  <div class="historias-productividad">
-    <div class="historias-columnas">
-      <!-- Historia 1 -->
-      <div class="historia-card historia1">
-        <img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="María, Gerente de Proyectos" class="historia-foto">
-        <div class="historia-texto">
-          <h3>María: Transformando la Gestión de Proyectos</h3>
-          <p>
-            María, gerente de proyectos en Innovatech, logró transformar la forma en que su equipo organiza y ejecuta
-            tareas. Con TotalTasks,
-            pudo centralizar la información y automatizar recordatorios, lo que aumentó la productividad y redujo
-            reuniones innecesarias...
-            <span class="texto-cortado">[...]</span>
-          </p>
-        </div>
-      </div>
-      <!-- Historia 2 -->
-      <div class="historia-card historia2">
-        <img src="/assets/index/reseñas/foto-reseña-2.jpeg" alt="Juan, Freelancer" class="historia-foto">
-        <div class="historia-texto">
-          <h3>Juan: Optimización de su Rutina Diaria</h3>
-          <p>
-            Juan, un freelancer, implementó TotalTasks para organizar su día a día, lo que le permitió cumplir plazos
-            y
-            mejorar la eficiencia
-            en sus proyectos personales. Gracias a la interfaz intuitiva y recordatorios inteligentes...
-            <span class="texto-cortado">[...]</span>
-          </p>
-        </div>
-      </div>
-      <!-- Historia 3 -->
-      <div class="historia-card historia3">
-        <img src="/assets/index/reseñas/foto-reseña-3.png" alt="María, Coordinadora de Marketing" class="historia-foto">
-        <div class="historia-texto">
-          <h3>Elena:Coordinando Equipos con Precisión</h3>
-          <p>
-            Elena, coordinadora de marketing en una startup, enfrentaba el reto de mantener a su equipo alineado.
-            Con TotalTasks, organizó campañas, delegó tareas y siguió avances en tiempo real. El resultado fue
-            una colaboración más fluida y campañas más efectivas
-            <span class="texto-cortado">[...]</span>
-          </p>
-        </div>
-      </div>
-      <!-- Historia 4 -->
-      <div class="historia-card historia4">
-        <img src="/assets/index/reseñas/foto-reseña-4.png" alt="Andres, Desarrollador Frontend Freelance"
-          class="historia-foto">
-        <div class="historia-texto">
-          <h3>Andrés:Desarrollador Frontend Freelance</h3>
-          <p>
-            Andrés, desarrollador frontend freelance, solía perder tiempo entre tareas dispersas y herramientas poco
-            integradas. Al adoptar TotalTasks, consiguió centralizar su flujo de trabajo, lo que le permitió
-            concentrarse mejor y reducir las interrupciones. Hoy entrega sus proyectos antes de tiempo y con mayor
-            calidad
-            <span class="texto-cortado">[...]</span>
-          </p>
-        </div>
-      </div>
+	<div class="contenedor-caracteristicas">
+		<h1>Gestión Integral para tu Negocio</h1>
+		<p>
+			Gestiona todas las áreas clave de tu empresa en una única herramienta: Ventas, Marketing, Proyectos, Clientes,
+			Recursos Humanos y Análisis.
+		</p>
+		<br>
+		<div class="tarjetas">
+			<div class="tarjeta ventas">
+				<div class="icono"><img src="/assets/index/icons/maletin.png"></div>
+				<h3>Ventas</h3>
+				<p>Administra oportunidades, realiza seguimientos y cierra más tratos.</p>
+			</div>
+			<div class="tarjeta marketing">
+				<div class="icono"><img src="/assets/index/icons/grafico.png"></div>
+				<h3>Marketing</h3>
+				<p>Crea campañas efectivas y analiza resultados en tiempo real.</p>
+			</div>
+			<div class="tarjeta proyectos">
+				<div class="icono"><img src="/assets/index/icons/carpeta.png"></div>
+				<h3>Proyectos</h3>
+				<p>Planifica, organiza y ejecuta proyectos colaborativos con éxito.</p>
+			</div>
+			<div class="tarjeta clientes">
+				<div class="icono"><img src="/assets/index/icons/manos.png"></div>
+				<h3>Clientes</h3>
+				<p>Gestiona relaciones y mejora la satisfacción de tus clientes.</p>
+			</div>
+			<div class="tarjeta rrhh">
+				<div class="icono"><img src="/assets/index/icons/gente.png"></div>
+				<h3>Recursos Humanos</h3>
+				<p>Optimiza procesos de contratación, formación y seguimiento del personal.</p>
+			</div>
+			<div class="tarjeta analisis">
+				<div class="icono"><img src="/assets/index/icons/graficoLupa.png"></div>
+				<h3>Análisis</h3>
+				<p>Monitorea indicadores clave y toma decisiones basadas en datos.</p>
+			</div>
+		</div>
+	</div>
 
-    </div>
-  </div>
+	<!-- Historias de Productividad -->
+	<h2 class="texto-productividad">Historias de Productividad</h2>
+	<div class="historias-productividad">
+		<div class="historias-columnas">
+			<!-- Historia 1 -->
+			<div class="historia-card historia1">
+				<img src="/assets/index/reseñas/foto-reseña-1.jpeg" alt="María, Gerente de Proyectos" class="historia-foto">
+				<div class="historia-texto">
+					<h3>María: Transformando la Gestión de Proyectos</h3>
+					<p>
+						María, gerente de proyectos en Innovatech, logró transformar la forma en que su equipo organiza y ejecuta
+						tareas. Con TotalTasks,
+						pudo centralizar la información y automatizar recordatorios, lo que aumentó la productividad y redujo
+						reuniones innecesarias...
+						<span class="texto-cortado">[...]</span>
+					</p>
+				</div>
+			</div>
+			<!-- Historia 2 -->
+			<div class="historia-card historia2">
+				<img src="/assets/index/reseñas/foto-reseña-2.jpeg" alt="Juan, Freelancer" class="historia-foto">
+				<div class="historia-texto">
+					<h3>Juan: Optimización de su Rutina Diaria</h3>
+					<p>
+						Juan, un freelancer, implementó TotalTasks para organizar su día a día, lo que le permitió cumplir plazos
+						y
+						mejorar la eficiencia
+						en sus proyectos personales. Gracias a la interfaz intuitiva y recordatorios inteligentes...
+						<span class="texto-cortado">[...]</span>
+					</p>
+				</div>
+			</div>
+			<!-- Historia 3 -->
+			<div class="historia-card historia3">
+				<img src="/assets/index/reseñas/foto-reseña-3.png" alt="María, Coordinadora de Marketing" class="historia-foto">
+				<div class="historia-texto">
+					<h3>Elena:Coordinando Equipos con Precisión</h3>
+					<p>
+						Elena, coordinadora de marketing en una startup, enfrentaba el reto de mantener a su equipo alineado.
+						Con TotalTasks, organizó campañas, delegó tareas y siguió avances en tiempo real. El resultado fue
+						una colaboración más fluida y campañas más efectivas
+						<span class="texto-cortado">[...]</span>
+					</p>
+				</div>
+			</div>
+			<!-- Historia 4 -->
+			<div class="historia-card historia4">
+				<img src="/assets/index/reseñas/foto-reseña-4.png" alt="Andres, Desarrollador Frontend Freelance"
+				class="historia-foto">
+				<div class="historia-texto">
+					<h3>Andrés:Desarrollador Frontend Freelance</h3>
+					<p>
+						Andrés, desarrollador frontend freelance, solía perder tiempo entre tareas dispersas y herramientas poco
+						integradas. Al adoptar TotalTasks, consiguió centralizar su flujo de trabajo, lo que le permitió
+						concentrarse mejor y reducir las interrupciones. Hoy entrega sus proyectos antes de tiempo y con mayor
+						calidad
+						<span class="texto-cortado">[...]</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
   <div class="divider"></div>
 
-  <!-- Preguntas Frecuentes -->
-  <div class="faq" id="faq">
-    <h2>Preguntas Frecuentes</h2>
-    <div class="faq-container">
-      <!-- Pregunta 1 -->
-      <div class="faq-pregunta">
-        <img src="/assets/index/reseñas/foto-reseña-5.png" alt="Usuario" class="avatar">
-        <p><strong>Usuario:</strong> ¿Cómo puedo crear una tarea recurrente?</p>
-      </div>
-      <!-- Respuesta 1 -->
-      <div class="faq-respuesta">
-        <p><strong>Soporte TotalTasks:</strong> Para crear una tarea recurrente, selecciona la opción "Repetir" al
-          momento de agregar una nueva tarea.</p>
-        <img src="/assets/index/reseñas/soporte.png" alt="Soporte TotalTasks" class="avatar">
-      </div>
+	<!-- Preguntas Frecuentes -->
+	<div class="faq" id="faq">
+		<h2>Preguntas Frecuentes</h2>
+		<div class="faq-container">
+			<!-- Pregunta 1 -->
+			<div class="faq-pregunta">
+				<img src="/assets/index/reseñas/foto-reseña-5.png" alt="Usuario" class="avatar">
+				<p><strong>Usuario:</strong> ¿Cómo puedo crear una tarea recurrente?</p>
+			</div>
+			<!-- Respuesta 1 -->
+			<div class="faq-respuesta">
+				<p><strong>Soporte TotalTasks:</strong> Para crear una tarea recurrente, selecciona la opción "Repetir" al
+				momento de agregar una nueva tarea.</p>
+				<img src="/assets/index/reseñas/soporte.png" alt="Soporte TotalTasks" class="avatar">
+			</div>
 
-      <!-- Pregunta 2 -->
-      <div class="faq-pregunta">
-        <img src="/assets/index/reseñas/foto-reseña-6.png" alt="Usuario" class="avatar">
-        <p><strong>Usuario:</strong> ¿Puedo sincronizar mis tareas con otros calendarios?</p>
-      </div>
-      <!-- Respuesta 2 -->
-      <div class="faq-respuesta">
-        <p><strong>Soporte TotalTasks:</strong> Actualmente, ofrecemos inicio de sesión con Google, lo que facilitará
-          la
-          sincronización con Google Calendar próximamente.</p>
-        <img src="/assets/index/reseñas/soporte.png" alt="Soporte TotalTasks" class="avatar">
-      </div>
+			<!-- Pregunta 2 -->
+			<div class="faq-pregunta">
+				<img src="/assets/index/reseñas/foto-reseña-6.png" alt="Usuario" class="avatar">
+				<p><strong>Usuario:</strong> ¿Puedo sincronizar mis tareas con otros calendarios?</p>
+			</div>
+			<!-- Respuesta 2 -->
+			<div class="faq-respuesta">
+				<p><strong>Soporte TotalTasks:</strong> Actualmente, ofrecemos inicio de sesión con Google, lo que facilitará
+				la
+				sincronización con Google Calendar próximamente.</p>
+				<img src="/assets/index/reseñas/soporte.png" alt="Soporte TotalTasks" class="avatar">
+			</div>
 
-      <!-- Pregunta 3 -->
-      <div class="faq-pregunta">
-        <img src="/assets/index/reseñas/foto-reseña-7.png" alt="Usuario" class="avatar">
-        <p><strong>Usuario:</strong> ¿Qué tan seguro es TotalTasks para la gestión de mis datos?</p>
-      </div>
-      <!-- Respuesta 3 -->
-      <div class="faq-respuesta">
-        <p><strong>Soporte TotalTasks:</strong> Utilizamos protocolos de seguridad y cifrado de última generación para
-          proteger tu información en todo momento.</p>
-        <img src="/assets/index/reseñas/soporte.png" alt="Soporte TotalTasks" class="avatar">
-      </div>
+			<!-- Pregunta 3 -->
+			<div class="faq-pregunta">
+				<img src="/assets/index/reseñas/foto-reseña-7.png" alt="Usuario" class="avatar">
+				<p><strong>Usuario:</strong> ¿Qué tan seguro es TotalTasks para la gestión de mis datos?</p>
+			</div>
+			<!-- Respuesta 3 -->
+			<div class="faq-respuesta">
+				<p><strong>Soporte TotalTasks:</strong> Utilizamos protocolos de seguridad y cifrado de última generación para
+				proteger tu información en todo momento.</p>
+				<img src="/assets/index/reseñas/soporte.png" alt="Soporte TotalTasks" class="avatar">
+			</div>
 
-      <div class="faq-link">
-        <p>¿Tienes más preguntas? Visita nuestra <a href="/faq" title="Ir a preguntas frecuentes">sección de preguntas
-            frecuentes</a>.</p>
-      </div>
-    </div>
-  </div>
+			<div class="faq-link">
+				<p>¿Tienes más preguntas? Visita nuestra <a href="/faq" title="Ir a preguntas frecuentes">sección de preguntas
+					frecuentes</a>.</p>
+			</div>
+		</div>
+	</div>
 
   <!-- Fragmento chatbot -->
   <div th:insert="~{fragmentos/chatbot :: chatbot}"></div>
