@@ -1,4 +1,3 @@
-// Funcionalidades
 document.addEventListener("DOMContentLoaded", () => {
 	const botonesPestana = document.querySelectorAll(
 		".pestanas-funcionalidades .boton-pestana"
@@ -19,10 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			document.getElementById(idPestana).classList.add("active");
 		});
 	});
-
-	// Menu fijo
-	const header = document.getElementById("cabezera");
-	const spacer = document.getElementById("headerSpacer");
 
 	window.addEventListener("scroll", function () {
 		const header = document.getElementById("cabezera");
