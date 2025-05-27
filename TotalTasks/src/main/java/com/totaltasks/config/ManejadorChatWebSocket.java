@@ -10,9 +10,7 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.totaltasks.entities.ProyectoEntity;
 import com.totaltasks.models.ChatMessageDTO;
-import com.totaltasks.models.ProyectoDTO;
 import com.totaltasks.services.ChatService;
 
 @Component
