@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-	//LEER SI HAY COLORES PERSONALIZADOS
+
+	// LEER SI HAY COLORES PERSONALIZADOS
 	const idProyecto = document.getElementById("idProyecto").value;
 	const idUsuario = document.getElementById("idUsuario").value;
+
 	$.ajax({
 		type: "GET",
 		url: `/obtenerColores?usuarioId=${idUsuario}&proyectoId=${idProyecto}`,
@@ -14,37 +16,33 @@ document.addEventListener("DOMContentLoaded", () => {
 			const colorOptions = document.getElementById("color-options");
 			let customBox = container.querySelector("span.color-box.custom-box");
 
-			//VERIFICAR SI YA EXISTE UN SPAN CUSTOM PARA MODIFICAR SUS VALORES
+			// VERIFICAR SI YA EXISTE UN SPAN CUSTOM PARA MODIFICAR SUS VALORES
 			if (customBox) {
 				customBox.dataset.color = customColor;
 				customBox.style.backgroundColor = customColor;
-			} else {
-				if (customColor != null) {
-					// Crear el nuevo <span> con el color seleccionado
-					const colorBox = document.createElement("span");
-					colorBox.classList.add("color-box", "custom-box");
-					colorBox.setAttribute("data-color", customColor);
-					colorBox.style.backgroundColor = customColor;
-					// Agregar el nuevo <span> al contenedor de colores
-					colorOptions.insertBefore(
-						colorBox,
-						document.getElementById("personalizarColor")
-					);
-				}
+			} else if (customColor != null) {
+				// Crear el nuevo <span> con el color seleccionado
+				const colorBox = document.createElement("span");
+				colorBox.classList.add("color-box", "custom-box");
+				colorBox.setAttribute("data-color", customColor);
+				colorBox.style.backgroundColor = customColor;
+
+				// Agregar el nuevo <span> al contenedor de colores
+				colorOptions.insertBefore(
+					colorBox,
+					document.getElementById("personalizarColor")
+				);
 			}
 
 			if (colorGuardado && hoverGuardado) {
-				document.documentElement.style.setProperty(
-					"--color-primario",
-					colorGuardado
-				);
-				document.documentElement.style.setProperty(
-					"--color-primario-hover",
-					hoverGuardado
-				);
+				document.documentElement.style.setProperty("--color-primario", colorGuardado);
+				document.documentElement.style.setProperty("--color-primario-hover", hoverGuardado);
 			}
 		},
-		error: function (error) { },
+		error: function (error) {
+			// Manejo de error opcional
+			console.error("Error al obtener colores personalizados:", error);
+		},
 	});
 
 	const tableros = document.getElementById("tableros");
@@ -91,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	btnCrear.addEventListener("click", () => {
 		const nombre = inputNombre.value.trim();
 		if (nombre) {
-
 			const idProyecto = document.getElementById("idProyecto").value;
 			const orden = document.getElementById("orden").value;
 
@@ -104,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
 					orden: parseInt(orden) + 1,
 					id_proyecto: idProyecto,
 				}),
-
 				success: function (response) {
 					if (response == "Duplicado") {
 						modal.style.display = "none";
@@ -121,18 +117,15 @@ document.addEventListener("DOMContentLoaded", () => {
 							nombre.toLowerCase().replace(/\s+/g, "")
 						);
 						nuevaColumna.innerHTML = `
-                        <input type="text" value="${nombre}" class="titulo-tablon" readonly />
-                        <div class="tareas"></div>
-                    `;
-
+							<input type="text" value="${nombre}" class="titulo-tablon" readonly />
+							<div class="tareas"></div>
+						`;
 						nuevaColumna.setAttribute("data-id", String(response));
 						tableros.appendChild(nuevaColumna);
 						initSortableCol(); // activar drag en la nueva columna
 
 						// 🔧 ACTIVAR EDICIÓN EN EL NUEVO INPUT
-						const nuevoInput = nuevaColumna.querySelector(
-							"input.titulo-tablon"
-						);
+						const nuevoInput = nuevaColumna.querySelector("input.titulo-tablon");
 						activarEdicion(nuevoInput);
 
 						modal.style.display = "none";
@@ -148,25 +141,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Obtener todas las tareas
 	const tareas = document.querySelectorAll(".tarea");
-
-
-
-
-	// Añadir evento de clic a cada tarea para mostrar su modal informativo
 	tareas.forEach((tarea) => {
 		tarea.addEventListener("click", () => {
 			const id = tarea.getAttribute("data-id");
 			const titulo = tarea.getAttribute("data-titulo");
 			const descripcion = tarea.getAttribute("data-descripcion");
 			const fechaLimite = tarea.getAttribute("data-fecha");
-			const responsableId = tarea.getAttribute("data-responsable"); // ✅ ID numérico
+			const responsableId = tarea.getAttribute("data-responsable");
 
 			// Rellenar los campos del modal de edición
 			document.getElementById("idTareaEditar").value = id;
 			document.getElementById("tituloEditar").value = titulo;
 			document.getElementById("descripcionEditar").value = descripcion;
 			document.getElementById("fechaLimiteEditar").value = fechaLimite;
-			document.getElementById("idResponsableEditar").value = responsableId; // ✅ Se selecciona correctamente
+			document.getElementById("idResponsableEditar").value = responsableId;
 
 			// También rellenamos el modal informativo si lo usas antes de editar
 			document.getElementById("tituloTarea").innerText = titulo;
@@ -180,33 +168,27 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	document.getElementById("modificarTarea").addEventListener("click", function () {
-		// Mostrar modal
 		document.getElementById("modalEditarTarea").style.display = "flex";
 	});
 
-
-	// Cerrar el modal cuando se haga clic en el botón "Cerrar"
+	// Cerrar modal de detalle
 	document.getElementById("cerrarModalTarea").addEventListener("click", () => {
 		document.getElementById("modalMostrarTarea").style.display = "none";
 	});
 
-	// Botón de cancelar del modal de edicion
+	// Cancelar modal de edición
 	document.getElementById("cancelarModalEditarTarea").addEventListener("click", () => {
 		document.getElementById("modalEditarTarea").style.display = "none";
 	});
 
-
-
-	// Agregar tareas
+	// Agregar tareas desde columna
 	tableros.addEventListener("click", (p) => {
 		if (p.target && p.target.classList.contains("agregar-tarea")) {
 			const columna = p.target.closest(".columna");
 			const estado = columna.getAttribute("data-etapa");
 
-			// Mostrar el modal para crear una nueva tarea
 			modalTarea.style.display = "flex";
 
-			// Al enviar el formulario, asignamos la tarea al contenedor correspondiente
 			const formulario = modalTarea.querySelector("form");
 			formulario.addEventListener("submit", (e) => {
 				e.preventDefault();
@@ -216,13 +198,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				tareaDiv.classList.add("tarea");
 				tareaDiv.textContent = tareaTitulo;
 
-				// Buscamos la columna con el estado correspondiente y añadimos la tarea allí
 				const columnaCorrespondiente = tableros.querySelector(
 					`[data-etapa='${tareaEstado.toLowerCase()}']`
 				);
 				columnaCorrespondiente.querySelector(".tareas").appendChild(tareaDiv);
 
-				modalTarea.style.display = "none"; // Cerrar el modal
+				modalTarea.style.display = "none";
 			});
 		}
 	});
@@ -242,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
+	// Función para arrastrar tareas
 	function initSortable() {
 		const listas = document.querySelectorAll(".tareas");
 		listas.forEach((lista) => {
@@ -253,10 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					const tareaMovida = evento.item;
 					const idTarea = tareaMovida.getAttribute("data-id");
 
-
-					//COLUMNA A LA QUE SE HA MOVIDO
 					const nuevaColumna = evento.to.closest(".columna");
-
 					const nuevoEstado = nuevaColumna.getAttribute("data-etapa");
 
 					var datos = {
@@ -269,27 +248,22 @@ document.addEventListener("DOMContentLoaded", () => {
 						type: "POST",
 						contentType: "application/json",
 						data: JSON.stringify(datos),
-						success: function (respuesta) { },
+						success: function () {},
 						error: function (xhr, status, error) {
 							console.error("❌ Error al actualizar tarea:", error);
 						},
 					});
-				}, onStart: function (evt) {
+				},
+				onStart: function (evt) {
 					tarea = evt.item;
 					botonEliminarColumna.style.display = "block";
-				}, onEnd: function (evt) {
+				},
+				onEnd: function (evt) {
 					const papelera = botonEliminarColumna.getBoundingClientRect();
 					const mouseX = evt.originalEvent.clientX;
 					const mouseY = evt.originalEvent.clientY;
 
-
-					//VERIFICACION DE QUE EL EVENTO NO SE HA HECHO PARA ELIMINAR LA TAREA NTERA
-					if (
-						mouseX >= papelera.left &&
-						mouseX <= papelera.right &&
-						mouseY >= papelera.top &&
-						mouseY <= papelera.bottom
-					) {
+					if (mouseX >= papelera.left && mouseX <= papelera.right && mouseY >= papelera.top && mouseY <= papelera.bottom) {
 						const idTarea = tarea.getAttribute("data-id");
 						const idUsuario = document.getElementById("idUsuario").value;
 						const idProyecto = document.getElementById("idProyecto").value;
@@ -298,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							url: `/eliminarTarea/${idTarea}/${idUsuario}/${idProyecto}`,
 							method: "POST",
 							success: function () {
-								tarea.remove(); // Eliminar del DOM
+								tarea.remove();
 							},
 							error: function (xhr, status, error) {
 								console.error("❌ Error al eliminar la tarea:", error);
@@ -306,11 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
 						});
 					}
 
-
-
-
-
-					// Ocultar el botón de eliminar columna siempre que se suelta
 					setTimeout(() => {
 						botonEliminarColumna.style.display = "none";
 						columnaArrastrada = null;
@@ -327,24 +296,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		new Sortable(tableros, {
 			animation: 150,
-			handle: "div", // para arrastrar desde el título
+			handle: "div", // Solo se puede arrastrar desde el título de la columna
 			ghostClass: "ghost-columna",
+
 			onStart: function (evt) {
 				columnaArrastrada = evt.item;
 				botonEliminarColumna.style.display = "block";
 
-				// Guardar el orden actual
+				// Guardar el orden actual de los tablones
 				ordenInicial = Array.from(tableros.children).map((col) =>
 					col.getAttribute("data-id")
 				);
 			},
+
 			onEnd: function (evt) {
 				const papelera = botonEliminarColumna.getBoundingClientRect();
 				const mouseX = evt.originalEvent.clientX;
 				const mouseY = evt.originalEvent.clientY;
 				let eliminado = false;
 
-				//VERIFICACION DE QUE EL EVENTO NO SE HA HECHO PARA ELIMINAR EL TABLON ENTERA
+				// Verificar si el soltado fue sobre la papelera
 				if (
 					mouseX >= papelera.left &&
 					mouseX <= papelera.right &&
@@ -364,7 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
 							id_proyecto: parseInt(idProyecto),
 						}),
 						success: function () {
-							columnaArrastrada.remove(); // eliminar del DOM
+							// Eliminar la columna del DOM y actualizar el orden
+							columnaArrastrada.remove();
 							actualizarOrdenTablones();
 						},
 						error: function (xhr, status, error) {
@@ -373,18 +345,20 @@ document.addEventListener("DOMContentLoaded", () => {
 					});
 				}
 
-				// COMPROBAR QUE EL ORDEN DE LOS TABLONES A CAMBIADO
+				// Comprobar si el orden de los tablones ha cambiado
 				const nuevoOrden = Array.from(tableros.children).map((col) =>
 					col.getAttribute("data-id")
 				);
+
 				const haCambiado = ordenInicial.some(
 					(id, index) => id !== nuevoOrden[index]
 				);
-				if (haCambiado && eliminado == false) {
+
+				if (haCambiado && eliminado === false) {
 					actualizarOrdenTablones();
 				}
 
-				// Ocultar el botón de eliminar columna siempre que se suelta
+				// Ocultar botón de eliminar y limpiar referencia
 				setTimeout(() => {
 					botonEliminarColumna.style.display = "none";
 					columnaArrastrada = null;
@@ -395,99 +369,85 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	initSortableCol();
 
-	document
-		.getElementById("personalizarTablero")
-		.addEventListener("click", function () {
-			document.getElementById("colorPicker").style.display = "flex";
+	document.getElementById("personalizarTablero").addEventListener("click", function () {
+		// Mostrar el selector de color
+		document.getElementById("colorPicker").style.display = "flex";
 
-			document
-				.getElementById("personalizarColor")
-				.addEventListener("click", function () {
-					document.getElementById("colorSelector").click();
-				});
-
-
-			// CAMBIAR COLOR EN TIEMPO REAL
-			document
-				.getElementById("colorSelector")
-				.addEventListener("input", function (event) {
-					const color = event.target.value;
-
-					// Aplicar a CSS variables en tiempo real
-					document.documentElement.style.setProperty("--color-primario", color);
-					document.documentElement.style.setProperty(
-						"--color-primario-hover",
-						oscurecerColor(color, 0.15)
-					);
-
-					// Vista previa (span personalizado)
-					let customBox = document.querySelector("span.color-box.custom-box");
-					if (customBox) {
-						customBox.style.backgroundColor = color;
-						customBox.dataset.color = color;
-					}
-				});
-
-
-
-
-			//EVENTO QUE ESCUCHA EL NUEVO COLOR PERSONALIZADO
-			document
-				.getElementById("colorSelector")
-				.addEventListener("change", function (event) {
-					const color = event.target.value;
-					const container = document.getElementById("color-options");
-
-					// Verificar si ya existe un color con ese valor en el contenedor
-					const colorOptions = document.getElementById("color-options");
-					if (!colorOptions.querySelector(`span[data-color='${color}']`)) {
-						let customBox = container.querySelector(
-							"span.color-box.custom-box"
-						);
-
-						//VERIFICAR SI YA EXISTE UN SPAN CUSTOM PARA MODIFICAR SUS VALORES
-						if (customBox) {
-							customBox.dataset.color = color;
-							customBox.style.backgroundColor = color;
-						} else {
-							// Crear el nuevo <span> con el color seleccionado
-							const colorBox = document.createElement("span");
-							colorBox.classList.add("color-box", "custom-box");
-							colorBox.setAttribute("data-color", color);
-							colorBox.style.backgroundColor = color;
-
-							// Agregar el nuevo <span> al contenedor de colores
-							colorOptions.insertBefore(
-								colorBox,
-								document.getElementById("personalizarColor")
-							);
-						}
-
-						const idProyecto = document.getElementById("idProyecto").value;
-						const idUsuario = document.getElementById("idUsuario").value;
-
-						$.ajax({
-							url: "/guardarColores",
-							type: "POST",
-							contentType: "application/json",
-							data: JSON.stringify({
-								idUsuario: idUsuario,
-								idProyecto: idProyecto,
-								customColor: color,
-							}),
-							success: function () {
-								console.log("✅ Color personalizado guardado");
-							},
-							error: function () {
-								console.error("❌ Error al guardar el color personalizado");
-							},
-						});
-					}
-				});
+		// Abrir el input tipo color al hacer clic en el botón
+		document.getElementById("personalizarColor").addEventListener("click", function () {
+			document.getElementById("colorSelector").click();
 		});
 
+		// Cambiar color en tiempo real
+		document.getElementById("colorSelector").addEventListener("input", function (event) {
+			const color = event.target.value;
+
+			// Aplicar a las variables CSS personalizadas
+			document.documentElement.style.setProperty("--color-primario", color);
+			document.documentElement.style.setProperty("--color-primario-hover",oscurecerColor(color, 0.15));
+
+			// Vista previa en el span personalizado
+			let customBox = document.querySelector("span.color-box.custom-box");
+			if (customBox) {
+				customBox.style.backgroundColor = color;
+				customBox.dataset.color = color;
+			}
+		});
+
+		// Guardar el nuevo color personalizado
+		document.getElementById("colorSelector").addEventListener("change", function (event) {
+			const color = event.target.value;
+			const container = document.getElementById("color-options");
+
+			// Verificar si ya existe un span con ese color
+			const colorOptions = document.getElementById("color-options");
+			if (!colorOptions.querySelector(`span[data-color='${color}']`)) {
+				let customBox = container.querySelector("span.color-box.custom-box");
+
+				if (customBox) {
+					// Actualizar el span existente
+					customBox.dataset.color = color;
+					customBox.style.backgroundColor = color;
+				} else {
+					// Crear un nuevo span con el color seleccionado
+					const colorBox = document.createElement("span");
+					colorBox.classList.add("color-box", "custom-box");
+					colorBox.setAttribute("data-color", color);
+					colorBox.style.backgroundColor = color;
+
+					// Insertar el nuevo span antes del botón personalizar
+					colorOptions.insertBefore(
+						colorBox,
+						document.getElementById("personalizarColor")
+					);
+				}
+
+				// Guardar el color personalizado vía AJAX
+				const idProyecto = document.getElementById("idProyecto").value;
+				const idUsuario = document.getElementById("idUsuario").value;
+
+				$.ajax({
+					url: "/guardarColores",
+					type: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({
+						idUsuario: idUsuario,
+						idProyecto: idProyecto,
+						customColor: color,
+					}),
+					success: function () {
+						console.log("✅ Color personalizado guardado");
+					},
+					error: function () {
+						console.error("❌ Error al guardar el color personalizado");
+					},
+				});
+			}
+		});
+	});
+	
 	document.addEventListener("click", function (event) {
-		// Cerrar al hacer clic fuera del colorPicker
+		// Cerrar el colorPicker si se hace clic fuera de él y no es el botón que lo abre
 		const pickerContainer = document.getElementById("colorPicker");
 		const pickerBox = document.querySelector(".colorPicker");
 
@@ -498,44 +458,37 @@ document.addEventListener("DOMContentLoaded", () => {
 			pickerContainer.style.display = "none";
 		}
 
-		//EVENT LISTENER PARA CADA COLOR
-		document.querySelectorAll(".color-box").forEach((box) => {
-			box.addEventListener("click", () => {
-				const color = box.getAttribute("data-color");
-				document.documentElement.style.setProperty("--color-primario", color);
-				const hoverColor = oscurecerColor(color, 0.15);
-				document.documentElement.style.setProperty(
-					"--color-primario-hover",
-					hoverColor
-				);
-				const idProyecto = document.getElementById("idProyecto").value;
+		// Agregar evento click a cada caja de color para cambiar el tema
+		document.querySelectorAll(".color-box").forEach((box) => {box.addEventListener("click", () => {
+			const color = box.getAttribute("data-color");
+			document.documentElement.style.setProperty("--color-primario", color);
 
-				//GUARDAR COLOR EN BBDD
-				$.ajax({
-					url: "/guardarColores",
-					type: "POST",
-					contentType: "application/json",
-					data: JSON.stringify({
-						idUsuario: idUsuario,
-						idProyecto: idProyecto,
-						color: color,
-						colorHover: hoverColor,
-					}),
+			const hoverColor = oscurecerColor(color, 0.15);
+			document.documentElement.style.setProperty("--color-primario-hover", hoverColor);
 
-					success: function (response) { },
-					error: function (xhr, status, error) { },
-				});
+			const idProyecto = document.getElementById("idProyecto").value;
+			const idUsuario = document.getElementById("idUsuario").value;
 
-				// Cerrar el selector
-				document.getElementById("colorPicker").style.display = "none";
+			// Guardar el color seleccionado en la base de datos mediante AJAX
+			$.ajax({
+				url: "/guardarColores",
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify({
+					idUsuario: idUsuario,
+					idProyecto: idProyecto,
+					color: color,
+					colorHover: hoverColor,
+				}),
 			});
-		});
+			// Cerrar el selector de color tras seleccionar uno
+			pickerContainer.style.display = "none";
+		});});
 	});
 
-	//CALENDARIO DE GOOGLE
+	// CALENDARIO DE GOOGLE
 	document.querySelectorAll(".btn-calendar")?.forEach((btn) => {
 		btn.addEventListener("click", function () {
-
 			const form = btn.closest("form");
 			if (!form) return;
 
@@ -543,43 +496,37 @@ document.addEventListener("DOMContentLoaded", () => {
 			const descripcion = form.querySelector('textarea[name="descripcion"]')?.value.trim();
 			const fecha = form.querySelector('input[name="fechaLimite"]')?.value;
 
+			// Validar campos obligatorios
 			if (!titulo || !fecha) {
 				const modalError = document.getElementById("modalError");
 				const mensajeElem = document.getElementById("mensajeError");
 
-				mensajeElem.textContent = !titulo
-					? "Por favor completa el título para poder crear el recordatorio."
-					: "Por favor completa la fecha para poder crear el recordatorio.";
-
+				mensajeElem.textContent = !titulo ? "Por favor completa el título para poder crear el recordatorio." : "Por favor completa la fecha para poder crear el recordatorio.";
 				modalError.style.display = "flex";
+
 				return;
 			}
 
+			// Formatear fechas para URL de Google Calendar (formato YYYYMMDDTHHMMSSZ)
 			const startDate = fecha.replace(/-/g, "") + "T090000Z";
 			const endDate = fecha.replace(/-/g, "") + "T100000Z";
 
-			const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-				titulo
-			)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
-				descripcion
-			)}`;
+			// Construir URL para crear evento en Google Calendar
+			const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(descripcion)}`;
 
+			// Abrir en nueva pestaña
 			window.open(url, "_blank");
 		});
 	});
 
-
-	//CALENDARIO
-
+	// CALENDARIO
 	$.ajax({
 		type: "GET",
 		url: `/obtenerTareasPorUserYProyecto?usuarioId=${idUsuario}&proyectoId=${idProyecto}`,
 		dataType: "json",
 		success: function (data) {
 			const tareas = data;
-
-
-			// Solo pinta el calendario si hay más de una tarea
+			// Solo pinta el calendario si hay al menos una tarea
 			if (tareas.length >= 1) {
 				const eventos = tareas.map((t) => ({
 					id: t.idTarea,
@@ -594,20 +541,18 @@ document.addEventListener("DOMContentLoaded", () => {
 					editable: true,
 					height: "auto",
 					events: eventos,
+
 					eventDrop: function (info) {
-						//AJAX PARA MODIFICAR FECHA TAREA
-						const nuevaFecha = info.event.start.toISOString().split("T")[0]; // Formatear Fecha
+						// AJAX para modificar fecha de tarea
+						const nuevaFecha = info.event.start.toISOString().split("T")[0]; // Formatear fecha
 						const idTarea = info.event.id;
 
-						// FORMATO PARA TABLONES
-						const fechaFormateada = info.event.start.toLocaleDateString(
-							"es-ES",
-							{
-								day: "2-digit",
-								month: "2-digit",
-								year: "numeric",
-							}
-						);
+						// Formato para tablones (dd/mm/yyyy)
+						const fechaFormateada = info.event.start.toLocaleDateString("es-ES", {
+							day: "2-digit",
+							month: "2-digit",
+							year: "numeric",
+						});
 
 						$.ajax({
 							url: "/cambiarFechaTarea",
@@ -620,18 +565,12 @@ document.addEventListener("DOMContentLoaded", () => {
 							success: function () {
 								// Actualiza la fecha en el DOM para las tareas visibles (fuera del calendario)
 								document.querySelectorAll(".tarea").forEach((tarea) => {
-									// Verifica si la tarea NO está dentro del calendario
-									if (
-										!tarea.closest("#calendar") &&
-										tarea.getAttribute("data-id") === idTarea
-									) {
+									if (!tarea.closest("#calendar") && tarea.getAttribute("data-id") === idTarea) {
 										const parrafos = tarea.querySelectorAll("p");
-										//RECORREMOS SUS PARAFOS Y EN EL ULTIMO DENTRO DE SMALL COLOCAMOS LA NUEVA FECHA
-
+										// Actualiza el <small> con la nueva fecha en el último párrafo relevante
 										for (let i = parrafos.length - 1; i >= 0; i--) {
 											if (parrafos[i].querySelector("small")) {
-												parrafos[i].querySelector("small").innerHTML =
-													fechaFormateada;
+												parrafos[i].querySelector("small").innerHTML = fechaFormateada;
 												break;
 											}
 										}
@@ -639,63 +578,46 @@ document.addEventListener("DOMContentLoaded", () => {
 								});
 							},
 							error: function (xhr, status, error) {
-								console.error(
-									"❌ Error al actualizar la fecha de la tarea:",
-									error
-								);
+								console.error("❌ Error al actualizar la fecha de la tarea:", error);
 							},
 						});
 					},
+
 					eventClick: function (info) {
 						const idTarea = info.event.id;
-						// RECORRER LAS TAREAS DE ARRIBA PARA COMPARAR SU ID CON EL DEL EVENTO PARA ASI OBTENER TODOS LOS PARAMETROS NECESARIOS
+						// Buscar tarea fuera del calendario con mismo id para mostrar detalles
 						document.querySelectorAll(".tarea").forEach((tarea) => {
-							// Verifica si la tarea NO está dentro del calendario
-							if (
-								!tarea.closest("#calendar") &&
-								tarea.getAttribute("data-id") === idTarea
-							) {
+							if (!tarea.closest("#calendar") && tarea.getAttribute("data-id") === idTarea) {
+
 								const parrafos = tarea.querySelectorAll("p");
+								const titulo = parrafos[0]?.querySelector("strong")?.innerText || "Título no disponible";
+								const descripcion = tarea.querySelector(".descripcion")?.innerText || "Descripción no disponible";
+								const responsable = parrafos[2]?.innerText?.replace("Asignado a ", "") || "Responsable no disponible";
+								const fechaLimite = parrafos[3]?.querySelector("small")?.innerText || "Fecha límite no disponible";
 
-								// Verificar si existen los elementos esperados dentro de los párrafos
-								const titulo =
-									parrafos[0]?.querySelector("strong")?.innerText ||
-									"Título no disponible"; // Primer párrafo: título
-								const descripcion =
-									tarea.querySelector(".descripcion").innerText
-									||
-									"Descripción no disponible"; // Segundo párrafo: descripción
-								const responsable =
-									parrafos[2]?.innerText?.replace("Asignado a ", "") ||
-									"Responsable no disponible"; // Tercer párrafo: responsable
-								const fechaLimite =
-									parrafos[3]?.querySelector("small")?.innerText ||
-									"Fecha límite no disponible"; // Último párrafo: fecha límite
-
-								// Asignar la información de la tarea al modal
+								// Asignar información al modal
 								document.getElementById("tituloTarea").innerText = titulo;
-								document.getElementById("descripcionTarea").innerText =
-									descripcion;
-								document.getElementById("responsableTarea").innerText =
-									responsable;
-								document.getElementById("fechaLimiteTarea").innerText =
-									fechaLimite;
+								document.getElementById("descripcionTarea").innerText = descripcion;
+								document.getElementById("responsableTarea").innerText = responsable;
+								document.getElementById("fechaLimiteTarea").innerText = fechaLimite;
 
 								// Mostrar el modal
-								document.getElementById("modalMostrarTarea").style.display =
-									"flex";
+								document.getElementById("modalMostrarTarea").style.display = "flex";
 							}
 						});
 					},
-					eventClassNames: function (info) {
+
+					eventClassNames: function () {
 						return "tarea";
 					},
+
 					eventContent: function (info) {
 						return {
 							html: `<strong>${info.event.title}</strong>`,
 						};
 					},
 				});
+
 				calendar.render();
 			}
 		},
@@ -726,7 +648,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			issues: +document.getElementById("repoOpenIssues").value,
 			createdAt: document.getElementById("repoCreatedAt").value,
 			updatedAt: document.getElementById("repoUpdatedAt").value,
-			pushedAt: document.getElementById("repoPushedAt").value
+			pushedAt: document.getElementById("repoPushedAt").value,
 		};
 
 		modal.classList.add("activo");
@@ -759,17 +681,17 @@ document.addEventListener("DOMContentLoaded", () => {
 				datasets: [{
 					label: "Estadísticas del repositorio",
 					data: [datos.stars, datos.forks, datos.watchers, datos.issues],
-					backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0"]
-				}]
+					backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0"],
+				}],
 			},
 			options: {
 				responsive: true,
 				scales: {
 					y: {
-						beginAtZero: true
-					}
-				}
-			}
+						beginAtZero: true,
+					},
+				},
+			},
 		});
 	}
 
@@ -852,8 +774,7 @@ function activarEdicion(input) {
 					}),
 					success: function (data) {
 						if (
-							data ==
-							"No se pudo actualizar (tablero no encontrado o nombre duplicado)"
+							data == "No se pudo actualizar (tablero no encontrado o nombre duplicado)"
 						) {
 							salirEdicion(nombreActual, false);
 						} else {
@@ -869,17 +790,13 @@ function activarEdicion(input) {
 			}
 		});
 
-		input.addEventListener(
-			"keypress",
-			function (e) {
-				if (e.key === "Enter") input.blur();
-			},
+		input.addEventListener("keypress", function (e) {
+			if (e.key === "Enter") input.blur();
+		},
 			{ once: true }
 		);
 	});
 }
 
 // Activar doble click en todos los inputs iniciales
-document
-	.querySelectorAll("#tableros .columna input.titulo-tablon")
-	.forEach(activarEdicion);
+document.querySelectorAll("#tableros .columna input.titulo-tablon").forEach(activarEdicion);
