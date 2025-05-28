@@ -87,9 +87,6 @@ function copiarCodigo(event, btn) {
 				tooltip.style.display = "none";
 			}, 2000);
 		})
-		.catch((err) => {
-			console.error("Error al copiar:", err);
-		});
 }
 
 function irAProyecto(idProyecto) {

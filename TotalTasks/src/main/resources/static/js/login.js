@@ -41,9 +41,6 @@ document.getElementById("login").addEventListener("submit", function () {
 				mostrarError(response);
 			}
 		},
-		error: function (error) {
-			console.error("Error en la solicitud AJAX:", error);
-		},
 	});
 });
 
@@ -81,7 +78,6 @@ function handleCredentialResponse(response) {
 			}
 		},
 		error: function (error) {
-			console.error("Error en la solicitud AJAX:", error);
 			mostrarError("Error en la comunicación con el servidor.");
 		},
 	});

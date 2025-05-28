@@ -39,10 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				document.documentElement.style.setProperty("--color-primario-hover", hoverGuardado);
 			}
 		},
-		error: function (error) {
-			// Manejo de error opcional
-			console.error("Error al obtener colores personalizados:", error);
-		},
 	});
 
 	const tableros = document.getElementById("tableros");
@@ -129,11 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						activarEdicion(nuevoInput);
 
 						modal.style.display = "none";
-						console.log("Columna creada con éxito");
 					}
-				},
-				error: function (xhr, status, error) {
-					console.error("❌ Error al crear columna:", error);
 				},
 			});
 		}
@@ -249,9 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
 						contentType: "application/json",
 						data: JSON.stringify(datos),
 						success: function () {},
-						error: function (xhr, status, error) {
-							console.error("❌ Error al actualizar tarea:", error);
-						},
 					});
 				},
 				onStart: function (evt) {
@@ -274,9 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
 							success: function () {
 								tarea.remove();
 							},
-							error: function (xhr, status, error) {
-								console.error("❌ Error al eliminar la tarea:", error);
-							}
 						});
 					}
 
@@ -338,9 +324,6 @@ document.addEventListener("DOMContentLoaded", () => {
 							// Eliminar la columna del DOM y actualizar el orden
 							columnaArrastrada.remove();
 							actualizarOrdenTablones();
-						},
-						error: function (xhr, status, error) {
-							console.error("❌ Error al eliminar columna:", error);
 						},
 					});
 				}
@@ -435,12 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
 						idProyecto: idProyecto,
 						customColor: color,
 					}),
-					success: function () {
-						console.log("✅ Color personalizado guardado");
-					},
-					error: function () {
-						console.error("❌ Error al guardar el color personalizado");
-					},
 				});
 			}
 		});
@@ -577,9 +554,6 @@ document.addEventListener("DOMContentLoaded", () => {
 									}
 								});
 							},
-							error: function (xhr, status, error) {
-								console.error("❌ Error al actualizar la fecha de la tarea:", error);
-							},
 						});
 					},
 
@@ -621,9 +595,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				calendar.render();
 			}
 		},
-		error: function (error) {
-			console.log(error);
-		},
 	});
 
 	document.getElementById("botonEstadisticas").addEventListener("click", () => {
@@ -631,7 +602,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		const modal = document.getElementById("modalEstadisticas");
 
 		if (!form || !modal) {
-			console.error("Formulario o modal no encontrado.");
 			return;
 		}
 
@@ -733,12 +703,6 @@ function actualizarOrdenTablones() {
 		method: "POST",
 		contentType: "application/json",
 		data: JSON.stringify(ordenActualizado),
-		success: function () {
-			console.log("✅ Orden de columnas actualizado");
-		},
-		error: function (xhr, status, error) {
-			console.error("❌ Error al actualizar orden de columnas:", error);
-		},
 	});
 }
 

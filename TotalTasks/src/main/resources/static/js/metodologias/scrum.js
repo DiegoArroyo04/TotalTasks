@@ -23,9 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				success: function (respuesta) {
 					location.reload();
 				},
-				error: function (xhr, status, error) {
-					console.error("❌ Error al mover historias:", error);
-				},
 			});
 		},
 	});
@@ -51,12 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				success: function (respuesta) {
 					location.reload();
 				},
-				error: function (xhr, status, error) {
-					console.error(
-						"❌ Error al mover historia de Sprint al Product Backlog:",
-						error
-					);
-				},
 			});
 		},
 	});
@@ -76,9 +67,6 @@ function comenzarSprint() {
 		data: { idProyecto: idProyecto },
 		success: function () {
 			location.reload();
-		},
-		error: function (xhr, status, error) {
-			console.error("❌ Error al comenzar el Sprint:", error);
 		},
 	});
 }

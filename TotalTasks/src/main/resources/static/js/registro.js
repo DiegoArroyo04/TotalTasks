@@ -27,9 +27,6 @@ document.getElementById("registro").addEventListener("submit", function () {
 					mostrarError(response);
 				}
 			},
-			error: function (error) {
-				console.error("Error en la solicitud AJAX:", error);
-			},
 		});
 	}
 });
