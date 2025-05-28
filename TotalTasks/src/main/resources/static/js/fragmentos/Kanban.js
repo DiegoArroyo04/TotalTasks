@@ -53,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const botonEliminarColumna = document.getElementById("botonEliminarColumna");
 	let columnaArrastrada = null;
 	let tarea = null;
+	let calendar;
+
 
 	// Mostrar el modal para crear columna
 	btnAgregar.addEventListener("click", () => {
@@ -240,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						type: "POST",
 						contentType: "application/json",
 						data: JSON.stringify(datos),
-						success: function () {},
+						success: function () { },
 					});
 				},
 				onStart: function (evt) {
@@ -262,6 +264,14 @@ document.addEventListener("DOMContentLoaded", () => {
 							method: "POST",
 							success: function () {
 								tarea.remove();
+								const evento = calendar.getEventById(idTarea);
+
+								if (evento) evento.remove();
+
+								// Ocultar calendario si no quedan eventos
+								if (calendar.getEvents().length === 0) {
+									document.getElementById("calendar").style.display = "none";
+								}
 							},
 						});
 					}
@@ -367,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			// Aplicar a las variables CSS personalizadas
 			document.documentElement.style.setProperty("--color-primario", color);
-			document.documentElement.style.setProperty("--color-primario-hover",oscurecerColor(color, 0.15));
+			document.documentElement.style.setProperty("--color-primario-hover", oscurecerColor(color, 0.15));
 
 			// Vista previa en el span personalizado
 			let customBox = document.querySelector("span.color-box.custom-box");
@@ -422,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	});
-	
+
 	document.addEventListener("click", function (event) {
 		// Cerrar el colorPicker si se hace clic fuera de él y no es el botón que lo abre
 		const pickerContainer = document.getElementById("colorPicker");
@@ -436,31 +446,33 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		// Agregar evento click a cada caja de color para cambiar el tema
-		document.querySelectorAll(".color-box").forEach((box) => {box.addEventListener("click", () => {
-			const color = box.getAttribute("data-color");
-			document.documentElement.style.setProperty("--color-primario", color);
+		document.querySelectorAll(".color-box").forEach((box) => {
+			box.addEventListener("click", () => {
+				const color = box.getAttribute("data-color");
+				document.documentElement.style.setProperty("--color-primario", color);
 
-			const hoverColor = oscurecerColor(color, 0.15);
-			document.documentElement.style.setProperty("--color-primario-hover", hoverColor);
+				const hoverColor = oscurecerColor(color, 0.15);
+				document.documentElement.style.setProperty("--color-primario-hover", hoverColor);
 
-			const idProyecto = document.getElementById("idProyecto").value;
-			const idUsuario = document.getElementById("idUsuario").value;
+				const idProyecto = document.getElementById("idProyecto").value;
+				const idUsuario = document.getElementById("idUsuario").value;
 
-			// Guardar el color seleccionado en la base de datos mediante AJAX
-			$.ajax({
-				url: "/guardarColores",
-				type: "POST",
-				contentType: "application/json",
-				data: JSON.stringify({
-					idUsuario: idUsuario,
-					idProyecto: idProyecto,
-					color: color,
-					colorHover: hoverColor,
-				}),
+				// Guardar el color seleccionado en la base de datos mediante AJAX
+				$.ajax({
+					url: "/guardarColores",
+					type: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({
+						idUsuario: idUsuario,
+						idProyecto: idProyecto,
+						color: color,
+						colorHover: hoverColor,
+					}),
+				});
+				// Cerrar el selector de color tras seleccionar uno
+				pickerContainer.style.display = "none";
 			});
-			// Cerrar el selector de color tras seleccionar uno
-			pickerContainer.style.display = "none";
-		});});
+		});
 	});
 
 	// CALENDARIO DE GOOGLE
@@ -513,7 +525,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				}));
 
 				const calendarEl = document.getElementById("calendar");
-				const calendar = new FullCalendar.Calendar(calendarEl, {
+				calendar = new FullCalendar.Calendar(calendarEl, {
 					initialView: "dayGridMonth",
 					editable: true,
 					height: "auto",
@@ -596,6 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		},
 	});
+
 
 	document.getElementById("botonEstadisticas").addEventListener("click", () => {
 		const form = document.getElementById("formularioGithub");
