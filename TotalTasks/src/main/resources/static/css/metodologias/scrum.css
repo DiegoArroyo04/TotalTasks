@@ -72,22 +72,9 @@
 	position: absolute;
 	top: 16px;
 	right: 16px;
-	background: transparent;
 	border: none;
 	font-size: 32px;
-	color: #888;
 	cursor: pointer;
-	transition: color 0.2s ease;
-}
-
-.modal-estadisticas .modal-cerrar:hover {
-	color: #f00;
-}
-
-.modal-estadisticas canvas {
-	width: 100% !important;
-	height: auto !important;
-	max-height: 60vh;
 }
 
 .colorPickerContainer {

@@ -155,40 +155,71 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 
+	let chart = null; // Gráfico global para poder destruirlo
+
 	document.getElementById("botonEstadisticas").addEventListener("click", () => {
 		const form = document.getElementById("formularioGithub");
 		const modal = document.getElementById("modalEstadisticas");
 
-		if (!form || !modal) {
-			return;
-		}
-
-		const datos = {
-			name: document.getElementById("repoName").value,
-			fullName: document.getElementById("repoFullName").value,
-			description: document.getElementById("repoDescription").value,
-			htmlUrl: document.getElementById("repoHtmlUrl").value,
-			homepage: document.getElementById("repoHomepage").value,
-			language: document.getElementById("repoLanguage").value,
-			stars: +document.getElementById("repoStargazers").value,
-			forks: +document.getElementById("repoForks").value,
-			watchers: +document.getElementById("repoWatchers").value,
-			issues: +document.getElementById("repoOpenIssues").value,
-			createdAt: document.getElementById("repoCreatedAt").value,
-			updatedAt: document.getElementById("repoUpdatedAt").value,
-			pushedAt: document.getElementById("repoPushedAt").value,
-		};
+		if (!form || !modal) return;
 
 		modal.classList.add("activo");
-		generarGraficoConDatos(datos);
+
+		// Por defecto mostramos estadísticas de los commits
+		cargarEstadisticas("commits");
 	});
 
 	document.getElementById("cerrarModalEstadisticas")?.addEventListener("click", () => {
 		document.getElementById("modalEstadisticas")?.classList.remove("activo");
+
+		// Destruir gráfico si existe
+		if (chart) {
+			chart.destroy();
+			chart = null;
+		}
+
 	});
 
-	// Función para generar el gráfico dentro del modal
-	function generarGraficoConDatos(datos) {
+	// Botones de filtro (commits, lenguajes, pull requests)
+	document.querySelectorAll(".filtro-btn").forEach(boton => {
+		boton.addEventListener("click", () => {
+			const tipo = boton.dataset.filtro;
+			cargarEstadisticas(tipo);
+		});
+	});
+
+	function cargarEstadisticas(tipo) {
+
+		const owner = document.getElementById("repoFullName").value.split("/")[0];
+		const repo = document.getElementById("repoName").value;
+
+		let url = "";
+
+		if (tipo === "commits") {
+			url = `/api/github/extraerCommits?owner=${owner}&repoName=${repo}`;
+		} else if (tipo === "lenguajes") {
+			url = `/api/github/stats/lenguajes?owner=${owner}&repoName=${repo}`;
+		} else if (tipo === "pullRequests") {
+			url = `/api/github/pullRequests?owner=${owner}&repoName=${repo}`;
+		} else {
+			return;
+		}
+
+		$.ajax({
+			url: url,
+			method: "GET",
+			contentType: "application/json",
+			success: function (data) {
+				renderizarGrafico(tipo, data);
+			},
+			error: function () {
+				alert("Error al cargar datos de estadísticas tipo: " + tipo);
+			}
+		});
+	}
+
+	function renderizarGrafico(tipo, datos) {
+
 		const contenedor = document.querySelector("#modalEstadisticas .modal-contenido");
 
 		// Eliminar canvas anterior si existe
@@ -202,25 +233,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		const ctx = canvas.getContext("2d");
 
-		new Chart(ctx, {
-			type: "bar",
-			data: {
-				labels: ["Stars", "Forks", "Watchers", "Issues"],
-				datasets: [{
-					label: "Estadísticas del repositorio",
-					data: [datos.stars, datos.forks, datos.watchers, datos.issues],
-					backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0"],
-				}],
-			},
-			options: {
-				responsive: true,
-				scales: {
-					y: {
-						beginAtZero: true,
-					},
+		// Destruir gráfico anterior si existe
+		if (chart) chart.destroy();
+
+		if (tipo === "commits") {
+			const autores = datos.map(commit => commit.commit.author.name);
+
+			const conteo = autores.reduce((acc, autor) => {
+				acc[autor] = (acc[autor] || 0) + 1;
+				return acc;
+			}, {});
+
+			const labels = Object.keys(conteo);
+			const valores = Object.values(conteo);
+
+			const chart = new Chart(ctx, {
+				type: "bar",
+				data: {
+					labels: labels,
+					datasets: [{
+						label: "Commits por autor",
+						data: valores,
+						backgroundColor: "rgba(75, 192, 192, 0.2)",
+						borderColor: "rgba(75, 192, 192, 1)",
+						borderWidth: 1
+					}]
 				},
-			},
-		});
+				options: {
+					responsive: true,
+					indexAxis: 'y',
+					scales: {
+						x: {
+							beginAtZero: true,
+							title: {
+								display: true,
+								text: "Número de commits"
+							}
+						},
+						y: {
+							title: {
+								display: true,
+								text: "Autor"
+							}
+						}
+					}
+				}
+			});
+		}
+
+		else if (tipo === "lenguajes") {
+			const labels = Object.keys(datos);
+			const valores = Object.values(datos);
+
+			chart = new Chart(ctx, {
+				type: "pie",
+				data: {
+					labels: labels,
+					datasets: [{
+						label: "Lenguajes utilizados",
+						data: valores,
+						backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0", "#9966ff"]
+					}],
+				},
+				options: {
+					responsive: true
+				}
+			});
+		}
+
+		else if (tipo === "pullRequests") {
+			const abiertos = datos.filter(pr => pr.state === "open").length;
+			const cerrados = datos.filter(pr => pr.state === "closed").length;
+
+			chart = new Chart(ctx, {
+				type: "doughnut",
+				data: {
+					labels: ["Abiertos", "Cerrados"],
+					datasets: [{
+						label: "Pull Requests",
+						data: [abiertos, cerrados],
+						backgroundColor: ["#36a2eb", "#ff6384"]
+					}],
+				},
+				options: {
+					responsive: true
+				}
+			});
+		}
 	}
 
 	// Función para oscurecer un color hexadecimal

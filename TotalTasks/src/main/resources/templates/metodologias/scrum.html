@@ -73,14 +73,19 @@
         <input type="hidden" id="repoPushedAt" th:value="${repositorio.pushedAt}" />
       </form>
 
-      <!-- Modal de estadísticas -->
-      <div id="modalEstadisticas" class="modal-estadisticas">
-        <div class="modal-contenido">
-          <button class="modal-cerrar" id="cerrarModalEstadisticas">&times;</button>
-          <h2>Estadísticas del Repositorio</h2>
-          <canvas id="graficoEstadisticas"></canvas>
-        </div>
-      </div>
+    <!-- Modal de estadísticas -->
+	<div id="modalEstadisticas" class="modal-estadisticas">
+		<div class="modal-contenido">
+			<button class="modal-cerrar" id="cerrarModalEstadisticas">&times;</button>
+			<h2>Estadísticas del Repositorio</h2>
+			<div class="filtros-estadisticas">
+				<button class="filtro-btn" data-filtro="commits">Commits</button>
+				<button class="filtro-btn" data-filtro="lenguajes">Lenguajes</button>
+				<button class="filtro-btn" data-filtro="pullRequests">Pull Requests</button>
+			</div>
+			<canvas id="graficoEstadisticas"></canvas>
+		</div>
+	</div>
 
     </div>
 
