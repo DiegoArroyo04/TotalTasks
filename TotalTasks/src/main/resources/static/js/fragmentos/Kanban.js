@@ -610,40 +610,74 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 
+
+
+	let chart = null; // Gráfico global para poder destruirlo
+
 	document.getElementById("botonEstadisticas").addEventListener("click", () => {
 		const form = document.getElementById("formularioGithub");
 		const modal = document.getElementById("modalEstadisticas");
 
-		if (!form || !modal) {
-			return;
-		}
-
-		const datos = {
-			name: document.getElementById("repoName").value,
-			fullName: document.getElementById("repoFullName").value,
-			description: document.getElementById("repoDescription").value,
-			htmlUrl: document.getElementById("repoHtmlUrl").value,
-			homepage: document.getElementById("repoHomepage").value,
-			language: document.getElementById("repoLanguage").value,
-			stars: +document.getElementById("repoStargazers").value,
-			forks: +document.getElementById("repoForks").value,
-			watchers: +document.getElementById("repoWatchers").value,
-			issues: +document.getElementById("repoOpenIssues").value,
-			createdAt: document.getElementById("repoCreatedAt").value,
-			updatedAt: document.getElementById("repoUpdatedAt").value,
-			pushedAt: document.getElementById("repoPushedAt").value,
-		};
+		if (!form || !modal) return;
 
 		modal.classList.add("activo");
-		generarGraficoConDatos(datos);
+
+		// Por defecto mostramos estadísticas de los commits
+		cargarEstadisticas("commits");
 	});
 
 	document.getElementById("cerrarModalEstadisticas")?.addEventListener("click", () => {
 		document.getElementById("modalEstadisticas")?.classList.remove("activo");
+
+		// Destruir gráfico si existe
+		if (chart) {
+			chart.destroy();
+			chart = null;
+		}
+
 	});
 
-	// Función para generar el gráfico dentro del modal
-	function generarGraficoConDatos(datos) {
+	// Botones de filtro (commits, lenguajes, pull requests)
+	document.querySelectorAll(".filtro-btn").forEach(boton => {
+		boton.addEventListener("click", () => {
+			const tipo = boton.dataset.filtro;
+			cargarEstadisticas(tipo);
+		});
+	});
+
+	function cargarEstadisticas(tipo) {
+
+		const owner = document.getElementById("repoFullName").value.split("/")[0];
+		const repo = document.getElementById("repoName").value;
+
+		let url = "";
+
+		if (tipo === "commits") {
+			url = `/api/github/extraerCommits?owner=${owner}&repoName=${repo}`;
+		} else if (tipo === "lenguajes") {
+			url = `/api/github/stats/lenguajes?owner=${owner}&repoName=${repo}`;
+		} else if (tipo === "pullRequests") {
+			url = `/api/github/pullRequests?owner=${owner}&repoName=${repo}`;
+		} else {
+			console.warn("Tipo de estadística no reconocido:", tipo);
+			return;
+		}
+
+		$.ajax({
+			url: url,
+			method: "GET",
+			contentType: "application/json",
+			success: function (data) {
+				renderizarGrafico(tipo, data);
+			},
+			error: function () {
+				alert("Error al cargar datos de estadísticas tipo: " + tipo);
+			}
+		});
+	}
+
+	function renderizarGrafico(tipo, datos) {
+
 		const contenedor = document.querySelector("#modalEstadisticas .modal-contenido");
 
 		// Eliminar canvas anterior si existe
@@ -657,26 +691,138 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		const ctx = canvas.getContext("2d");
 
-		new Chart(ctx, {
-			type: "bar",
-			data: {
-				labels: ["Stars", "Forks", "Watchers", "Issues"],
-				datasets: [{
-					label: "Estadísticas del repositorio",
-					data: [datos.stars, datos.forks, datos.watchers, datos.issues],
-					backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0"],
-				}],
-			},
-			options: {
-				responsive: true,
-				scales: {
-					y: {
-						beginAtZero: true,
-					},
+		// Destruir gráfico anterior si existe
+		if (chart) chart.destroy();
+
+		if (tipo === "commits") {
+			const fechas = datos.slice(0, 100).map(commit =>
+				new Date(commit.commit.author.date).toLocaleDateString()
+			);
+
+			const conteo = fechas.reduce((acc, fecha) => {
+				acc[fecha] = (acc[fecha] || 0) + 1;
+				return acc;
+			}, {});
+
+			const labels = Object.keys(conteo);
+			const valores = Object.values(conteo);
+
+			const chart = new Chart(ctx, {
+				type: "line",
+				data: {
+					labels: labels,
+					datasets: [{
+						label: "Commits recientes por fecha",
+						data: valores,
+						backgroundColor: "rgba(54, 162, 235, 0.2)",
+						borderColor: "rgba(54, 162, 235, 1)",
+						borderWidth: 2,
+						tension: 0.3,
+						fill: true,
+						pointBackgroundColor: "#ffffff",
+						pointBorderColor: "rgba(54, 162, 235, 1)",
+						pointRadius: 4,
+						pointHoverRadius: 6,
+					}],
 				},
-			},
-		});
+				options: {
+					responsive: true,
+					scales: {
+						y: {
+							beginAtZero: true,
+							title: {
+								display: true,
+								text: "Número de commits"
+							}
+						},
+						x: {
+							title: {
+								display: true,
+								text: "Fecha"
+							}
+						}
+					},
+					plugins: {
+						legend: {
+							display: true,
+							position: "top",
+						},
+						tooltip: {
+							mode: "index",
+							intersect: false,
+						}
+					},
+					animation: {
+						duration: 1500,
+						easing: 'easeInOutQuart',
+						// Animaciones individuales por propiedad
+						animations: {
+							tension: {
+								duration: 1000,
+								easing: 'easeOutBounce',
+								from: 0.2,
+								to: 0.5,
+								loop: true
+							},
+							pointRadius: {
+								duration: 800,
+								easing: 'easeOutCirc',
+								from: 0,
+								to: 4
+							},
+							y: {
+								duration: 1000,
+								easing: 'easeInOutCubic'
+							}
+						}
+					}
+				}
+			});
+		}
+
+		else if (tipo === "lenguajes") {
+			const labels = Object.keys(datos);
+			const valores = Object.values(datos);
+
+			chart = new Chart(ctx, {
+				type: "pie",
+				data: {
+					labels: labels,
+					datasets: [{
+						label: "Lenguajes utilizados",
+						data: valores,
+						backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0", "#9966ff"]
+					}],
+				},
+				options: {
+					responsive: true
+				}
+			});
+		}
+
+		else if (tipo === "pullRequests") {
+			const abiertos = datos.filter(pr => pr.state === "open").length;
+			const cerrados = datos.filter(pr => pr.state === "closed").length;
+
+			chart = new Chart(ctx, {
+				type: "doughnut",
+				data: {
+					labels: ["Abiertos", "Cerrados"],
+					datasets: [{
+						label: "Pull Requests",
+						data: [abiertos, cerrados],
+						backgroundColor: ["#36a2eb", "#ff6384"]
+					}],
+				},
+				options: {
+					responsive: true
+				}
+			});
+		}
 	}
+
+
+
 
 });
 

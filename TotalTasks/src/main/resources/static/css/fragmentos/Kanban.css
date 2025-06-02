@@ -582,21 +582,7 @@ textarea {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
-		background: transparent;
 		border: none;
-		font-size: 2rem;
-		color: #888;
 		cursor: pointer;
-		transition: color 0.2s ease;
-
-		&:hover {
-			color: #f00;
-		}
-	}
-
-	canvas {
-		width: 100% !important;
-		height: auto !important;
-		max-height: 60vh;
 	}
 }
