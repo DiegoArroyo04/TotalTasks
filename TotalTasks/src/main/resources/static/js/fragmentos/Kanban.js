@@ -609,9 +609,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		},
 	});
 
-
-
-
 	let chart = null; // Gráfico global para poder destruirlo
 
 	document.getElementById("botonEstadisticas").addEventListener("click", () => {
@@ -659,7 +656,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		} else if (tipo === "pullRequests") {
 			url = `/api/github/pullRequests?owner=${owner}&repoName=${repo}`;
 		} else {
-			console.warn("Tipo de estadística no reconocido:", tipo);
 			return;
 		}
 
@@ -695,12 +691,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (chart) chart.destroy();
 
 		if (tipo === "commits") {
-			const fechas = datos.slice(0, 100).map(commit =>
-				new Date(commit.commit.author.date).toLocaleDateString()
-			);
+			const autores = datos.map(commit => commit.commit.author.name);
 
-			const conteo = fechas.reduce((acc, fecha) => {
-				acc[fecha] = (acc[fecha] || 0) + 1;
+			const conteo = autores.reduce((acc, autor) => {
+				acc[autor] = (acc[autor] || 0) + 1;
 				return acc;
 			}, {});
 
@@ -708,71 +702,32 @@ document.addEventListener("DOMContentLoaded", () => {
 			const valores = Object.values(conteo);
 
 			const chart = new Chart(ctx, {
-				type: "line",
+				type: "bar",
 				data: {
 					labels: labels,
 					datasets: [{
-						label: "Commits recientes por fecha",
+						label: "Commits por autor",
 						data: valores,
-						backgroundColor: "rgba(54, 162, 235, 0.2)",
-						borderColor: "rgba(54, 162, 235, 1)",
-						borderWidth: 2,
-						tension: 0.3,
-						fill: true,
-						pointBackgroundColor: "#ffffff",
-						pointBorderColor: "rgba(54, 162, 235, 1)",
-						pointRadius: 4,
-						pointHoverRadius: 6,
-					}],
+						backgroundColor: "rgba(75, 192, 192, 0.2)",
+						borderColor: "rgba(75, 192, 192, 1)",
+						borderWidth: 1
+					}]
 				},
 				options: {
 					responsive: true,
+					indexAxis: 'y',
 					scales: {
-						y: {
+						x: {
 							beginAtZero: true,
 							title: {
 								display: true,
 								text: "Número de commits"
 							}
 						},
-						x: {
+						y: {
 							title: {
 								display: true,
-								text: "Fecha"
-							}
-						}
-					},
-					plugins: {
-						legend: {
-							display: true,
-							position: "top",
-						},
-						tooltip: {
-							mode: "index",
-							intersect: false,
-						}
-					},
-					animation: {
-						duration: 1500,
-						easing: 'easeInOutQuart',
-						// Animaciones individuales por propiedad
-						animations: {
-							tension: {
-								duration: 1000,
-								easing: 'easeOutBounce',
-								from: 0.2,
-								to: 0.5,
-								loop: true
-							},
-							pointRadius: {
-								duration: 800,
-								easing: 'easeOutCirc',
-								from: 0,
-								to: 4
-							},
-							y: {
-								duration: 1000,
-								easing: 'easeInOutCubic'
+								text: "Autor"
 							}
 						}
 					}
@@ -820,9 +775,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		}
 	}
-
-
-
 
 });
 

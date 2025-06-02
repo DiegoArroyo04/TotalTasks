@@ -1,5 +1,6 @@
 package com.totaltasks.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,10 +59,30 @@ public class GithubController {
 	// ===== Métodos privados reutilizables =====
 
 	private List<Map<String, Object>> getCommits(String token, String owner, String repoName) {
-		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/commits";
+		
+		List<Map<String, Object>> allCommits = new ArrayList<>();
 		HttpHeaders headers = createHeaders(token);
-		ResponseEntity<List> response = new RestTemplate().exchange(url, HttpMethod.GET, new HttpEntity<>(headers),List.class);
-		return response.getBody();
+		RestTemplate restTemplate = new RestTemplate();
+
+		int perPage = 100;
+		int page = 1;
+
+		while (true) {
+			String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/commits?per_page=" + perPage + "&page=" + page;
+			ResponseEntity<List> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), List.class);
+
+			List<Map<String, Object>> commitsPage = response.getBody();
+			if (commitsPage == null || commitsPage.isEmpty()) break;
+
+			allCommits.addAll(commitsPage);
+
+			// Si se devolvieron menos de 100, es la última página
+			if (commitsPage.size() < perPage) break;
+
+			page++;
+		}
+
+		return allCommits;
 	}
 
 	private Object getLenguajes(String token, String owner, String repoName) {
