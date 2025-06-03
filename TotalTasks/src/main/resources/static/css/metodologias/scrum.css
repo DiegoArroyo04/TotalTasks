@@ -30,6 +30,7 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	margin-left: 20px;
 }
 
 .acciones-tablero button:hover {
@@ -75,6 +76,14 @@
 	border: none;
 	font-size: 32px;
 	cursor: pointer;
+}
+
+.modal-contenido h2 {
+	margin-bottom: 20px;
+}
+
+.filtros-estadisticas {
+	margin-bottom: 100px;
 }
 
 .colorPickerContainer {

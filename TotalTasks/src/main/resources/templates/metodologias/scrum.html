@@ -73,19 +73,19 @@
         <input type="hidden" id="repoPushedAt" th:value="${repositorio.pushedAt}" />
       </form>
 
-    <!-- Modal de estadísticas -->
-	<div id="modalEstadisticas" class="modal-estadisticas">
-		<div class="modal-contenido">
-			<button class="modal-cerrar" id="cerrarModalEstadisticas">&times;</button>
-			<h2>Estadísticas del Repositorio</h2>
-			<div class="filtros-estadisticas">
-				<button class="filtro-btn" data-filtro="commits">Commits</button>
-				<button class="filtro-btn" data-filtro="lenguajes">Lenguajes</button>
-				<button class="filtro-btn" data-filtro="pullRequests">Pull Requests</button>
-			</div>
-			<canvas id="graficoEstadisticas"></canvas>
-		</div>
-	</div>
+      <!-- Modal de estadísticas -->
+      <div id="modalEstadisticas" class="modal-estadisticas">
+        <div class="modal-contenido">
+          <button class="modal-cerrar" id="cerrarModalEstadisticas">&times;</button>
+          <h2>Estadísticas del Repositorio</h2>
+          <div class="filtros-estadisticas">
+            <button class="filtro-btn" data-filtro="commits">Commits</button>
+            <button class="filtro-btn" data-filtro="lenguajes">Lenguajes</button>
+            <button class="filtro-btn" data-filtro="branches">Ramas</button>
+          </div>
+          <div id="loader" style="text-align:center; margin-bottom:20px;">Cargando estadísticas...</div>
+        </div>
+      </div>
 
     </div>
 
@@ -135,31 +135,31 @@
             <button type="submit" class="btn-primary">Añadir Historia</button>
           </form>
 
-        <table class="table-pb">
-			<thead>
-				<tr>
-				<th>ID</th>
-				<th>Título</th>
-				<th>Descripción</th>
-				<th>Points</th>
-				<th>Prioridad</th>
-				<th>Responsable</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="historia : ${historias}"
-					th:attr="data-id=${historia.idBacklog}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.creador.idUsuario}">
-				<td th:text="${historia.idBacklog}"></td>
-				<td th:text="${historia.titulo}"></td>
-				<td th:text="${historia.descripcion}"></td>
-				<td>
-					<span class="badge" th:text="${historia.storyPoints}"></span>
-				</td>
-				<td th:text="${historia.prioridad}"></td>
-				<td th:text="${historia.creador.nombre}"></td>
-				</tr>
-			</tbody>
-		</table>
+          <table class="table-pb">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Points</th>
+                <th>Prioridad</th>
+                <th>Responsable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="historia : ${historias}"
+                th:attr="data-id=${historia.idBacklog}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.creador.idUsuario}">
+                <td th:text="${historia.idBacklog}"></td>
+                <td th:text="${historia.titulo}"></td>
+                <td th:text="${historia.descripcion}"></td>
+                <td>
+                  <span class="badge" th:text="${historia.storyPoints}"></span>
+                </td>
+                <td th:text="${historia.prioridad}"></td>
+                <td th:text="${historia.creador.nombre}"></td>
+              </tr>
+            </tbody>
+          </table>
 
         </div>
       </section>
@@ -173,28 +173,28 @@
             Comenzar Sprint
           </button>
           <table id="sprint-table" class="table-pb">
-				<thead>
-					<tr>
-					<th>ID</th>
-					<th>Título</th>
-					<th>Desc.</th>
-					<th>Points</th>
-					<th>Prioridad</th>
-					<th>Responsable</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="historia : ${sprint}"
-					th:attr="data-id=${historia.idSprint}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.responsable.idUsuario}">
-					<td th:text="${historia.idSprint}"></td>
-					<td th:text="${historia.titulo}"></td>
-					<td th:text="${historia.descripcion}"></td>
-					<td th:text="${historia.storyPoints}"></td>
-					<td th:text="${historia.prioridad}"></td>
-					<td th:text="${historia.responsable.nombre}"></td>
-					</tr>
-				</tbody>
-			</table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Desc.</th>
+                <th>Points</th>
+                <th>Prioridad</th>
+                <th>Responsable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="historia : ${sprint}"
+                th:attr="data-id=${historia.idSprint}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.responsable.idUsuario}">
+                <td th:text="${historia.idSprint}"></td>
+                <td th:text="${historia.titulo}"></td>
+                <td th:text="${historia.descripcion}"></td>
+                <td th:text="${historia.storyPoints}"></td>
+                <td th:text="${historia.prioridad}"></td>
+                <td th:text="${historia.responsable.nombre}"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
