@@ -45,6 +45,7 @@ main {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	margin-left: 20px;
 }
 
 .acciones-tablero button:hover {
@@ -578,6 +579,10 @@ textarea {
 		box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 	}
 
+	.modal-contenido h2 {
+		margin-bottom: 20px;
+	}
+
 	.modal-cerrar {
 		position: absolute;
 		top: 1rem;
@@ -585,5 +590,9 @@ textarea {
 		border: none;
 		cursor: pointer;
 	}
-	
+
+	.filtros-estadisticas {
+		margin-bottom: 100px;
+	}
+
 }

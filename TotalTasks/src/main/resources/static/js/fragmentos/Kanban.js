@@ -683,6 +683,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Crear y agregar nuevo canvas
 		const canvas = document.createElement("canvas");
 		canvas.id = "graficoGithub";
+		// 👇 Estilos aplicados directamente
+		canvas.style.width = "600px";
+		canvas.style.maxHeight = "400px";
+		canvas.style.display = "block";
+		canvas.style.margin = "0 auto";
+
 		contenedor.appendChild(canvas);
 
 		const ctx = canvas.getContext("2d");
@@ -691,7 +697,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (chart) chart.destroy();
 
 		if (tipo === "commits") {
-			const autores = datos.map(commit => commit.commit.author.name);
+			const autores = datos.map(commit => commit.author?.login || commit.commit.author.name);
 
 			const conteo = autores.reduce((acc, autor) => {
 				acc[autor] = (acc[autor] || 0) + 1;
@@ -701,6 +707,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			const labels = Object.keys(conteo);
 			const valores = Object.values(conteo);
 
+			const colorPrimario = getComputedStyle(document.documentElement).getPropertyValue("--color-primario").trim();
+			const colorHover = getComputedStyle(document.documentElement).getPropertyValue("--color-primario-hover").trim();
+
 			const chart = new Chart(ctx, {
 				type: "bar",
 				data: {
@@ -708,8 +717,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					datasets: [{
 						label: "Commits por autor",
 						data: valores,
-						backgroundColor: "rgba(75, 192, 192, 0.2)",
-						borderColor: "rgba(75, 192, 192, 1)",
+						backgroundColor: colorPrimario,
+						borderColor: colorHover,
 						borderWidth: 1
 					}]
 				},
