@@ -46,31 +46,55 @@ public class ScrumServiceImplementation implements ScrumService {
 		entity.setTitulo(productBacklogDTO.getTitulo());
 		entity.setDescripcion(productBacklogDTO.getDescripcion());
 		entity.setStoryPoints(productBacklogDTO.getStoryPoints());
+		int storyPoints = productBacklogDTO.getStoryPoints();
+		int prioridad;
+
+		if (storyPoints <= 7) {
+			prioridad = 1; // Baja
+		} else if (storyPoints <= 14) {
+			prioridad = 2; // Media
+		} else {
+			prioridad = 3; // Alta
+		}
+
+		entity.setPrioridad(prioridad);
+		entity.setEstado("Por Hacer");
 		entity.setProyecto(proyecto);
 		entity.setCreador(usuario);
 
 		scrumRepository.save(entity);
 	}
 
+
 	@Override
 	public void moverHistoriaDeSprintABacklog(Long idSprint, Long idProyecto, Long idResponsable) {
-		// Primero obtenemos la historia del Sprint
-		SprintEntity sprint = sprintRepository.findById(idSprint).orElseThrow(() -> new RuntimeException("Sprint no encontrado"));
 
-		// Crear la historia en el Product Backlog
+		SprintEntity sprint = sprintRepository.findById(idSprint).orElse(null);
+
+		int storyPoints = sprint.getStoryPoints();
+		int prioridad;
+		if (storyPoints <= 7) {
+			prioridad = 1;
+		} else if (storyPoints <= 14) {
+			prioridad = 2;
+		} else {
+			prioridad = 3;
+		}
+
 		ProductBacklogEntity backlogHistoria = new ProductBacklogEntity();
 		backlogHistoria.setTitulo(sprint.getTitulo());
 		backlogHistoria.setDescripcion(sprint.getDescripcion());
-		backlogHistoria.setStoryPoints(0);
+		backlogHistoria.setStoryPoints(storyPoints);
+		backlogHistoria.setPrioridad(prioridad);
+		backlogHistoria.setEstado("Por Hacer");
 		backlogHistoria.setProyecto(sprint.getProyecto());
 		backlogHistoria.setCreador(sprint.getResponsable());
 
-		// Guardamos la historia de vuelta al Product Backlog
 		scrumRepository.save(backlogHistoria);
 
-		// Eliminar la historia del Sprint
 		sprintRepository.delete(sprint);
 	}
+
 
 	@Override
 	public List<ProductBacklogEntity> historiasDelProyecto(Long idProyecto) {
@@ -84,13 +108,16 @@ public class ScrumServiceImplementation implements ScrumService {
 
 	@Override
 	public void moverHistoriaASprint(Long idBacklog, Long idProyecto, Long idResponsable) {
-		ProductBacklogEntity historia = scrumRepository.findById(idBacklog).orElseThrow(() -> new RuntimeException("Historia no encontrada"));
+		
+		ProductBacklogEntity historia = scrumRepository.findById(idBacklog).orElse(null);
 
 		// Crear el Sprint y asignar la tarea
 		SprintEntity sprint = new SprintEntity();
 		sprint.setTitulo(historia.getTitulo());
 		sprint.setDescripcion(historia.getDescripcion());
-		sprint.setEstado("pendiente");
+		sprint.setStoryPoints(historia.getStoryPoints());
+		sprint.setPrioridad(historia.getPrioridad());
+		sprint.setEstado(historia.getEstado());
 		sprint.setProyecto(historia.getProyecto());
 		sprint.setResponsable(historia.getCreador());
 

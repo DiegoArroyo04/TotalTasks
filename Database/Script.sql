@@ -112,6 +112,8 @@ CREATE TABLE sprint (
     id_sprint BIGINT AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT,
+    story_points INT CHECK (story_points >= 0),
+    prioridad INT DEFAULT 1,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_proyecto BIGINT NOT NULL,
     id_responsable BIGINT NOT NULL,

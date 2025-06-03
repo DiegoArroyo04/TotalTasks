@@ -27,6 +27,12 @@ public class SprintEntity {
     @Column(name = "descripcion")
     private String descripcion;
 
+	@Column(name = "story_points")
+    private Integer storyPoints;
+
+    @Column(name = "prioridad")
+    private Integer prioridad;
+
     @Column(name = "estado", nullable = false)
     private String estado;
 
