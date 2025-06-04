@@ -1,4 +1,17 @@
-# TotalTasks 🧩️ – Plataforma de Gestión de Tareas
+<p align="center">
+  <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Logo de Google" width="200"/>
+</p>
+
+<h1 align="center">TotalTasks 🧩️ – Plataforma de Gestión de Tareas</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build"/>
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="License"/>
+  <img src="https://img.shields.io/badge/status-en%20desarrollo-yellow" alt="Status"/>
+  <img src="https://img.shields.io/github/repo-size/DiegoArroyo04/TotalTasks" alt="Repo Size"/>
+  <img src="https://img.shields.io/badge/Java-17+-red" alt="Java"/>
+  <img src="https://img.shields.io/badge/MySQL-8.x-blue" alt="MySQL"/>
+</p>
 
 **TotalTasks** es una plataforma web avanzada para la organización de proyectos y tareas usando metodologías ágiles como **Scrum** y **Kanban**. Fue desarrollada como parte de un proyecto académico con un enfoque profesional y escalable, pensada para facilitar el trabajo en equipo, mejorar la productividad y ofrecer una alternativa gratuita a herramientas privativas.
 
@@ -93,10 +106,15 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ## ✅ Requisitos Previos
 
-* Editor de codigo+ (Recomendado VsCode)
+![Java](https://img.shields.io/badge/Java-17+-red)
+![Maven](https://img.shields.io/badge/Maven-3.6+-orange)
+![MySQL](https://img.shields.io/badge/MySQL-8.x-blue)
+![VSCode](https://img.shields.io/badge/Editor-VSCode-brightgreen)
+
+* Editor de código (Recomendado: VSCode)
 * Java 17+
 * Maven 3.6+
-* Gestor de base de datos+
+* Gestor de base de datos (MySQL Workbench u otro)
 * MySQL 8.x
 * Cuenta Google + GitHub para pruebas OAuth (opcional)
 
