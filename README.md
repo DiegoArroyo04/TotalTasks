@@ -1,4 +1,4 @@
-# TotalTasks 🧩️ – Plataforma de Gestión de Tareas Ágil y Colaborativa
+# TotalTasks 🧩️ – Plataforma de Gestión de Tareas
 
 **TotalTasks** es una plataforma web avanzada para la organización de proyectos y tareas usando metodologías ágiles como **Scrum** y **Kanban**. Fue desarrollada como parte de un proyecto académico con un enfoque profesional y escalable, pensada para facilitar el trabajo en equipo, mejorar la productividad y ofrecer una alternativa gratuita a herramientas privativas.
 
