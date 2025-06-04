@@ -106,8 +106,6 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ## 1. Descargar proyecto
 
-### Primer paso
-
 Opcion 1 -> Hacer click en el botón de `<> Code` y darle a la opción de `Download ZIP`
 
 Opcion 2 -> Abrir terminal de Git Bash en la ubicación deseada y ejecutar:
@@ -116,7 +114,7 @@ Opcion 2 -> Abrir terminal de Git Bash en la ubicación deseada y ejecutar:
 git clone https://github.com/DiegoArroyo04/TotalTasks.git
 ```
 
-### Segundo paso
+## 2. Crear la base de datos
 
 Abrir tu gestor de base de datos y ejecutar el archivo `Script.sql` ubicado en:
 
@@ -131,13 +129,17 @@ TotalTasks/
 └── README.md
 ```
 
-### Tercer paso
+## 3. Ejecutar el proyecto
 
-Ejecutar el proyecto
+Abrir el navegador en la ruta:
+
+```propierties
+http://localhost:9091
+```
 
 ---
 
-## 📂 Estructura del Proyecto
+# 📂 Estructura del Proyecto
 
 ```text
 TotalTasks/
@@ -169,7 +171,7 @@ TotalTasks/
 
 ---
 
-## 👨‍💼 Autores
+# 👨‍💼 Autores
 
 **TotalTasks** ha sido desarrollado como parte de un proyecto de grado con una proyección profesional.
 
