@@ -80,8 +80,26 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 > *(Captura recomendada del tablero Kanban y dashboard con gráficos)*
 
+* Crear proyectos.
+* Personalizar tu perfil.
+* Ver tus proyectos de Github.
+
+### 📊 Proyecto kanban
+
+> *(Captura recomendada del tablero Kanban y dashboard con gráficos)*
+
 * Crear columnas y tareas al vuelo.
 * Mover tareas con drag & drop.
+* Estadísticas por proyecto (commits, lenguajes, PRs).
+* Integrado con Chart.js + FullCalendar.
+
+### 📊 Proyecto Scrum
+
+> *(Captura recomendada del tablero Kanban y dashboard con gráficos)*
+
+* Crear historias de usuario.
+* Hacer sprints personalizados.
+* Tablón de tareas
 * Estadísticas por proyecto (commits, lenguajes, PRs).
 * Integrado con Chart.js + FullCalendar.
 
