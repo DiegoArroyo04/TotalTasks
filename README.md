@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Logo de Google" width="200"/>
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/logo.png?raw=true" alt="Logo TotalTasks" width="200">
 </p>
 
 <h1 align="center">TotalTasks 🧩️ – Plataforma de Gestión de Tareas</h1>
@@ -8,7 +8,6 @@
   <img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build"/>
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="License"/>
   <img src="https://img.shields.io/badge/status-en%20desarrollo-yellow" alt="Status"/>
-  <img src="https://img.shields.io/github/repo-size/DiegoArroyo04/TotalTasks" alt="Repo Size"/>
   <img src="https://img.shields.io/badge/Java-17+-red" alt="Java"/>
   <img src="https://img.shields.io/badge/MySQL-8.x-blue" alt="MySQL"/>
 </p>
@@ -46,7 +45,9 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ### 🎨 Landing Page
 
-> *(Deja un hueco para la captura de pantalla)*
+<p align="center">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/landingPage.png?raw=true" alt="Landing page" width="900">
+</p>
 
 * Accesos directos a Inicio, Características, FAQ.
 * Imagen principal con CTA llamativa.
@@ -54,7 +55,9 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ### 🔑 Inicio de Sesión
 
-> *(Captura recomendada del formulario con botones de Google y GitHub)*
+<p align="center">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/loginPage.png?raw=true" alt="Login" width="900">
+</p>
 
 * Login manual: usuario y contraseña.
 * Login OAuth con Google y GitHub:
@@ -66,7 +69,9 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ### 📅 Registro de Usuarios
 
-> *(Captura recomendada del formulario de registro)*
+<p align="center">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/RegisterPage.png?raw=true" alt="Register" width="900">
+</p>
 
 * Formulario validado con:
 
@@ -76,9 +81,11 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
   * Contraseña fuerte (8+ caracteres, mayúsculas y números)
 * Modales suaves para feedback visual.
 
-### 📊 Dashboard y Kanban
+### 📊 Dashboard
 
-> *(Captura recomendada del tablero Kanban y dashboard con gráficos)*
+<p align="center">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/Dashboard.png?raw=true" alt="Dashboard" width="900">
+</p>
 
 * Crear proyectos.
 * Personalizar tu perfil.
@@ -86,7 +93,9 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ### 📊 Proyecto kanban
 
-> *(Captura recomendada del tablero Kanban y dashboard con gráficos)*
+<p align="center">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/Kanban.png?raw=true" alt="Kanban" width="900">
+</p>
 
 * Crear columnas y tareas al vuelo.
 * Mover tareas con drag & drop.
@@ -95,7 +104,7 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ### 📊 Proyecto Scrum
 
-> *(Captura recomendada del tablero Kanban y dashboard con gráficos)*
+> *(Captura recomendada del proyecto scrum)*
 
 * Crear historias de usuario.
 * Hacer sprints personalizados.
