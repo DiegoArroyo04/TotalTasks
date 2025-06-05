@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/nuevoLogo_SinFondo.png?raw=true" alt="Logo TotalTasks" width="350">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/nuevoLogo_SinFondo.png?raw=true" alt="Logo TotalTasks" width="200">
 </p>
 
 <h1 align="center">TotalTasks 🧩️ – Plataforma de Gestión de Tareas</h1>
