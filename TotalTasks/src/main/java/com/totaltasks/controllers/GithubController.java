@@ -26,40 +26,48 @@ public class GithubController {
 	}
 
 	@GetMapping("/extraerTodo")
-	public ResponseEntity<Map<String, Object>> extraerTodo(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
+	public ResponseEntity<Map<String, Object>> extraerTodo(HttpSession session, @RequestParam String owner,
+			@RequestParam String repoName) {
 
 		String token = getAccessToken(session);
-		if (token == null) return ResponseEntity.status(401).build();
+		if (token == null)
+			return ResponseEntity.status(401).build();
 
 		Map<String, Object> resultado = new HashMap<>();
 		resultado.put("commits", getCommits(token, owner, repoName));
 		resultado.put("lenguajes", getLenguajes(token, owner, repoName));
-		resultado.put("pullRequests", getPullRequests(token, owner, repoName));
 
 		return ResponseEntity.ok(resultado);
 	}
 
 	@GetMapping("/extraerCommits")
-	public ResponseEntity<List<Map<String, Object>>> extraerCommits(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
+	public ResponseEntity<List<Map<String, Object>>> extraerCommits(HttpSession session, @RequestParam String owner,
+			@RequestParam String repoName) {
 		String token = getAccessToken(session);
-		if (token == null) return ResponseEntity.status(401).build();
+		if (token == null)
+			return ResponseEntity.status(401).build();
 		return ResponseEntity.ok(getCommits(token, owner, repoName));
 	}
 
 	@GetMapping("/stats/lenguajes")
-	public ResponseEntity<Object> lenguajes(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
+	public ResponseEntity<Object> lenguajes(HttpSession session, @RequestParam String owner,
+			@RequestParam String repoName) {
 		return ResponseEntity.ok(getLenguajes(getAccessToken(session), owner, repoName));
 	}
 
-	@GetMapping("/pullRequests")
-	public ResponseEntity<Object> pullRequests(HttpSession session, @RequestParam String owner, @RequestParam String repoName) {
-		return ResponseEntity.ok(getPullRequests(getAccessToken(session), owner, repoName));
+	@GetMapping("/branches")
+	public ResponseEntity<Object> branches(HttpSession session, @RequestParam String owner,
+			@RequestParam String repoName) {
+		String token = getAccessToken(session);
+		if (token == null)
+			return ResponseEntity.status(401).build();
+		return ResponseEntity.ok(getBranches(token, owner, repoName));
 	}
 
 	// ===== Métodos privados reutilizables =====
 
 	private List<Map<String, Object>> getCommits(String token, String owner, String repoName) {
-		
+
 		List<Map<String, Object>> allCommits = new ArrayList<>();
 		HttpHeaders headers = createHeaders(token);
 		RestTemplate restTemplate = new RestTemplate();
@@ -68,16 +76,20 @@ public class GithubController {
 		int page = 1;
 
 		while (true) {
-			String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/commits?per_page=" + perPage + "&page=" + page;
-			ResponseEntity<List> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), List.class);
+			String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/commits?per_page=" + perPage
+					+ "&page=" + page;
+			ResponseEntity<List> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers),
+					List.class);
 
 			List<Map<String, Object>> commitsPage = response.getBody();
-			if (commitsPage == null || commitsPage.isEmpty()) break;
+			if (commitsPage == null || commitsPage.isEmpty())
+				break;
 
 			allCommits.addAll(commitsPage);
 
 			// Si se devolvieron menos de 100, es la última página
-			if (commitsPage.size() < perPage) break;
+			if (commitsPage.size() < perPage)
+				break;
 
 			page++;
 		}
@@ -90,8 +102,8 @@ public class GithubController {
 		return fetchData(token, url);
 	}
 
-	private Object getPullRequests(String token, String owner, String repoName) {
-		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/pulls?state=all";
+	private Object getBranches(String token, String owner, String repoName) {
+		String url = "https://api.github.com/repos/" + owner + "/" + repoName + "/branches";
 		return fetchData(token, url);
 	}
 

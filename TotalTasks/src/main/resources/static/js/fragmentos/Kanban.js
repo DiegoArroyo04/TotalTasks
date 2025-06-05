@@ -619,6 +619,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		modal.classList.add("activo");
 
+		// Mostrar loader
+		document.getElementById("loader").style.display = "block";
+
 		// Por defecto mostramos estadísticas de los commits
 		cargarEstadisticas("commits");
 	});
@@ -653,8 +656,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			url = `/api/github/extraerCommits?owner=${owner}&repoName=${repo}`;
 		} else if (tipo === "lenguajes") {
 			url = `/api/github/stats/lenguajes?owner=${owner}&repoName=${repo}`;
-		} else if (tipo === "pullRequests") {
-			url = `/api/github/pullRequests?owner=${owner}&repoName=${repo}`;
+		} else if (tipo === "branches") {
+			url = `/api/github/branches?owner=${owner}&repoName=${repo}`;
 		} else {
 			return;
 		}
@@ -674,6 +677,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function renderizarGrafico(tipo, datos) {
 
+		// Ocultar loader antes de pintar el gráfico
+		document.getElementById("loader").style.display = "none";
+
 		const contenedor = document.querySelector("#modalEstadisticas .modal-contenido");
 
 		// Eliminar canvas anterior si existe
@@ -683,7 +689,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Crear y agregar nuevo canvas
 		const canvas = document.createElement("canvas");
 		canvas.id = "graficoGithub";
-		// 👇 Estilos aplicados directamente
 		canvas.style.width = "600px";
 		canvas.style.maxHeight = "400px";
 		canvas.style.display = "block";
@@ -764,25 +769,63 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		}
 
-		else if (tipo === "pullRequests") {
-			const abiertos = datos.filter(pr => pr.state === "open").length;
-			const cerrados = datos.filter(pr => pr.state === "closed").length;
+		else if (tipo === "branches") {
+			if (!Array.isArray(datos) || datos.length === 0) {
+				alert("Este repositorio no tiene ramas.");
+				document.querySelector('button[data-filtro="branches"]').style.display = "none";
+				return;
+			}
+
+			const nombres = datos.map(branch => branch.name);
+			const colores = [
+				"#4bc0c0", "#36a2eb", "#9966ff", "#ff6384", "#ffcd56", "#c9cbcf", "#00d084"
+			];
 
 			chart = new Chart(ctx, {
-				type: "doughnut",
+				type: "bar",
 				data: {
-					labels: ["Abiertos", "Cerrados"],
+					labels: nombres,
 					datasets: [{
-						label: "Pull Requests",
-						data: [abiertos, cerrados],
-						backgroundColor: ["#36a2eb", "#ff6384"]
-					}],
+						label: "Ramas del repositorio",
+						data: nombres.map(() => Math.floor(Math.random() * 5) + 1),
+						backgroundColor: colores,
+					}]
 				},
 				options: {
-					responsive: true
+					indexAxis: "y",
+					responsive: true,
+					scales: {
+						x: {
+							display: false
+						},
+						y: {
+							ticks: {
+								font: {
+									size: 14,
+									weight: 'bold'
+								}
+							},
+							title: {
+								display: true,
+								text: "Nombre de la rama"
+							}
+						}
+					},
+					plugins: {
+						legend: { display: false },
+						tooltip: {
+							callbacks: {
+								label: function (context) {
+									return `Rama: ${context.label}`;
+								}
+							}
+						}
+					}
 				}
 			});
+
 		}
+
 	}
 
 });
