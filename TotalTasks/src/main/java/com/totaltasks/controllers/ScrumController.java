@@ -39,8 +39,8 @@ public class ScrumController {
 	}
 
 	@PostMapping("/scrum/comenzarSprint")
-	public ResponseEntity<String> comenzarSprint(@RequestParam Long idProyecto) {
-		scrumService.comenzarSprint(idProyecto);
+	public ResponseEntity<String> comenzarSprint(@RequestParam Long idProyecto, @RequestParam double duracionDias) {
+		scrumService.comenzarSprint(idProyecto, duracionDias);
 		return ResponseEntity.ok("Sprint iniciado");
 	}
 

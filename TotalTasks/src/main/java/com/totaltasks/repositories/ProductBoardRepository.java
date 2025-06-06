@@ -1,5 +1,6 @@
 package com.totaltasks.repositories;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,6 @@ public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity
     List<ProductBoardEntity> findByProyecto_idProyecto(Long idProyecto);
 
 	void deleteAllByProyecto(ProyectoEntity proyecto);
+
+	List<ProductBoardEntity> findByEstadoNotAndFechaLimiteBefore(String estado, Timestamp fechaLimite);
 }

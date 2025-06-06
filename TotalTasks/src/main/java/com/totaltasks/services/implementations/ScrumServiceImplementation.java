@@ -14,9 +14,11 @@ import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.ScrumService;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -114,12 +116,24 @@ public class ScrumServiceImplementation implements ScrumService {
 		
 		ProductBacklogEntity historia = scrumRepository.findById(idBacklog).orElse(null);
 
+		int storyPoints = historia.getStoryPoints();
+
+		String prioridad;
+		
+		if (storyPoints <= 7) {
+			prioridad = "Baja";
+		} else if (storyPoints <= 14) {
+			prioridad = "Media";
+		} else {
+			prioridad = "Alta";
+		}
+
 		// Crear el Sprint y asignar la tarea
 		SprintEntity sprint = new SprintEntity();
 		sprint.setTitulo(historia.getTitulo());
 		sprint.setDescripcion(historia.getDescripcion());
 		sprint.setStoryPoints(historia.getStoryPoints());
-		sprint.setPrioridad(historia.getPrioridad());
+		sprint.setPrioridad(prioridad);
 		sprint.setEstado(historia.getEstado());
 		sprint.setProyecto(historia.getProyecto());
 		sprint.setResponsable(historia.getCreador());
@@ -130,21 +144,73 @@ public class ScrumServiceImplementation implements ScrumService {
 	}
 
 	@Override
-	public void comenzarSprint(Long idProyecto) {
+	public void comenzarSprint(Long idProyecto, double duracionDias) {
 		List<SprintEntity> historiasSprint = sprintRepository.findByProyecto_idProyecto(idProyecto);
 
+		Timestamp fechaFinSprint = Timestamp.valueOf(LocalDateTime.now().plusDays((long) duracionDias));
+
 		for (SprintEntity historia : historiasSprint) {
+			int storyPoints = historia.getStoryPoints();
+
+			String prioridad;
+			if (storyPoints <= 7) {
+				prioridad = "Baja";
+			} else if (storyPoints <= 14) {
+				prioridad = "Media";
+			} else {
+				prioridad = "Alta";
+			}
+
 			ProductBoardEntity tareaBoard = new ProductBoardEntity();
 			tareaBoard.setTitulo(historia.getTitulo());
 			tareaBoard.setDescripcion(historia.getDescripcion());
+			tareaBoard.setStoryPoints(storyPoints);
+			tareaBoard.setPrioridad(prioridad);
 			tareaBoard.setEstado("por_hacer");
 			tareaBoard.setFechaCreacion(new Timestamp(System.currentTimeMillis()));
 			tareaBoard.setProyecto(historia.getProyecto());
 			tareaBoard.setResponsable(historia.getResponsable());
+			tareaBoard.setFechaLimite(fechaFinSprint);
 
 			productBoardRepository.save(tareaBoard);
-
 			sprintRepository.delete(historia);
+		}
+	}
+
+	@Scheduled(cron = "0 * * * * *") // cada minuto exacto
+	public void verificarSprintFinalizados() {
+
+		Timestamp ahora = new Timestamp(System.currentTimeMillis());
+
+		List<ProductBoardEntity> tareas = productBoardRepository.findByEstadoNotAndFechaLimiteBefore("hecho", ahora);
+
+		for (ProductBoardEntity tarea : tareas) {
+			Integer storyPoints = tarea.getStoryPoints();
+			String prioridad = tarea.getPrioridad();
+
+			if (storyPoints == null) storyPoints = 3;
+
+			if (prioridad == null || prioridad.isBlank()) {
+				if (storyPoints <= 7) {
+					prioridad = "Baja";
+				} else if (storyPoints <= 14) {
+					prioridad = "Media";
+				} else {
+					prioridad = "Alta";
+				}
+			}
+
+			SprintEntity nuevaHistoria = new SprintEntity();
+			nuevaHistoria.setTitulo(tarea.getTitulo());
+			nuevaHistoria.setDescripcion(tarea.getDescripcion());
+			nuevaHistoria.setStoryPoints(storyPoints);
+			nuevaHistoria.setPrioridad(prioridad);
+			nuevaHistoria.setProyecto(tarea.getProyecto());
+			nuevaHistoria.setResponsable(tarea.getResponsable());
+			nuevaHistoria.setEstado("pendiente");
+
+			sprintRepository.save(nuevaHistoria);
+			productBoardRepository.delete(tarea);
 		}
 	}
 

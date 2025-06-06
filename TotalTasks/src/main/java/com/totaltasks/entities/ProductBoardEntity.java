@@ -33,11 +33,20 @@ public class ProductBoardEntity {
 	@Column(name="descripcion")
     private String descripcion;
 
+	@Column(name = "story_points")
+    private Integer storyPoints;
+
+    @Column(name = "prioridad")
+    private String prioridad;
+
 	@Column(name="estado")
     private String estado = "por_hacer";
 
     @Column(name = "fecha_creacion")
     private Timestamp fechaCreacion;
+
+	@Column(name = "fecha_limite")
+    private Timestamp fechaLimite;
 
     @ManyToOne
     @JoinColumn(name = "id_proyecto", nullable = false)

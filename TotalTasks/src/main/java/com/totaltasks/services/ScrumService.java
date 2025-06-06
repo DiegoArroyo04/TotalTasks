@@ -13,7 +13,7 @@ public interface ScrumService {
 
 	void moverHistoriaASprint(Long idBacklog, Long idProyecto, Long idResponsable);
 
-	void comenzarSprint(Long idProyecto);
+	void comenzarSprint(Long idProyecto, double duracionDias);
 
 	List<SprintEntity> historiasDelSprint(Long idProyecto);
 

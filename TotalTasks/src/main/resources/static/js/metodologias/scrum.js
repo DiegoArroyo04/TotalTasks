@@ -442,17 +442,40 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function comenzarSprint() {
-	const idProyecto = document.querySelector("[data-proyecto-id]")?.dataset.proyectoId;
+	document.getElementById("modal-sprint").style.display = "block";
+}
 
-	if (!idProyecto) {
-		alert("No se pudo determinar el proyecto.");
+function cerrarModal() {
+	document.getElementById("modal-sprint").style.display = "none";
+}
+
+function confirmarComenzarSprint() {
+	const idProyecto = document.querySelector("[data-proyecto-id]")?.dataset.proyectoId;
+	const duracion = parseInt(document.getElementById("duracion").value);
+	const unidad = document.getElementById("unidad-tiempo").value;
+
+	if (!idProyecto || !duracion || duracion < 1) {
+		alert("Faltan datos válidos.");
 		return;
 	}
+
+	let duracionDias;
+	switch (unidad) {
+		case "segundos": duracionDias = duracion / 86400; break;
+		case "minutos": duracionDias = duracion / 1440; break;
+		case "horas": duracionDias = duracion / 24; break;
+		default: duracionDias = duracion;
+	}
+	duracionDias = Math.round(duracionDias); // Enviar entero
+
 
 	$.ajax({
 		url: "/scrum/comenzarSprint",
 		type: "POST",
-		data: { idProyecto: idProyecto },
+		data: {
+			idProyecto: idProyecto,
+			duracionDias: duracionDias,
+		},
 		success: function () {
 			location.reload();
 		},
