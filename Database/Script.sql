@@ -127,8 +127,11 @@ CREATE TABLE product_board (
     id_tarea_board BIGINT AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT,
+    story_points INT CHECK (story_points >= 0),
+    prioridad VARCHAR(10),
     estado VARCHAR(50) DEFAULT 'por_hacer', -- Estados: por_hacer, en_curso, hecho
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_limite TIMESTAMP,
     id_proyecto BIGINT NOT NULL,
     id_responsable BIGINT NOT NULL,
     CONSTRAINT pk_product_board PRIMARY KEY (id_tarea_board),
