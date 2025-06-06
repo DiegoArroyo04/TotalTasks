@@ -138,7 +138,6 @@
           <table class="table-pb">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Título</th>
                 <th>Descripción</th>
                 <th>Points</th>
@@ -149,7 +148,6 @@
             <tbody>
               <tr th:each="historia : ${historias}"
                 th:attr="data-id=${historia.idBacklog}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.creador.idUsuario}">
-                <td th:text="${historia.idBacklog}"></td>
                 <td th:text="${historia.titulo}"></td>
                 <td th:text="${historia.descripcion}"></td>
                 <td>
@@ -175,7 +173,6 @@
           <table id="sprint-table" class="table-pb">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Título</th>
                 <th>Desc.</th>
                 <th>Points</th>
@@ -186,7 +183,6 @@
             <tbody>
               <tr th:each="historia : ${sprint}"
                 th:attr="data-id=${historia.idSprint}, data-proyecto-id=${proyecto.idProyecto}, data-responsable-id=${historia.responsable.idUsuario}">
-                <td th:text="${historia.idSprint}"></td>
                 <td th:text="${historia.titulo}"></td>
                 <td th:text="${historia.descripcion}"></td>
                 <td th:text="${historia.storyPoints}"></td>
