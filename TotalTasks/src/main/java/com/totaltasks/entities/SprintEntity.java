@@ -31,7 +31,7 @@ public class SprintEntity {
     private Integer storyPoints;
 
     @Column(name = "prioridad")
-    private Integer prioridad;
+    private String prioridad;
 
     @Column(name = "estado", nullable = false)
     private String estado;

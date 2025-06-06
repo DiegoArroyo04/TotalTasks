@@ -42,7 +42,7 @@ public class ProductBacklogEntity {
     private Integer storyPoints;
 
     @Column(name = "prioridad")
-    private Integer prioridad;
+    private String prioridad;
 
     @Column(name = "estado")
     private String estado;

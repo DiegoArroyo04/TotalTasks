@@ -47,14 +47,15 @@ public class ScrumServiceImplementation implements ScrumService {
 		entity.setDescripcion(productBacklogDTO.getDescripcion());
 		entity.setStoryPoints(productBacklogDTO.getStoryPoints());
 		int storyPoints = productBacklogDTO.getStoryPoints();
-		int prioridad;
+
+		String prioridad;
 
 		if (storyPoints <= 7) {
-			prioridad = 1; // Baja
+			prioridad = "Baja";
 		} else if (storyPoints <= 14) {
-			prioridad = 2; // Media
+			prioridad = "Media";
 		} else {
-			prioridad = 3; // Alta
+			prioridad = "Alta";
 		}
 
 		entity.setPrioridad(prioridad);
@@ -72,13 +73,15 @@ public class ScrumServiceImplementation implements ScrumService {
 		SprintEntity sprint = sprintRepository.findById(idSprint).orElse(null);
 
 		int storyPoints = sprint.getStoryPoints();
-		int prioridad;
+
+		String prioridad;
+		
 		if (storyPoints <= 7) {
-			prioridad = 1;
+			prioridad = "Baja";
 		} else if (storyPoints <= 14) {
-			prioridad = 2;
+			prioridad = "Media";
 		} else {
-			prioridad = 3;
+			prioridad = "Alta";
 		}
 
 		ProductBacklogEntity backlogHistoria = new ProductBacklogEntity();

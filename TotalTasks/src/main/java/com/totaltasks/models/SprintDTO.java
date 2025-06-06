@@ -17,7 +17,7 @@ public class SprintDTO {
     private String titulo;
     private String descripcion;
 	private Integer storyPoints;
-    private Integer prioridad;
+    private String prioridad;
     private String estado;
     private Long idProyecto;
     private Long idResponsable;
