@@ -196,6 +196,7 @@
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	transition: border 0.3s;
+	resize: none;
 }
 
 .form-pb input:focus,
