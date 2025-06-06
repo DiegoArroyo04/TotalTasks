@@ -277,3 +277,28 @@
 	margin: 5px 0;
 	cursor: pointer;
 }
+
+/*MEDIA QUERYS*/
+/*TABLETS*/
+@media screen and (max-width: 1024px) {
+	.logo img {
+		width: 100px;
+	}
+
+	.navegacion ul {
+		gap: 20px;
+		margin-left: 100px;
+	}
+
+	.navegacion ul li a {
+		font-size: 1rem;
+		padding: 0;
+	}
+
+	.navegacion ul li .boton-probar {
+		font-size: 1rem;
+		padding: 8px 20px;
+	}
+
+
+}
