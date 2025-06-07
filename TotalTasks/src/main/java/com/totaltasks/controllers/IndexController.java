@@ -43,7 +43,8 @@ public class IndexController {
 		// Si existe, lo añadimos al modelo
 		if (usuario != null) {
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("notificacionesNoLeidas", notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 			// Convertimos la foto de perfil a Base64 y la añadimos al modelo
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 			// FOTO DE PERFIL DE GOOGLE Y GITHUB
@@ -84,7 +85,8 @@ public class IndexController {
 		} else {
 
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("notificacionesNoLeidas", notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
 			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
 			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
 			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
@@ -113,17 +115,51 @@ public class IndexController {
 	}
 
 	@GetMapping("/privacidad")
-	public String privacidad() {
+	public String privacidad(HttpSession session, Model model) {
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		if (usuario != null) {
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+			model.addAttribute("paginaActual", "text-legal");
+		}
+
 		return "/textos-legales/privacidad";
 	}
 
 	@GetMapping("/terminos-de-uso")
-	public String terminos() {
+	public String terminos(HttpSession session, Model model) {
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		if (usuario != null) {
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+			model.addAttribute("paginaActual", "text-legal");
+		}
 		return "/textos-legales/terminos-de-uso";
 	}
 
 	@GetMapping("/faq")
-	public String faq() {
+	public String faq(HttpSession session, Model model) {
+		UsuarioEntity usuario = (UsuarioEntity) session.getAttribute("usuario");
+
+		if (usuario != null) {
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("notificacionesNoLeidas",
+					notificacionUsuarioService.notificacionesNoLeidasPorUserId(usuario.getIdUsuario()));
+			model.addAttribute("fotoPerfilBase64", usuarioService.convertirByteABase64(usuario.getFotoPerfil()));
+			model.addAttribute("fotoperfilGoogle", (String) session.getAttribute("fotoPerfilGoogle"));
+			model.addAttribute("fotoPerfilGithub", (String) session.getAttribute("fotoPerfilGithub"));
+			model.addAttribute("paginaActual", "text-legal");
+		}
 		return "/informacion/faq";
 	}
 

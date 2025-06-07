@@ -195,7 +195,7 @@
 }
 
 /* Responsive - Tablets */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
 	.contenedor-footer {
 		flex-wrap: wrap;
 		justify-content: center;
@@ -207,6 +207,7 @@
 	.enlaces-footer {
 		align-items: center;
 		text-align: center;
+		flex: 1 1 auto;
 	}
 
 	.newsletter-footer input[type="email"] {
@@ -225,4 +226,17 @@
 	.final-footer {
 		font-size: 12px;
 	}
+
+	.newsletter-footer {
+		margin-bottom: 13px;
+	}
+
+	.newsletter-footer p {
+		margin-bottom: 30px;
+	}
+
+	.extra-footer {
+		margin: 30px auto;
+	}
+
 }

@@ -374,3 +374,55 @@
 .faq-link a:hover {
 	color: var(--color-secundario-hover);
 }
+
+
+/*MEDIA QUERYS*/
+/*TABLETS*/
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+	.hero {
+		flex-direction: column;
+	}
+
+	.hero-texto {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.hero .boton-probar {
+		width: 300px;
+	}
+
+	.pestanas-funcionalidades {
+		padding: 40px 0;
+	}
+
+	.pestanas {
+		gap: 15px !important;
+		padding: 0 5px;
+	}
+
+	.boton-pestana {
+		font-size: 1rem !important;
+	}
+
+	.boton-pestana {
+		padding: 10px 0 !important;
+		width: 110px;
+	}
+
+	.historia-card {
+		width: 100%;
+		align-self: auto;
+	}
+
+	.faq {
+		max-width: 100%;
+	}
+
+	.faq-container {
+		width: 100%;
+	}
+
+}

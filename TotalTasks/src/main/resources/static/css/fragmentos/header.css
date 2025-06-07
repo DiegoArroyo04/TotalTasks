@@ -281,6 +281,10 @@
 /*MEDIA QUERYS*/
 /*TABLETS*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+	.logo-container {
+		left: 2px;
+	}
+
 	.logo img {
 		width: 100px;
 	}
@@ -291,12 +295,12 @@
 	}
 
 	.navegacion ul li a {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		padding: 0;
 	}
 
 	.navegacion ul li .boton-probar {
-		font-size: 1rem;
+		font-size: 0.8rem;
 		padding: 8px 20px;
 	}
 
@@ -308,6 +312,21 @@
 	.menu-perfil a {
 		margin: 0 !important;
 		font-size: 0.7rem !important;
+	}
+
+	.detalle-funcionalidad {
+		padding: 0 20px;
+		flex-direction: column;
+	}
+
+	.navegacion li {
+		margin-bottom: 0 !important;
+	}
+
+	.navegacion ul {
+		list-style: none;
+		padding-left: 0;
+		margin-bottom: 0;
 	}
 
 }

@@ -201,7 +201,7 @@ input::placeholder {
 }
 
 /* Respuesta para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 	.izquierda {
 		display: none;
 	}
@@ -218,7 +218,7 @@ input::placeholder {
 }
 
 /* Tablets */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
 	.izquierda {
 		display: none;
 	}
