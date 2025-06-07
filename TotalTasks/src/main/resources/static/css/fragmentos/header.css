@@ -280,7 +280,7 @@
 
 /*MEDIA QUERYS*/
 /*TABLETS*/
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
 	.logo img {
 		width: 100px;
 	}
@@ -300,5 +300,14 @@
 		padding: 8px 20px;
 	}
 
+	.menu-perfil {
+		padding: 8px;
+		min-width: 80px;
+	}
+
+	.menu-perfil a {
+		margin: 0 !important;
+		font-size: 0.7rem !important;
+	}
 
 }
