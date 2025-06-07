@@ -43,6 +43,7 @@
                                     No tienes notificaciones nuevas.
                                 </li>
 
+
                                 <li th:each="notificacionUsuario  : ${notificacionesNoLeidas}"
                                     th:attr="data-id-proyecto=${notificacionUsuario.notificacion.proyecto.idProyecto}, onclick='irAProyecto(' + ${notificacionUsuario.notificacion.proyecto.idProyecto} + ')'"
                                     class="notificacion-item">

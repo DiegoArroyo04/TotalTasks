@@ -122,6 +122,7 @@
 	display: flex;
 	flex-direction: column;
 	list-style: none;
+	align-items: flex-start !important;
 	padding: 0;
 	margin: 15px;
 }
@@ -184,6 +185,7 @@
 }
 
 .notificacion-item {
+	width: 100%;
 	border-bottom: 1px solid var(--color-sombra);
 	padding: 12px 0;
 	color: var(--color-texto);
@@ -327,6 +329,14 @@
 		list-style: none;
 		padding-left: 0;
 		margin-bottom: 0;
+	}
+
+	.lista-notificaciones {
+		margin-left: 15px !important;
+	}
+
+	.mensaje-vacio {
+		padding-bottom: 15px;
 	}
 
 }
