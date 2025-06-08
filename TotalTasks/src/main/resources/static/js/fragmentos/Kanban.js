@@ -611,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	let chart = null; // Gráfico global para poder destruirlo
 
-	document.getElementById("botonEstadisticas").addEventListener("click", () => {
+	document.getElementById("botonEstadisticas")?.addEventListener("click", () => {
 		const form = document.getElementById("formularioGithub");
 		const modal = document.getElementById("modalEstadisticas");
 

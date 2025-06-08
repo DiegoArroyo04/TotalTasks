@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	let chart = null; // Gráfico global para poder destruirlo
 
-	document.getElementById("botonEstadisticas").addEventListener("click", () => {
+	document.getElementById("botonEstadisticas")?.addEventListener("click", () => {
 		const form = document.getElementById("formularioGithub");
 		const modal = document.getElementById("modalEstadisticas");
 
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function comenzarSprint() {
-	document.getElementById("modal-sprint").style.display = "block";
+	document.getElementById("modal-sprint").style.display = "flex";
 }
 
 function cerrarModal() {
