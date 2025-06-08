@@ -67,7 +67,7 @@ public class ChatServiceImplementation implements ChatService {
 			dto.setFechaCreacion(ent.getFechaCreacion());
 			dto.setIdProyecto(ent.getProyecto().getIdProyecto());
 			dto.setIdUsuario(ent.getUsuario().getIdUsuario());
-
+			dto.setNombreUsuario(ent.getUsuario().getUsuario());
 			lista.add(dto);
 		}
 

@@ -37,6 +37,7 @@ main {
 .acciones-tablero button {
 	padding: 10px 20px;
 	font-size: 16px;
+	font-family: var(--fuente-principal);
 	background-color: var(--color-primario);
 	color: white;
 	border: none;
@@ -593,6 +594,33 @@ textarea {
 
 	.filtros-estadisticas {
 		margin-bottom: 50px;
+	}
+
+}
+
+/*MEDIA QUERYS*/
+/*TABLETS*/
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+
+	.tableros {
+		justify-content: flex-start;
+	}
+
+	.colorPickerContainer {
+		top: 20px;
+	}
+
+	.hora {
+		white-space: nowrap;
+	}
+
+	.mensaje-burbuja {
+		max-width: 100%;
+	}
+
+	.mensaje-texto {
+		font-size: 0.8rem;
 	}
 
 }
