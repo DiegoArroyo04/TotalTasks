@@ -133,6 +133,7 @@
             <input type="hidden" id="idUsuario" name="idUsuario" th:value="${usuario.idUsuario}" />
             <input type="hidden" id="idProyecto" name="idProyecto" th:value="${proyecto.idProyecto}" />
             <button type="submit" class="btn-primary">Añadir Historia</button>
+			<button id="toggle-form-btn" type="button" th:if="${not #lists.isEmpty(historias)}" class="btn-primary" onclick="moverAlSprint();">Mover al sprint</button>
           </form>
 
           <table class="table-pb">
@@ -158,7 +159,6 @@
               </tr>
             </tbody>
           </table>
-
         </div>
       </section>
 
@@ -168,6 +168,9 @@
         <div class="panel-body">
           <button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}" onclick="comenzarSprint()" class="btn-primary">
             Comenzar Sprint
+          </button>
+		  <button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}" onclick="moverTodoAlBacklog()" class="btn-primary">
+            Mover al backlog
           </button>
           <table id="sprint-table" class="table-pb">
             <thead>

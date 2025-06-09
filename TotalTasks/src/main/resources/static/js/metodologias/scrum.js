@@ -374,72 +374,123 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 	}
-
-	// Función para oscurecer un color hexadecimal
-	function oscurecerColor(hex, porcentaje) {
-		let r = parseInt(hex.slice(1, 3), 16);
-		let g = parseInt(hex.slice(3, 5), 16);
-		let b = parseInt(hex.slice(5, 7), 16);
-
-		r = Math.floor(r * (1 - porcentaje));
-		g = Math.floor(g * (1 - porcentaje));
-		b = Math.floor(b * (1 - porcentaje));
-
-		return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
-	}
-	const backlogTable = document.querySelector("#product-backlog table tbody");
-	const sprintTable = document.querySelector("#sprint-table tbody");
-
-	// Sortable para el Product Backlog (ya existente)
-	const sortableBacklog = new Sortable(backlogTable, {
-		group: "shared",
-		animation: 150,
-		onEnd(evt) {
-			const item = evt.item;
-			const idBacklog = item.dataset.id;
-			const idProyecto = item.dataset.proyectoId;
-			const idResponsable = item.dataset.responsableId;
-
-			$.ajax({
-				url: "/scrum/moverHistoriaASprint",
-				type: "POST",
-				data: {
-					idBacklog: idBacklog,
-					idProyecto: idProyecto,
-					idResponsable: idResponsable,
-				},
-				success: function (respuesta) {
-					location.reload();
-				},
-			});
-		},
-	});
-
-	// Sortable para el Sprint
-	const sortableSprint = new Sortable(sprintTable, {
-		group: "shared",
-		animation: 150,
-		onEnd(evt) {
-			const item = evt.item;
-			const idSprint = item.dataset.id;
-			const idProyecto = item.dataset.proyectoId;
-			const idResponsable = item.dataset.responsableId;
-
-			$.ajax({
-				url: "/scrum/moverDeSprintABacklog",
-				type: "POST",
-				data: {
-					idSprint: idSprint,
-					idProyecto: idProyecto,
-					idResponsable: idResponsable,
-				},
-				success: function (respuesta) {
-					location.reload();
-				},
-			});
-		},
-	});
 });
+
+// Función para oscurecer un color hexadecimal
+function oscurecerColor(hex, porcentaje) {
+	let r = parseInt(hex.slice(1, 3), 16);
+	let g = parseInt(hex.slice(3, 5), 16);
+	let b = parseInt(hex.slice(5, 7), 16);
+
+	r = Math.floor(r * (1 - porcentaje));
+	g = Math.floor(g * (1 - porcentaje));
+	b = Math.floor(b * (1 - porcentaje));
+
+	return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+}
+
+const backlogTable = document.querySelector("#product-backlog table tbody");
+const sprintTable = document.querySelector("#sprint-table tbody");
+
+// === Sortable para el Product Backlog (drag and drop) ===
+const sortableBacklog = new Sortable(backlogTable, {
+	group: "shared",
+	animation: 150,
+	onEnd(evt) {
+		const item = evt.item;
+		const idBacklog = item.dataset.id;
+		const idProyecto = item.dataset.proyectoId;
+		const idResponsable = item.dataset.responsableId;
+
+		moverHistoriaAlSprint(idBacklog, idProyecto, idResponsable);
+	},
+});
+
+// === Sortable para el Sprint (drag and drop) ===
+const sortableSprint = new Sortable(sprintTable, {
+	group: "shared",
+	animation: 150,
+	onEnd(evt) {
+		const item = evt.item;
+		const idSprint = item.dataset.id;
+		const idProyecto = item.dataset.proyectoId;
+		const idResponsable = item.dataset.responsableId;
+
+		moverHistoriaDeSprintABacklog(idSprint, idProyecto, idResponsable);
+	},
+});
+
+// === Función reutilizable para mover historia al Sprint ===
+function moverHistoriaAlSprint(idBacklog, idProyecto, idResponsable) {
+	$.ajax({
+		url: "/scrum/moverHistoriaASprint",
+		type: "POST",
+		data: {
+			idBacklog: idBacklog,
+			idProyecto: idProyecto,
+			idResponsable: idResponsable,
+		},
+		success: function (respuesta) {
+			location.reload(); // puedes reemplazarlo por actualizar el DOM dinámicamente
+		},
+	});
+}
+
+// === Función para mover historia del Sprint al Backlog ===
+function moverHistoriaDeSprintABacklog(idSprint, idProyecto, idResponsable) {
+	$.ajax({
+		url: "/scrum/moverDeSprintABacklog",
+		type: "POST",
+		data: {
+			idSprint: idSprint,
+			idProyecto: idProyecto,
+			idResponsable: idResponsable,
+		},
+		success: function (respuesta) {
+			location.reload();
+		},
+	});
+}
+
+function moverTodoAlBacklog() {
+	const historias = document.querySelectorAll('#sprint-table tbody tr');
+	let pendientes = historias.length;
+
+	historias.forEach(historia => {
+		const id = historia.dataset.id;
+		const idProyecto = historia.dataset.proyectoId;
+		const idResponsable = historia.dataset.responsableId;
+
+		$.ajax({
+			url: "/scrum/moverDeSprintABacklog",
+			type: "POST",
+			data: {
+				idSprint: id,
+				idProyecto: idProyecto,
+				idResponsable: idResponsable,
+			},
+			complete: function () {
+				pendientes--;
+				if (pendientes === 0) {
+					location.reload();
+				}
+			},
+		});
+	});
+}
+
+// === Función para mover todas las historias del backlog al sprint (botón) ===
+function moverAlSprint() {
+	const historias = document.querySelectorAll('#product-backlog tbody tr');
+
+	historias.forEach(historia => {
+		const id = historia.dataset.id;
+		const idProyecto = historia.dataset.proyectoId;
+		const idResponsable = historia.dataset.responsableId;
+
+		moverHistoriaAlSprint(id, idProyecto, idResponsable);
+	});
+}
 
 function comenzarSprint() {
 	document.getElementById("modal-sprint").style.display = "flex";
