@@ -29,12 +29,14 @@ function openChatbot() {
 function handleOptionClick(opcion) {
 	const chatLog = document.getElementById("chatLog");
 	const respuestas = {
-		"crear tarea recurrente":
-			"Para crear una tarea recurrente, selecciona la opción 'Repetir' al momento de agregar una nueva tarea.",
-		"sincronizar con calendario":
-			"Actualmente, ofrecemos inicio de sesión con Google, lo que facilitará la sincronización con Google Calendar próximamente",
-		"seguridad de los datos":
-			"Utilizamos protocolos de seguridad y cifrado de última generación para proteger tu información en todo momento.",
+		"unirme a un proyecto":
+			"Ve al menú principal, haz clic en 'Unirme a proyecto' e ingresa el código que te compartieron.",
+		"crear un sprint":
+			"Desde la vista de proyecto, haz clic en 'Crear sprint', asigna fechas y selecciona tareas del backlog.",
+		"personalizar un proyecto":
+			"Puedes cambiar colores pulsando la opción personalizar tablero",
+		"problemas con el login":
+			"Asegúrate de estar usando el proveedor correcto (Google o GitHub) o tu usuario y contraseña y que tu cuenta esté autorizada.",
 	};
 	const respuesta = respuestas[opcion];
 
