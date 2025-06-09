@@ -623,4 +623,13 @@ textarea {
 		font-size: 0.8rem;
 	}
 
+	.acciones-tablero {
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+
+	.acciones-tablero button {
+		margin-left: 0;
+	}
+
 }
