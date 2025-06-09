@@ -214,4 +214,16 @@ public class ScrumServiceImplementation implements ScrumService {
 		}
 	}
 
+	public boolean estaTerminado(Long idProyecto) {
+		// Obtener la fecha actual
+		Timestamp ahora = new Timestamp(System.currentTimeMillis());
+
+		// Buscar tareas activas del proyecto con fecha límite pasada (es decir, sprint terminado)
+		List<ProductBoardEntity> tareasActivas = productBoardRepository.findByProyecto_idProyectoAndEstadoNotAndFechaLimiteBefore(idProyecto, "hecho", ahora);
+
+		// Si hay alguna tarea activa con fecha límite pasada, significa que el sprint ha terminado
+		return !tareasActivas.isEmpty();
+	}
+
+
 }

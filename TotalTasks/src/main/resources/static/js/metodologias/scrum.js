@@ -532,3 +532,27 @@ function confirmarComenzarSprint() {
 		},
 	});
 }
+
+function verificarSprintTerminado(idProyecto) {
+  $.ajax({
+    url: "/scrum/sprintTerminado",
+    type: "GET",
+    data: { idProyecto: idProyecto },
+    success: function(terminado) {
+      if (terminado) {
+        mostrarModalSprintTerminado();
+      }
+    },
+    error: function(err) {
+      console.error("Error verificando sprint terminado:", err);
+    }
+  });
+}
+
+function mostrarModalSprintTerminado() {
+  $("#modal-sprint-terminado").css("display", "flex");
+  clearInterval(pollingInterval);
+}
+
+
+const pollingInterval = setInterval(() => verificarSprintTerminado(idProyecto), 30000);

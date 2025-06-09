@@ -288,6 +288,15 @@
 		</div>
 	</div>
 
+	<div id="modal-sprint-terminado" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; 
+		background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:9999;">
+		<div style="background:#fff; padding:2rem; border-radius:8px; text-align:center;">
+			<h2>El sprint ha terminado</h2>
+			<button onclick="location.reload()">Terminar y actualizar</button>
+		</div>
+	</div>
+
+
     <input type="hidden" id="idProyectoChat" th:value="${proyecto.idProyecto}" />
     <input type="hidden" id="idUsuarioChat" th:value="${usuario.idUsuario}" />
     <input type="hidden" id="nombreUsuario" th:value="${usuario.usuario}" />

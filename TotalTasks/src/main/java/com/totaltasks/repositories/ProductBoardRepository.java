@@ -17,4 +17,8 @@ public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity
 	void deleteAllByProyecto(ProyectoEntity proyecto);
 
 	List<ProductBoardEntity> findByEstadoNotAndFechaLimiteBefore(String estado, Timestamp fechaLimite);
+
+	List<ProductBoardEntity> findByProyecto_idProyectoAndEstadoNotAndFechaLimiteBefore(
+        Long idProyecto, String estado, Timestamp fechaLimite
+    );
 }

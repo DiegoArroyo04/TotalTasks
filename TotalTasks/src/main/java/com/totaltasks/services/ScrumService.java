@@ -18,4 +18,6 @@ public interface ScrumService {
 	List<SprintEntity> historiasDelSprint(Long idProyecto);
 
 	void moverHistoriaDeSprintABacklog(Long idSprint, Long idProyecto, Long idResponsable);
+
+	boolean estaTerminado(Long idProyecto);
 }
