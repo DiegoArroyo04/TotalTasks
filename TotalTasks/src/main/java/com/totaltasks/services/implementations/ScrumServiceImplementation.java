@@ -14,7 +14,6 @@ import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.ScrumService;
 
 import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
