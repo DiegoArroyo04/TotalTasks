@@ -22,4 +22,7 @@ public interface ScrumService {
 	boolean estaTerminado(Long idProyecto);
 
 	void actualizarEstadoTarea(Long idTarea, String nuevoEstado);
+
+	boolean borrarTareasHechas();
+
 }

@@ -583,3 +583,22 @@ function verificarSprintTerminado(idProyecto) {
 		}
 	});
 });
+
+const btnBorrarHecho = document.getElementById('btn-borrar-hecho');
+if (btnBorrarHecho) {
+	btnBorrarHecho.addEventListener('click', function () {
+		$.ajax({
+			url: "/scrum/borrarTareasHechas",
+			type: "POST",
+			success: function (response) {
+				if (response === true) {
+					window.reload();
+				}
+			},
+			error: function (err) {
+				console.error("Error borrando tareas hechas:", err);
+				alert("Error al borrar tareas hechas.");
+			}
+		});
+	});
+}

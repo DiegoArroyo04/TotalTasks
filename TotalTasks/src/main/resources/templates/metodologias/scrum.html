@@ -234,6 +234,7 @@
           <!-- HECHO -->
           <div class="column">
             <h3>Hecho</h3>
+			<button id="btn-borrar-hecho" type="button">Borrar tareas hechas</button>
             <ul id="hecho" class="tarea-lista">
 				<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'hecho'}" th:attr="data-id=${tarea.idTareaBoard}">
 					<strong th:text="${tarea.titulo}"></strong>

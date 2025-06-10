@@ -234,4 +234,14 @@ public class ScrumServiceImplementation implements ScrumService {
 		productBoardRepository.save(tarea);
 	}
 
+	@Override
+	public boolean borrarTareasHechas() {
+		long count = productBoardRepository.countByEstado("hecho");
+		if (count > 0) {
+			productBoardRepository.deleteByEstado("hecho");
+			return true;
+		}
+		return false;
+	}
+
 }

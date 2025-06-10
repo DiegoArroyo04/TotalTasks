@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.totaltasks.entities.ProductBoardEntity;
 import com.totaltasks.entities.ProyectoEntity;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity, Long> {
 	
@@ -26,5 +28,10 @@ public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity
 
 	@Query("SELECT t FROM ProductBoardEntity t WHERE t.idTareaBoard = :idTarea")
 	ProductBoardEntity findTareaById(@Param("idTarea") Long idTarea);
+
+	@Transactional
+	void deleteByEstado(String estado);
+
+	long countByEstado(String estado);
 
 }
