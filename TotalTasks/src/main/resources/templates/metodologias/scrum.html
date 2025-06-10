@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scrum Board Todo Visible</title>
+  <title th:text="${proyecto.nombreProyecto + ' - Proyecto Scrum'}"></title>
   <link rel="stylesheet" href="/css/metodologias/scrum.css" />
   <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -133,7 +133,8 @@
             <input type="hidden" id="idUsuario" name="idUsuario" th:value="${usuario.idUsuario}" />
             <input type="hidden" id="idProyecto" name="idProyecto" th:value="${proyecto.idProyecto}" />
             <button type="submit" class="btn-primary">Añadir Historia</button>
-			<button id="toggle-form-btn" type="button" th:if="${not #lists.isEmpty(historias)}" class="btn-primary" onclick="moverAlSprint();">Mover al sprint</button>
+            <button id="toggle-form-btn" type="button" th:if="${not #lists.isEmpty(historias)}" class="btn-primary"
+              onclick="moverAlSprint();">Mover al sprint</button>
           </form>
 
           <table class="table-pb">
@@ -166,10 +167,12 @@
       <section id="sprint" class="panel">
         <h2 class="panel-title">Sprint</h2>
         <div class="panel-body">
-          <button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}" onclick="comenzarSprint()" class="btn-primary">
+          <button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}"
+            onclick="comenzarSprint()" class="btn-primary">
             Comenzar Sprint
           </button>
-		  <button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}" onclick="moverTodoAlBacklog()" class="btn-primary">
+          <button id="comenzar-sprint" th:if="${sprint != null and not #lists.isEmpty(sprint)}"
+            onclick="moverTodoAlBacklog()" class="btn-primary">
             Mover al backlog
           </button>
           <table id="sprint-table" class="table-pb">
@@ -196,53 +199,53 @@
         </div>
       </section>
 
-		<!-- PRODUCT BOARD -->
-		<section id="product-board" class="panel">
-			<h2 class="panel-title">Product Board</h2>
-			<div class="product-board-container">
-				<!-- POR HACER -->
-				<div class="column">
-				<h3>Por Hacer</h3>
-				<ul id="por-hacer" class="tarea-lista">
-					<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'por_hacer'}">
-					<strong th:text="${tarea.titulo}"></strong>
-					<p th:text="${tarea.descripcion}"></p>
-					<small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
-					<small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
-					<small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
-					</li>
-				</ul>
-				</div>
+      <!-- PRODUCT BOARD -->
+      <section id="product-board" class="panel">
+        <h2 class="panel-title">Product Board</h2>
+        <div class="product-board-container">
+          <!-- POR HACER -->
+          <div class="column">
+            <h3>Por Hacer</h3>
+            <ul id="por-hacer" class="tarea-lista">
+              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'por_hacer'}">
+                <strong th:text="${tarea.titulo}"></strong>
+                <p th:text="${tarea.descripcion}"></p>
+                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
+                <small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
+                <small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
+              </li>
+            </ul>
+          </div>
 
-				<!-- EN CURSO -->
-				<div class="column">
-				<h3>En Curso</h3>
-				<ul id="en-curso" class="tarea-lista">
-					<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'en_curso'}">
-					<strong th:text="${tarea.titulo}"></strong>
-					<p th:text="${tarea.descripcion}"></p>
-					<small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
-					<small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
-					<small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
-					</li>
-				</ul>
-				</div>
+          <!-- EN CURSO -->
+          <div class="column">
+            <h3>En Curso</h3>
+            <ul id="en-curso" class="tarea-lista">
+              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'en_curso'}">
+                <strong th:text="${tarea.titulo}"></strong>
+                <p th:text="${tarea.descripcion}"></p>
+                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
+                <small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
+                <small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
+              </li>
+            </ul>
+          </div>
 
-				<!-- HECHO -->
-				<div class="column">
-				<h3>Hecho</h3>
-				<ul id="hecho" class="tarea-lista">
-					<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'hecho'}">
-					<strong th:text="${tarea.titulo}"></strong>
-					<p th:text="${tarea.descripcion}"></p>
-					<small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
-					<small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
-					<small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
-					</li>
-				</ul>
-				</div>
-			</div>
-		</section>
+          <!-- HECHO -->
+          <div class="column">
+            <h3>Hecho</h3>
+            <ul id="hecho" class="tarea-lista">
+              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'hecho'}">
+                <strong th:text="${tarea.titulo}"></strong>
+                <p th:text="${tarea.descripcion}"></p>
+                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
+                <small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
+                <small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- CHAT DEL PROYECTO -->
@@ -265,21 +268,21 @@
       </div>
     </section>
 
-	<!-- Modal del temporizador -->
-	<div id="modal-sprint" class="modal" style="display: none;">
-		<div class="modal-content">
-			<h3>Duración del Sprint</h3>
-			
-			<label for="duracion">Duración:</label>
-			<input type="number" id="duracion" min="1" value="7">
+    <!-- Modal del temporizador -->
+    <div id="modal-sprint" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h3>Duración del Sprint</h3>
 
-			<label for="unidad-tiempo">Unidad:</label>
-			<select id="unidad-tiempo">
-				<option value="segundos">Segundos</option>
-				<option value="minutos" selected>Minutos</option>
-				<option value="horas">Horas</option>
-				<option value="dias">Días</option>
-			</select>
+        <label for="duracion">Duración:</label>
+        <input type="number" id="duracion" min="1" value="7">
+
+        <label for="unidad-tiempo">Unidad:</label>
+        <select id="unidad-tiempo">
+          <option value="segundos">Segundos</option>
+          <option value="minutos" selected>Minutos</option>
+          <option value="horas">Horas</option>
+          <option value="dias">Días</option>
+        </select>
 
 			<div style="margin-top: 20px;">
 			<button onclick="confirmarComenzarSprint()">Aceptar</button>
