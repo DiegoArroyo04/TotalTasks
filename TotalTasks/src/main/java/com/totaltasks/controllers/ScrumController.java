@@ -5,12 +5,10 @@ import com.totaltasks.services.ScrumService;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -48,16 +46,13 @@ public class ScrumController {
 	}
 
 	@GetMapping("/scrum/sprintTerminado")
-	@ResponseBody
 	public boolean sprintTerminado(@RequestParam Long idProyecto) {
 		return scrumService.estaTerminado(idProyecto);
 	}
 
 	@PostMapping("/scrum/actualizarEstadoTarea")
-	@ResponseBody
-	public ResponseEntity<?> actualizarEstadoTarea(@RequestParam Long idTarea, @RequestParam String nuevoEstado) {
+	public void actualizarEstadoTarea(@RequestParam Long idTarea, @RequestParam String nuevoEstado) {
 		scrumService.actualizarEstadoTarea(idTarea, nuevoEstado);
-		return ResponseEntity.ok().build();
 	}
 
 }

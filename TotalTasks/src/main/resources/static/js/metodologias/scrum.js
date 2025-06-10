@@ -550,7 +550,7 @@ function verificarSprintTerminado(idProyecto) {
 }
 
 // === Inicializar columnas del Product Board con SortableJS ===
-['por-hacer', 'en-curso', 'hecho'].forEach(columnId => {
+['por-hacer', 'en-curso', 'hecho'].forEach(columnId => { //inicializar ids de cada li
 	new Sortable(document.getElementById(columnId), {
 		group: 'tareas',
 		animation: 150,
@@ -572,7 +572,6 @@ function verificarSprintTerminado(idProyecto) {
 					break;
 			}
 
-			// Llamar al backend para actualizar el estado
 			$.ajax({
 				url: "/scrum/actualizarEstadoTarea",
 				type: "POST",
@@ -580,12 +579,6 @@ function verificarSprintTerminado(idProyecto) {
 					idTarea: idTarea,
 					nuevoEstado: nuevoEstado
 				},
-				success: function () {
-					console.log("Estado actualizado correctamente.");
-				},
-				error: function (err) {
-					console.error("Error actualizando estado:", err);
-				}
 			});
 		}
 	});
