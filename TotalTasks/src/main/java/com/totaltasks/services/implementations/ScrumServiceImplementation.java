@@ -227,4 +227,11 @@ public class ScrumServiceImplementation implements ScrumService {
 		}
 	}
 
+	@Override
+	public void actualizarEstadoTarea(Long idTarea, String nuevoEstado) {
+		ProductBoardEntity tarea = productBoardRepository.findTareaById(idTarea);
+		tarea.setEstado(nuevoEstado);
+		productBoardRepository.save(tarea);
+	}
+
 }

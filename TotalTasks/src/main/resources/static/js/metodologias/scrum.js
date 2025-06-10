@@ -548,3 +548,45 @@ function verificarSprintTerminado(idProyecto) {
     }
   });
 }
+
+// === Inicializar columnas del Product Board con SortableJS ===
+['por-hacer', 'en-curso', 'hecho'].forEach(columnId => {
+	new Sortable(document.getElementById(columnId), {
+		group: 'tareas',
+		animation: 150,
+		onAdd: function (evt) {
+			const item = evt.item;
+			const nuevaColumna = evt.to.id; // por-hacer, en-curso, hecho
+			const idTarea = item.dataset.id;
+
+			let nuevoEstado = "";
+			switch (nuevaColumna) {
+				case "por-hacer":
+					nuevoEstado = "por_hacer";
+					break;
+				case "en-curso":
+					nuevoEstado = "en_curso";
+					break;
+				case "hecho":
+					nuevoEstado = "hecho";
+					break;
+			}
+
+			// Llamar al backend para actualizar el estado
+			$.ajax({
+				url: "/scrum/actualizarEstadoTarea",
+				type: "POST",
+				data: {
+					idTarea: idTarea,
+					nuevoEstado: nuevoEstado
+				},
+				success: function () {
+					console.log("Estado actualizado correctamente.");
+				},
+				error: function (err) {
+					console.error("Error actualizando estado:", err);
+				}
+			});
+		}
+	});
+});

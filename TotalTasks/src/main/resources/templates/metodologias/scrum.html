@@ -207,42 +207,42 @@
           <div class="column">
             <h3>Por Hacer</h3>
             <ul id="por-hacer" class="tarea-lista">
-              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'por_hacer'}">
-                <strong th:text="${tarea.titulo}"></strong>
-                <p th:text="${tarea.descripcion}"></p>
-                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
-                <small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
-                <small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
-              </li>
-            </ul>
+				<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'por_hacer'}" th:attr="data-id=${tarea.idTareaBoard}">
+					<strong th:text="${tarea.titulo}"></strong>
+					<p th:text="${tarea.descripcion}"></p>
+					<small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
+					<small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
+					<small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
+				</li>
+			</ul>
           </div>
 
           <!-- EN CURSO -->
           <div class="column">
             <h3>En Curso</h3>
             <ul id="en-curso" class="tarea-lista">
-              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'en_curso'}">
-                <strong th:text="${tarea.titulo}"></strong>
-                <p th:text="${tarea.descripcion}"></p>
-                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
-                <small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
-                <small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
-              </li>
-            </ul>
+				<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'en_curso'}" th:attr="data-id=${tarea.idTareaBoard}">
+					<strong th:text="${tarea.titulo}"></strong>
+					<p th:text="${tarea.descripcion}"></p>
+					<small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
+					<small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
+					<small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
+				</li>
+			</ul>
           </div>
 
           <!-- HECHO -->
           <div class="column">
             <h3>Hecho</h3>
             <ul id="hecho" class="tarea-lista">
-              <li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'hecho'}">
-                <strong th:text="${tarea.titulo}"></strong>
-                <p th:text="${tarea.descripcion}"></p>
-                <small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
-                <small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
-                <small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
-              </li>
-            </ul>
+				<li th:each="tarea : ${tareasBoard}" th:if="${tarea.estado == 'hecho'}" th:attr="data-id=${tarea.idTareaBoard}">
+					<strong th:text="${tarea.titulo}"></strong>
+					<p th:text="${tarea.descripcion}"></p>
+					<small th:text="'Resp: ' + ${tarea.responsable.nombre}"></small><br>
+					<small th:text="'Story Points: ' + ${tarea.storyPoints}"></small><br>
+					<small th:text="'Prioridad: ' + ${tarea.prioridad}"></small>
+				</li>
+			</ul>
           </div>
         </div>
       </section>

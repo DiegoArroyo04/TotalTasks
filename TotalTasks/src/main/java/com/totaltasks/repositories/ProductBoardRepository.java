@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.totaltasks.entities.ProductBoardEntity;
@@ -21,4 +23,8 @@ public interface ProductBoardRepository extends JpaRepository<ProductBoardEntity
 	List<ProductBoardEntity> findByProyecto_idProyectoAndEstadoNotAndFechaLimiteBefore(
         Long idProyecto, String estado, Timestamp fechaLimite
     );
+
+	@Query("SELECT t FROM ProductBoardEntity t WHERE t.idTareaBoard = :idTarea")
+	ProductBoardEntity findTareaById(@Param("idTarea") Long idTarea);
+
 }

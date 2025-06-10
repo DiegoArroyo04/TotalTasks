@@ -20,4 +20,6 @@ public interface ScrumService {
 	void moverHistoriaDeSprintABacklog(Long idSprint, Long idProyecto, Long idResponsable);
 
 	boolean estaTerminado(Long idProyecto);
+
+	void actualizarEstadoTarea(Long idTarea, String nuevoEstado);
 }
