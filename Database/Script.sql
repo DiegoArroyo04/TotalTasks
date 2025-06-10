@@ -118,6 +118,7 @@ CREATE TABLE sprint (
     id_proyecto BIGINT NOT NULL,
     id_responsable BIGINT NOT NULL,
     estado VARCHAR(50) DEFAULT 'pendiente', -- Por ejemplo: 'pendiente', 'en_progreso', 'finalizado'
+	fecha_fin TIMESTAMP,
     CONSTRAINT pk_sprint PRIMARY KEY (id_sprint),
     CONSTRAINT fk_sprint_proyecto FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto),
     CONSTRAINT fk_sprint_responsable FOREIGN KEY (id_responsable) REFERENCES usuario(id_usuario)
