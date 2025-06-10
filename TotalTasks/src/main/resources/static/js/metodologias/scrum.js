@@ -517,7 +517,7 @@ function confirmarComenzarSprint() {
 		case "horas": duracionDias = duracion / 24; break;
 		default: duracionDias = duracion;
 	}
-	duracionDias = Math.round(duracionDias); // Enviar entero
+	duracionDias
 
 
 	$.ajax({
@@ -548,11 +548,3 @@ function verificarSprintTerminado(idProyecto) {
     }
   });
 }
-
-function mostrarModalSprintTerminado() {
-  $("#modal-sprint-terminado").css("display", "flex");
-  clearInterval(pollingInterval);
-}
-
-
-const pollingInterval = setInterval(() => verificarSprintTerminado(idProyecto), 30000);

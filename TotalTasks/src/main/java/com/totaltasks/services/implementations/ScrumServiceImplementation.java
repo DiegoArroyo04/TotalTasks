@@ -14,6 +14,7 @@ import com.totaltasks.repositories.UsuarioRepository;
 import com.totaltasks.services.ScrumService;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -147,7 +148,8 @@ public class ScrumServiceImplementation implements ScrumService {
 	public void comenzarSprint(Long idProyecto, double duracionDias) {
 		List<SprintEntity> historiasSprint = sprintRepository.findByProyecto_idProyecto(idProyecto);
 
-		Timestamp fechaFinSprint = Timestamp.valueOf(LocalDateTime.now().plusDays((long) duracionDias));
+		LocalDateTime fechaFinSprint = LocalDateTime.now().plusMinutes((long)(duracionDias * 1440));
+		Timestamp fechaFinSprintTS = Timestamp.valueOf(fechaFinSprint);
 
 		for (SprintEntity historia : historiasSprint) {
 			int storyPoints = historia.getStoryPoints();
@@ -170,14 +172,26 @@ public class ScrumServiceImplementation implements ScrumService {
 			tareaBoard.setFechaCreacion(new Timestamp(System.currentTimeMillis()));
 			tareaBoard.setProyecto(historia.getProyecto());
 			tareaBoard.setResponsable(historia.getResponsable());
-			tareaBoard.setFechaLimite(fechaFinSprint);
+			tareaBoard.setFechaLimite(fechaFinSprintTS);
 
 			productBoardRepository.save(tareaBoard);
 			sprintRepository.delete(historia);
 		}
 	}
 
-	@Scheduled(cron = "0 * * * * *") // cada minuto exacto
+	public boolean estaTerminado(Long idProyecto) {
+		List<SprintEntity> historias = sprintRepository.findHistoriasSprintActivas(idProyecto);
+
+		if (historias == null || historias.isEmpty()) {
+			return false;
+		}
+
+		// Se asume que todas las historias comparten la misma fechaFin
+		Timestamp fechaFinSprint = historias.get(0).getFechaFin();
+		return fechaFinSprint.before(new Timestamp(System.currentTimeMillis()));
+	}
+
+	@Scheduled(fixedDelay = 5000)
 	public void verificarSprintFinalizados() {
 
 		Timestamp ahora = new Timestamp(System.currentTimeMillis());
@@ -213,17 +227,5 @@ public class ScrumServiceImplementation implements ScrumService {
 			productBoardRepository.delete(tarea);
 		}
 	}
-
-	public boolean estaTerminado(Long idProyecto) {
-		// Obtener la fecha actual
-		Timestamp ahora = new Timestamp(System.currentTimeMillis());
-
-		// Buscar tareas activas del proyecto con fecha límite pasada (es decir, sprint terminado)
-		List<ProductBoardEntity> tareasActivas = productBoardRepository.findByProyecto_idProyectoAndEstadoNotAndFechaLimiteBefore(idProyecto, "hecho", ahora);
-
-		// Si hay alguna tarea activa con fecha límite pasada, significa que el sprint ha terminado
-		return !tareasActivas.isEmpty();
-	}
-
 
 }

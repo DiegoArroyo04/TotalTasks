@@ -1,5 +1,7 @@
 package com.totaltasks.models;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class SprintDTO {
 	private Integer storyPoints;
     private String prioridad;
     private String estado;
+	private Timestamp fechaFin;
     private Long idProyecto;
     private Long idResponsable;
 

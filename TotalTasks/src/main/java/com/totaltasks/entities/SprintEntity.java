@@ -36,6 +36,9 @@ public class SprintEntity {
     @Column(name = "estado", nullable = false)
     private String estado;
 
+	@Column(name = "fecha_fin")
+    private Timestamp fechaFin;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion", nullable = false, insertable = false, updatable = false)
     private Timestamp fechaCreacion;
