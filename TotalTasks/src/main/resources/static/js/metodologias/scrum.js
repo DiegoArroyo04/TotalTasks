@@ -591,8 +591,10 @@ if (btnBorrarHecho) {
 			url: "/scrum/borrarTareasHechas",
 			type: "POST",
 			success: function (response) {
-				if (response === true) {
-					window.reload();
+				// Eliminar todas las tareas de la columna "hecho"
+				const listaHecho = document.getElementById('hecho');
+				if (listaHecho) {
+					listaHecho.innerHTML = ""; // Borra todos los <li>
 				}
 			},
 			error: function (err) {
