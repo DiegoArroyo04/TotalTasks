@@ -207,7 +207,7 @@
 }
 
 /* Botones */
-.btn-primary {
+.btn-primary, #btn-borrar-hecho {
 	background: linear-gradient(90deg, var(--color-primario), var(--color-primario-hover));
 	color: #fff;
 	padding: 13px 24px;
@@ -215,9 +215,10 @@
 	border-radius: 10px;
 	cursor: pointer;
 	font-family: var(--fuente-principal);
+	margin-bottom: 15px;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, #btn-borrar-hecho:hover {
 	background: var(--color-primario-hover);
 	color: #fff;
 	transform: translateY(-2px);
@@ -279,11 +280,15 @@
 
 .column {
 	flex: 1;
+	display: flex;
 	background: #f0f4f8;
 	padding: 16px;
 	border-radius: 13px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	flex-direction: column;
 }
+
+
 
 .column h3 {
 	text-align: center;
