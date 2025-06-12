@@ -185,7 +185,6 @@ public class ScrumServiceImplementation implements ScrumService {
 			return false;
 		}
 
-		// Se asume que todas las historias comparten la misma fechaFin
 		Timestamp fechaFinSprint = historias.get(0).getFechaFin();
 		return fechaFinSprint.before(new Timestamp(System.currentTimeMillis()));
 	}
