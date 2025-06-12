@@ -670,7 +670,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				renderizarGrafico(tipo, data);
 			},
 			error: function () {
-				alert("Error al cargar datos de estadísticas tipo: " + tipo);
+
 			}
 		});
 	}
@@ -771,7 +771,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		else if (tipo === "branches") {
 			if (!Array.isArray(datos) || datos.length === 0) {
-				alert("Este repositorio no tiene ramas.");
+
 				document.querySelector('button[data-filtro="branches"]').style.display = "none";
 				return;
 			}
