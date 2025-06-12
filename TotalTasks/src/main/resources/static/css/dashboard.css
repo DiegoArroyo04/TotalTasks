@@ -305,6 +305,17 @@
 	transform: translateY(-2px);
 }
 
+.modal-content button:nth-child(2) {
+	background: linear-gradient(135deg, #ff4d4d, #ff6666) !important;
+	box-shadow: 0 4px 8px rgba(255, 77, 77, 0.25) !important;
+}
+
+
+.modal-content button:nth-child(2):hover {
+	background: linear-gradient(135deg, #ff6666, #ff9999) !important;
+	box-shadow: 0 6px 16px rgba(255, 77, 77, 0.4) !important;
+}
+
 /* Botón de cerrar */
 .close {
 	position: absolute;

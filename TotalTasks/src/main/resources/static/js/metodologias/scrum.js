@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			},
 			error: function () {
-				alert("Error al cargar datos de estadísticas tipo: " + tipo);
+
 			}
 		});
 	}
@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 		else if (tipo === "branches") {
 			if (!Array.isArray(datos) || datos.length === 0) {
-				alert("Este repositorio no tiene ramas.");
+
 				document.querySelector('button[data-filtro="branches"]').style.display = "none";
 				return;
 			}
@@ -506,7 +506,7 @@ function confirmarComenzarSprint() {
 	const unidad = document.getElementById("unidad-tiempo").value;
 
 	if (!idProyecto || !duracion || duracion < 1) {
-		alert("Faltan datos válidos.");
+
 		return;
 	}
 
@@ -534,19 +534,19 @@ function confirmarComenzarSprint() {
 }
 
 function verificarSprintTerminado(idProyecto) {
-  $.ajax({
-    url: "/scrum/sprintTerminado",
-    type: "GET",
-    data: { idProyecto: idProyecto },
-    success: function(terminado) {
-      if (terminado) {
-        mostrarModalSprintTerminado();
-      }
-    },
-    error: function(err) {
-      console.error("Error verificando sprint terminado:", err);
-    }
-  });
+	$.ajax({
+		url: "/scrum/sprintTerminado",
+		type: "GET",
+		data: { idProyecto: idProyecto },
+		success: function (terminado) {
+			if (terminado) {
+				mostrarModalSprintTerminado();
+			}
+		},
+		error: function (err) {
+
+		}
+	});
 }
 
 // === Inicializar columnas del Product Board con SortableJS ===
@@ -598,8 +598,8 @@ if (btnBorrarHecho) {
 				}
 			},
 			error: function (err) {
-				console.error("Error borrando tareas hechas:", err);
-				alert("Error al borrar tareas hechas.");
+
+
 			}
 		});
 	});
