@@ -104,7 +104,9 @@ TotalTasks nace con la idea de proporcionar una herramienta accesible y potente 
 
 ### 📊 Proyecto Scrum
 
-> *(Captura recomendada del proyecto scrum)*
+<p align="center">
+  <img src="https://github.com/DiegoArroyo04/TotalTasks/blob/main/ContenidoREADME/Scrum.png?raw=true" alt="Scrum" width="900">
+</p>
 
 * Crear historias de usuario.
 * Hacer sprints personalizados.
@@ -213,10 +215,6 @@ TotalTasks/
 │   │   └── application.properties
 └── README.md
 ```
-
----
-
-![Alt](https://repobeats.axiom.co/api/embed/9bf825c9c5864d7d7f11d05b0cfa7aadbc0615a2.svg "Repobeats analytics image")
 
 ---
 
